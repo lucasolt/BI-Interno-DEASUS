@@ -1,0 +1,98 @@
+/// Dimensão de processos (1 linha por Nº PROA) com designação de monitoramento.
+table dProcesso
+	lineageTag: ab1e82e2-96df-4bb1-b95b-324195632b8b
+
+	column 'Nº PROA'
+		dataType: string
+		isKey
+		lineageTag: 568d0969-4321-4205-ac17-e8e26dec4e8b
+		sourceColumn: Nº PROA
+
+	column 'Classificação Monitoramento'
+		dataType: string
+		lineageTag: c9f7c176-4d6b-47f3-b621-17097d925086
+		sourceColumn: Classificação Monitoramento
+
+	column 'Tipo de Auditoria'
+		dataType: string
+		lineageTag: 751c6972-c24d-46c1-9d91-1ea485b2642c
+		sourceColumn: Tipo de Auditoria
+
+	column Eixo
+		dataType: string
+		lineageTag: 3a8739de-8ddc-488f-a648-9f12feb3b9a9
+		sourceColumn: Eixo
+
+	column Auditado
+		dataType: string
+		lineageTag: 46615311-edd0-43da-a2b0-77f66be462b8
+		sourceColumn: Auditado
+
+	column 'Tipo de Estabelecimento'
+		dataType: string
+		lineageTag: 5eb6708f-fbb2-4e3c-a72d-2b3e874af2ec
+		sourceColumn: Tipo de Estabelecimento
+
+	column Município
+		dataType: string
+		lineageTag: 0b4b51da-92f6-4a5e-9496-047e1be1d7a1
+		sourceColumn: Município
+
+	column CRS
+		dataType: string
+		lineageTag: f70a1846-984b-4b63-a32a-4ef23dcff1d5
+		sourceColumn: CRS
+
+	column 'Região de Saúde'
+		dataType: string
+		lineageTag: fb39bdb2-92a6-4b70-8a2a-15cbafce3aec
+		sourceColumn: Região de Saúde
+
+	column Macrorregião
+		dataType: string
+		lineageTag: 64eed5ea-51fc-40a2-8269-97fe3b0db006
+		sourceColumn: Macrorregião
+
+	column 'Ciclo Atual'
+		dataType: string
+		lineageTag: dcc6768f-9706-4c3b-8de7-94783402162b
+		sourceColumn: Ciclo Atual
+
+	column 'Status Geral do Monitoramento'
+		dataType: string
+		lineageTag: 02b84b07-e941-4de7-b9e8-14132e938735
+		sourceColumn: Status Geral do Monitoramento
+
+	partition dProcesso = m
+		mode: import
+		source =
+				let
+				    Origem = stgProcessos,
+				    Col = (codigo as text) as text =>
+				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
+				    Mapa = {
+				        {Col("12"), "Nº PROA"},
+				        {"Monitoramento", "Classificação Monitoramento"},
+				        {Col("03"), "Tipo de Auditoria"},
+				        {Col("04"), "Eixo"},
+				        {Col("06"), "Auditado"},
+				        {Col("07"), "Tipo de Estabelecimento"},
+				        {Col("08"), "Município"},
+				        {Col("09"), "CRS"},
+				        {Col("10"), "Região de Saúde"},
+				        {Col("11"), "Macrorregião"},
+				        {Col("117"), "Ciclo Atual"},
+				        {Col("118"), "Status Geral do Monitoramento"}
+				    },
+				    Sel = Table.SelectColumns(Origem, List.Transform(Mapa, each _{0})),
+				    Ren = Table.RenameColumns(Sel, Mapa),
+				    ParaTexto = (v as any) as nullable text =>
+				        let t = if v = null then null else Text.Trim(Text.From(v))
+				        in if t = null or t = "" or t = "-" then null else t,
+				    Limpo = Table.TransformColumns(Ren, List.Transform(List.Transform(Mapa, each _{1}), (n) => {n, ParaTexto, type nullable text})),
+				    ProasFato = List.Buffer(List.Distinct(fDesignacoes[Nº PROA])),
+				    ComDesignacao = Table.SelectRows(Limpo, each List.Contains(ProasFato, [Nº PROA])),
+				    Distintos = Table.Distinct(ComDesignacao, {"Nº PROA"})
+				in
+				    Distintos
+

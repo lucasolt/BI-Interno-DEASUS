@@ -1,0 +1,81 @@
+/// Calendário. Relação ativa: Data Final Designação. Inativas: Data Relatório e Data Limite (usar USERELATIONSHIP).
+table dCalendario
+	lineageTag: 27df70cc-7ae1-41ef-92b2-e282e18dc834
+	dataCategory: Time
+
+	column Ano
+		lineageTag: 2ced46f5-cd6f-4c02-a879-29b5bbe3e835
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ano]
+
+	column 'Mês Nº'
+		lineageTag: f01b3e4a-8821-40a9-b5d6-987ad9c9bb6d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mês Nº]
+
+	column Mês
+		lineageTag: fabfbf97-0bfd-4fb7-b5d5-23dc15b5ef74
+		isNameInferred
+		sourceColumn: [Mês]
+		sortByColumn: 'Mês Nº'
+
+	column Mês/Ano
+		lineageTag: 63432ccf-7afb-4f38-8b3f-3a9cbd9bd2db
+		isNameInferred
+		sourceColumn: [Mês/Ano]
+		sortByColumn: AnoMês
+
+	column AnoMês
+		isHidden
+		lineageTag: 4ae3499c-7d9b-48fe-ae58-7a72f9f8612d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AnoMês]
+
+	column Trimestre
+		lineageTag: 8f0bcd23-cbdd-43a2-81ad-0c95fa95289f
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+	column Ano/Trimestre
+		lineageTag: 1937e208-568d-4aef-b492-48b637efddd6
+		isNameInferred
+		sourceColumn: [Ano/Trimestre]
+		sortByColumn: AnoTrimestre
+
+	column AnoTrimestre
+		isHidden
+		lineageTag: 212bd867-d938-4e36-8361-bca52643f9ff
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AnoTrimestre]
+
+	column Data
+		isUnique
+		isKey
+		formatString: dd/mm/yyyy
+		lineageTag: 0528d088-a300-46c9-a237-f468c95e0973
+		isNameInferred
+		sourceColumn: [Data]
+
+	partition dCalendario = calculated
+		mode: import
+		source =
+				VAR _Ini = MINX({MIN(fDesignacoes[Data Inicial Designação]), MIN(fDesignacoes[Data Final Designação]), MIN(fDesignacoes[Data Relatório])}, [Value])
+				VAR _Fim = MAXX({MAX(fDesignacoes[Data Limite]), MAX(fDesignacoes[Data Relatório]), TODAY()}, [Value])
+				VAR _Datas = SELECTCOLUMNS(CALENDAR(DATE(YEAR(_Ini), 1, 1), DATE(YEAR(_Fim), 12, 31)), "Data", [Date])
+				RETURN
+				ADDCOLUMNS(
+				    _Datas,
+				    "Ano", YEAR([Data]),
+				    "Mês Nº", MONTH([Data]),
+				    "Mês", FORMAT([Data], "mmm"),
+				    "Mês/Ano", FORMAT([Data], "mmm/yy"),
+				    "AnoMês", YEAR([Data]) * 100 + MONTH([Data]),
+				    "Trimestre", "T" & QUARTER([Data]),
+				    "Ano/Trimestre", YEAR([Data]) & "-T" & QUARTER([Data]),
+				    "AnoTrimestre", YEAR([Data]) * 10 + QUARTER([Data])
+				)
+

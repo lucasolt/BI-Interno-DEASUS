@@ -1,0 +1,82 @@
+/// Caminho completo da planilha fonte (ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA).
+expression CaminhoPlanilha = "C:\Users\Lucas\OneDrive\BIs\BI-DEASUS\ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA - Copiar.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: df983f62-3d60-47d1-b153-ef549442134a
+
+	annotation PBI_ResultType = Text
+
+/// Prazo padrão (dias) após a Data Final da Designação para entrega do relatório.
+expression PrazoPadraoDias = 30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: b3ac5998-cb63-4473-824b-99091055791d
+
+	annotation PBI_ResultType = Number
+
+/// Chave de comparação de nomes: minúsculas, sem acentos, espaços colapsados.
+expression fxNormalizaNome =
+		(nome as nullable text) as nullable text =>
+		let
+		    Minusculo = if nome = null then null else Text.Lower(nome),
+		    Pares = {
+		        {"á","a"},{"à","a"},{"â","a"},{"ã","a"},{"ä","a"},
+		        {"é","e"},{"è","e"},{"ê","e"},{"ë","e"},
+		        {"í","i"},{"ì","i"},{"î","i"},{"ï","i"},
+		        {"ó","o"},{"ò","o"},{"ô","o"},{"õ","o"},{"ö","o"},
+		        {"ú","u"},{"ù","u"},{"û","u"},{"ü","u"},
+		        {"ç","c"},{"ñ","n"}
+		    },
+		    SemAcento = if Minusculo = null then null else List.Accumulate(Pares, Minusculo, (s, p) => Text.Replace(s, p{0}, p{1})),
+		    Partes = if SemAcento = null then {} else List.Select(Text.SplitAny(SemAcento, " #(lf)#(cr)#(tab)#(00A0)"), each _ <> ""),
+		    Resultado = if List.IsEmpty(Partes) then null else Text.Combine(Partes, " ")
+		in
+		    Resultado
+	lineageTag: 2ff725eb-59dc-4586-bd5e-b3921dbad300
+
+/// Aba PROCESSOS crua, apenas linhas com Nº PROA. Não carregada.
+expression stgProcessos =
+		let
+		    Fonte = Excel.Workbook(File.Contents(CaminhoPlanilha), null, true),
+		    Planilha = Fonte{[Item = "PROCESSOS", Kind = "Sheet"]}[Data],
+		    SemAviso = Table.Skip(Planilha, 2),
+		    Cabecalhos = Table.PromoteHeaders(SemAviso, [PromoteAllScalars = true]),
+		    ColProa = List.First(List.Select(Table.ColumnNames(Cabecalhos), each Text.StartsWith(_, "(12)"))),
+		    ComProa = Table.SelectRows(Cabecalhos, each
+		        let v = Record.Field(_, ColProa) in v <> null and Text.Trim(Text.From(v)) <> "" and Text.Trim(Text.From(v)) <> "-")
+		in
+		    ComProa
+	lineageTag: 5efddc3e-85f7-4e4b-8436-6134dcade75e
+
+/// Cadastro de SERVIDORES (aba APOIO) com chave normalizada. Não carregada.
+expression stgAuditores =
+		let
+		    Fonte = Excel.Workbook(File.Contents(CaminhoPlanilha), null, true),
+		    Planilha = Fonte{[Item = "APOIO", Kind = "Sheet"]}[Data],
+		    Cabecalhos = Table.PromoteHeaders(Planilha, [PromoteAllScalars = true]),
+		    Colunas = Table.SelectColumns(Cabecalhos, {"SERVIDORES", "é auditor", "Lotação", "Ativo?"}),
+		    Renomeado = Table.RenameColumns(Colunas, {{"SERVIDORES", "Auditor"}, {"é auditor", "É Auditor"}, {"Ativo?", "Ativo"}}),
+		    ComNome = Table.SelectRows(Renomeado, each [Auditor] <> null and Text.Trim(Text.From([Auditor])) <> ""),
+		    Limpo = Table.TransformColumns(ComNome, {
+		        {"Auditor", each Text.Combine(List.Select(Text.SplitAny(Text.From(_), " #(lf)#(cr)#(tab)#(00A0)"), each _ <> ""), " "), type text},
+		        {"É Auditor", each if _ = null then null else Text.Proper(Text.Trim(Text.From(_))), type nullable text},
+		        {"Lotação", each if _ = null then null else Text.Trim(Text.From(_)), type nullable text},
+		        {"Ativo", each if _ = null then null else Text.Proper(Text.Trim(Text.From(_))), type nullable text}
+		    }),
+		    ComChave = Table.AddColumn(Limpo, "NomeChave", each fxNormalizaNome([Auditor]), type text),
+		    Distintos = Table.Distinct(ComChave, {"NomeChave"})
+		in
+		    Distintos
+	lineageTag: f948b0f5-1dce-4312-a401-687b13b0c056
+
+/// De-para manual de grafias de nomes que não batem com o cadastro APOIO.
+expression AliasesAuditores =
+		let
+		    Fonte = #table(
+		        type table [NomeChave = text, Auditor = text],
+		        {
+		            {"angela paiva schmitz", "Angela Paiva da Silva Schmitz"},
+		            {"marizane silva",       "Marizane Teixeira da Silva"},
+		            {"elio bessa furian",    "Elio Bessa Florian"}
+		        }
+		    )
+		in
+		    Fonte
+	lineageTag: eebdb62f-53b3-4c30-a59e-6db2a31d3694
+

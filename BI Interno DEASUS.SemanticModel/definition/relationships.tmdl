@@ -1,0 +1,22 @@
+relationship fDesignacoes_Auditor_dAuditor_Auditor
+	fromColumn: fDesignacoes.Auditor
+	toColumn: dAuditor.Auditor
+
+relationship 'fDesignacoes_Nº PROA_dProcesso_Nº PROA'
+	fromColumn: fDesignacoes.'Nº PROA'
+	toColumn: dProcesso.'Nº PROA'
+
+relationship 'fDesignacoes_Data Final Designação_dCalendario_Data'
+	fromColumn: fDesignacoes.'Data Final Designação'
+	toColumn: dCalendario.Data
+
+relationship 'fDesignacoes_Data Relatório_dCalendario_Data'
+	isActive: false
+	fromColumn: fDesignacoes.'Data Relatório'
+	toColumn: dCalendario.Data
+
+relationship 'fDesignacoes_Data Limite_dCalendario_Data'
+	isActive: false
+	fromColumn: fDesignacoes.'Data Limite'
+	toColumn: dCalendario.Data
+

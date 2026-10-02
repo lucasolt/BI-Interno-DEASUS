@@ -1,0 +1,253 @@
+/// Fato: 1 linha por Nº PROA x Ciclo x Função x Auditor (monitoramentos, ciclos 1 a 3).
+table fDesignacoes
+	lineageTag: 9e4cc604-26bf-4c2c-9cdd-2260581385ab
+
+	column 'ID Designação'
+		dataType: string
+		lineageTag: f137870c-76bd-41d3-8091-6975cc5c6464
+		sourceColumn: ID Designação
+
+	column 'Nº PROA'
+		dataType: string
+		lineageTag: 23386f92-e9d4-440d-9d6d-d0f6dab3c4f1
+		sourceColumn: Nº PROA
+
+	column Ciclo
+		dataType: string
+		lineageTag: dd101ca9-956e-4a2f-b917-4a076e780029
+		sourceColumn: Ciclo
+		sortByColumn: 'Ciclo Nº'
+
+	column 'Ciclo Nº'
+		dataType: int64
+		isHidden
+		lineageTag: e0213137-8e49-49ff-a48c-5f5515750564
+		summarizeBy: none
+		sourceColumn: Ciclo Nº
+
+	column Função
+		dataType: string
+		lineageTag: acc42abe-299e-4509-b89c-8dca5eaec388
+		sourceColumn: Função
+		sortByColumn: 'Função Ordem'
+
+	column 'Função Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 2c675eae-f08d-44d9-aaa9-b635bb05239a
+		summarizeBy: none
+		sourceColumn: Função Ordem
+
+	column Auditor
+		dataType: string
+		lineageTag: 16221731-4b1f-42bd-b85e-57c883af29da
+		sourceColumn: Auditor
+
+	column 'Nome na Planilha'
+		dataType: string
+		lineageTag: 3b2d9297-7af0-4556-a709-a0f09cb0e325
+		sourceColumn: Nome na Planilha
+
+	column 'Data Inicial Designação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 0df3f199-1675-47c1-8df6-cfae97823e10
+		sourceColumn: Data Inicial Designação
+
+	column 'Data Final Designação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 07d7186d-e04c-4436-bdda-0dce152a8a30
+		sourceColumn: Data Final Designação
+
+	column 'Data Limite'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: a3f687b3-77bc-4243-8802-461f074669c2
+		sourceColumn: Data Limite
+
+	column 'Data Relatório'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 8e574272-b7ac-4bbd-aed8-3fc8484cfc9a
+		sourceColumn: Data Relatório
+
+	column 'Nº Relatório'
+		dataType: string
+		lineageTag: 35685115-cf63-41a0-8b7f-1aa1ab4fe091
+		sourceColumn: Nº Relatório
+
+	column Situação
+		dataType: string
+		lineageTag: 35b2a5de-69f4-4f89-ab0d-340526f182a7
+		sourceColumn: Situação
+		sortByColumn: 'Situação Ordem'
+
+	column 'Situação Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 40a2aa58-f644-48ae-a3f9-538bcf546322
+		summarizeBy: none
+		sourceColumn: Situação Ordem
+
+	column Entregue
+		dataType: string
+		lineageTag: 8227109b-1898-479e-b156-e206fcbd703b
+		sourceColumn: Entregue
+
+	column 'Dias para Entrega'
+		dataType: int64
+		lineageTag: 85745a96-84d5-4137-84f8-f59b6b48249e
+		summarizeBy: none
+		sourceColumn: Dias para Entrega
+
+	column 'Dias de Atraso'
+		dataType: int64
+		lineageTag: 424189d5-015d-487c-a3a6-9898abb58e7a
+		summarizeBy: none
+		sourceColumn: Dias de Atraso
+
+	column 'Status do Ciclo'
+		dataType: string
+		lineageTag: 913d8ba4-b0a9-4253-8801-21c44692f52c
+		sourceColumn: Status do Ciclo
+
+	column 'Alerta de Qualidade'
+		dataType: string
+		lineageTag: 70de1911-a0c7-49c7-9e0a-3953740be2f6
+		sourceColumn: Alerta de Qualidade
+
+	column 'Data de Referência'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: c19132a0-d51c-4298-8c93-8cdf4ea31e51
+		sourceColumn: Data de Referência
+
+	partition fDesignacoes = m
+		mode: import
+		source =
+				let
+				    Origem = stgProcessos,
+				    Col = (codigo as text) as text =>
+				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
+				
+				    Ciclos = {
+				        [Ciclo = 1, Ini = "52",  Fim = "53",  NRel = "54",  Rel = "55",  Coord = "56",  Equipe = "57",  Status = "65"],
+				        [Ciclo = 2, Ini = "77",  Fim = "78",  NRel = "79",  Rel = "80",  Coord = "81",  Equipe = "82",  Status = "89"],
+				        [Ciclo = 3, Ini = "101", Fim = "102", NRel = "103", Rel = "104", Coord = "105", Equipe = "106", Status = "113"]
+				    },
+				    NomesPadrao = {"Nº PROA", "Data Inicial Designação", "Data Final Designação", "Nº Relatório",
+				                   "Data Relatório", "Coordenador", "EquipeTexto", "Status do Ciclo"},
+				
+				    // 1. Empilha os 3 ciclos (largo -> longo)
+				    PorCiclo = List.Transform(Ciclos, (c) =>
+				        let
+				            Sel = Table.SelectColumns(Origem, {Col("12"), Col(c[Ini]), Col(c[Fim]), Col(c[NRel]),
+				                                               Col(c[Rel]), Col(c[Coord]), Col(c[Equipe]), Col(c[Status])}),
+				            Ren = Table.RenameColumns(Sel, List.Zip({Table.ColumnNames(Sel), NomesPadrao})),
+				            ComCiclo = Table.AddColumn(Ren, "Ciclo Nº", each c[Ciclo], Int64.Type)
+				        in
+				            ComCiclo),
+				    Empilhado = Table.Combine(PorCiclo),
+				
+				    // 2. Limpeza de tipos
+				    ParaTexto = (v as any) as nullable text =>
+				        let t = if v = null then null else Text.Trim(Text.From(v))
+				        in if t = null or t = "" or t = "-" then null else t,
+				    ParaData = (v as any) as nullable date =>
+				        if v = null then null
+				        else if v is date then v
+				        else if v is datetime then Date.From(v)
+				        else if v is number then Date.From(v)
+				        else try Date.FromText(Text.Trim(Text.From(v)), [Culture = "pt-BR"]) otherwise null,
+				    Tipado = Table.TransformColumns(Empilhado, {
+				        {"Nº PROA", ParaTexto, type text},
+				        {"Data Inicial Designação", ParaData, type nullable date},
+				        {"Data Final Designação", ParaData, type nullable date},
+				        {"Nº Relatório", ParaTexto, type nullable text},
+				        {"Data Relatório", ParaData, type nullable date},
+				        {"Coordenador", ParaTexto, type nullable text},
+				        {"EquipeTexto", ParaTexto, type nullable text},
+				        {"Status do Ciclo", ParaTexto, type nullable text}
+				    }),
+				    ComDesignacao = Table.SelectRows(Tipado, each
+				        [Coordenador] <> null or [EquipeTexto] <> null or [Data Final Designação] <> null),
+				
+				    // 3. Participantes: coordenador + membros da equipe (separadores ; , / " e ")
+				    ComParticipantes = Table.AddColumn(ComDesignacao, "Participantes", each
+				        let
+				            Coord = if [Coordenador] = null then {} else {[Função = "Coordenador", Nome = [Coordenador]]},
+				            EqNorm = if [EquipeTexto] = null then null
+				                     else List.Accumulate({" e ", " E ", ",", "/"}, [EquipeTexto], (s, sep) => Text.Replace(s, sep, ";")),
+				            EqLista = if EqNorm = null then {}
+				                      else List.Select(List.Transform(Text.Split(EqNorm, ";"), Text.Trim), each _ <> "" and _ <> "-"),
+				            Equipe = List.Transform(EqLista, each [Função = "Equipe", Nome = _]),
+				            Todos = Coord & Equipe
+				        in
+				            if List.IsEmpty(Todos) then {[Função = "Coordenador", Nome = null]} else Todos),
+				    Expandido = Table.ExpandRecordColumn(
+				        Table.ExpandListColumn(Table.RemoveColumns(ComParticipantes, {"Coordenador", "EquipeTexto"}), "Participantes"),
+				        "Participantes", {"Função", "Nome"}),
+				
+				    // 4. Nome oficial do auditor (cadastro APOIO + de-para manual)
+				    Cadastro = Record.FromList(stgAuditores[Auditor], stgAuditores[NomeChave]),
+				    Alias = Record.FromList(AliasesAuditores[Auditor], AliasesAuditores[NomeChave]),
+				    ComAuditor = Table.AddColumn(Expandido, "Auditor", each
+				        let k = fxNormalizaNome([Nome]) in
+				        if k = null then "(Não informado)"
+				        else if Record.HasFields(Alias, k) then Record.Field(Alias, k)
+				        else if Record.HasFields(Cadastro, k) then Record.Field(Cadastro, k)
+				        else Text.Combine(List.Select(Text.SplitAny([Nome], " #(lf)#(cr)#(tab)#(00A0)"), each _ <> ""), " "),
+				        type text),
+				    SemNomeOriginal = Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}),
+				    SemDuplicadas = Table.Distinct(SemNomeOriginal, {"Nº PROA", "Ciclo Nº", "Função", "Auditor"}),
+				
+				    // 5. Prazo e classificação
+				    Hoje = Date.From(DateTime.LocalNow()),
+				    ComLimite = Table.AddColumn(SemDuplicadas, "Data Limite", each
+				        if [Data Final Designação] = null then null else Date.AddDays([Data Final Designação], PrazoPadraoDias),
+				        type nullable date),
+				    ComSituacao = Table.AddColumn(ComLimite, "Situação", each
+				        if [Data Limite] = null then "Sem prazo definido"
+				        else if [Data Relatório] <> null then (if [Data Relatório] <= [Data Limite] then "No prazo" else "Fora do prazo")
+				        else if Hoje > [Data Limite] then "Pendente (vencida)"
+				        else "Em andamento",
+				        type text),
+				    ComOrdemSituacao = Table.AddColumn(ComSituacao, "Situação Ordem", each
+				        List.PositionOf({"No prazo", "Fora do prazo", "Pendente (vencida)", "Em andamento", "Sem prazo definido"}, [Situação]) + 1,
+				        Int64.Type),
+				    ComEntregue = Table.AddColumn(ComOrdemSituacao, "Entregue", each
+				        if [Data Relatório] <> null then "Entregue" else "Não entregue", type text),
+				    ComDiasEntrega = Table.AddColumn(ComEntregue, "Dias para Entrega", each
+				        if [Data Relatório] = null or [Data Inicial Designação] = null then null
+				        else Duration.Days([Data Relatório] - [Data Inicial Designação]),
+				        Int64.Type),
+				    ComDiasAtraso = Table.AddColumn(ComDiasEntrega, "Dias de Atraso", each
+				        if [Situação] = "Fora do prazo" then Duration.Days([Data Relatório] - [Data Limite])
+				        else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
+				        else null,
+				        Int64.Type),
+				    ComAlerta = Table.AddColumn(ComDiasAtraso, "Alerta de Qualidade", each
+				        if [Auditor] = "(Não informado)" then "Auditor não informado"
+				        else if [Data Final Designação] = null then "Sem Data Final de Designação"
+				        else if [Data Relatório] <> null and [Data Inicial Designação] <> null and [Data Relatório] < [Data Inicial Designação]
+				            then "Relatório anterior ao início da designação"
+				        else null,
+				        type nullable text),
+				
+				    // 6. Colunas de apoio
+				    ComCiclo = Table.AddColumn(ComAlerta, "Ciclo", each Text.From([Ciclo Nº]) & "º Ciclo", type text),
+				    ComFuncaoOrdem = Table.AddColumn(ComCiclo, "Função Ordem", each if [Função] = "Coordenador" then 1 else 2, Int64.Type),
+				    ComId = Table.AddColumn(ComFuncaoOrdem, "ID Designação", each [Nº PROA] & " | " & [Ciclo], type text),
+				    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
+				    Tipos = Table.TransformColumnTypes(ComRef, {{"Função", type text}, {"Nome na Planilha", type nullable text}}),
+				
+				    Final = Table.SelectColumns(Tipos, {
+				        "ID Designação", "Nº PROA", "Ciclo", "Ciclo Nº", "Função", "Função Ordem", "Auditor", "Nome na Planilha",
+				        "Data Inicial Designação", "Data Final Designação", "Data Limite", "Data Relatório", "Nº Relatório",
+				        "Situação", "Situação Ordem", "Entregue", "Dias para Entrega", "Dias de Atraso",
+				        "Status do Ciclo", "Alerta de Qualidade", "Data de Referência"})
+				in
+				    Final
+

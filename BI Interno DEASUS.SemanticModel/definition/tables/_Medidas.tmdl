@@ -1,0 +1,199 @@
+/// Tabela de medidas do painel de produtividade.
+table _Medidas
+	lineageTag: 405d4984-d72f-4a45-b69d-3197dcea8b74
+
+	/// Total de designações (auditor x função x processo x ciclo).
+	measure Designações = COUNTROWS(fDesignacoes)
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 2a8bd501-36b4-41cf-ac10-298560661657
+
+	measure 'Designações Coordenador' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Função] = "Coordenador"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 5d9f9638-9ba7-4c3c-9696-75480a62023d
+
+	measure 'Designações Equipe' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Função] = "Equipe"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 9cdd0b8a-ce61-417f-a561-40d0e2811442
+
+	/// Designações distintas (PROA x Ciclo), sem multiplicar pelos membros da equipe.
+	measure 'Monitoramentos Designados' = DISTINCTCOUNT(fDesignacoes[ID Designação])
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 66b3ccc6-1c7f-49b1-ad8f-a7ab36f0d2d7
+
+	measure 'Relatórios Entregues' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: eafc6e31-dea8-46de-837e-3f5e092fcacb
+
+	/// Relatórios distintos (PROA x Ciclo) entregues.
+	measure 'Relatórios Entregues (únicos)' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 81f48b07-3842-4e79-a701-a74b0b60e66c
+
+	measure 'Entregues no Prazo' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "No prazo"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: f3da6954-9511-4eb8-8d0b-847aaaf09619
+
+	measure 'Entregues Fora do Prazo' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Fora do prazo"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 4dc47402-4b1d-4e82-b154-f920bf4b46fc
+
+	/// Sem data de relatório (vencidas + em andamento).
+	measure 'Relatórios Pendentes' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] IN {"Pendente (vencida)", "Em andamento"}))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 122eead8-7387-4731-a069-a281a86be5a2
+
+	/// Sem relatório e com Data Limite já ultrapassada na data da atualização.
+	measure 'Pendências Vencidas' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Pendente (vencida)"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: ba3abbab-7e08-45cd-b129-ea437037ce77
+
+	/// Sem relatório, ainda dentro do prazo.
+	measure 'Em Andamento' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Em andamento"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: b40862b3-7e37-4e43-9bd3-54ae8ab92d48
+
+	/// Designações sem Data Final de Designação (prazo não mensurável).
+	measure 'Sem Prazo Definido' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Sem prazo definido"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 2bd5553f-f988-4656-b219-8db94536bcf6
+
+	measure 'Auditores com Designação' = CALCULATE(DISTINCTCOUNT(fDesignacoes[Auditor]), KEEPFILTERS(fDesignacoes[Auditor] <> "(Não informado)"))
+		formatString: #,0
+		displayFolder: 1. Produção
+		lineageTag: 2bb13fc8-2d17-4e55-bed0-2bdc09d161b6
+
+	/// Designações exigíveis: entregues + pendências vencidas (base da Taxa de Entrega).
+	measure 'Designações Encerradas' = [Relatórios Entregues] + [Pendências Vencidas]
+		formatString: #,0
+		displayFolder: 2. Prazo
+		lineageTag: 3af72986-8a19-4d44-8b02-d7b5942a035d
+
+	/// Entregues ÷ Designações encerradas (entregues + vencidas).
+	measure 'Taxa de Entrega' = DIVIDE([Relatórios Entregues], [Designações Encerradas])
+		formatString: 0.00%
+		displayFolder: 2. Prazo
+		lineageTag: a3b54a1e-8011-41ef-972b-d4827df2727d
+
+	/// Entregues no prazo ÷ Entregues.
+	measure 'Taxa de Pontualidade' = DIVIDE([Entregues no Prazo], [Relatórios Entregues])
+		formatString: 0.00%
+		displayFolder: 2. Prazo
+		lineageTag: 31147c08-6ead-418a-9f1d-91e828519d8a
+
+	/// Pendências vencidas ÷ Designações.
+	measure 'Taxa de Pendência Vencida' = DIVIDE([Pendências Vencidas], [Designações])
+		formatString: 0.00%
+		displayFolder: 2. Prazo
+		lineageTag: 4f680c58-729c-437c-a87c-fc695c2cd16e
+
+	measure '% Entregues s/ Designações' = DIVIDE([Relatórios Entregues], [Designações])
+		formatString: 0.00%
+		displayFolder: 2. Prazo
+		lineageTag: 489d8e80-a29f-45d8-a233-0828708269a2
+
+	measure '% No Prazo s/ Designações' = DIVIDE([Entregues no Prazo], [Designações])
+		formatString: 0.00%
+		displayFolder: 2. Prazo
+		lineageTag: 3b1e75a3-3cbb-4694-8fb8-b5b6e443a2b7
+
+	measure '% Fora do Prazo s/ Designações' = DIVIDE([Entregues Fora do Prazo], [Designações])
+		formatString: 0.00%
+		displayFolder: 2. Prazo
+		lineageTag: 1461748b-6d75-4f6d-afc7-eb463260abea
+
+	/// Média de (Data Relatório − Data Inicial da Designação) dos relatórios entregues.
+	measure 'Dias Médios para Entrega' = CALCULATE(AVERAGE(fDesignacoes[Dias para Entrega]), KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}))
+		formatString: #,0.0
+		displayFolder: 2. Prazo
+		lineageTag: c19c25b4-3bfb-4c8c-a850-ddc4ebd72218
+
+	/// Média de (Data Relatório − Data Limite) dos relatórios entregues fora do prazo.
+	measure 'Dias Médios de Atraso' = CALCULATE(AVERAGE(fDesignacoes[Dias de Atraso]), KEEPFILTERS(fDesignacoes[Situação] = "Fora do prazo"))
+		formatString: #,0.0
+		displayFolder: 2. Prazo
+		lineageTag: c349a9d5-9128-4d4b-8d98-f46e212d3ead
+
+	/// Média de dias desde a Data Limite das pendências vencidas.
+	measure 'Dias Médios de Atraso (Pendências)' = CALCULATE(AVERAGE(fDesignacoes[Dias de Atraso]), KEEPFILTERS(fDesignacoes[Situação] = "Pendente (vencida)"))
+		formatString: #,0.0
+		displayFolder: 2. Prazo
+		lineageTag: 7df6f73d-58cd-4fa8-b7e2-8cf6cd5aae7c
+
+	/// Prazo padrão aplicado (parâmetro PrazoPadraoDias no Power Query).
+	measure 'Prazo Padrão (dias)' = MAXX(ALL(fDesignacoes), DATEDIFF(fDesignacoes[Data Final Designação], fDesignacoes[Data Limite], DAY))
+		formatString: #,0
+		displayFolder: 2. Prazo
+		lineageTag: c43444d5-6016-4cfc-9cc7-225d26156474
+
+	/// Relatórios entregues no mês da Data do Relatório.
+	measure 'Entregas (por Data Relatório)' = CALCULATE([Relatórios Entregues], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 3. Evolução Mensal
+		lineageTag: bb8dd223-7bfa-4847-8c8e-f4a07384e565
+
+	measure 'Entregas no Prazo (por Data Relatório)' = CALCULATE([Entregues no Prazo], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 3. Evolução Mensal
+		lineageTag: 973087d7-8357-4e12-b839-1bac6c4f4c97
+
+	measure 'Entregas Fora do Prazo (por Data Relatório)' = CALCULATE([Entregues Fora do Prazo], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 3. Evolução Mensal
+		lineageTag: c1be8168-507b-4777-974c-6093456edd79
+
+	/// Pendências vencidas no mês em que a Data Limite expirou.
+	measure 'Pendências Vencidas (por Data Limite)' = CALCULATE([Pendências Vencidas], USERELATIONSHIP(fDesignacoes[Data Limite], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 3. Evolução Mensal
+		lineageTag: d1873578-cf04-4e75-9d5d-5b271ed69c80
+
+	/// Designações do auditor ÷ maior nº de designações entre os auditores visíveis.
+	measure 'Participação Relativa' = DIVIDE([Designações], MAXX(ALLSELECTED(dAuditor[Auditor]), [Designações]))
+		formatString: 0.00%
+		displayFolder: 4. Índice
+		lineageTag: fa7b5261-aaa8-4892-811c-6d9df87ca979
+
+	/// 40% Taxa de Entrega + 40% Taxa de Pontualidade + 20% Participação Relativa.
+	measure 'Índice de Produtividade' = IF(NOT ISBLANK([Designações]), 0.4 * [Taxa de Entrega] + 0.4 * [Taxa de Pontualidade] + 0.2 * [Participação Relativa])
+		formatString: 0.00
+		displayFolder: 4. Índice
+		lineageTag: 30273916-61f9-4976-b77b-14c9bd91a492
+
+	measure 'Ranking Produtividade' =
+			IF(
+			    HASONEVALUE(dAuditor[Auditor]) && NOT ISBLANK([Designações]),
+			    RANKX(
+			        FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Designações]) && dAuditor[Auditor] <> "(Não informado)"),
+			        [Índice de Produtividade], , DESC, Dense
+			    )
+			)
+		formatString: 0
+		displayFolder: 4. Índice
+		lineageTag: 12c38b42-f4f1-46b6-8c63-f48c73a1b5db
+
+	measure 'Última Atualização' = "Última atualização: " & FORMAT(MAX(fDesignacoes[Data de Referência]), "dd/mm/yyyy")
+		displayFolder: 5. Info
+		lineageTag: a04b4855-d8b9-4c54-a1c4-1a39a10ed811
+
+	column Coluna
+		isHidden
+		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a
+		isNameInferred
+		sourceColumn: [Coluna]
+
+	partition _Medidas = calculated
+		mode: import
+		source = ROW("Coluna", BLANK())
+
