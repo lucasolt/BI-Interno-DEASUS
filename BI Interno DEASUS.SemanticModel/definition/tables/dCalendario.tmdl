@@ -1,4 +1,4 @@
-/// Calendário. Relação ativa: Data Final Designação. Inativas: Data Relatório e Data Limite (usar USERELATIONSHIP).
+/// Calendário. Ativas: fDesignacoes[Data Final Designação] e fAuditoria[Data Designação]. Inativas: datas de entrega/relatório e limite (USERELATIONSHIP).
 table dCalendario
 	lineageTag: 27df70cc-7ae1-41ef-92b2-e282e18dc834
 	dataCategory: Time
@@ -63,8 +63,8 @@ table dCalendario
 	partition dCalendario = calculated
 		mode: import
 		source =
-				VAR _Ini = MINX({MIN(fDesignacoes[Data Inicial Designação]), MIN(fDesignacoes[Data Final Designação]), MIN(fDesignacoes[Data Relatório])}, [Value])
-				VAR _Fim = MAXX({MAX(fDesignacoes[Data Limite]), MAX(fDesignacoes[Data Relatório]), TODAY()}, [Value])
+				VAR _Ini = MINX({MIN(fDesignacoes[Data Inicial Designação]), MIN(fDesignacoes[Data Final Designação]), MIN(fDesignacoes[Data Relatório]), MIN(fAuditoria[Data Designação]), MIN(fAuditoria[Data Entrega])}, [Value])
+				VAR _Fim = MAXX({MAX(fDesignacoes[Data Limite]), MAX(fDesignacoes[Data Relatório]), MAX(fAuditoria[Data Limite]), MAX(fAuditoria[Data Entrega]), TODAY()}, [Value])
 				VAR _Datas = SELECTCOLUMNS(CALENDAR(DATE(YEAR(_Ini), 1, 1), DATE(YEAR(_Fim), 12, 31)), "Data", [Date])
 				RETURN
 				ADDCOLUMNS(
@@ -78,4 +78,3 @@ table dCalendario
 				    "Ano/Trimestre", YEAR([Data]) & "-T" & QUARTER([Data]),
 				    "AnoTrimestre", YEAR([Data]) * 10 + QUARTER([Data])
 				)
-

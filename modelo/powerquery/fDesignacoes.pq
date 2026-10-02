@@ -53,37 +53,17 @@ let
     ComDesignacao = Table.SelectRows(Tipado, each
         [Coordenador] <> null or [EquipeTexto] <> null or [Data Final Designação] <> null),
 
-    // ---- 3. Participantes: coordenador + membros da equipe (separadores ; , / " e ") ----
-    ComParticipantes = Table.AddColumn(ComDesignacao, "Participantes", each
-        let
-            Coord = if [Coordenador] = null then {} else {[Função = "Coordenador", Nome = [Coordenador]]},
-            EqNorm = if [EquipeTexto] = null then null
-                     else List.Accumulate({" e ", " E ", ",", "/"}, [EquipeTexto], (s, sep) => Text.Replace(s, sep, ";")),
-            EqLista = if EqNorm = null then {}
-                      else List.Select(List.Transform(Text.Split(EqNorm, ";"), Text.Trim), each _ <> "" and _ <> "-"),
-            Equipe = List.Transform(EqLista, each [Função = "Equipe", Nome = _]),
-            Todos = Coord & Equipe
-        in
-            if List.IsEmpty(Todos) then {[Função = "Coordenador", Nome = null]} else Todos),
+    // ---- 3. Participantes e nome oficial (funções compartilhadas com fAuditoria) ----
+    ComParticipantes = Table.AddColumn(ComDesignacao, "Participantes", each fxParticipantes([Coordenador], [EquipeTexto])),
     Expandido = Table.ExpandRecordColumn(
         Table.ExpandListColumn(Table.RemoveColumns(ComParticipantes, {"Coordenador", "EquipeTexto"}), "Participantes"),
         "Participantes", {"Função", "Nome"}),
-
-    // ---- 4. Nome oficial do auditor (cadastro APOIO + de-para manual) ----
-    Cadastro = Record.FromList(stgAuditores[Auditor], stgAuditores[NomeChave]),
-    Alias = Record.FromList(AliasesAuditores[Auditor], AliasesAuditores[NomeChave]),
-    ComAuditor = Table.AddColumn(Expandido, "Auditor", each
-        let k = fxNormalizaNome([Nome]) in
-        if k = null then "(Não informado)"
-        else if Record.HasFields(Alias, k) then Record.Field(Alias, k)
-        else if Record.HasFields(Cadastro, k) then Record.Field(Cadastro, k)
-        else Text.Combine(List.Select(Text.SplitAny([Nome], " #(lf)#(cr)#(tab)#(00A0)"), each _ <> ""), " "),
-        type text),
+    ComAuditor = Table.AddColumn(Expandido, "Auditor", each fxAuditorOficial([Nome]), type text),
     SemNomeOriginal = Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}),
     // mesma pessoa repetida na mesma função do mesmo ciclo conta uma vez
     SemDuplicadas = Table.Distinct(SemNomeOriginal, {"Nº PROA", "Ciclo Nº", "Função", "Auditor"}),
 
-    // ---- 5. Prazo e classificação ----
+    // ---- 4. Prazo e classificação ----
     Hoje = Date.From(DateTime.LocalNow()),
     ComLimite = Table.AddColumn(SemDuplicadas, "Data Limite", each
         if [Data Final Designação] = null then null else Date.AddDays([Data Final Designação], PrazoPadraoDias),
@@ -116,7 +96,7 @@ let
         else null,
         type nullable text),
 
-    // ---- 6. Colunas de apoio ----
+    // ---- 5. Colunas de apoio ----
     ComCiclo = Table.AddColumn(ComAlerta, "Ciclo", each Text.From([Ciclo Nº]) & "º Ciclo", type text),
     ComFuncaoOrdem = Table.AddColumn(ComCiclo, "Função Ordem", each if [Função] = "Coordenador" then 1 else 2, Int64.Type),
     ComId = Table.AddColumn(ComFuncaoOrdem, "ID Designação", each [Nº PROA] & " | " & [Ciclo], type text),

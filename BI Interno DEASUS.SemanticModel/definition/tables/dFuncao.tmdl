@@ -1,0 +1,22 @@
+/// Função na designação (filtra Auditoria e Monitoramento).
+table dFuncao
+	lineageTag: 2759748b-2c79-4c3f-8c87-25bfef2e5db8
+
+	column 'Função'
+		dataType: string
+		isKey
+		lineageTag: f1d19e16-42c2-4b9a-97c5-0a33b310af20
+		sourceColumn: Função
+		sortByColumn: 'Função Ordem'
+
+	column 'Função Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 8594c066-fabb-4c89-b0a5-e17be31ea1bc
+		summarizeBy: none
+		sourceColumn: Função Ordem
+
+	partition dFuncao = m
+		mode: import
+		source =
+				#table(type table [Função = text, #"Função Ordem" = Int64.Type], {{"Coordenador", 1}, {"Equipe", 2}})

@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "dSituacao"
                     }
                   },
                   "Property": "Situação"
                 }
               },
-              "queryRef": "fDesignacoes.Situação",
+              "queryRef": "dSituacao.Situação",
               "nativeQueryRef": "Situação",
               "active": true
             }
@@ -58,7 +58,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "fDesignacoes"
+                    "Entity": "dSituacao"
                   }
                 },
                 "Property": "Situação"
@@ -149,7 +149,7 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "fDesignacoes"
+                            "Entity": "dSituacao"
                           }
                         },
                         "Property": "Situação"
@@ -190,7 +190,7 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "fDesignacoes"
+                            "Entity": "dSituacao"
                           }
                         },
                         "Property": "Situação"
@@ -231,7 +231,7 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "fDesignacoes"
+                            "Entity": "dSituacao"
                           }
                         },
                         "Property": "Situação"
@@ -272,7 +272,7 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "fDesignacoes"
+                            "Entity": "dSituacao"
                           }
                         },
                         "Property": "Situação"
@@ -281,6 +281,47 @@
                     "Right": {
                       "Literal": {
                         "Value": "'Em andamento'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D3E0'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "dSituacao"
+                          }
+                        },
+                        "Property": "Situação"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Não se aplica'"
                       }
                     }
                   }
@@ -313,7 +354,7 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "fDesignacoes"
+                            "Entity": "dSituacao"
                           }
                         },
                         "Property": "Situação"

@@ -80,3 +80,57 @@ expression AliasesAuditores =
 		    Fonte
 	lineageTag: eebdb62f-53b3-4c30-a59e-6db2a31d3694
 
+/// Prazo (dias) do Relatório Inicial de Auditoria, contado da Data de Designação.
+expression PrazoRAIDias = 30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 4093c038-e685-4c7d-8107-4c4729c9af28
+
+	annotation PBI_ResultType = Number
+
+/// Prazo (dias) do Relatório Final de Auditoria, contado da Data de Designação.
+expression PrazoRAFDias = 60 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: fb6dacd6-9773-49e5-adce-11ae6b3b7985
+
+	annotation PBI_ResultType = Number
+
+/// Record NomeChave -> nome oficial (cadastro APOIO + de-para manual).
+expression MapaAuditores =
+		let
+		    Cadastro = Record.FromList(stgAuditores[Auditor], stgAuditores[NomeChave]),
+		    Alias = Record.FromList(AliasesAuditores[Auditor], AliasesAuditores[NomeChave]),
+		    Mapa = Record.Combine({Cadastro, Alias})
+		in
+		    Mapa
+	lineageTag: ba78da7a-8ddc-471b-90b4-83daa1edf302
+
+	annotation PBI_ResultType = Record
+
+/// Nome digitado na planilha -> nome oficial do auditor.
+expression fxAuditorOficial =
+		(nome as nullable text) as text =>
+		let
+		    Chave = fxNormalizaNome(nome),
+		    Limpo = if nome = null then null
+		            else Text.Combine(List.Select(Text.SplitAny(nome, " #(lf)#(cr)#(tab)#(00A0)"), each _ <> ""), " "),
+		    Resultado = if Chave = null then "(Não informado)" else Record.FieldOrDefault(MapaAuditores, Chave, Limpo)
+		in
+		    Resultado
+	lineageTag: 60a15543-7d6e-43b9-a078-b39b5e26cc47
+
+	annotation PBI_ResultType = Function
+
+/// Coordenador + texto da EQUIPE -> lista de [Função, Nome].
+expression fxParticipantes =
+		(coordenador as nullable text, equipe as nullable text) as list =>
+		let
+		    Coord = if coordenador = null then {} else {[Função = "Coordenador", Nome = coordenador]},
+		    EqNorm = if equipe = null then null
+		             else List.Accumulate({" e ", " E ", ",", "/"}, equipe, (s, sep) => Text.Replace(s, sep, ";")),
+		    EqLista = if EqNorm = null then {}
+		              else List.Select(List.Transform(Text.Split(EqNorm, ";"), Text.Trim), each _ <> "" and _ <> "-"),
+		    Equipe = List.Transform(EqLista, each [Função = "Equipe", Nome = _]),
+		    Todos = Coord & Equipe
+		in
+		    if List.IsEmpty(Todos) then {[Função = "Coordenador", Nome = null]} else Todos
+	lineageTag: 596cf1bd-af8b-4ba1-ae09-5c69d81cb2bc
+
+	annotation PBI_ResultType = Function

@@ -1,0 +1,41 @@
+/// Situação do relatório quanto ao prazo (filtra Auditoria e Monitoramento).
+table dSituacao
+	lineageTag: 11b9ac59-782e-4022-9594-df841916345a
+
+	column 'Situação'
+		dataType: string
+		isKey
+		lineageTag: 82679a84-b9b3-4c73-b837-191f9d81e870
+		sourceColumn: Situação
+		sortByColumn: 'Situação Ordem'
+
+	column 'Situação Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: fc41b80b-f1ca-4aa7-abb3-d1eeb563386d
+		summarizeBy: none
+		sourceColumn: Situação Ordem
+
+	column Grupo
+		dataType: string
+		lineageTag: 5973fcd6-3c06-4338-b54b-9214e357f2b4
+		sourceColumn: Grupo
+
+	column 'Entra nas Taxas'
+		dataType: string
+		lineageTag: b6764f43-5661-4349-b5bc-0c25d0f25139
+		sourceColumn: Entra nas Taxas
+
+	partition dSituacao = m
+		mode: import
+		source =
+				#table(
+				    type table [Situação = text, #"Situação Ordem" = Int64.Type, Grupo = text, #"Entra nas Taxas" = text],
+				    {
+				        {"No prazo", 1, "Entregue", "Sim"},
+				        {"Fora do prazo", 2, "Entregue", "Sim"},
+				        {"Pendente (vencida)", 3, "Pendente", "Sim"},
+				        {"Em andamento", 4, "Pendente", "Não"},
+				        {"Não se aplica", 5, "Outros", "Não"},
+				        {"Sem prazo definido", 6, "Outros", "Não"}
+				    })

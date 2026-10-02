@@ -6,7 +6,7 @@
     "y": 6,
     "z": 6000,
     "height": 70,
-    "width": 1250,
+    "width": 1350,
     "tabOrder": 6000
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "ANÁLISE DE PRODUTIVIDADE POR AUDITOR",
+                    "value": "MONITORAMENTO · PRODUTIVIDADE",
                     "textStyle": {
                       "fontSize": "20pt",
                       "color": "#FFFFFF",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Designações, Relatórios Entregues e Cumprimento de Prazo · Monitoramentos (1º, 2º e 3º Ciclos)",
+                    "value": "Monitoramento das Recomendações (1º, 2º e 3º Ciclos) · prazo de 30 dias após a Data Final da Designação",
                     "textStyle": {
                       "fontSize": "11pt",
                       "color": "#BFD0E6"

@@ -20,15 +20,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "dSituacao"
                     }
                   },
                   "Property": "Situação"
                 }
               },
-              "queryRef": "fDesignacoes.Situação",
-              "nativeQueryRef": "Situação da Designação",
-              "displayName": "Situação da Designação",
+              "queryRef": "dSituacao.Situação",
+              "nativeQueryRef": "Situação",
+              "displayName": "Situação",
               "active": true
             }
           ]
@@ -259,7 +259,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "Situação da Designação",
+      "groupName": "Situação",
       "fieldChanges": true,
       "filterChanges": true
     },

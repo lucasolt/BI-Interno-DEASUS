@@ -1,0 +1,204 @@
+/// Fato da fase de Auditoria: 1 linha por Nº PROA x Relatório (RAI/RAF) x Função x Auditor.
+table fAuditoria
+	lineageTag: 4c3a5e88-3ec3-4a5c-9b65-d7a2cd6943a7
+
+	column 'ID Relatório'
+		dataType: string
+		lineageTag: bce242c8-7efd-425d-a25b-02ad0150aeaf
+		sourceColumn: ID Relatório
+
+	column 'Nº PROA'
+		dataType: string
+		lineageTag: ab5eb4bf-4b47-48ec-882c-7d1c224ef7c6
+		sourceColumn: Nº PROA
+
+	column 'Relatório'
+		dataType: string
+		lineageTag: 661aa94d-3618-4b92-bcd6-004f731054b9
+		sourceColumn: Relatório
+		sortByColumn: 'Relatório Ordem'
+
+	column 'Relatório Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: e81b57bc-cc81-404e-9d5c-7a4c820ee0af
+		summarizeBy: none
+		sourceColumn: Relatório Ordem
+
+	column 'Função'
+		dataType: string
+		lineageTag: ad277e10-8655-40f4-bec0-29de064d8b7d
+		sourceColumn: Função
+
+	column Auditor
+		dataType: string
+		lineageTag: bf0930c8-803b-42d0-8c26-8987308a8139
+		sourceColumn: Auditor
+
+	column 'Nome na Planilha'
+		dataType: string
+		lineageTag: 813878ae-6296-4071-986d-8c65563a865b
+		sourceColumn: Nome na Planilha
+
+	column 'Data Designação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 8257c6ba-e5b7-41a1-a3e7-d79919961614
+		sourceColumn: Data Designação
+
+	column 'Data Limite'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 85b05891-4b92-4e76-aa5c-b2c9b559c6d4
+		sourceColumn: Data Limite
+
+	column 'Data Entrega'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 87d86c53-bf4b-4bc4-b7e0-de8bb24bf03a
+		sourceColumn: Data Entrega
+
+	column 'Nº Relatório'
+		dataType: string
+		lineageTag: 01a9238e-62ee-480a-be6f-67bc571bfdd0
+		sourceColumn: Nº Relatório
+
+	column 'Situação'
+		dataType: string
+		lineageTag: fb29f4b6-f029-4d19-aa22-0a518abb7fd6
+		sourceColumn: Situação
+
+	column 'Dias para Entrega'
+		dataType: int64
+		lineageTag: c5ea1f2f-87fd-4d35-b07c-665fee569e56
+		summarizeBy: none
+		sourceColumn: Dias para Entrega
+
+	column 'Dias de Atraso'
+		dataType: int64
+		lineageTag: 0de461c0-7468-470d-a76d-24e04c67a7a1
+		summarizeBy: none
+		sourceColumn: Dias de Atraso
+
+	column 'Matrizes de Qualidade'
+		dataType: int64
+		lineageTag: 9a902fb2-c82d-4c32-8ac6-7c611d71ecdb
+		summarizeBy: none
+		sourceColumn: Matrizes de Qualidade
+
+	column 'Status do Processo'
+		dataType: string
+		lineageTag: 55b11201-27ae-4fb6-b120-1fa2dd458246
+		sourceColumn: Status do Processo
+
+	column 'Alerta de Qualidade'
+		dataType: string
+		lineageTag: 59749fb7-2c68-4bbf-a2d5-6c6d2dc21b0f
+		sourceColumn: Alerta de Qualidade
+
+	column 'Data de Referência'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		isHidden
+		lineageTag: 838fa1db-3e72-4bbd-8810-6137108d66e7
+		sourceColumn: Data de Referência
+
+	partition fAuditoria = m
+		mode: import
+		source =
+				let
+				    Origem = stgProcessos,
+				    Col = (codigo as text) as text =>
+				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
+				    Mapa = {
+				        {Col("12"), "Nº PROA"}, {Col("14"), "Coordenador"}, {Col("18"), "EquipeTexto"},
+				        {Col("17"), "Data Designação"}, {Col("15"), "Nº RAI"}, {Col("19"), "Data RAI"},
+				        {Col("20"), "Nº RAF"}, {Col("21"), "Data RAF"},
+				        {"Qtde Martiz Qualidade RIA", "Matriz RAI"}, {"Qtde Martiz Qualidade RFA", "Matriz RAF"},
+				        {Col("42"), "Status do Processo"}
+				    },
+				    Sel = Table.RenameColumns(Table.SelectColumns(Origem, List.Transform(Mapa, each _{0})), Mapa),
+
+				    ParaTexto = (v as any) as nullable text =>
+				        let t = if v = null then null else Text.Trim(Text.From(v))
+				        in if t = null or t = "" or t = "-" then null else t,
+				    ParaData = (v as any) as nullable date =>
+				        if v = null then null
+				        else if v is date then v
+				        else if v is datetime then Date.From(v)
+				        else if v is number then Date.From(v)
+				        else try Date.FromText(Text.Trim(Text.From(v)), [Culture = "pt-BR"]) otherwise null,
+				    ParaNumero = (v as any) as nullable number =>
+				        if v = null then null else if v is number then v else try Number.From(Text.Trim(Text.From(v))) otherwise null,
+				    Tipado = Table.TransformColumns(Sel, {
+				        {"Nº PROA", ParaTexto, type text}, {"Coordenador", ParaTexto, type nullable text},
+				        {"EquipeTexto", ParaTexto, type nullable text}, {"Data Designação", ParaData, type nullable date},
+				        {"Nº RAI", ParaTexto, type nullable text}, {"Data RAI", ParaData, type nullable date},
+				        {"Nº RAF", ParaTexto, type nullable text}, {"Data RAF", ParaData, type nullable date},
+				        {"Matriz RAI", ParaNumero, type nullable number}, {"Matriz RAF", ParaNumero, type nullable number},
+				        {"Status do Processo", ParaTexto, type nullable text}
+				    }),
+				    ComDesignacao = Table.SelectRows(Tipado, each [Data Designação] <> null or [Coordenador] <> null),
+
+				    // Participantes
+				    ComParticipantes = Table.AddColumn(ComDesignacao, "Participantes", each fxParticipantes([Coordenador], [EquipeTexto])),
+				    Expandido = Table.ExpandRecordColumn(
+				        Table.ExpandListColumn(Table.RemoveColumns(ComParticipantes, {"Coordenador", "EquipeTexto"}), "Participantes"),
+				        "Participantes", {"Função", "Nome"}),
+				    ComAuditor = Table.AddColumn(Expandido, "Auditor", each fxAuditorOficial([Nome]), type text),
+				    SemDuplicadas = Table.Distinct(Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}), {"Nº PROA", "Função", "Auditor"}),
+
+				    // Um registro por relatório (RAI e RAF)
+				    ComRelatorios = Table.AddColumn(SemDuplicadas, "Rel", each {
+				        [Relatório = "RAI", #"Relatório Ordem" = 1, Prazo = PrazoRAIDias, #"Data Entrega" = [Data RAI],
+				         #"Nº Relatório" = [Nº RAI], #"Matrizes de Qualidade" = [Matriz RAI]],
+				        [Relatório = "RAF", #"Relatório Ordem" = 2, Prazo = PrazoRAFDias, #"Data Entrega" = [Data RAF],
+				         #"Nº Relatório" = [Nº RAF], #"Matrizes de Qualidade" = [Matriz RAF]]
+				    }),
+				    PorRelatorio = Table.ExpandRecordColumn(Table.ExpandListColumn(ComRelatorios, "Rel"), "Rel",
+				        {"Relatório", "Relatório Ordem", "Prazo", "Data Entrega", "Nº Relatório", "Matrizes de Qualidade"}),
+
+				    // Prazo e classificação
+				    Hoje = Date.From(DateTime.LocalNow()),
+				    Encerrados = {"ARQUIVADO", "FASE DE AUDITORIA FINALIZADA"},
+				    ComLimite = Table.AddColumn(PorRelatorio, "Data Limite", each
+				        if [Data Designação] = null then null else Date.AddDays([Data Designação], [Prazo]), type nullable date),
+				    ComSituacao = Table.AddColumn(ComLimite, "Situação", each
+				        if [Data Limite] = null then "Sem prazo definido"
+				        else if [Data Entrega] <> null then (if [Data Entrega] <= [Data Limite] then "No prazo" else "Fora do prazo")
+				        else if List.Contains(Encerrados, Text.Upper([Status do Processo] ?? "")) then "Não se aplica"
+				        else if Hoje > [Data Limite] then "Pendente (vencida)"
+				        else "Em andamento",
+				        type text),
+				    ComDiasEntrega = Table.AddColumn(ComSituacao, "Dias para Entrega", each
+				        if [Data Entrega] = null or [Data Designação] = null then null else Duration.Days([Data Entrega] - [Data Designação]),
+				        Int64.Type),
+				    ComDiasAtraso = Table.AddColumn(ComDiasEntrega, "Dias de Atraso", each
+				        if [Situação] = "Fora do prazo" then Duration.Days([Data Entrega] - [Data Limite])
+				        else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
+				        else null,
+				        Int64.Type),
+				    ComAlerta = Table.AddColumn(ComDiasAtraso, "Alerta de Qualidade", each
+				        if [Auditor] = "(Não informado)" then "Auditor não informado"
+				        else if [Data Designação] = null then "Sem Data de Designação"
+				        else if [Data Entrega] <> null and [Data Entrega] < [Data Designação] then "Entrega anterior à designação"
+				        else if [Relatório] = "RAF" and [Data Entrega] <> null and [Data RAI] <> null and [Data Entrega] < [Data RAI]
+				            then "RAF anterior ao RAI"
+				        else if [Relatório] = "RAF" and [Data Entrega] <> null and [Data RAI] = null then "RAF sem data de RAI"
+				        else null,
+				        type nullable text),
+
+				    ComId = Table.AddColumn(ComAlerta, "ID Relatório", each [Nº PROA] & " | " & [Relatório], type text),
+				    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
+				    Tipos = Table.TransformColumnTypes(ComRef, {
+				        {"Função", type text}, {"Nome na Planilha", type nullable text}, {"Relatório", type text},
+				        {"Relatório Ordem", Int64.Type}, {"Data Entrega", type nullable date}, {"Nº Relatório", type nullable text},
+				        {"Matrizes de Qualidade", Int64.Type}}),
+
+				    Final = Table.SelectColumns(Tipos, {
+				        "ID Relatório", "Nº PROA", "Relatório", "Relatório Ordem", "Função", "Auditor", "Nome na Planilha",
+				        "Data Designação", "Data Limite", "Data Entrega", "Nº Relatório", "Situação",
+				        "Dias para Entrega", "Dias de Atraso", "Matrizes de Qualidade", "Status do Processo",
+				        "Alerta de Qualidade", "Data de Referência"})
+				in
+				    Final

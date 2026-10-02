@@ -35,13 +35,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "dFuncao"
                     }
                   },
                   "Property": "Função"
                 }
               },
-              "queryRef": "fDesignacoes.Função",
+              "queryRef": "dFuncao.Função",
               "nativeQueryRef": "Função",
               "active": true
             }

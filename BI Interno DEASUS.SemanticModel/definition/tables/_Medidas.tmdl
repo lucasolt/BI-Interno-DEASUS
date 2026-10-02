@@ -211,6 +211,251 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 1f500fa2-8583-4706-82e4-a0527ccc44f3
 
+	/// Designações na fase de auditoria (PROA x Função x Auditor).
+	measure 'Aud Designações' = COUNTROWS(SUMMARIZE(fAuditoria, fAuditoria[Nº PROA], fAuditoria[Função], fAuditoria[Auditor]))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 0be1193b-bb71-4bf1-8133-75aab49bc113
+
+	measure 'Aud Designações Coordenador' = CALCULATE([Aud Designações], KEEPFILTERS(fAuditoria[Função] = "Coordenador"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 0698c096-7492-42af-a75f-60f9124c67d4
+
+	measure 'Aud Designações Equipe' = CALCULATE([Aud Designações], KEEPFILTERS(fAuditoria[Função] = "Equipe"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: b51e7d5f-88ef-43ba-aad7-648d99620495
+
+	measure 'Aud Processos Designados' = DISTINCTCOUNT(fAuditoria[Nº PROA])
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: b952b5d5-d613-4bd0-96ff-6863bc34ae28
+
+	/// Registros de relatório (RAI + RAF) x auditor, todas as situações.
+	measure 'Aud Relatórios' = COUNTROWS(fAuditoria)
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 8b0535a1-8e4a-4b4b-8de5-9ff290e48d4c
+
+	/// Relatórios esperados (exclui 'Não se aplica').
+	measure 'Aud Relatórios Aplicáveis' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] <> "Não se aplica"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: cda06467-56c3-4388-9b52-5dec4f8f4c23
+
+	measure 'Aud Entregues' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] IN {"No prazo", "Fora do prazo"}))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 0431d583-8f10-4104-9663-787b262604fd
+
+	measure 'Aud No Prazo' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "No prazo"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: c401c1a8-6223-4fce-9d40-abc19a6351d2
+
+	measure 'Aud Fora do Prazo' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Fora do prazo"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 5b5a623f-f1d7-45f6-8775-ebd94f0e748f
+
+	measure 'Aud Pendências Vencidas' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Pendente (vencida)"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: b06f7e62-c370-473e-aa77-f14cca942187
+
+	measure 'Aud Em Andamento' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Em andamento"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: e65534a0-f458-447a-8f66-d9cba20344c3
+
+	/// Sem data de entrega em processo arquivado/fase finalizada.
+	measure 'Aud Não se Aplica' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Não se aplica"))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: ed3ae117-311a-445c-b98e-2418c9e29b24
+
+	/// Entregues ÷ (Entregues + Pendências vencidas).
+	measure 'Aud Taxa de Entrega' = DIVIDE([Aud Entregues], [Aud Entregues] + [Aud Pendências Vencidas])
+		formatString: 0.00%
+		displayFolder: 7. Auditoria
+		lineageTag: f1124f1f-8bee-4c01-9005-4eaac2090927
+
+	/// No prazo ÷ Entregues.
+	measure 'Aud Taxa de Pontualidade' = DIVIDE([Aud No Prazo], [Aud Entregues])
+		formatString: 0.00%
+		displayFolder: 7. Auditoria
+		lineageTag: 1612363a-1413-4a3e-ae29-f98bc7935b98
+
+	/// Pendências vencidas ÷ Relatórios aplicáveis.
+	measure 'Aud Taxa de Pendência Vencida' = DIVIDE([Aud Pendências Vencidas], [Aud Relatórios Aplicáveis])
+		formatString: 0.00%
+		displayFolder: 7. Auditoria
+		lineageTag: 30650f3e-b3ef-431c-b11d-50697c6186c5
+
+	/// Média de (Data Entrega − Data Designação) dos entregues.
+	measure 'Aud Dias Médios para Entrega' = CALCULATE(AVERAGE(fAuditoria[Dias para Entrega]), KEEPFILTERS(fAuditoria[Situação] IN {"No prazo", "Fora do prazo"}))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria
+		lineageTag: f6a48e90-b923-482c-9537-9c64e966a6c5
+
+	/// Média de (Data Entrega − Data Limite) dos entregues fora do prazo.
+	measure 'Aud Dias Médios de Atraso' = CALCULATE(AVERAGE(fAuditoria[Dias de Atraso]), KEEPFILTERS(fAuditoria[Situação] = "Fora do prazo"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria
+		lineageTag: 67923f3d-5838-4106-8eb2-bc3bc0fbf9c1
+
+	/// Total de matrizes de qualidade (cada relatório contado uma vez).
+	measure 'Aud Matrizes de Qualidade' = SUMX(VALUES(fAuditoria[ID Relatório]), CALCULATE(MAX(fAuditoria[Matrizes de Qualidade])))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 7e62d1a3-876b-4ae1-96eb-510a18592cce
+
+	measure 'Aud Relatórios com Matriz' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(NOT ISBLANK(fAuditoria[Matrizes de Qualidade])))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 720a73d5-fdb7-4975-aec9-0cc951ff21b4
+
+	/// Matrizes ÷ relatórios avaliados (indicador de retrabalho).
+	measure 'Aud Média de Matrizes por Relatório' = DIVIDE([Aud Matrizes de Qualidade], [Aud Relatórios com Matriz])
+		formatString: #,0.00
+		displayFolder: 7. Auditoria
+		lineageTag: 2b7bb605-ad85-4c55-9d7b-6643f842c403
+
+	measure 'Aud Entregas (por Data Entrega)' = CALCULATE([Aud Entregues], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 7a3a1f52-5a9b-4cff-865c-e1a76b55f861
+
+	measure 'Aud No Prazo (por Data Entrega)' = CALCULATE([Aud No Prazo], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 2406e49c-830e-4ab8-aae9-ff5d91abe604
+
+	measure 'Aud Fora do Prazo (por Data Entrega)' = CALCULATE([Aud Fora do Prazo], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 47c65919-c881-4ad4-a26c-52b97fccf603
+
+	measure 'Aud Pendências Vencidas (por Data Limite)' = CALCULATE([Aud Pendências Vencidas], USERELATIONSHIP(fAuditoria[Data Limite], dCalendario[Data]))
+		formatString: #,0
+		displayFolder: 7. Auditoria
+		lineageTag: 7bdb2584-407c-4357-b7dc-219395976765
+
+	measure 'RAI Entregues' = CALCULATE([Aud Entregues], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 44296aa8-ab21-4f0a-95fc-fe6694eb081e
+
+	measure 'RAI No Prazo' = CALCULATE([Aud No Prazo], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 41aac5c2-5374-4736-b975-3df925d76b5b
+
+	measure 'RAI Fora do Prazo' = CALCULATE([Aud Fora do Prazo], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 95f60155-2441-4d0f-803b-80899e831d62
+
+	measure 'RAI Pendências Vencidas' = CALCULATE([Aud Pendências Vencidas], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: d85edbda-015a-4d52-a1f7-3b8f76f250a2
+
+	measure 'RAI Taxa de Entrega' = CALCULATE([Aud Taxa de Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: 0.00%
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 69996917-36d3-4693-b5b8-d32646f5767c
+
+	measure 'RAI Taxa de Pontualidade' = CALCULATE([Aud Taxa de Pontualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: 0.00%
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: f561be7c-f404-483d-b89d-4be8e3353970
+
+	measure 'RAI Dias Médios para Entrega' = CALCULATE([Aud Dias Médios para Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: ea9f06d1-2000-4cd9-b5d7-544d369f4d55
+
+	measure 'RAI Dias Médios de Atraso' = CALCULATE([Aud Dias Médios de Atraso], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 5dd2b7e2-dfce-4356-9bc1-88b904b9e72b
+
+	measure 'RAI Média de Matrizes' = CALCULATE([Aud Média de Matrizes por Relatório], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0.00
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 115dbb39-b11a-49b2-b59e-a4a5a0756fb7
+
+	measure 'RAF Entregues' = CALCULATE([Aud Entregues], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 5d0e86dc-ac9a-4987-97e2-bab598dd8c76
+
+	measure 'RAF No Prazo' = CALCULATE([Aud No Prazo], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 2203d0d5-16c6-4c1b-87c5-a1084fd218e7
+
+	measure 'RAF Fora do Prazo' = CALCULATE([Aud Fora do Prazo], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: d51f6f9b-c8f5-4336-83b6-9def1befe3cf
+
+	measure 'RAF Pendências Vencidas' = CALCULATE([Aud Pendências Vencidas], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 6594397b-dae5-4ec8-9771-adf7dba59138
+
+	measure 'RAF Taxa de Entrega' = CALCULATE([Aud Taxa de Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: 0.00%
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 06f1cb5b-404b-4572-b8ba-f91461f6fdd4
+
+	measure 'RAF Taxa de Pontualidade' = CALCULATE([Aud Taxa de Pontualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: 0.00%
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 544b0931-83c5-484e-a63b-cc68c2b99359
+
+	measure 'RAF Dias Médios para Entrega' = CALCULATE([Aud Dias Médios para Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: e63693d6-6d94-4ec4-8cf9-228a6e56f9fd
+
+	measure 'RAF Dias Médios de Atraso' = CALCULATE([Aud Dias Médios de Atraso], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: cf480132-1b8a-49f3-9e47-3a91a4d04498
+
+	measure 'RAF Média de Matrizes' = CALCULATE([Aud Média de Matrizes por Relatório], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0.00
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: edfe640d-1860-4564-bcd5-527c48eb9feb
+
+	measure 'Sub Aud Designações' = FORMAT([Aud Designações Coordenador], "#,0") & " coordenador · " & FORMAT([Aud Designações Equipe], "#,0") & " equipe"
+		displayFolder: 6. Rótulos
+		lineageTag: 76c89ec2-739e-44e0-84bf-64ad9a0e2622
+
+	measure 'Sub RAI Entregues' = FORMAT([RAI No Prazo] + 0, "#,0") & " no prazo (" & FORMAT([RAI Taxa de Pontualidade], "0.0%") & ")"
+		displayFolder: 6. Rótulos
+		lineageTag: 79811019-3a0d-4060-830e-19e262771a01
+
+	measure 'Sub RAF Entregues' = FORMAT([RAF No Prazo] + 0, "#,0") & " no prazo (" & FORMAT([RAF Taxa de Pontualidade], "0.0%") & ")"
+		displayFolder: 6. Rótulos
+		lineageTag: 6d017172-0be4-4958-b517-b1a220e31969
+
+	measure 'Sub Aud Pendências' = FORMAT([RAI Pendências Vencidas] + 0, "#,0") & " RAI · " & FORMAT([RAF Pendências Vencidas] + 0, "#,0") & " RAF"
+		displayFolder: 6. Rótulos
+		lineageTag: 3e4126e2-b560-4fe9-8900-08b5453b3053
+
+	measure 'Sub Aud Matrizes' = FORMAT([Aud Relatórios com Matriz] + 0, "#,0") & " relatórios avaliados"
+		displayFolder: 6. Rótulos
+		lineageTag: ead2de13-b08e-4f8a-adf1-9ae2e7589753
+
+	measure 'Sub RAI Dias' = "RAF: " & FORMAT([RAF Dias Médios para Entrega], "#,0") & " dias · prazos 30/60"
+		displayFolder: 6. Rótulos
+		lineageTag: 59a30523-be03-404a-9dd7-fa9333a258be
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a

@@ -2,7 +2,9 @@
 // designações mas não estão no cadastro (Cadastrado = "Não" -> revisar AliasesAuditores).
 let
     Cadastro = Table.AddColumn(Table.RemoveColumns(stgAuditores, {"NomeChave"}), "Cadastrado", each "Sim", type text),
-    NomesFato = List.Buffer(List.Distinct(fDesignacoes[Auditor])),
+    NomesMonit = List.Distinct(fDesignacoes[Auditor]),
+    NomesAud = List.Distinct(fAuditoria[Auditor]),
+    NomesFato = List.Buffer(List.Distinct(NomesMonit & NomesAud)),
     Faltantes = List.Difference(NomesFato, Cadastro[Auditor]),
     TabFaltantes = Table.FromRecords(
         List.Transform(Faltantes, each [Auditor = _, #"É Auditor" = null, Lotação = null, Ativo = null, Cadastrado = "Não"]),

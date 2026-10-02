@@ -1,5 +1,5 @@
 // Dimensão de processos (1 linha por Nº PROA) com atributos para filtros/evoluções futuras (CRS etc.).
-// Somente processos que possuem alguma designação de monitoramento.
+// Somente processos com designação de auditoria ou de monitoramento.
 let
     Origem = stgProcessos,
     Col = (codigo as text) as text =>
@@ -24,7 +24,7 @@ let
         let t = if v = null then null else Text.Trim(Text.From(v))
         in if t = null or t = "" or t = "-" then null else t,
     Limpo = Table.TransformColumns(Ren, List.Transform(List.Transform(Mapa, each _{1}), (n) => {n, ParaTexto, type nullable text})),
-    ProasFato = List.Buffer(List.Distinct(fDesignacoes[Nº PROA])),
+    ProasFato = List.Buffer(List.Distinct(fDesignacoes[Nº PROA] & fAuditoria[Nº PROA])),
     ComDesignacao = Table.SelectRows(Limpo, each List.Contains(ProasFato, [Nº PROA])),
     Distintos = Table.Distinct(ComDesignacao, {"Nº PROA"})
 in

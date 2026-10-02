@@ -44,6 +44,7 @@ COR_SITUACAO = {
     "Fora do prazo": VERMELHO,
     "Pendente (vencida)": AMARELO,
     "Em andamento": CINZA,
+    "Não se aplica": "#C9D3E0",
     "Sem prazo definido": "#6E7F96",
 }
 
@@ -234,8 +235,8 @@ def grafico(tipo, categoria, medidas, titulo, cores=None, legenda=True, rotulos=
     return v
 
 
-def donut_situacao():
-    cat = col("fDesignacoes", "Situação")
+def donut_situacao(medida, titulo):
+    cat = col("dSituacao", "Situação")
     dp = []
     for sit, c in COR_SITUACAO.items():
         dp.append({"properties": {"fill": COR(c)}, "selector": {"data": [{"scopeId": {"Comparison": {
@@ -244,14 +245,14 @@ def donut_situacao():
         "visualType": "donutChart",
         "query": {"queryState": {
             "Category": {"projections": [proj(cat, active=True)]},
-            "Y": {"projections": [proj(med("Designações"))]}},
-            "sortDefinition": {"sort": [{"field": col("fDesignacoes", "Situação"), "direction": "Ascending"}]}},
+            "Y": {"projections": [proj(med(medida))]}},
+            "sortDefinition": {"sort": [{"field": cat, "direction": "Ascending"}]}},
         "objects": {
             "legend": [{"properties": {"show": B(True), "position": S("Right"), "fontSize": D(10)}}],
             "labels": [{"properties": {"show": B(True), "labelStyle": S("Percent of total"), "fontSize": D(9)}}],
             "dataPoint": dp,
         },
-        "visualContainerObjects": container("DESIGNAÇÕES POR SITUAÇÃO"),
+        "visualContainerObjects": container(titulo),
         "drillFilterOtherVisuals": True,
     }
 
@@ -316,21 +317,28 @@ def tabela(campos, titulo, ordem=None):
 
 
 # ---------------- Moldura comum (sidebar, cabeçalho, filtros) ----------------
-def moldura(p: Pagina, com_filtros=True):
+SUBTITULO = {
+    "geral": "Auditoria (RAI · RAF) e Monitoramento (1º, 2º e 3º Ciclos) · Designações, entregas e prazos",
+    "aud": "Fase de Auditoria · Relatório Inicial (prazo 30 dias) e Relatório Final (prazo 60 dias) a partir da designação",
+    "monit": "Monitoramento das Recomendações (1º, 2º e 3º Ciclos) · prazo de 30 dias após a Data Final da Designação",
+}
+
+
+def moldura(p: Pagina, fase="geral", com_filtros=True):
     p.add("fundo", 0, 0, W, H, shape(FUNDO))
     p.add("sidebar", 0, 0, SIDEBAR, H, shape(NAVY))
     p.add("logo", 10, 18, SIDEBAR - 20, 70, textbox([
         [("DEASUS", st(18, BRANCO, True))],
         [("Produtividade", st(10, "#BFD0E6"))],
     ]))
-    p.add("nav", 10, 110, SIDEBAR - 20, 430, {
+    p.add("nav", 8, 100, SIDEBAR - 16, 640, {
         "visualType": "pageNavigator",
         "objects": {
-            "layout": [{"properties": {"orientation": D(1), "cellPadding": D(8)}}],
+            "layout": [{"properties": {"orientation": D(1), "cellPadding": D(6)}}],
             "shape": [{"properties": {"tileShape": S("rectangleRounded"), "roundEdge": L("6L")}, "selector": {"id": "default"}}],
             "text": [
-                {"properties": {"fontColor": COR(BRANCO), "fontSize": D(11), "bold": B(True)}, "selector": {"id": "default"}},
-                {"properties": {"fontColor": COR(NAVY), "fontSize": D(11), "bold": B(True)}, "selector": {"id": "selected"}},
+                {"properties": {"fontColor": COR(BRANCO), "fontSize": D(10), "bold": B(True)}, "selector": {"id": "default"}},
+                {"properties": {"fontColor": COR(NAVY), "fontSize": D(10), "bold": B(True)}, "selector": {"id": "selected"}},
             ],
             "fill": [
                 {"properties": {"fillColor": COR(NAVY2), "transparency": D(0)}, "selector": {"id": "default"}},
@@ -342,11 +350,10 @@ def moldura(p: Pagina, com_filtros=True):
         "drillFilterOtherVisuals": True,
     }, how="InsertVisualButton")
 
-    # Cabeçalho
     p.add("header", SIDEBAR, 0, W - SIDEBAR, 80, shape(NAVY))
-    p.add("titulo", X0, 6, 1250, 70, textbox([
+    p.add("titulo", X0, 6, 1350, 70, textbox([
         [(p.titulo, st(20, BRANCO, True))],
-        [("Designações, Relatórios Entregues e Cumprimento de Prazo · Monitoramentos (1º, 2º e 3º Ciclos)", st(11, "#BFD0E6"))],
+        [(SUBTITULO[fase], st(11, "#BFD0E6"))],
     ]))
     p.add("atualizacao", W - 330, 18, 320, 46, card("Última Atualização", tam=12, cor=BRANCO, fundo=None, borda=False))
 
@@ -354,20 +361,28 @@ def moldura(p: Pagina, com_filtros=True):
         return
     y, h = 90, 66
     x = X0
-    p.add("f_periodo", x, y, 300, h, slicer(col("dCalendario", "Data"), "Período (Data Final da Designação)", "Periodo", "Between"))
+    titulo_periodo = {"geral": "Período (Designação)", "aud": "Período (Data de Designação)",
+                      "monit": "Período (Data Final da Designação)"}[fase]
+    p.add("f_periodo", x, y, 300, h, slicer(col("dCalendario", "Data"), titulo_periodo, "Periodo", "Between"))
     x += 310
-    for chave, campo, tit in [
-        ("f_ciclo", col("fDesignacoes", "Ciclo"), "Ciclo"),
-        ("f_funcao", col("fDesignacoes", "Função"), "Função"),
+    lista = []
+    if fase == "monit":
+        lista.append(("f_ciclo", col("fDesignacoes", "Ciclo"), "Ciclo"))
+    elif fase == "aud":
+        lista.append(("f_relatorio", col("fAuditoria", "Relatório"), "Relatório (RAI/RAF)"))
+    lista += [
+        ("f_funcao", col("dFuncao", "Função"), "Função"),
         ("f_auditor", col("dAuditor", "Auditor"), "Auditor"),
         ("f_unidade", col("dAuditor", "Lotação"), "Unidade (Lotação)"),
-        ("f_situacao", col("fDesignacoes", "Situação"), "Situação da Designação"),
-    ]:
+        ("f_situacao", col("dSituacao", "Situação"), "Situação"),
+    ]
+    larg = 232 if len(lista) == 5 else 290
+    for chave, campo, tit in lista:
         filtros = None
         if chave == "f_auditor":
             filtros = [filtro_in("dAuditor", "Possui Designação", ["Sim"], "fPossuiDesig")]
-        p.add(chave, x, y, 232, h, slicer(campo, tit, tit), filtros=filtros)
-        x += 242
+        p.add(chave, x, y, larg, h, slicer(campo, tit, tit), filtros=filtros)
+        x += larg + 10
     p.add("limpar", x, y + 8, XMAX - x, h - 16, {
         "visualType": "actionButton",
         "objects": {
@@ -383,135 +398,239 @@ def moldura(p: Pagina, com_filtros=True):
     }, how="InsertVisualButton")
 
 
-def kpis(p: Pagina, y=166, h=112):
-    itens = [
-        ("Designações", "Sub Designações", "Total de Designações", NAVY),
-        ("Relatórios Entregues", "Sub Entregues", "Relatórios Entregues", AZUL),
-        ("Entregues no Prazo", "Sub No Prazo", "Entregues no Prazo", VERDE),
-        ("Entregues Fora do Prazo", "Sub Fora do Prazo", "Entregues Fora do Prazo", VERMELHO),
-        ("Pendências Vencidas", "Sub Pendências Vencidas", "Pendências Vencidas", AMARELO),
-        ("Dias Médios para Entrega", "Sub Prazo Médio", "Prazo Médio de Entrega (dias)", NAVY),
-    ]
+KPIS_MONIT = [
+    ("Designações", "Sub Designações", "Designações (Monitoramento)", NAVY),
+    ("Relatórios Entregues", "Sub Entregues", "Relatórios Entregues", AZUL),
+    ("Entregues no Prazo", "Sub No Prazo", "Entregues no Prazo", VERDE),
+    ("Entregues Fora do Prazo", "Sub Fora do Prazo", "Entregues Fora do Prazo", VERMELHO),
+    ("Pendências Vencidas", "Sub Pendências Vencidas", "Pendências Vencidas", AMARELO),
+    ("Dias Médios para Entrega", "Sub Prazo Médio", "Prazo Médio de Entrega (dias)", NAVY),
+]
+KPIS_AUD = [
+    ("Aud Designações", "Sub Aud Designações", "Designações (Auditoria)", NAVY),
+    ("RAI Entregues", "Sub RAI Entregues", "RAI Entregues", AZUL),
+    ("RAF Entregues", "Sub RAF Entregues", "RAF Entregues", VERDE),
+    ("Aud Pendências Vencidas", "Sub Aud Pendências", "Pendências Vencidas", AMARELO),
+    ("RAI Dias Médios para Entrega", "Sub RAI Dias", "Dias Médios até o RAI", NAVY),
+    ("Aud Média de Matrizes por Relatório", "Sub Aud Matrizes", "Matrizes de Qualidade / Relatório", VERMELHO),
+]
+
+
+def kpis(p: Pagina, itens, y=166, h=112, prefixo="kpi"):
     gap = 10
     w = (XMAX - X0 - gap * (len(itens) - 1)) / len(itens)
+    tam = 26 if h >= 105 else 22
     for i, (m, sub, tit, cor) in enumerate(itens):
         x = X0 + i * (w + gap)
-        p.add(f"kpi_bg_{i}", x, y, w, h, shape(BRANCO, raio=8, borda=BORDA))
-        p.add(f"kpi_bar_{i}", x, y, 6, h, shape(cor))
-        p.add(f"kpi_{i}", x + 8, y + 2, w - 12, h - 34, card(m, tit, tam=26, cor=cor, fundo=None, borda=False))
-        p.add(f"kpi_sub_{i}", x + 8, y + h - 34, w - 12, 30, card(sub, tam=9, cor=CINZA_TXT, fundo=None, borda=False))
+        p.add(f"{prefixo}_bg_{i}", x, y, w, h, shape(BRANCO, raio=8, borda=BORDA))
+        p.add(f"{prefixo}_bar_{i}", x, y, 6, h, shape(cor))
+        p.add(f"{prefixo}_{i}", x + 8, y + 2, w - 12, h - 32, card(m, tit, tam=tam, cor=cor, fundo=None, borda=False))
+        p.add(f"{prefixo}_sub_{i}", x + 8, y + h - 32, w - 12, 28, card(sub, tam=9, cor=CINZA_TXT, fundo=None, borda=False))
+
+
+def rotulo_secao(p: Pagina, chave, y, texto, cor=NAVY):
+    p.add(chave, X0, y, XMAX - X0, 26, textbox([[(texto, st(12, cor, True))]]))
+
+
+def taxas(p: Pagina, x, y, w, h, itens, titulo="TAXAS GERAIS"):
+    p.add("taxas_bg", x, y, w, h, shape(BRANCO, raio=8, borda=BORDA))
+    p.add("taxas_tit", x + 8, y + 6, w - 16, 34, textbox([[(titulo, st(12, NAVY, True))]]))
+    gw = (w - 20) / len(itens)
+    for i, (m, t, c) in enumerate(itens):
+        p.add(f"gauge_{i}", x + 10 + i * gw, y + 50, gw, h - 60, gauge(m, t, c))
+
+
+AUDITOR = col("dAuditor", "Auditor")
+FUNCAO = col("dFuncao", "Função")
+YG = 288          # topo da 2ª faixa nas páginas com KPI
+XG = X0 + 1230    # coluna da direita
+WG = XMAX - XG
 
 
 # ---------------- Páginas ----------------
-def pg_visao_geral():
-    p = Pagina("visao_geral", "ANÁLISE DE PRODUTIVIDADE POR AUDITOR")
-    p.nome_exib = "Visão Geral"
-    moldura(p)
-    kpis(p)
-    y2, h2 = 288, 330
-    p.add("donut", X0, y2, 440, h2, donut_situacao())
-    p.add("evolucao", X0 + 450, y2, 770, h2, grafico(
+def pg_resumo():
+    p = Pagina("resumo", "RESUMO DE PRODUTIVIDADE POR AUDITOR")
+    p.nome_exib = "Resumo Geral"
+    moldura(p, "geral")
+    rotulo_secao(p, "sec_aud", 162, "AUDITORIA  ·  Relatório Inicial (RAI) e Relatório Final (RAF)")
+    kpis(p, KPIS_AUD, y=188, h=100, prefixo="kaud")
+    rotulo_secao(p, "sec_mon", 294, "MONITORAMENTO  ·  1º, 2º e 3º Ciclos")
+    kpis(p, KPIS_MONIT, y=320, h=100, prefixo="kmon")
+    y = 430
+    p.add("matriz", X0, y, XMAX - X0, H - y - 8, matriz(
+        [AUDITOR, FUNCAO],
+        [("Aud Designações", "AUD · Designações"),
+         ("RAI Entregues", "RAI · Entregues"), ("RAI Taxa de Pontualidade", "RAI · % no Prazo"),
+         ("RAI Dias Médios para Entrega", "RAI · Dias Médios"),
+         ("RAF Entregues", "RAF · Entregues"), ("RAF Taxa de Pontualidade", "RAF · % no Prazo"),
+         ("RAF Dias Médios para Entrega", "RAF · Dias Médios"),
+         ("Aud Pendências Vencidas", "AUD · Pend. Vencidas"),
+         ("Aud Média de Matrizes por Relatório", "AUD · Matrizes/Rel."),
+         ("Designações", "MON · Designações"), ("Relatórios Entregues", "MON · Entregues"),
+         ("Taxa de Pontualidade", "MON · % no Prazo"), ("Dias Médios para Entrega", "MON · Dias Médios"),
+         ("Pendências Vencidas", "MON · Pend. Vencidas")],
+        "RESUMO POR AUDITOR · AUDITORIA x MONITORAMENTO (expanda para ver Coordenador x Equipe)",
+        ordem_medida="Aud Designações"))
+    return p
+
+
+def pg_auditoria():
+    p = Pagina("auditoria", "AUDITORIA · PRODUTIVIDADE")
+    p.nome_exib = "Auditoria"
+    moldura(p, "aud")
+    kpis(p, KPIS_AUD)
+    h2 = 330
+    p.add("donut", X0, YG, 440, h2, donut_situacao("Aud Relatórios", "RELATÓRIOS POR SITUAÇÃO (RAI + RAF)"))
+    p.add("evolucao", X0 + 450, YG, 770, h2, grafico(
+        "columnChart", col("dCalendario", "Mês/Ano"),
+        [("Aud No Prazo (por Data Entrega)", "Entregues no prazo"),
+         ("Aud Fora do Prazo (por Data Entrega)", "Fora do prazo"),
+         ("Aud Pendências Vencidas (por Data Limite)", "Pendentes vencidos")],
+        "EVOLUÇÃO MENSAL DE ENTREGAS (RAI + RAF)", cores=[VERDE, VERMELHO, AMARELO],
+        ordem=(col("dCalendario", "Mês/Ano"), "Ascending")))
+    taxas(p, XG, YG, WG, h2, [("RAI Taxa de Pontualidade", "Pontualidade RAI", AZUL),
+                              ("RAF Taxa de Pontualidade", "Pontualidade RAF", VERDE),
+                              ("Aud Taxa de Pendência Vencida", "Pendência Vencida", VERMELHO)])
+    y3 = YG + h2 + 10
+    p.add("matriz", X0, y3, 1220, H - y3 - 8, matriz(
+        [AUDITOR, FUNCAO],
+        [("Aud Designações", "Designações"),
+         ("RAI Entregues", "RAI Entregues"), ("RAI No Prazo", "RAI No Prazo"), ("RAI Fora do Prazo", "RAI Fora"),
+         ("RAI Pendências Vencidas", "RAI Pend. Venc."), ("RAI Taxa de Pontualidade", "RAI % Prazo"),
+         ("RAI Dias Médios para Entrega", "RAI Dias"),
+         ("RAF Entregues", "RAF Entregues"), ("RAF No Prazo", "RAF No Prazo"), ("RAF Fora do Prazo", "RAF Fora"),
+         ("RAF Pendências Vencidas", "RAF Pend. Venc."), ("RAF Taxa de Pontualidade", "RAF % Prazo"),
+         ("RAF Dias Médios para Entrega", "RAF Dias"),
+         ("Aud Média de Matrizes por Relatório", "Matrizes/Rel.")],
+        "DESEMPENHO POR AUDITOR NA AUDITORIA", ordem_medida="Aud Designações"))
+    hh = (H - y3 - 8 - 10) / 2
+    ano = col("dCalendario", "Ano")
+    p.add("dias_ano", XG, y3, WG, hh, grafico(
+        "clusteredColumnChart", ano,
+        [("RAI Dias Médios para Entrega", "RAI"), ("RAF Dias Médios para Entrega", "RAF")],
+        "DIAS MÉDIOS ATÉ A ENTREGA, POR ANO DA DESIGNAÇÃO", cores=[AZUL, NAVY], ordem=(ano, "Ascending")))
+    p.add("matriz_ano", XG, y3 + hh + 10, WG, hh, grafico(
+        "clusteredColumnChart", ano,
+        [("RAI Média de Matrizes", "RAI"), ("RAF Média de Matrizes", "RAF")],
+        "MATRIZES DE QUALIDADE POR RELATÓRIO, POR ANO", cores=[AZUL, NAVY], ordem=(ano, "Ascending")))
+    return p
+
+
+def pg_auditoria_detalhe():
+    p = Pagina("auditoria_detalhe", "AUDITORIA · DETALHES DOS RELATÓRIOS")
+    p.nome_exib = "Auditoria · Detalhes"
+    moldura(p, "aud")
+    f = "fAuditoria"
+    y = 166
+    p.add("lista", X0, y, XMAX - X0, H - y - 8, tabela(
+        [(col(f, "Nº PROA"), "Nº PROA"), (col("dProcesso", "Auditado"), "Auditado"), (col("dProcesso", "CRS"), "CRS"),
+         (col("dProcesso", "Tipo de Auditoria"), "Tipo"), (col(f, "Relatório"), "Relatório"),
+         (col(f, "Função"), "Função"), (col(f, "Auditor"), "Auditor"),
+         (col(f, "Data Designação"), "Designação"), (col(f, "Data Limite"), "Data Limite"),
+         (col(f, "Data Entrega"), "Entrega"), (col(f, "Nº Relatório"), "Nº Relatório"),
+         (col(f, "Situação"), "Situação"), (col(f, "Dias para Entrega"), "Dias p/ Entrega"),
+         (col(f, "Dias de Atraso"), "Dias de Atraso"), (col(f, "Matrizes de Qualidade"), "Matrizes"),
+         (col(f, "Status do Processo"), "Status do Processo"), (col(f, "Alerta de Qualidade"), "Alerta de Qualidade")],
+        "TODOS OS RELATÓRIOS DE AUDITORIA (use os filtros acima)", ordem=(col(f, "Data Designação"), "Descending")))
+    return p
+
+
+def pg_monitoramento():
+    p = Pagina("visao_geral", "MONITORAMENTO · PRODUTIVIDADE")
+    p.nome_exib = "Monitoramento"
+    moldura(p, "monit")
+    kpis(p, KPIS_MONIT)
+    h2 = 330
+    p.add("donut", X0, YG, 440, h2, donut_situacao("Designações", "DESIGNAÇÕES POR SITUAÇÃO"))
+    p.add("evolucao", X0 + 450, YG, 770, h2, grafico(
         "columnChart", col("dCalendario", "Mês/Ano"),
         [("Entregas no Prazo (por Data Relatório)", "Entregues no prazo"),
          ("Entregas Fora do Prazo (por Data Relatório)", "Fora do prazo"),
          ("Pendências Vencidas (por Data Limite)", "Pendentes vencidos")],
         "EVOLUÇÃO DE ENTREGAS POR MÊS", cores=[VERDE, VERMELHO, AMARELO],
         ordem=(col("dCalendario", "Mês/Ano"), "Ascending")))
-    xg = X0 + 1230
-    wg = XMAX - xg
-    p.add("taxas_bg", xg, y2, wg, h2, shape(BRANCO, raio=8, borda=BORDA))
-    p.add("taxas_tit", xg + 8, y2 + 6, wg - 16, 34, textbox([[("TAXAS GERAIS", st(12, NAVY, True))]]))
-    gw = (wg - 20) / 3
-    for i, (m, t, c) in enumerate([("Taxa de Entrega", "Taxa de Entrega", AZUL),
-                                   ("Taxa de Pontualidade", "Taxa de Pontualidade", AZUL),
-                                   ("Taxa de Pendência Vencida", "Taxa de Pendência Vencida", VERMELHO)]):
-        p.add(f"gauge_{i}", xg + 10 + i * gw, y2 + 50, gw, h2 - 60, gauge(m, t, c))
-
-    y3, h3 = 628, 320
+    taxas(p, XG, YG, WG, h2, [("Taxa de Entrega", "Taxa de Entrega", AZUL),
+                              ("Taxa de Pontualidade", "Taxa de Pontualidade", AZUL),
+                              ("Taxa de Pendência Vencida", "Taxa de Pendência Vencida", VERMELHO)])
+    y3, h3 = YG + h2 + 10, 320
     p.add("matriz", X0, y3, 1220, h3, matriz(
-        [col("dAuditor", "Auditor"), col("fDesignacoes", "Função")],
+        [AUDITOR, FUNCAO],
         [("Designações", "Designações"), ("Designações Encerradas", "Encerradas"), ("Relatórios Entregues", "Entregues"),
          ("Entregues no Prazo", "No Prazo"), ("Entregues Fora do Prazo", "Fora do Prazo"),
          ("Pendências Vencidas", "Pend. Vencidas"), ("Taxa de Entrega", "Taxa de Entrega"),
          ("Taxa de Pontualidade", "Taxa de Pontualidade"), ("Dias Médios para Entrega", "Média de Dias (Entrega)")],
         "DESEMPENHO POR AUDITOR · Visão consolidada (Coordenador + Equipe)", ordem_medida="Designações"))
     hh = (h3 - 10) / 2
-    p.add("ciclo_barras", xg, y3, wg, hh, grafico(
-        "clusteredBarChart", col("fDesignacoes", "Ciclo"),
-        [("Designações", "Designações"), ("Relatórios Entregues", "Entregues")],
-        "DESIGNAÇÕES POR CICLO", cores=[NAVY, VERDE_CLARO], ordem=(col("fDesignacoes", "Ciclo"), "Ascending")))
-    p.add("ciclo_dias", xg, y3 + hh + 10, wg, hh, grafico(
-        "clusteredColumnChart", col("fDesignacoes", "Ciclo"),
-        [("Dias Médios para Entrega", "Dias médios")],
-        "MÉDIA DE DIAS PARA ENTREGA POR CICLO", cores=[NAVY], legenda=False,
-        ordem=(col("fDesignacoes", "Ciclo"), "Ascending")))
-
+    ciclo = col("fDesignacoes", "Ciclo")
+    p.add("ciclo_barras", XG, y3, WG, hh, grafico(
+        "clusteredBarChart", ciclo, [("Designações", "Designações"), ("Relatórios Entregues", "Entregues")],
+        "DESIGNAÇÕES POR CICLO", cores=[NAVY, VERDE_CLARO], ordem=(ciclo, "Ascending")))
+    p.add("ciclo_dias", XG, y3 + hh + 10, WG, hh, grafico(
+        "clusteredColumnChart", ciclo, [("Dias Médios para Entrega", "Dias médios")],
+        "MÉDIA DE DIAS PARA ENTREGA POR CICLO", cores=[NAVY], legenda=False, ordem=(ciclo, "Ascending")))
     y4 = y3 + h3 + 10
     h4 = H - y4 - 8
     p.add("como_calc", X0, y4, 1220, h4, textbox([
         [("COMO É CALCULADO   ", st(11, NAVY, True)),
          ("Prazo: ", st(9, TEXTO, True)), ("Data Final da Designação + 30 dias.   ", st(9)),
-         ("Pontualidade: ", st(9, TEXTO, True)), ("relatório entregue até a Data Limite.   ", st(9)),
          ("Taxa de Entrega: ", st(9, TEXTO, True)), ("Entregues ÷ (Entregues + Pendências vencidas).   ", st(9)),
          ("Taxa de Pontualidade: ", st(9, TEXTO, True)), ("No prazo ÷ Entregues.", st(9))],
         [("Dias para entrega = Data do Relatório − Data Inicial da Designação. Cada membro da equipe conta uma designação. "
           "Pendente (vencida) = sem relatório e Data Limite já ultrapassada na data da atualização.", st(9, CINZA_TXT))],
     ], fundo=BRANCO))
-    p.add("obs", xg, y4, wg, h4, textbox([
+    p.add("obs", XG, y4, WG, h4, textbox([
         [("ÍNDICE DE PRODUTIVIDADE", st(11, NAVY, True))],
-        [("40% Entrega + 40% Pontualidade + 20% Participação. Ranking na página Por Auditor.", st(9, CINZA_TXT))],
+        [("40% Entrega + 40% Pontualidade + 20% Participação. Ranking em Monitoramento · Por Auditor.", st(9, CINZA_TXT))],
     ], fundo=BRANCO))
     return p
 
 
-def pg_auditor():
-    p = Pagina("por_auditor", "PRODUTIVIDADE POR AUDITOR")
-    p.nome_exib = "Por Auditor"
-    moldura(p)
+def pg_monit_auditor():
+    p = Pagina("por_auditor", "MONITORAMENTO · POR AUDITOR")
+    p.nome_exib = "Monitoramento · Por Auditor"
+    moldura(p, "monit")
     y = 166
     h = H - y - 8
     p.add("matriz", X0, y, 1150, h, matriz(
-        [col("dAuditor", "Auditor"), col("fDesignacoes", "Função")],
+        [AUDITOR, FUNCAO],
         [("Designações", "Designações"), ("Relatórios Entregues", "Entregues"),
          ("Entregues no Prazo", "No Prazo"), ("Entregues Fora do Prazo", "Fora do Prazo"),
          ("Relatórios Pendentes", "Pendências"), ("Pendências Vencidas", "Pend. Vencidas"),
          ("Taxa de Entrega", "Taxa de Entrega"), ("Taxa de Pontualidade", "Taxa de Pontualidade"),
          ("Dias Médios para Entrega", "Tempo Médio de Entrega"), ("Dias Médios de Atraso", "Dias Médios de Atraso"),
          ("Índice de Produtividade", "Índice"), ("Ranking Produtividade", "Ranking")],
-        "DESEMPENHO POR AUDITOR (expanda para ver Coordenador x Equipe)", ordem_medida="Designações"))
+        "DESEMPENHO POR AUDITOR NO MONITORAMENTO (expanda para ver Coordenador x Equipe)", ordem_medida="Designações"))
     x2 = X0 + 1160
     w2 = XMAX - x2
     h2 = (h - 10) / 2
     p.add("ranking", x2, y, w2, h2, grafico(
-        "clusteredBarChart", col("dAuditor", "Auditor"), [("Índice de Produtividade", "Índice")],
+        "clusteredBarChart", AUDITOR, [("Índice de Produtividade", "Índice")],
         "CLASSIFICAÇÃO POR ÍNDICE DE PRODUTIVIDADE", cores=[AZUL], legenda=False,
         ordem=(med("Índice de Produtividade"), "Descending")))
     p.add("por_funcao", x2, y + h2 + 10, w2, h2, grafico(
-        "barChart", col("dAuditor", "Auditor"),
-        [("Designações Coordenador", "Coordenador"), ("Designações Equipe", "Equipe")],
+        "barChart", AUDITOR, [("Designações Coordenador", "Coordenador"), ("Designações Equipe", "Equipe")],
         "DESIGNAÇÕES POR AUDITOR E FUNÇÃO", cores=[NAVY, VERDE_CLARO],
         ordem=(med("Designações Coordenador"), "Descending")))
     return p
 
 
-def pg_ciclo():
-    p = Pagina("por_ciclo", "PRODUTIVIDADE POR CICLO")
-    p.nome_exib = "Por Ciclo"
-    moldura(p)
-    kpis(p)
-    y = 288
-    h = (H - y - 18) / 2
+def pg_monit_ciclo():
+    p = Pagina("por_ciclo", "MONITORAMENTO · POR CICLO")
+    p.nome_exib = "Monitoramento · Por Ciclo"
+    moldura(p, "monit")
+    kpis(p, KPIS_MONIT)
+    h = (H - YG - 18) / 2
     wl = 900
     ciclo = col("fDesignacoes", "Ciclo")
     ordem = (ciclo, "Ascending")
-    p.add("desig_ent", X0, y, wl, h, grafico(
+    p.add("desig_ent", X0, YG, wl, h, grafico(
         "clusteredColumnChart", ciclo,
         [("Designações", "Designações"), ("Relatórios Entregues", "Entregues"), ("Pendências Vencidas", "Pend. vencidas")],
         "DESIGNAÇÕES E ENTREGAS POR CICLO", cores=[NAVY, VERDE_CLARO, AMARELO], ordem=ordem))
-    p.add("funcao", X0 + wl + 10, y, XMAX - X0 - wl - 10, h, grafico(
+    p.add("funcao", X0 + wl + 10, YG, XMAX - X0 - wl - 10, h, grafico(
         "columnChart", ciclo, [("Designações Coordenador", "Coordenador"), ("Designações Equipe", "Equipe")],
         "DESIGNAÇÕES POR FUNÇÃO (COORDENADOR x EQUIPE)", cores=[NAVY, VERDE_CLARO], ordem=ordem))
-    y2 = y + h + 10
+    y2 = YG + h + 10
     p.add("taxas", X0, y2, wl, h, grafico(
         "clusteredColumnChart", ciclo, [("Taxa de Entrega", "Taxa de Entrega"), ("Taxa de Pontualidade", "Taxa de Pontualidade")],
         "TAXA DE ENTREGA E PONTUALIDADE POR CICLO", cores=[AZUL, VERDE], ordem=ordem))
@@ -522,38 +641,10 @@ def pg_ciclo():
     return p
 
 
-def pg_pendencias():
-    p = Pagina("pendencias", "PENDÊNCIAS E ATRASOS")
-    p.nome_exib = "Pendências"
-    moldura(p)
-    y = 166
-    h = H - y - 8
-    wl = 560
-    hh = (h - 10) / 2
-    p.add("pend_aud", X0, y, wl, hh, grafico(
-        "barChart", col("dAuditor", "Auditor"),
-        [("Pendências Vencidas", "Vencidas"), ("Em Andamento", "Em andamento")],
-        "RELATÓRIOS PENDENTES POR AUDITOR", cores=[AMARELO, CINZA],
-        ordem=(med("Pendências Vencidas"), "Descending")))
-    p.add("fora_aud", X0, y + hh + 10, wl, hh, grafico(
-        "barChart", col("dAuditor", "Auditor"), [("Entregues Fora do Prazo", "Fora do prazo")],
-        "ENTREGAS FORA DO PRAZO POR AUDITOR", cores=[VERMELHO], legenda=False,
-        ordem=(med("Entregues Fora do Prazo"), "Descending")))
-    f = "fDesignacoes"
-    p.add("lista", X0 + wl + 10, y, XMAX - X0 - wl - 10, h, tabela(
-        [(col(f, "Situação"), "Situação"), (col(f, "Auditor"), "Auditor"), (col(f, "Função"), "Função"),
-         (col(f, "Nº PROA"), "Nº PROA"), (col(f, "Ciclo"), "Ciclo"), (col("dProcesso", "Auditado"), "Auditado"),
-         (col(f, "Data Final Designação"), "Data Final Designação"), (col(f, "Data Limite"), "Data Limite"),
-         (col(f, "Data Relatório"), "Data Relatório"), (col(f, "Dias de Atraso"), "Dias de Atraso")],
-        "DESIGNAÇÕES PENDENTES OU ENTREGUES FORA DO PRAZO", ordem=(col(f, "Dias de Atraso"), "Descending")),
-        filtros=[filtro_in(f, "Situação", ["Pendente (vencida)", "Em andamento", "Fora do prazo"], "fSitPend")])
-    return p
-
-
-def pg_detalhe():
-    p = Pagina("detalhamento", "DETALHAMENTO DAS DESIGNAÇÕES")
-    p.nome_exib = "Detalhamento"
-    moldura(p)
+def pg_monit_detalhe():
+    p = Pagina("detalhamento", "MONITORAMENTO · DETALHES DAS DESIGNAÇÕES")
+    p.nome_exib = "Monitoramento · Detalhes"
+    moldura(p, "monit")
     y = 166
     f = "fDesignacoes"
     p.add("lista", X0, y, XMAX - X0, H - y - 8, tabela(
@@ -564,49 +655,97 @@ def pg_detalhe():
          (col(f, "Data Relatório"), "Data Relatório"), (col(f, "Situação"), "Situação"),
          (col(f, "Dias para Entrega"), "Dias p/ Entrega"), (col(f, "Dias de Atraso"), "Dias de Atraso"),
          (col(f, "Status do Ciclo"), "Status do Ciclo"), (col(f, "Alerta de Qualidade"), "Alerta de Qualidade")],
-        "TODAS AS DESIGNAÇÕES (use os filtros acima)", ordem=(col(f, "Data Final Designação"), "Descending")))
+        "TODAS AS DESIGNAÇÕES DE MONITORAMENTO (use os filtros acima)",
+        ordem=(col(f, "Data Final Designação"), "Descending")))
+    return p
+
+
+def pg_pendencias():
+    p = Pagina("pendencias", "PENDÊNCIAS E ATRASOS")
+    p.nome_exib = "Pendências"
+    moldura(p, "geral")
+    y = 166
+    h = H - y - 8
+    wl = 540
+    p.add("pend_aud", X0, y, wl, h, grafico(
+        "barChart", AUDITOR,
+        [("RAI Pendências Vencidas", "RAI"), ("RAF Pendências Vencidas", "RAF"),
+         ("Pendências Vencidas", "Monitoramento")],
+        "PENDÊNCIAS VENCIDAS POR AUDITOR", cores=[AZUL, NAVY, AMARELO],
+        ordem=(med("RAF Pendências Vencidas"), "Descending")))
+    x2 = X0 + wl + 10
+    w2 = XMAX - x2
+    hh = (h - 10) / 2
+    a, m = "fAuditoria", "fDesignacoes"
+    p.add("lista_aud", x2, y, w2, hh, tabela(
+        [(col(a, "Situação"), "Situação"), (col(a, "Relatório"), "Relatório"), (col(a, "Auditor"), "Auditor"),
+         (col(a, "Função"), "Função"), (col(a, "Nº PROA"), "Nº PROA"), (col("dProcesso", "Auditado"), "Auditado"),
+         (col(a, "Data Designação"), "Designação"), (col(a, "Data Limite"), "Data Limite"),
+         (col(a, "Dias de Atraso"), "Dias de Atraso"), (col(a, "Status do Processo"), "Status do Processo")],
+        "AUDITORIA · RELATÓRIOS PENDENTES", ordem=(col(a, "Dias de Atraso"), "Descending")),
+        filtros=[filtro_in(a, "Situação", ["Pendente (vencida)", "Em andamento"], "fSitPendAud")])
+    p.add("lista_mon", x2, y + hh + 10, w2, hh, tabela(
+        [(col(m, "Situação"), "Situação"), (col(m, "Ciclo"), "Ciclo"), (col(m, "Auditor"), "Auditor"),
+         (col(m, "Função"), "Função"), (col(m, "Nº PROA"), "Nº PROA"), (col("dProcesso", "Auditado"), "Auditado"),
+         (col(m, "Data Final Designação"), "Fim Designação"), (col(m, "Data Limite"), "Data Limite"),
+         (col(m, "Data Relatório"), "Data Relatório"), (col(m, "Dias de Atraso"), "Dias de Atraso")],
+        "MONITORAMENTO · PENDENTES OU ENTREGUES FORA DO PRAZO", ordem=(col(m, "Dias de Atraso"), "Descending")),
+        filtros=[filtro_in(m, "Situação", ["Pendente (vencida)", "Em andamento", "Fora do prazo"], "fSitPendMon")])
     return p
 
 
 def pg_metodologia():
     p = Pagina("metodologia", "METODOLOGIA")
     p.nome_exib = "Metodologia"
-    moldura(p, com_filtros=False)
-    t, n, c = (lambda s: (s, st(14, NAVY, True))), (lambda s: (s, st(11, TEXTO, True))), (lambda s: (s, st(11)))
-    p.add("texto", X0, 100, XMAX - X0, H - 110, textbox([
+    moldura(p, "geral", com_filtros=False)
+    t, n, c = (lambda s: (s, st(13, NAVY, True))), (lambda s: (s, st(10, TEXTO, True))), (lambda s: (s, st(10)))
+    w = (XMAX - X0 - 10) / 2
+    p.add("texto_aud", X0, 92, w, H - 100, textbox([
         [t("Fonte")],
-        [c("Planilha 'ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA', aba PROCESSOS. Auditores conforme lista de SERVIDORES (aba APOIO).")],
+        [c("Planilha 'ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA', aba PROCESSOS. Nomes padronizados pela lista de SERVIDORES (aba APOIO).")],
         [c(" ")],
-        [t("Campos utilizados por ciclo")],
-        [n("1º Ciclo: "), c("Coordenador (56), Equipe (57), Data Inicial Designação (52), Data Final Designação (53), Data Relatório (55).")],
-        [n("2º Ciclo: "), c("Coordenador (81), Equipe (82), Data Inicial Designação (77), Data Final Designação (78), Data Relatório (80).")],
-        [n("3º Ciclo: "), c("Coordenador (105), Equipe (106), Data Inicial Designação (101), Data Final Designação (102), Data Relatório (104).")],
+        [t("Auditoria")],
+        [n("Campos: "), c("Coordenador (14), Equipe (18), Data de Designação (17), Entrega do RAI (19), Entrega do RAF (21), "
+                          "Qtde Matriz Qualidade RIA/RFA, Status (42).")],
+        [n("Prazo do RAI: "), c("Data de Designação + 30 dias.")],
+        [n("Prazo do RAF: "), c("Data de Designação + 60 dias (mesmo cálculo da coluna 22).")],
+        [n("Não se aplica: "), c("sem data de entrega em processo ARQUIVADO ou FASE DE AUDITORIA FINALIZADA (fora das taxas).")],
+        [n("Dias para entrega: "), c("Data de Entrega − Data de Designação.")],
+        [n("Matrizes de Qualidade: "), c("total de matrizes ÷ relatórios avaliados (indicador de retrabalho).")],
         [c(" ")],
-        [t("Regras")],
-        [n("Data Limite: "), c("Data Final da Designação + 30 dias.")],
-        [n("No prazo: "), c("Data do Relatório ≤ Data Limite.   "), n("Fora do prazo: "), c("Data do Relatório > Data Limite.")],
-        [n("Pendente (vencida): "), c("sem data de relatório e Data Limite anterior à data da atualização.   "),
-         n("Em andamento: "), c("sem relatório, ainda no prazo.")],
-        [n("Sem prazo definido: "), c("designação sem Data Final informada (fora das taxas).")],
+        [t("Situação (vale para as duas fases)")],
+        [n("No prazo: "), c("entrega ≤ Data Limite.   "), n("Fora do prazo: "), c("entrega > Data Limite.")],
+        [n("Pendente (vencida): "), c("sem entrega e Data Limite anterior à data da atualização.")],
+        [n("Em andamento: "), c("sem entrega, ainda no prazo.   "), n("Sem prazo definido: "), c("sem data de designação.")],
+        [c(" ")],
+        [t("Filtro de Período")],
+        [c("Auditoria: Data de Designação. Monitoramento: Data Final da Designação. Os gráficos de evolução mensal usam a "
+           "data de entrega (entregas) e a Data Limite (pendências vencidas).")],
+    ], fundo=BRANCO))
+    p.add("texto_mon", X0 + w + 10, 92, w, H - 100, textbox([
+        [t("Monitoramento")],
+        [n("1º Ciclo: "), c("Coordenador (56), Equipe (57), Início (52), Fim (53), Relatório (55).")],
+        [n("2º Ciclo: "), c("Coordenador (81), Equipe (82), Início (77), Fim (78), Relatório (80).")],
+        [n("3º Ciclo: "), c("Coordenador (105), Equipe (106), Início (101), Fim (102), Relatório (104).")],
+        [n("Prazo: "), c("Data Final da Designação + 30 dias.")],
+        [n("Dias para entrega: "), c("Data do Relatório − Data Inicial da Designação.")],
         [c(" ")],
         [t("Indicadores")],
         [n("Designações: "), c("cada auditor em cada função de cada processo/ciclo conta 1 (equipe de 3 = 3 designações).")],
-        [n("Taxa de Entrega: "), c("Entregues ÷ (Entregues + Pendências vencidas).   "), n("Taxa de Pontualidade: "), c("No prazo ÷ Entregues.")],
-        [n("Taxa de Pendência Vencida: "), c("Pendências vencidas ÷ Designações.")],
-        [n("Dias para Entrega: "), c("Data do Relatório − Data Inicial da Designação.   "),
-         n("Dias de Atraso: "), c("Data do Relatório − Data Limite (entregas fora do prazo).")],
-        [n("Índice de Produtividade: "), c("40% Taxa de Entrega + 40% Taxa de Pontualidade + 20% Participação "
-                                           "(designações do auditor ÷ maior nº de designações entre os auditores filtrados).")],
-        [c(" ")],
-        [t("Filtro de Período")],
-        [c("Filtra pela Data Final da Designação. O gráfico de evolução mensal usa a Data do Relatório (entregas) "
-           "e a Data Limite (pendências vencidas).")],
+        [n("Taxa de Entrega: "), c("Entregues ÷ (Entregues + Pendências vencidas).")],
+        [n("Taxa de Pontualidade: "), c("No prazo ÷ Entregues.")],
+        [n("Taxa de Pendência Vencida: "), c("Pendências vencidas ÷ designações (auditoria: ÷ relatórios aplicáveis).")],
+        [n("Dias de Atraso: "), c("entrega − Data Limite (entregas fora do prazo).")],
+        [n("Índice de Produtividade (monitoramento): "), c("40% Taxa de Entrega + 40% Pontualidade + 20% Participação "
+                                                          "(designações do auditor ÷ maior nº entre os auditores filtrados).")],
     ], fundo=BRANCO))
     return p
 
 
 def main():
-    paginas = [pg_visao_geral(), pg_auditor(), pg_ciclo(), pg_pendencias(), pg_detalhe(), pg_metodologia()]
+    paginas = [pg_resumo(), pg_auditoria(), pg_auditoria_detalhe(), pg_monitoramento(), pg_monit_auditor(),
+               pg_monit_ciclo(), pg_monit_detalhe(), pg_pendencias(), pg_metodologia()]
+
     def _forcar(func, caminho, _exc):  # OneDrive marca pastas como somente-leitura
         os.chmod(caminho, stat.S_IWRITE)
         func(caminho)
