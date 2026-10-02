@@ -187,6 +187,30 @@ table _Medidas
 		displayFolder: 5. Info
 		lineageTag: a04b4855-d8b9-4c54-a1c4-1a39a10ed811
 
+	measure 'Sub Designações' = FORMAT([Designações Coordenador], "#,0") & " coordenador · " & FORMAT([Designações Equipe], "#,0") & " equipe"
+		displayFolder: 6. Rótulos
+		lineageTag: 0399a53f-b3d0-4e7f-a2ad-18552530bc19
+
+	measure 'Sub Entregues' = FORMAT([% Entregues s/ Designações], "0.00%") & " das designações"
+		displayFolder: 6. Rótulos
+		lineageTag: 9291be2d-ca1c-4fcf-8c32-13a6911ce203
+
+	measure 'Sub No Prazo' = FORMAT([% No Prazo s/ Designações], "0.00%") & " das designações"
+		displayFolder: 6. Rótulos
+		lineageTag: c5f6cc1b-8a57-4a4e-817d-ef926a91b330
+
+	measure 'Sub Fora do Prazo' = FORMAT([% Fora do Prazo s/ Designações], "0.00%") & " das designações"
+		displayFolder: 6. Rótulos
+		lineageTag: 1f7634a8-f3bd-4b24-af71-f3f116a1fdf3
+
+	measure 'Sub Pendências Vencidas' = FORMAT([Taxa de Pendência Vencida], "0.00%") & " das designações"
+		displayFolder: 6. Rótulos
+		lineageTag: e20fcaf6-13c4-40b3-ac12-a66e3dda1037
+
+	measure 'Sub Prazo Médio' = "Prazo padrão: " & [Prazo Padrão (dias)] & " dias após a designação"
+		displayFolder: 6. Rótulos
+		lineageTag: 1f500fa2-8583-4706-82e4-a0527ccc44f3
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a

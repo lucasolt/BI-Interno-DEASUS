@@ -1,0 +1,135 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "669a5343fbaf9bec91ef",
+  "position": {
+    "x": 195,
+    "y": 958,
+    "z": 49000,
+    "height": 114,
+    "width": 1220,
+    "tabOrder": 49000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "COMO É CALCULADO   ",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#0B2E59",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "Prazo: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "Data Final da Designação + 30 dias.   ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D"
+                    }
+                  },
+                  {
+                    "value": "Pontualidade: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "relatório entregue até a Data Limite.   ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D"
+                    }
+                  },
+                  {
+                    "value": "Taxa de Entrega: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "Entregues ÷ (Entregues + Pendências vencidas).   ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D"
+                    }
+                  },
+                  {
+                    "value": "Taxa de Pontualidade: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "No prazo ÷ Entregues.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Dias para entrega = Data do Relatório − Data Inicial da Designação. Cada membro da equipe conta uma designação. Pendente (vencida) = sem relatório e Data Limite já ultrapassada na data da atualização.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#5B6B7F"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
