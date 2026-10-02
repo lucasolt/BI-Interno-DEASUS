@@ -2,7 +2,7 @@
 table dSituacao
 	lineageTag: 11b9ac59-782e-4022-9594-df841916345a
 
-	column 'Situação'
+	column Situação
 		dataType: string
 		isKey
 		lineageTag: 82679a84-b9b3-4c73-b837-191f9d81e870
@@ -39,3 +39,4 @@ table dSituacao
 				        {"Não se aplica", 5, "Outros", "Não"},
 				        {"Sem prazo definido", 6, "Outros", "Não"}
 				    })
+

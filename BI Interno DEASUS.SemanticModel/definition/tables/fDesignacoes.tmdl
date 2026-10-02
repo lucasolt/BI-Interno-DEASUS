@@ -52,25 +52,45 @@ table fDesignacoes
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: 0df3f199-1675-47c1-8df6-cfae97823e10
+		summarizeBy: none
 		sourceColumn: Data Inicial Designação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Final Designação'
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: 07d7186d-e04c-4436-bdda-0dce152a8a30
+		summarizeBy: none
 		sourceColumn: Data Final Designação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Limite'
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: a3f687b3-77bc-4243-8802-461f074669c2
+		summarizeBy: none
 		sourceColumn: Data Limite
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Relatório'
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: 8e574272-b7ac-4bbd-aed8-3fc8484cfc9a
+		summarizeBy: none
 		sourceColumn: Data Relatório
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Nº Relatório'
 		dataType: string
@@ -122,7 +142,12 @@ table fDesignacoes
 		isHidden
 		formatString: dd/mm/yyyy
 		lineageTag: c19132a0-d51c-4298-8c93-8cdf4ea31e51
+		summarizeBy: none
 		sourceColumn: Data de Referência
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	partition fDesignacoes = m
 		mode: import
@@ -131,7 +156,7 @@ table fDesignacoes
 				    Origem = stgProcessos,
 				    Col = (codigo as text) as text =>
 				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
-
+				
 				    Ciclos = {
 				        [Ciclo = 1, Ini = "52",  Fim = "53",  NRel = "54",  Rel = "55",  Coord = "56",  Equipe = "57",  Status = "65"],
 				        [Ciclo = 2, Ini = "77",  Fim = "78",  NRel = "79",  Rel = "80",  Coord = "81",  Equipe = "82",  Status = "89"],
@@ -139,7 +164,7 @@ table fDesignacoes
 				    },
 				    NomesPadrao = {"Nº PROA", "Data Inicial Designação", "Data Final Designação", "Nº Relatório",
 				                   "Data Relatório", "Coordenador", "EquipeTexto", "Status do Ciclo"},
-
+				
 				    // ---- 1. Empilha os 3 ciclos (largo -> longo) ----
 				    PorCiclo = List.Transform(Ciclos, (c) =>
 				        let
@@ -150,7 +175,7 @@ table fDesignacoes
 				        in
 				            ComCiclo),
 				    Empilhado = Table.Combine(PorCiclo),
-
+				
 				    // ---- 2. Limpeza de tipos ("-", vazio e textos inválidos viram null) ----
 				    ParaTexto = (v as any) as nullable text =>
 				        let t = if v = null then null else Text.Trim(Text.From(v))
@@ -171,11 +196,11 @@ table fDesignacoes
 				        {"EquipeTexto", ParaTexto, type nullable text},
 				        {"Status do Ciclo", ParaTexto, type nullable text}
 				    }),
-
+				
 				    // Só ciclos com designação (coordenador, equipe ou data final preenchidos)
 				    ComDesignacao = Table.SelectRows(Tipado, each
 				        [Coordenador] <> null or [EquipeTexto] <> null or [Data Final Designação] <> null),
-
+				
 				    // ---- 3. Participantes e nome oficial (funções compartilhadas com fAuditoria) ----
 				    ComParticipantes = Table.AddColumn(ComDesignacao, "Participantes", each fxParticipantes([Coordenador], [EquipeTexto])),
 				    Expandido = Table.ExpandRecordColumn(
@@ -185,7 +210,7 @@ table fDesignacoes
 				    SemNomeOriginal = Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}),
 				    // mesma pessoa repetida na mesma função do mesmo ciclo conta uma vez
 				    SemDuplicadas = Table.Distinct(SemNomeOriginal, {"Nº PROA", "Ciclo Nº", "Função", "Auditor"}),
-
+				
 				    // ---- 4. Prazo e classificação ----
 				    Hoje = Date.From(DateTime.LocalNow()),
 				    ComLimite = Table.AddColumn(SemDuplicadas, "Data Limite", each
@@ -218,14 +243,14 @@ table fDesignacoes
 				            then "Relatório anterior ao início da designação"
 				        else null,
 				        type nullable text),
-
+				
 				    // ---- 5. Colunas de apoio ----
 				    ComCiclo = Table.AddColumn(ComAlerta, "Ciclo", each Text.From([Ciclo Nº]) & "º Ciclo", type text),
 				    ComFuncaoOrdem = Table.AddColumn(ComCiclo, "Função Ordem", each if [Função] = "Coordenador" then 1 else 2, Int64.Type),
 				    ComId = Table.AddColumn(ComFuncaoOrdem, "ID Designação", each [Nº PROA] & " | " & [Ciclo], type text),
 				    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
 				    Tipos = Table.TransformColumnTypes(ComRef, {{"Função", type text}, {"Nome na Planilha", type nullable text}}),
-
+				
 				    Final = Table.SelectColumns(Tipos, {
 				        "ID Designação", "Nº PROA", "Ciclo", "Ciclo Nº", "Função", "Função Ordem", "Auditor", "Nome na Planilha",
 				        "Data Inicial Designação", "Data Final Designação", "Data Limite", "Data Relatório", "Nº Relatório",
@@ -233,3 +258,6 @@ table fDesignacoes
 				        "Status do Ciclo", "Alerta de Qualidade", "Data de Referência"})
 				in
 				    Final
+
+	annotation PBI_ResultType = Table
+

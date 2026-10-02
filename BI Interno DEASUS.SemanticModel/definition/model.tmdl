@@ -17,10 +17,10 @@ ref table fDesignacoes
 ref table dAuditor
 ref table dProcesso
 ref table dCalendario
+ref table _Medidas
 ref table fAuditoria
 ref table dFuncao
 ref table dSituacao
-ref table _Medidas
 
 ref cultureInfo pt-BR
 

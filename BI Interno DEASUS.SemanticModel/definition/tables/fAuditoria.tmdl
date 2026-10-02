@@ -12,7 +12,7 @@ table fAuditoria
 		lineageTag: ab5eb4bf-4b47-48ec-882c-7d1c224ef7c6
 		sourceColumn: Nº PROA
 
-	column 'Relatório'
+	column Relatório
 		dataType: string
 		lineageTag: 661aa94d-3618-4b92-bcd6-004f731054b9
 		sourceColumn: Relatório
@@ -25,7 +25,7 @@ table fAuditoria
 		summarizeBy: none
 		sourceColumn: Relatório Ordem
 
-	column 'Função'
+	column Função
 		dataType: string
 		lineageTag: ad277e10-8655-40f4-bec0-29de064d8b7d
 		sourceColumn: Função
@@ -44,26 +44,41 @@ table fAuditoria
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: 8257c6ba-e5b7-41a1-a3e7-d79919961614
+		summarizeBy: none
 		sourceColumn: Data Designação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Limite'
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: 85b05891-4b92-4e76-aa5c-b2c9b559c6d4
+		summarizeBy: none
 		sourceColumn: Data Limite
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Entrega'
 		dataType: dateTime
 		formatString: dd/mm/yyyy
 		lineageTag: 87d86c53-bf4b-4bc4-b7e0-de8bb24bf03a
+		summarizeBy: none
 		sourceColumn: Data Entrega
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Nº Relatório'
 		dataType: string
 		lineageTag: 01a9238e-62ee-480a-be6f-67bc571bfdd0
 		sourceColumn: Nº Relatório
 
-	column 'Situação'
+	column Situação
 		dataType: string
 		lineageTag: fb29f4b6-f029-4d19-aa22-0a518abb7fd6
 		sourceColumn: Situação
@@ -98,10 +113,15 @@ table fAuditoria
 
 	column 'Data de Referência'
 		dataType: dateTime
-		formatString: dd/mm/yyyy
 		isHidden
+		formatString: dd/mm/yyyy
 		lineageTag: 838fa1db-3e72-4bbd-8810-6137108d66e7
+		summarizeBy: none
 		sourceColumn: Data de Referência
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	partition fAuditoria = m
 		mode: import
@@ -118,7 +138,7 @@ table fAuditoria
 				        {Col("42"), "Status do Processo"}
 				    },
 				    Sel = Table.RenameColumns(Table.SelectColumns(Origem, List.Transform(Mapa, each _{0})), Mapa),
-
+				
 				    ParaTexto = (v as any) as nullable text =>
 				        let t = if v = null then null else Text.Trim(Text.From(v))
 				        in if t = null or t = "" or t = "-" then null else t,
@@ -139,7 +159,7 @@ table fAuditoria
 				        {"Status do Processo", ParaTexto, type nullable text}
 				    }),
 				    ComDesignacao = Table.SelectRows(Tipado, each [Data Designação] <> null or [Coordenador] <> null),
-
+				
 				    // Participantes
 				    ComParticipantes = Table.AddColumn(ComDesignacao, "Participantes", each fxParticipantes([Coordenador], [EquipeTexto])),
 				    Expandido = Table.ExpandRecordColumn(
@@ -147,7 +167,7 @@ table fAuditoria
 				        "Participantes", {"Função", "Nome"}),
 				    ComAuditor = Table.AddColumn(Expandido, "Auditor", each fxAuditorOficial([Nome]), type text),
 				    SemDuplicadas = Table.Distinct(Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}), {"Nº PROA", "Função", "Auditor"}),
-
+				
 				    // Um registro por relatório (RAI e RAF)
 				    ComRelatorios = Table.AddColumn(SemDuplicadas, "Rel", each {
 				        [Relatório = "RAI", #"Relatório Ordem" = 1, Prazo = PrazoRAIDias, #"Data Entrega" = [Data RAI],
@@ -157,7 +177,7 @@ table fAuditoria
 				    }),
 				    PorRelatorio = Table.ExpandRecordColumn(Table.ExpandListColumn(ComRelatorios, "Rel"), "Rel",
 				        {"Relatório", "Relatório Ordem", "Prazo", "Data Entrega", "Nº Relatório", "Matrizes de Qualidade"}),
-
+				
 				    // Prazo e classificação
 				    Hoje = Date.From(DateTime.LocalNow()),
 				    Encerrados = {"ARQUIVADO", "FASE DE AUDITORIA FINALIZADA"},
@@ -187,14 +207,14 @@ table fAuditoria
 				        else if [Relatório] = "RAF" and [Data Entrega] <> null and [Data RAI] = null then "RAF sem data de RAI"
 				        else null,
 				        type nullable text),
-
+				
 				    ComId = Table.AddColumn(ComAlerta, "ID Relatório", each [Nº PROA] & " | " & [Relatório], type text),
 				    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
 				    Tipos = Table.TransformColumnTypes(ComRef, {
 				        {"Função", type text}, {"Nome na Planilha", type nullable text}, {"Relatório", type text},
 				        {"Relatório Ordem", Int64.Type}, {"Data Entrega", type nullable date}, {"Nº Relatório", type nullable text},
 				        {"Matrizes de Qualidade", Int64.Type}}),
-
+				
 				    Final = Table.SelectColumns(Tipos, {
 				        "ID Relatório", "Nº PROA", "Relatório", "Relatório Ordem", "Função", "Auditor", "Nome na Planilha",
 				        "Data Designação", "Data Limite", "Data Entrega", "Nº Relatório", "Situação",
@@ -202,3 +222,6 @@ table fAuditoria
 				        "Alerta de Qualidade", "Data de Referência"})
 				in
 				    Final
+
+	annotation PBI_ResultType = Table
+

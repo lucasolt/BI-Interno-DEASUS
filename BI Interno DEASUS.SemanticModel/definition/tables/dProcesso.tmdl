@@ -95,3 +95,4 @@ table dProcesso
 				    Distintos = Table.Distinct(ComDesignacao, {"Nº PROA"})
 				in
 				    Distintos
+

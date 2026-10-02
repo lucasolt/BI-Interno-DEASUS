@@ -2,7 +2,7 @@
 table dFuncao
 	lineageTag: 2759748b-2c79-4c3f-8c87-25bfef2e5db8
 
-	column 'Função'
+	column Função
 		dataType: string
 		isKey
 		lineageTag: f1d19e16-42c2-4b9a-97c5-0a33b310af20
@@ -18,5 +18,5 @@ table dFuncao
 
 	partition dFuncao = m
 		mode: import
-		source =
-				#table(type table [Função = text, #"Função Ordem" = Int64.Type], {{"Coordenador", 1}, {"Equipe", 2}})
+		source = #table(type table [Função = text, #"Função Ordem" = Int64.Type], {{"Coordenador", 1}, {"Equipe", 2}})
+
