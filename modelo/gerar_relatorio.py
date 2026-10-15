@@ -359,11 +359,10 @@ def moldura(p: Pagina, fase="geral", com_filtros=True):
 
     if not com_filtros:
         return
-    # barra lateral: eixo temático e auditores ativos (padrão: só ativos)
-    p.add("f_eixo", 8, 760, SIDEBAR - 16, 66, slicer(col("dProcesso", "Eixo Temático"), "Eixo Temático", "Eixo Temático"))
+    # barra lateral: auditores ativos (padrão: só ativos)
     ativo = slicer(col("dAuditor", "Ativo"), "Auditores ativos", "Auditores ativos")
     ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim"], "x")["filter"]}}}]
-    p.add("f_ativo", 8, 836, SIDEBAR - 16, 66, ativo)
+    p.add("f_ativo", 8, 760, SIDEBAR - 16, 66, ativo)
     y, h = 90, 66
     x = X0
     titulo_periodo = {"geral": "Período (Designação)", "aud": "Período (Data de Designação)",
@@ -378,7 +377,7 @@ def moldura(p: Pagina, fase="geral", com_filtros=True):
     lista += [
         ("f_funcao", col("dFuncao", "Função"), "Função"),
         ("f_auditor", col("dAuditor", "Auditor"), "Auditor"),
-        ("f_unidade", col("dAuditor", "Lotação"), "Unidade (Lotação)"),
+        ("f_eixo", col("dProcesso", "Eixo Temático"), "Eixo Temático"),
         ("f_situacao", col("dSituacao", "Situação"), "Situação"),
     ]
     larg = 232 if len(lista) == 5 else 290
@@ -738,7 +737,7 @@ def pg_metodologia():
         [c("Auditoria: Data de Designação. Monitoramento: Data Inicial da Designação do ciclo. Os gráficos de evolução mensal usam a "
            "data de entrega (entregas) e a Data Limite (pendências vencidas).")],
         [c(" ")],
-        [t("Filtros da barra lateral")],
+        [t("Filtros")],
         [c("Eixo Temático: agrupa as variações do campo 04 (ex.: Uti, Auditoria Aih → AIH). Sem eixo em Auditoria Especial = Solicitação Externa.")],
         [c("Auditores ativos: coluna 'Ativo?' da aba APOIO. Vem marcado em 'Sim'; limpe o filtro para incluir inativos e não cadastrados.")],
     ], fundo=BRANCO))

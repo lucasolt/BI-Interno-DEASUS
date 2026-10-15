@@ -20,15 +20,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dAuditor"
+                      "Entity": "dProcesso"
                     }
                   },
-                  "Property": "Lotação"
+                  "Property": "Eixo Temático"
                 }
               },
-              "queryRef": "dAuditor.Lotação",
-              "nativeQueryRef": "Unidade (Lotação)",
-              "displayName": "Unidade (Lotação)",
+              "queryRef": "dProcesso.Eixo Temático",
+              "nativeQueryRef": "Eixo Temático",
+              "displayName": "Eixo Temático",
               "active": true
             }
           ]
@@ -259,7 +259,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "Unidade (Lotação)",
+      "groupName": "Eixo Temático",
       "fieldChanges": true,
       "filterChanges": true
     },
