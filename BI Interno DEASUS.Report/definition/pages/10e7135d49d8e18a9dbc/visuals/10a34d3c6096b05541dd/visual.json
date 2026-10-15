@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "10a34d3c6096b05541dd",
   "position": {
-    "x": 645,
+    "x": 195,
     "y": 288,
     "z": 40000,
     "height": 330,
-    "width": 770,
+    "width": 1220,
     "tabOrder": 40000
   },
   "visual": {
@@ -42,12 +42,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas Até o Prazo (por Data Entrega)"
+                  "Property": "Aud Entregas Até 60 Dias (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas Até o Prazo (por Data Entrega)",
-              "nativeQueryRef": "Até o prazo",
-              "displayName": "Até o prazo"
+              "queryRef": "_Medidas.Aud Entregas Até 60 Dias (por Data Entrega)",
+              "nativeQueryRef": "Até 60 dias",
+              "displayName": "Até 60 dias"
             },
             {
               "field": {
@@ -57,12 +57,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas Até 2x o Prazo (por Data Entrega)"
+                  "Property": "Aud Entregas 61 a 120 Dias (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas Até 2x o Prazo (por Data Entrega)",
-              "nativeQueryRef": "Até 2× o prazo",
-              "displayName": "Até 2× o prazo"
+              "queryRef": "_Medidas.Aud Entregas 61 a 120 Dias (por Data Entrega)",
+              "nativeQueryRef": "61 a 120 dias",
+              "displayName": "61 a 120 dias"
             },
             {
               "field": {
@@ -72,12 +72,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas Até 4x o Prazo (por Data Entrega)"
+                  "Property": "Aud Entregas 121 a 180 Dias (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas Até 4x o Prazo (por Data Entrega)",
-              "nativeQueryRef": "Até 4× o prazo",
-              "displayName": "Até 4× o prazo"
+              "queryRef": "_Medidas.Aud Entregas 121 a 180 Dias (por Data Entrega)",
+              "nativeQueryRef": "121 a 180 dias",
+              "displayName": "121 a 180 dias"
             },
             {
               "field": {
@@ -87,12 +87,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas Mais de 4x o Prazo (por Data Entrega)"
+                  "Property": "Aud Entregas Mais de 180 Dias (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas Mais de 4x o Prazo (por Data Entrega)",
-              "nativeQueryRef": "Mais de 4× o prazo",
-              "displayName": "Mais de 4× o prazo"
+              "queryRef": "_Medidas.Aud Entregas Mais de 180 Dias (por Data Entrega)",
+              "nativeQueryRef": "Mais de 180 dias",
+              "displayName": "Mais de 180 dias"
             }
           ]
         }
@@ -240,7 +240,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas Até o Prazo (por Data Entrega)"
+            "metadata": "_Medidas.Aud Entregas Até 60 Dias (por Data Entrega)"
           }
         },
         {
@@ -258,7 +258,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas Até 2x o Prazo (por Data Entrega)"
+            "metadata": "_Medidas.Aud Entregas 61 a 120 Dias (por Data Entrega)"
           }
         },
         {
@@ -276,7 +276,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas Até 4x o Prazo (por Data Entrega)"
+            "metadata": "_Medidas.Aud Entregas 121 a 180 Dias (por Data Entrega)"
           }
         },
         {
@@ -294,7 +294,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas Mais de 4x o Prazo (por Data Entrega)"
+            "metadata": "_Medidas.Aud Entregas Mais de 180 Dias (por Data Entrega)"
           }
         }
       ]
@@ -442,7 +442,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'ENTREGAS POR MÊS · TEMPO ATÉ A ENTREGA (em múltiplos do prazo: RAI 30 / RAF 60 dias)'"
+                  "Value": "'ENTREGAS POR MÊS · DIAS ENTRE A DESIGNAÇÃO E A ENTREGA (prazos: RAI 30 / RAF 60)'"
                 }
               }
             },

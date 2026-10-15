@@ -492,14 +492,13 @@ def pg_auditoria():
     moldura(p, "aud")
     kpis(p, KPIS_AUD_PAGINA)
     h2 = 330
-    p.add("donut", X0, YG, 440, h2, donut_situacao("Aud Relatórios", "RELATÓRIOS POR SITUAÇÃO (RAI + RAF)"))
-    p.add("evolucao", X0 + 450, YG, 770, h2, grafico(
+    p.add("evolucao", X0, YG, 1220, h2, grafico(
         "columnChart", col("dCalendario", "Mês/Ano"),
-        [("Aud Entregas Até o Prazo (por Data Entrega)", "Até o prazo"),
-         ("Aud Entregas Até 2x o Prazo (por Data Entrega)", "Até 2× o prazo"),
-         ("Aud Entregas Até 4x o Prazo (por Data Entrega)", "Até 4× o prazo"),
-         ("Aud Entregas Mais de 4x o Prazo (por Data Entrega)", "Mais de 4× o prazo")],
-        "ENTREGAS POR MÊS · TEMPO ATÉ A ENTREGA (em múltiplos do prazo: RAI 30 / RAF 60 dias)",
+        [("Aud Entregas Até 60 Dias (por Data Entrega)", "Até 60 dias"),
+         ("Aud Entregas 61 a 120 Dias (por Data Entrega)", "61 a 120 dias"),
+         ("Aud Entregas 121 a 180 Dias (por Data Entrega)", "121 a 180 dias"),
+         ("Aud Entregas Mais de 180 Dias (por Data Entrega)", "Mais de 180 dias")],
+        "ENTREGAS POR MÊS · DIAS ENTRE A DESIGNAÇÃO E A ENTREGA (prazos: RAI 30 / RAF 60)",
         cores=["#BDD7EE", "#6FA8DC", "#2E75B6", "#0B2E59"],
         ordem=(col("dCalendario", "Mês/Ano"), "Ascending")))
     taxas(p, XG, YG, WG, h2, [("RAI Taxa de Pontualidade", "Pontualidade RAI", AZUL),

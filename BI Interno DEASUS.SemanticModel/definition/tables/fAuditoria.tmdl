@@ -134,7 +134,7 @@ table fAuditoria
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Tempo até a entrega em múltiplos do prazo do relatório (RAI 30 / RAF 60 dias).
+	/// Faixa de dias entre a designação e a entrega (até 60 / 61-120 / 121-180 / mais de 180).
 	column 'Faixa de Tempo'
 		dataType: string
 		lineageTag: fc0d8c63-8789-4dd0-b0ef-1f25c765ff1b
@@ -272,12 +272,12 @@ table fAuditoria
 				        if [Situação] = "Pendente (vencida)" or [Situação] = "Em andamento" then Duration.Days(Hoje - [Data Designação])
 				        else null,
 				        Int64.Type),
-				    // faixa de tempo até a entrega em múltiplos do prazo (RAI 30 / RAF 60): mesma régua para os dois
-				    Faixas = {"Até o prazo", "Até 2× o prazo", "Até 4× o prazo", "Mais de 4× o prazo"},
+				    // faixa de dias até a entrega (mesma régua para RAI e RAF)
+				    Faixas = {"Até 60 dias", "61 a 120 dias", "121 a 180 dias", "Mais de 180 dias"},
 				    ComFaixa = Table.AddColumn(ComDiasAberto, "Faixa de Tempo", each
-				        if [Dias para Entrega] = null or [Dias para Entrega] < 0 or [Prazo] = null then null
-				        else let r = [Dias para Entrega] / [Prazo] in
-				            if r <= 1 then Faixas{0} else if r <= 2 then Faixas{1} else if r <= 4 then Faixas{2} else Faixas{3},
+				        let d = [Dias para Entrega] in
+				        if d = null or d < 0 then null
+				        else if d <= 60 then Faixas{0} else if d <= 120 then Faixas{1} else if d <= 180 then Faixas{2} else Faixas{3},
 				        type nullable text),
 				    ComFaixaOrdem = Table.AddColumn(ComFaixa, "Faixa Ordem", each
 				        if [Faixa de Tempo] = null then null else List.PositionOf(Faixas, [Faixa de Tempo]) + 1, Int64.Type),
