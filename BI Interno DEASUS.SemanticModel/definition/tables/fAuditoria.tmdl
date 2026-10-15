@@ -5,40 +5,60 @@ table fAuditoria
 	column 'ID Relatório'
 		dataType: string
 		lineageTag: bce242c8-7efd-425d-a25b-02ad0150aeaf
+		summarizeBy: none
 		sourceColumn: ID Relatório
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Nº PROA'
 		dataType: string
 		lineageTag: ab5eb4bf-4b47-48ec-882c-7d1c224ef7c6
+		summarizeBy: none
 		sourceColumn: Nº PROA
+
+		annotation SummarizationSetBy = Automatic
 
 	column Relatório
 		dataType: string
 		lineageTag: 661aa94d-3618-4b92-bcd6-004f731054b9
+		summarizeBy: none
 		sourceColumn: Relatório
 		sortByColumn: 'Relatório Ordem'
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Relatório Ordem'
 		dataType: int64
 		isHidden
 		lineageTag: e81b57bc-cc81-404e-9d5c-7a4c820ee0af
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Relatório Ordem
+
+		annotation SummarizationSetBy = Automatic
 
 	column Função
 		dataType: string
 		lineageTag: ad277e10-8655-40f4-bec0-29de064d8b7d
+		summarizeBy: none
 		sourceColumn: Função
+
+		annotation SummarizationSetBy = Automatic
 
 	column Auditor
 		dataType: string
 		lineageTag: bf0930c8-803b-42d0-8c26-8987308a8139
+		summarizeBy: none
 		sourceColumn: Auditor
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Nome na Planilha'
 		dataType: string
 		lineageTag: 813878ae-6296-4071-986d-8c65563a865b
+		summarizeBy: none
 		sourceColumn: Nome na Planilha
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Designação'
 		dataType: dateTime
@@ -76,40 +96,58 @@ table fAuditoria
 	column 'Nº Relatório'
 		dataType: string
 		lineageTag: 01a9238e-62ee-480a-be6f-67bc571bfdd0
+		summarizeBy: none
 		sourceColumn: Nº Relatório
+
+		annotation SummarizationSetBy = Automatic
 
 	column Situação
 		dataType: string
 		lineageTag: fb29f4b6-f029-4d19-aa22-0a518abb7fd6
+		summarizeBy: none
 		sourceColumn: Situação
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Dias para Entrega'
 		dataType: int64
 		lineageTag: c5ea1f2f-87fd-4d35-b07c-665fee569e56
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Dias para Entrega
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Dias de Atraso'
 		dataType: int64
 		lineageTag: 0de461c0-7468-470d-a76d-24e04c67a7a1
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Dias de Atraso
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Matrizes de Qualidade'
 		dataType: int64
 		lineageTag: 9a902fb2-c82d-4c32-8ac6-7c611d71ecdb
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Matrizes de Qualidade
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Status do Processo'
 		dataType: string
 		lineageTag: 55b11201-27ae-4fb6-b120-1fa2dd458246
+		summarizeBy: none
 		sourceColumn: Status do Processo
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Alerta de Qualidade'
 		dataType: string
 		lineageTag: 59749fb7-2c68-4bbf-a2d5-6c6d2dc21b0f
+		summarizeBy: none
 		sourceColumn: Alerta de Qualidade
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data de Referência'
 		dataType: dateTime
@@ -224,4 +262,6 @@ table fAuditoria
 				    Final
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
 

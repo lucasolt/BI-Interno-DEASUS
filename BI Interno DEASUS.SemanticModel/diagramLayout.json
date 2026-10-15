@@ -1,0 +1,126 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 931.32544190119438,
+            "y": 108.24991169212819
+          },
+          "nodeIndex": "_Medidas",
+          "nodeLineageTag": "405d4984-d72f-4a45-b69d-3197dcea8b74",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 410.27172497865178
+          },
+          "nodeIndex": "dAuditor",
+          "nodeLineageTag": "944426cb-b61b-409b-9e96-52f0ffb0682d",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 646.5894486005941,
+            "y": 495.674376083041
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "27df70cc-7ae1-41ef-92b2-e282e18dc834",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1133.2228399272449,
+            "y": 679.558445016069
+          },
+          "nodeIndex": "dFuncao",
+          "nodeLineageTag": "2759748b-2c79-4c3f-8c87-25bfef2e5db8",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 618.09143554997945,
+            "y": -43.767573580145836
+          },
+          "nodeIndex": "dProcesso",
+          "nodeLineageTag": "ab1e82e2-96df-4bb1-b95b-324195632b8b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 79.328848337216357,
+            "y": -50
+          },
+          "nodeIndex": "dSituacao",
+          "nodeLineageTag": "11b9ac59-782e-4022-9594-df841916345a",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 355.06877657791563,
+            "y": 319.96983788759127
+          },
+          "nodeIndex": "fAuditoria",
+          "nodeLineageTag": "4c3a5e88-3ec3-4a5c-9b65-d7a2cd6943a7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 247.97762634263563,
+            "y": 793.853161244722
+          },
+          "nodeIndex": "fDesignacoes",
+          "nodeLineageTag": "9e4cc604-26bf-4c2c-9cdd-2260581385ab",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 70.95554390096882,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

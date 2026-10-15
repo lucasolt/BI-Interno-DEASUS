@@ -6,62 +6,98 @@ table dProcesso
 		dataType: string
 		isKey
 		lineageTag: 568d0969-4321-4205-ac17-e8e26dec4e8b
+		summarizeBy: none
 		sourceColumn: Nº PROA
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Classificação Monitoramento'
 		dataType: string
 		lineageTag: c9f7c176-4d6b-47f3-b621-17097d925086
+		summarizeBy: none
 		sourceColumn: Classificação Monitoramento
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Tipo de Auditoria'
 		dataType: string
 		lineageTag: 751c6972-c24d-46c1-9d91-1ea485b2642c
+		summarizeBy: none
 		sourceColumn: Tipo de Auditoria
+
+		annotation SummarizationSetBy = Automatic
 
 	column Eixo
 		dataType: string
 		lineageTag: 3a8739de-8ddc-488f-a648-9f12feb3b9a9
+		summarizeBy: none
 		sourceColumn: Eixo
+
+		annotation SummarizationSetBy = Automatic
 
 	column Auditado
 		dataType: string
 		lineageTag: 46615311-edd0-43da-a2b0-77f66be462b8
+		summarizeBy: none
 		sourceColumn: Auditado
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Tipo de Estabelecimento'
 		dataType: string
 		lineageTag: 5eb6708f-fbb2-4e3c-a72d-2b3e874af2ec
+		summarizeBy: none
 		sourceColumn: Tipo de Estabelecimento
+
+		annotation SummarizationSetBy = Automatic
 
 	column Município
 		dataType: string
 		lineageTag: 0b4b51da-92f6-4a5e-9496-047e1be1d7a1
+		summarizeBy: none
 		sourceColumn: Município
+
+		annotation SummarizationSetBy = Automatic
 
 	column CRS
 		dataType: string
 		lineageTag: f70a1846-984b-4b63-a32a-4ef23dcff1d5
+		summarizeBy: none
 		sourceColumn: CRS
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Região de Saúde'
 		dataType: string
 		lineageTag: fb39bdb2-92a6-4b70-8a2a-15cbafce3aec
+		summarizeBy: none
 		sourceColumn: Região de Saúde
+
+		annotation SummarizationSetBy = Automatic
 
 	column Macrorregião
 		dataType: string
 		lineageTag: 64eed5ea-51fc-40a2-8269-97fe3b0db006
+		summarizeBy: none
 		sourceColumn: Macrorregião
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Ciclo Atual'
 		dataType: string
 		lineageTag: dcc6768f-9706-4c3b-8de7-94783402162b
+		summarizeBy: none
 		sourceColumn: Ciclo Atual
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Status Geral do Monitoramento'
 		dataType: string
 		lineageTag: 02b84b07-e941-4de7-b9e8-14132e938735
+		summarizeBy: none
 		sourceColumn: Status Geral do Monitoramento
+
+		annotation SummarizationSetBy = Automatic
 
 	partition dProcesso = m
 		mode: import
@@ -95,4 +131,8 @@ table dProcesso
 				    Distintos = Table.Distinct(ComDesignacao, {"Nº PROA"})
 				in
 				    Distintos
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Exception
 

@@ -53,3 +53,7 @@ table dAuditor
 				in
 				    Tipado
 
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Exception
+

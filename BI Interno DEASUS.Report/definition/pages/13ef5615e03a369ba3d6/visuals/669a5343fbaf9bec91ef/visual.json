@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "669a5343fbaf9bec91ef",
   "position": {
-    "x": 195,
-    "y": 958,
+    "x": 195.50151975683892,
+    "y": 962.91793313069911,
     "z": 49000,
-    "height": 114,
-    "width": 1220,
+    "height": 109.42249240121581,
+    "width": 1219.6960486322189,
     "tabOrder": 49000
   },
   "visual": {
@@ -21,68 +21,75 @@
                   {
                     "value": "COMO É CALCULADO   ",
                     "textStyle": {
-                      "fontSize": "11pt",
-                      "color": "#0B2E59",
-                      "fontWeight": "bold"
+                      "fontWeight": "bold",
+                      "fontSize": "14pt",
+                      "color": "#0b2e59"
                     }
                   },
                   {
                     "value": "Prazo: ",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D",
-                      "fontWeight": "bold"
+                      "fontWeight": "bold",
+                      "fontSize": "14pt",
+                      "color": "#1f2d3d"
                     }
                   },
                   {
                     "value": "Data Final da Designação + 30 dias.   ",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D"
+                      "fontSize": "14pt",
+                      "color": "#1f2d3d"
                     }
                   },
                   {
                     "value": "Taxa de Entrega: ",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D",
-                      "fontWeight": "bold"
+                      "fontWeight": "bold",
+                      "fontSize": "14pt",
+                      "color": "#1f2d3d"
                     }
                   },
                   {
                     "value": "Entregues ÷ (Entregues + Pendências vencidas).   ",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D"
+                      "fontSize": "14pt",
+                      "color": "#1f2d3d"
                     }
-                  },
+                  }
+                ],
+                "indent": 1
+              },
+              {
+                "textRuns": [
                   {
                     "value": "Taxa de Pontualidade: ",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D",
-                      "fontWeight": "bold"
+                      "fontWeight": "bold",
+                      "fontSize": "14pt",
+                      "color": "#1f2d3d"
                     }
                   },
                   {
                     "value": "No prazo ÷ Entregues.",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D"
+                      "fontSize": "14pt",
+                      "color": "#1f2d3d"
                     }
                   }
-                ]
+                ],
+                "indent": 1
               },
               {
                 "textRuns": [
                   {
                     "value": "Dias para entrega = Data do Relatório − Data Inicial da Designação. Cada membro da equipe conta uma designação. Pendente (vencida) = sem relatório e Data Limite já ultrapassada na data da atualização.",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#5B6B7F"
+                      "fontSize": "14pt",
+                      "color": "#5b6b7f"
                     }
                   }
-                ]
+                ],
+                "indent": 1
               }
             ]
           }

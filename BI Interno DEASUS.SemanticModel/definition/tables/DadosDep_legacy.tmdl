@@ -1,0 +1,622 @@
+table DadosDep_legacy
+	lineageTag: 7135cd77-bf01-4e18-84cb-e630ea2e1d25
+
+	column '003 - TIPO DE AUDITORIA'
+		dataType: string
+		lineageTag: 09293ba2-c760-4148-ad8f-f3553540763a
+		summarizeBy: none
+		sourceColumn: 003 - TIPO DE AUDITORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column '004 - EIXO'
+		dataType: string
+		lineageTag: 02b6d8a2-b9ae-4ba1-80fa-3824dc22c47e
+		summarizeBy: none
+		sourceColumn: 004 - EIXO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '005 - CNES'
+		dataType: string
+		lineageTag: ea3312b5-e5db-4f48-9293-ffa17531b47e
+		summarizeBy: none
+		sourceColumn: 005 - CNES
+
+		annotation SummarizationSetBy = Automatic
+
+	column '006 - AUDITADO'
+		dataType: string
+		lineageTag: d2db93a4-c771-4f91-9062-8a21b87c11c5
+		summarizeBy: none
+		sourceColumn: 006 - AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '007 - TIPO DE ESTABELECIMENTO'
+		dataType: string
+		lineageTag: 9228a563-a41e-4d6e-8ac8-db2d63f645da
+		summarizeBy: none
+		sourceColumn: 007 - TIPO DE ESTABELECIMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '008 - MUNICÍPIO'
+		dataType: string
+		lineageTag: 7cf8751c-60cf-4531-ace5-0ab14c149539
+		summarizeBy: none
+		sourceColumn: 008 - MUNICÍPIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '012 - Nº PROA'
+		dataType: string
+		lineageTag: efe920bb-d374-4432-95d7-03edd4d060ef
+		summarizeBy: none
+		sourceColumn: 012 - Nº PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column '013 - DATA DE ABERTURA'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 339c8f0c-ed80-4e5c-b47f-964a75d63eec
+		summarizeBy: none
+		sourceColumn: 013 - DATA DE ABERTURA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '017 - DATA DE DESIGNAÇÃO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 75577c69-ea8f-4d82-80a9-6dd572f0b044
+		summarizeBy: none
+		sourceColumn: 017 - DATA DE DESIGNAÇÃO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '019 - DATA ENTREGA RELATÓRIO INICIAL EQUIPE => CHEFIA'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3be8cc79-ec97-4f56-88be-7fc96f98494d
+		summarizeBy: none
+		sourceColumn: 019 - DATA ENTREGA RELATÓRIO INICIAL EQUIPE => CHEFIA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '021 - DATA ENTREGA RELATÓRIO FINAL EQUIPE => CHEFIA'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5994243c-1fd9-4698-9fdb-2bf257acbbe9
+		summarizeBy: none
+		sourceColumn: 021 - DATA ENTREGA RELATÓRIO FINAL EQUIPE => CHEFIA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '022 - PRAZO ENTREGA RELATÓRIO FINAL'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b41fbf8c-493c-404f-99e4-0c23db8620f3
+		summarizeBy: none
+		sourceColumn: 022 - PRAZO ENTREGA RELATÓRIO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '023 - DATA ENVIO RELATORIO INICIAL AO AUDITADO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9ba89704-14de-4ae4-b0eb-6a4cc7a0135f
+		summarizeBy: none
+		sourceColumn: 023 - DATA ENVIO RELATORIO INICIAL AO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '024 - DATA RECEBIMENTO RELATORIO INICIAL'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5426eafa-783b-4951-a9ad-5287fa170a82
+		summarizeBy: none
+		sourceColumn: 024 - DATA RECEBIMENTO RELATORIO INICIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '025 - DATA RECEBIMENTO DEFESA / CERTIDÃO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0243d8ed-2b3a-4815-aa00-cfe9fc352bde
+		summarizeBy: none
+		sourceColumn: 025 - DATA RECEBIMENTO DEFESA / CERTIDÃO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '026 - DATA ENVIO RELATÓRIO FINAL AO AUDITADO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 273fb991-b994-4e1a-8e0a-8ea5a7a8ad6c
+		summarizeBy: none
+		sourceColumn: 026 - DATA ENVIO RELATÓRIO FINAL AO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '027 - DATA RECEBIMENTO RELATÓRIO FINAL'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 81f6aab6-19a2-4291-ab84-fdb2dbf4ab83
+		summarizeBy: none
+		sourceColumn: 027 - DATA RECEBIMENTO RELATÓRIO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '028 - DATA RECEBIMENTO RECURSO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7b5d4b7c-0270-4761-b995-153786c7a338
+		summarizeBy: none
+		sourceColumn: 028 - DATA RECEBIMENTO RECURSO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '029 - PRAZO FINAL'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8e3b4cb9-101a-4721-b6d5-adc88993fb0e
+		summarizeBy: none
+		sourceColumn: 029 - PRAZO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '030 - DATA ENVIO DECISÃO AO AUDITADO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4ef01e7d-3cbd-4b6b-955f-911bdef4c421
+		summarizeBy: none
+		sourceColumn: 030 - DATA ENVIO DECISÃO AO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '031 - DATA CIÊNCIA DO AUDITADO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 41c25e90-e96a-4859-8718-fda0b81eb9e8
+		summarizeBy: none
+		sourceColumn: 031 - DATA CIÊNCIA DO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '032 - PENALIDADE ADMINISTRATIVA'
+		dataType: string
+		lineageTag: afc4d7e2-5f10-4bbb-b943-fcb153b3c129
+		summarizeBy: none
+		sourceColumn: 032 - PENALIDADE ADMINISTRATIVA
+
+		annotation SummarizationSetBy = Automatic
+
+	column '033 - VALOR RESSARCIMENTO'
+		dataType: double
+		lineageTag: da24b27e-286d-441f-8167-4a6418c5242b
+		summarizeBy: sum
+		sourceColumn: 033 - VALOR RESSARCIMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '034 - VALOR MULTA'
+		dataType: double
+		lineageTag: 88d8840f-0f7f-4557-ac11-8481b67e2b70
+		summarizeBy: sum
+		sourceColumn: 034 - VALOR MULTA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '035 - VALOR TOTAL'
+		dataType: double
+		lineageTag: 28cc80d8-a81a-41e4-a68b-fed98adccb32
+		summarizeBy: sum
+		sourceColumn: 035 - VALOR TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '036 - TIPO PAGAMENTO'
+		dataType: string
+		lineageTag: 049be002-657d-452d-9b6c-0c308e4f756d
+		summarizeBy: none
+		sourceColumn: 036 - TIPO PAGAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '037 - DATA PAGAMENTO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cf0730c0-b5b0-4a41-a3df-bce1f7385d94
+		summarizeBy: none
+		sourceColumn: 037 - DATA PAGAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '040 - DATA ARQUIVAMENTO / DEVOLUÇÃO PROA'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 935090cc-75da-48ba-9efb-99eec1af4d95
+		summarizeBy: none
+		sourceColumn: 040 - DATA ARQUIVAMENTO / DEVOLUÇÃO PROA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '042 - STATUS'
+		dataType: string
+		lineageTag: 3e7476c7-fb39-483a-b6f2-597cbd3167ad
+		summarizeBy: none
+		sourceColumn: 042 - STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column '1C - Data Recebimento E-mail Ofício de Abertura'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f578ce09-1de0-4252-ae28-ec89cfbbe376
+		summarizeBy: none
+		sourceColumn: 1C - Data Recebimento E-mail Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '1C - Data Inicial Designação'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 550b855e-b050-4853-87ee-fc1565f1bf30
+		summarizeBy: none
+		sourceColumn: 1C - Data Inicial Designação
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '1C - Data Relatório'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7e191ac3-7184-4dcc-b0d2-fc738fa6326b
+		summarizeBy: none
+		sourceColumn: 1C - Data Relatório
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '1C - Data Reclassificação (não monitorável)'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ba496586-7b61-4bea-a5fc-1796a091be68
+		summarizeBy: none
+		sourceColumn: 1C - Data Reclassificação (não monitorável)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '1C - Status Atual'
+		dataType: string
+		lineageTag: a509c686-a6d9-4299-8d62-59b2044eeff5
+		summarizeBy: none
+		sourceColumn: 1C - Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2C - Data Inicial Designação'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 95dd0fa8-fb72-49a1-b8dc-607353401cfc
+		summarizeBy: none
+		sourceColumn: 2C - Data Inicial Designação
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '2C - Data Relatório'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 80398578-38eb-4953-a56a-ab9cad4ae01f
+		summarizeBy: none
+		sourceColumn: 2C - Data Relatório
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '2C - Status Atual'
+		dataType: string
+		lineageTag: 0020f32d-38a6-4dba-9aa8-6326515f8a59
+		summarizeBy: none
+		sourceColumn: 2C - Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '3C - Data Inicial Designação'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 29d09715-3fc2-470a-b310-4c24817fbfd0
+		summarizeBy: none
+		sourceColumn: 3C - Data Inicial Designação
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '3C - Data Relatório'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 49fa40b7-f4a7-4855-8710-20ca766ccc78
+		summarizeBy: none
+		sourceColumn: 3C - Data Relatório
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column '3C - Status Atual'
+		dataType: string
+		lineageTag: dc66f25c-4c08-43a7-b770-6b07473464e7
+		summarizeBy: none
+		sourceColumn: 3C - Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'M - Ciclo Atual'
+		dataType: string
+		lineageTag: ef32c193-84c0-4719-bfdc-9ff6b46d1dbf
+		summarizeBy: none
+		sourceColumn: M - Ciclo Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'M - Status Atual Geral do Monitoramento'
+		dataType: string
+		lineageTag: 8e1df514-0acf-47f9-81eb-4eaed9f80a09
+		summarizeBy: none
+		sourceColumn: M - Status Atual Geral do Monitoramento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'M - Data do Status Atual Geral'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3ecbd790-22ff-4765-981a-e0128e05ef9f
+		summarizeBy: none
+		sourceColumn: M - Data do Status Atual Geral
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'P - Processo sigiloso'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ffcec743-3a74-448f-bf53-6ffe2b9fcc75
+		summarizeBy: none
+		sourceColumn: P - Processo sigiloso
+
+		annotation SummarizationSetBy = Automatic
+
+	column Monitorável?
+		dataType: string
+		lineageTag: 275364ee-2677-4161-99b4-f9078d7d1933
+		summarizeBy: none
+		sourceColumn: Monitorável?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ciclo do monitoramento'
+		dataType: string
+		lineageTag: 3f40d8d2-4cf3-4b75-a346-f3fe1a2e4d6b
+		summarizeBy: none
+		sourceColumn: Ciclo do monitoramento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status do processo'
+		dataType: string
+		lineageTag: d923f19f-2a9a-493b-b5b7-cf1c00e538d1
+		summarizeBy: none
+		sourceColumn: Status do processo
+
+		annotation SummarizationSetBy = Automatic
+
+	column _FlagRelatorioMonitoramento
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5a5fb2a9-59b7-44da-a546-b6cc32a91969
+		summarizeBy: none
+		sourceColumn: _FlagRelatorioMonitoramento
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DadosDep_legacy = m
+		mode: import
+		queryGroup: cfg_dicts
+		source = ```
+				let
+				    Fonte = Excel.Workbook(Web.Contents("https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/30%20-%20INSTRUMENTOS%20DE%20GEST%C3%83O/05%20-%20RELAT%C3%93RIO%20DETALHADO%20DO%20QUADRIMESTRE%20ANTERIOR%20(RDQA)/2023/ESTUDO%20DOS%20PROCESSOS%20PARA%20AN%C3%81LISE%20DO%20RDQA%20-%20Copiar.xlsx"), null, true),
+				    PROCESSOS_Sheet = Fonte{[Item="PROCESSOS",Kind="Sheet"]}[Data],
+				    #"Linhas Superiores Removidas" = Table.Skip(PROCESSOS_Sheet,2),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Linhas Superiores Removidas", [PromoteAllScalars=true]),
+				
+				
+				
+				    #"ColSelecionadas" = fxSelecionarCols(#"Cabeçalhos Promovidos", dictDadosDep),
+				
+				    #"ColRenomeadas"   = fxRenameCols(#"ColSelecionadas", dictDadosDep),
+				    #"ColTipadas"      = fxTyparCols(#"ColRenomeadas", dictDadosDep),
+				
+				    #"RetirarLinhasVazias" =
+				        let
+				            Fonte   = #"ColTipadas",
+				            ColPROA = List.First(
+				                List.Select(
+				                    Table.ColumnNames(Fonte),
+				                    (c) => Text.StartsWith(c, "012")
+				                )
+				            )
+				        in
+				            Table.SelectRows(
+				                Fonte,
+				                each not List.Contains(
+				                    {null, "", "-"},
+				                    try Text.Trim(Text.From(Record.Field(_, ColPROA))) otherwise null
+				                )
+				            ),
+				
+				    #"AddMonitoravel" = Table.AddColumn(#"RetirarLinhasVazias", "Monitorável?", each 
+				    if [#"1C - Data Reclassificação (não monitorável)"] <> null
+				       and [#"1C - Data Reclassificação (não monitorável)"] <> ""
+				       and [#"1C - Data Reclassificação (não monitorável)"] > #date(1900, 1, 1)
+				        then "Não"
+				    else if [#"1C - Data Recebimento E-mail Ofício de Abertura"] <> null
+				       and [#"1C - Data Recebimento E-mail Ofício de Abertura"] <> ""
+				       and [#"1C - Data Recebimento E-mail Ofício de Abertura"] > #date(1900, 1, 1)
+				        then "Sim"
+				        else "Não"),
+				        
+				    #"AddCicloMonitoramento_tratado" = Table.AddColumn(
+				        #"AddMonitoravel",
+				        "Ciclo do monitoramento",
+				        each
+				            let
+				                _bruto = Text.Trim( Text.From( [#"M - Ciclo Atual"] ) )
+				            in
+				                if [#"Monitorável?"] <> "Sim" then null
+				                else if _bruto = null or _bruto = "" then null
+				                else if List.Contains( {"1º Ciclo", "2º Ciclo", "3º Ciclo"}, _bruto ) then _bruto
+				                else "⚠ Ciclo não previsto: " & _bruto,
+				        type text
+				    ),
+				
+				    #"AddResumoStatus" = Table.AddColumn(#"AddCicloMonitoramento_tratado", "Status do processo", 
+				    each 
+				        if [#"042 - STATUS"] = null then
+				                    null
+				        else if Text.Upper(Text.Trim([#"042 - STATUS"])) = "ARQUIVADO" then 
+				        "Arquivado" 
+				        else 
+				        "Em andamento", 
+				    type text),
+				
+				    //#"AddRotuloAuditadoPadronizadoCNES" = Table.AddColumn(
+				    //    #"AddResumoStatus",
+				    //    "_RotuloAuditadoPadronizadoCNES",
+				    //    each try dwd_cnes_rs{[CD_CNES = [#"005 - CNES"]]}[DS_CNES] otherwise null,
+				    //    type text
+				    //),
+				    //#"AddRotuloAuditadoPadronizadoConcatenadoCNES" = Table.AddColumn(
+				    //    #"AddRotuloAuditadoPadronizadoCNES",
+				    //    "_RotuloAuditadoPadronizadoConcatenadoCNES",
+				    //each [_RotuloAuditadoPadronizadoCNES] & " (CNES " & Number.ToText(Int64.From([#"005 - CNES"])) & ")",
+				    //type text
+				    //),
+				
+				    #"FiltrarAnoCorte" = Table.SelectRows(
+				    #"AddResumoStatus",
+				    each
+				        let
+				            DataConvertida = try Date.From([#"013 - DATA DE ABERTURA"], "pt-BR") otherwise null
+				        in
+				            DataConvertida <> null
+				            and Date.Year(DataConvertida) >= AnoDeCorte
+				    ),
+				
+				    #"AplicarSigilo" = fxProcessarSigiloso(#"FiltrarAnoCorte", dictDadosDep,
+				{"003 - TIPO DE AUDITORIA",
+				"004 - EIXO",
+				"005 - CNES",
+				"006 - AUDITADO",
+				"007 - TIPO DE ESTABELECIMENTO",
+				"008 - MUNICÍPIO",
+				
+				//"013 - DATA DE ABERTURA",
+				//"017 - DATA DE DESIGNAÇÃO",
+				//"019 - DATA ENTREGA RELATÓRIO INICIAL EQUIPE => CHEFIA",
+				//"021 - DATA ENTREGA RELATÓRIO FINAL EQUIPE => CHEFIA",
+				//"022 - PRAZO ENTREGA RELATÓRIO FINAL",
+				//"023 - DATA ENVIO RELATORIO INICIAL AO AUDITADO",
+				//"024 - DATA RECEBIMENTO RELATORIO INICIAL",
+				//"025 - DATA RECEBIMENTO DEFESA / CERTIDÃO",
+				//"026 - DATA ENVIO RELATÓRIO FINAL AO AUDITADO",
+				//"027 - DATA RECEBIMENTO RELATÓRIO FINAL",
+				//"028 - DATA RECEBIMENTO RECURSO",
+				//"029 - PRAZO FINAL",
+				//"030 - DATA ENVIO DECISÃO AO AUDITADO",
+				//"031 - DATA CIÊNCIA DO AUDITADO",
+				"032 - PENALIDADE ADMINISTRATIVA",
+				"033 - VALOR RESSARCIMENTO",
+				"034 - VALOR MULTA",
+				"035 - VALOR TOTAL",
+				"036 - TIPO PAGAMENTO",
+				//"037 - DATA PAGAMENTO",
+				"042 - STATUS",
+				//"1C - Data Inicial Designação",
+				//"1C - Data Recebimento E-mail Ofício de Abertura",
+				//"1C - Data Reclassificação (não monitorável)",
+				//"1C - Data Relatório",
+				"1C - Status Atual",
+				//"2C - Data Inicial Designação",
+				//"2C - Data Relatório",
+				"2C - Status Atual",
+				//"3C - Data Inicial Designação",
+				//"3C - Data Relatório",
+				"3C - Status Atual",
+				"Ciclo do monitoramento",
+				"M - Ciclo Atual",
+				//"M - Data do Status Atual Geral",
+				"M - Status Atual Geral do Monitoramento",
+				"Status do monitoramento",
+				"Status do processo"}
+				    ),
+				
+				    #"Add_FlagRelatorioMonitoramento" = Table.AddColumn( AplicarSigilo, "_FlagRelatorioMonitoramento", each [#"1C - Data Relatório"] <> null or [#"2C - Data Relatório"] <> null or [#"3C - Data Relatório"] <> null, type logical ),
+				
+				    #"AplicarCasing" = fxAplicarCasing(#"Add_FlagRelatorioMonitoramento", dictDadosDep)
+				in
+				    AplicarCasing
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

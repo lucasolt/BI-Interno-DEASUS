@@ -1,9 +1,3 @@
-/// Caminho completo da planilha fonte (ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA).
-expression CaminhoPlanilha = "C:\Users\Lucas\OneDrive\BIs\BI-DEASUS\ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA - Copiar.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: df983f62-3d60-47d1-b153-ef549442134a
-
-	annotation PBI_ResultType = Text
-
 /// Prazo padrão (dias) após a Data Final da Designação para entrega do relatório.
 expression PrazoPadraoDias = 30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
 	lineageTag: b3ac5998-cb63-4473-824b-99091055791d
@@ -33,21 +27,23 @@ expression fxNormalizaNome =
 /// Aba PROCESSOS crua, apenas linhas com Nº PROA. Não carregada.
 expression stgProcessos =
 		let
-		    Fonte = Excel.Workbook(File.Contents(CaminhoPlanilha), null, true),
-		    Planilha = Fonte{[Item = "PROCESSOS", Kind = "Sheet"]}[Data],
-		    SemAviso = Table.Skip(Planilha, 2),
-		    Cabecalhos = Table.PromoteHeaders(SemAviso, [PromoteAllScalars = true]),
-		    ColProa = List.First(List.Select(Table.ColumnNames(Cabecalhos), each Text.StartsWith(_, "(12)"))),
-		    ComProa = Table.SelectRows(Cabecalhos, each
+		    Fonte = DadosDep,
+		    ColProa = List.First(List.Select(Table.ColumnNames(Fonte), each Text.StartsWith(_, "(12)"))),
+		    ComProa = Table.SelectRows(Fonte, each
 		        let v = Record.Field(_, ColProa) in v <> null and Text.Trim(Text.From(v)) <> "" and Text.Trim(Text.From(v)) <> "-")
 		in
 		    ComProa
 	lineageTag: 5efddc3e-85f7-4e4b-8436-6134dcade75e
 
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
 /// Cadastro de SERVIDORES (aba APOIO) com chave normalizada. Não carregada.
 expression stgAuditores =
 		let
-		    Fonte = Excel.Workbook(File.Contents(CaminhoPlanilha), null, true),
+		    Fonte = Excel.Workbook(Web.Contents("https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/30%20-%20INSTRUMENTOS%20DE%20GEST%C3%83O/05%20-%20RELAT%C3%93RIO%20DETALHADO%20DO%20QUADRIMESTRE%20ANTERIOR%20(RDQA)/2023/ESTUDO%20DOS%20PROCESSOS%20PARA%20AN%C3%81LISE%20DO%20RDQA%20-%20Copiar.xlsx"), null, true),
+		    PROCESSOS_Sheet = Fonte{[Item="PROCESSOS",Kind="Sheet"]}[Data],
 		    Planilha = Fonte{[Item = "APOIO", Kind = "Sheet"]}[Data],
 		    Cabecalhos = Table.PromoteHeaders(Planilha, [PromoteAllScalars = true]),
 		    Colunas = Table.SelectColumns(Cabecalhos, {"SERVIDORES", "é auditor", "Lotação", "Ativo?"}),
@@ -64,6 +60,10 @@ expression stgAuditores =
 		in
 		    Distintos
 	lineageTag: f948b0f5-1dce-4312-a401-687b13b0c056
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
 
 /// De-para manual de grafias de nomes que não batem com o cadastro APOIO.
 expression AliasesAuditores =
@@ -132,6 +132,407 @@ expression fxParticipantes =
 		in
 		    if List.IsEmpty(Todos) then {[Função = "Coordenador", Nome = null]} else Todos
 	lineageTag: 596cf1bd-af8b-4ba1-ae09-5c69d81cb2bc
+
+	annotation PBI_ResultType = Function
+
+expression fxSelecionarCols =
+		// fxSelecionarCols
+		let
+		    Fonte = (tabela as table, dic as table) as table =>
+		let
+		    nums = List.Buffer(Table.SelectRows(dic, each [Incluir] = 1)[Chave]),
+		    cols = List.Select(Table.ColumnNames(tabela), each List.Contains(nums, fxPrefixoNum(_) ?? -1))
+		in
+		    Table.SelectColumns(tabela, cols)
+		in
+		    Fonte
+	lineageTag: 9f306ab8-0a56-4b17-9026-5338fdf60d14
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxTyparCols =
+		// fxTyparCols — casa por nome (rodar DEPOIS do rename)
+		let
+		    Fonte = (tabela as table, dic as table) as table =>
+		let
+		    existentes = Table.ColumnNames(tabela),
+		
+		    Mapa = (t as text) =>
+		        Table.SelectRows(dic, each [Incluir] = 1 and [Type] = t
+		                                  and List.Contains(existentes, [Rename]))[Rename],
+		
+		    par = (nomes as list, tipo as type) =>
+		        List.Transform(nomes, (n) => {n, tipo}),
+		
+		    trans =
+		        par(Mapa("data"),    type date)
+		      & par(Mapa("decimal"), type number)
+		      & par(Mapa("inteiro"), Int64.Type)
+		      & par(Mapa("logico"),  type logical)
+		      & par(Mapa("texto"),   type text)
+		in
+		    Table.TransformColumnTypes(tabela, trans, "pt-BR")
+		in
+		    Fonte
+	lineageTag: 8fcb04c5-0250-40f7-8198-0f347afe0df3
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxRenameCols =
+		// fxRenameCols
+		let
+		    Fonte = (tabela as table, dic as table) as table =>
+		let
+		    lk = Record.FromList(dic[Rename], List.Transform(dic[Chave], Text.From)),
+		    ren = List.RemoveNulls(List.Transform(
+		        Table.ColumnNames(tabela),
+		        (c) => let n = fxPrefixoNum(c),
+		                   novo = if n = null then null else Record.FieldOrDefault(lk, Text.From(n), null)
+		               in if novo = null then null else {c, novo}))
+		in
+		    Table.RenameColumns(tabela, ren, MissingField.Ignore)
+		in
+		    Fonte
+	lineageTag: 4c505d3a-c1a8-471f-8778-93ee8960c4f1
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxNormalizarQuebraDeLinha =
+		let
+		    Fonte = (
+		        texto as nullable text,
+		        optional destino as nullable text,            // "lf" (padrão) | "crlf" | "espaco" | "remover"
+		        optional removerLinhasVazias as nullable logical
+		    ) as nullable text =>
+		    let
+		        alvo      = if destino = null then "lf" else Text.Lower(destino),
+		        colapsar  = if removerLinhasVazias = null then false else removerLinhasVazias,
+		
+		        substituto =
+		            if alvo = "lf"      then "#(lf)"
+		            else if alvo = "crlf"    then "#(cr)#(lf)"
+		            else if alvo = "espaco"  then " "
+		            else if alvo = "remover" then ""
+		            else error Error.Record("Expression.Error", "destino inválido (use lf | crlf | espaco | remover)", destino),
+		
+		        // ORDEM IMPORTA: CRLF primeiro, senão CR->LF + LF->LF gera quebra dupla
+		        variantes = {
+		            "#(cr)#(lf)",   // Windows
+		            "#(cr)",        // Mac clássico
+		            "#(000B)",      // vertical tab (quebra "leve" do Word)
+		            "#(000C)",      // form feed
+		            "#(0085)",      // NEL
+		            "#(2028)",      // line separator
+		            "#(2029)"       // paragraph separator
+		        },
+		
+		        canonico =
+		            if texto = null then null
+		            else List.Accumulate(variantes, texto, (acc, v) => Text.Replace(acc, v, "#(lf)")),
+		
+		        linhas =
+		            if canonico = null then null
+		            else List.Transform(Text.Split(canonico, "#(lf)"), Text.Trim),
+		
+		        filtradas =
+		            if linhas = null then null
+		            else if colapsar then List.Select(linhas, each _ <> "")
+		            else linhas,
+		
+		        resultado = if filtradas = null then null else Text.Combine(filtradas, substituto)
+		    in
+		        resultado
+		in
+		    Fonte
+	lineageTag: 730f1cd3-925b-44b7-9679-acbe94974c1d
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxPrefixoNum =
+		// fxPrefixoNum
+		// Extrai o número do prefixo "(n) ..." do cabeçalho de origem.
+		// Retorna null se não houver prefixo ou se ele não for numérico puro.
+		let
+		    Fonte = (col as text) as nullable number =>
+		    if Text.StartsWith(col, "(")
+		    then (try Number.From(Text.BetweenDelimiters(col, "(", ")")) otherwise null)
+		    else null
+		in
+		    Fonte
+	lineageTag: 77102bad-65b8-4dbe-8d4e-aea7dead106b
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxAplicarCasing =
+		// fxAplicarCasing
+		let
+		    Fonte = (
+		    tabela as table,
+		    dic as table,
+		    optional siglas as nullable list,
+		    optional excecoes as nullable record,
+		    optional stopwords as nullable list
+		) as table =>
+		let
+		    Sigla = List.Transform(
+		        if siglas = null then
+		            {"CNES","SES","SUS","PROA","RS","UBS","CRS","RPA","RAF","AIH","SCNES","SADT","AD", "UPA", "SMS",
+		            "EAP", "ESF", "eSB", "APS", "AB", "POA", "US", "RUE", "OPME",
+		             "I","II","III","IV","V","VI","VII","VIII","IX","X"}
+		        else siglas,
+		        Text.Upper),
+		
+		    Stop = List.Transform(
+		        if stopwords = null then
+		            {"a","à","às","ao","aos","as","com","contra","da","das","de","do","dos",
+		             "e","em","entre","na","nas","no","nos","o","os","ou","para","pela","pelas",
+		             "pelo","pelos","por","sem","sob","sobre","um","uma","del","van","von","der"}
+		        else stopwords,
+		        Text.Lower),
+		
+		    Exc = if excecoes = null then [] else excecoes,
+		
+		    EhAlfa = (c as text) as logical =>
+		        Text.Lower(c) <> Text.Upper(c) or Text.Contains("0123456789", c),
+		
+		    // separa a string em blocos alternados de letras/dígitos e de separadores
+		    Tokenizar = (t as text) as list =>
+		        List.Accumulate(Text.ToList(t), {}, (st, c) =>
+		            let tipo = EhAlfa(c), n = List.Count(st) in
+		                if n > 0 and st{n - 1}[alfa] = tipo
+		                then List.RemoveLastN(st, 1) & {[alfa = tipo, txt = st{n - 1}[txt] & c]}
+		                else st & {[alfa = tipo, txt = c]}),
+		
+		    // NBSP -> espaço, remove controle exceto LF, colapsa espaços, trim
+		    Limpar = (v as any) as nullable text =>
+		        let
+		            t0 = if v = null then null else try Text.From(v) otherwise null,
+		            t1 = if t0 = null then null else Text.Replace(t0, Character.FromNumber(160), " "),
+		            t2 = if t1 = null then null
+		                 else Text.Combine(List.Select(Text.ToList(t1),
+		                        each _ = "#(lf)" or Character.ToNumber(_) >= 32)),
+		            t3 = if t2 = null then null
+		                 else Text.Combine(List.Select(Text.Split(Text.Trim(t2), " "), each _ <> ""), " ")
+		        in
+		            if t3 = null or t3 = "" then null else t3,
+		
+		    Titulo = (t as text) as text =>
+		        let
+		            tokens = Tokenizar(t),
+		            idx = List.PositionOf(List.Transform(tokens, each [alfa]), true),
+		            conv = List.Transform(List.Positions(tokens), (i) =>
+		                let tk = tokens{i}, p = tk[txt] in
+		                    if not tk[alfa] then p
+		                    else if i <> idx and List.Contains(Stop, Text.Lower(p)) then Text.Lower(p)
+		                    else if Text.Length(p) <= 1 then Text.Upper(p)
+		                    else Text.Upper(Text.Start(p, 1)) & Text.Lower(Text.Range(p, 1)))
+		        in
+		            Text.Combine(conv),
+		
+		    Frase = (t as text) as text =>
+		        let b = Text.Lower(t) in Text.Upper(Text.Start(b, 1)) & Text.Range(b, 1),
+		
+		    RestaurarSiglas = (t as text) as text =>
+		        Text.Combine(
+		            List.Transform(Tokenizar(t), (g) =>
+		                if g[alfa] and List.Contains(Sigla, Text.Upper(g[txt]))
+		                then Text.Upper(g[txt])
+		                else g[txt])),
+		
+		    Aplicar = (v as any, modo as text) as nullable text =>
+		        let
+		            t = Limpar(v),
+		            m = Text.Lower(Text.Trim(modo)),
+		            excecao = if t = null then null else Record.FieldOrDefault(Exc, Text.Upper(t), null),
+		            base =
+		                if t = null then null
+		                else if excecao <> null then excecao
+		                else if m = "upper"  then Text.Upper(t)
+		                else if m = "lower"  then Text.Lower(t)
+		                else if m = "titulo" then Titulo(t)
+		                else if m = "frase"  then Frase(t)
+		                else t                              // "trim" e qualquer modo desconhecido
+		        in
+		            if base = null then null
+		            else if excecao <> null then base        // exceção manda, não sofre restauração
+		            else RestaurarSiglas(base),
+		
+		    alvo = Table.SelectRows(dic, each [Incluir] = 1 and [Type] = "texto"
+		                                  and Text.Trim([Casing] ?? "") <> ""
+		                                  and List.Contains(Table.ColumnNames(tabela), [Rename])),
+		
+		    trans = List.Transform(
+		        Table.ToRecords(alvo),
+		        (r) => {r[Rename], each Aplicar(_, r[Casing]), type nullable text})
+		in
+		    Table.TransformColumns(tabela, trans)
+		in
+		    Fonte
+	lineageTag: 4e451d35-f5e7-4857-a604-7dedb40c9031
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxProcessarSigiloso =
+		let
+		    Fonte = (Tabela as table, tbldict as table, ColunasSigilosas as list) as table =>
+		let
+		    ColunasExistentes =
+		        List.Intersect({
+		            Table.ColumnNames(Tabela),
+		            ColunasSigilosas
+		        }),
+		
+		    Transformacoes =
+		        List.Transform(
+		            ColunasExistentes,
+		            (Coluna as text) =>
+		                let
+		                    TipoColuna =
+		                        try Text.Lower(
+		                            tbldict{[Rename = Coluna]}[Type]
+		                        )
+		                        otherwise null
+		                in
+		                    {
+		                        Coluna,
+		                        each
+		                            if TipoColuna = "texto"
+		                            then "Sigiloso"
+		                            else null
+		                    }
+		        ),
+		
+		    RegistrosTratados =
+		        Table.TransformRows(
+		            Tabela,
+		            (Linha as record) =>
+		                if Record.FieldOrDefault(
+		                    Linha,
+		                    "P - Processo sigiloso",
+		                    false
+		                ) = true
+		                then
+		                    Record.TransformFields(
+		                        Linha,
+		                        Transformacoes
+		                    )
+		                else
+		                    Linha
+		        ),
+		
+		    MapaTipos = [
+		        texto = type nullable text,
+		        data = type nullable date,
+		        decimal = type nullable number,
+		        inteiro = Int64.Type,
+		        logico = type nullable logical
+		    ],
+		
+		    TiposColunas =
+		        List.Transform(
+		            Table.ToRecords(
+		                Table.SelectRows(
+		                    tbldict,
+		                    each List.Contains(
+		                        Table.ColumnNames(Tabela),
+		                        [Rename]
+		                    )
+		                )
+		            ),
+		            (Linha as record) =>
+		                {
+		                    Linha[Rename],
+		                    Record.FieldOrDefault(
+		                        MapaTipos,
+		                        Text.Lower(Linha[Type]),
+		                        type any
+		                    )
+		                }
+		        ),
+		
+		    ResultadoSemTipos =
+		        Table.FromRecords(
+		            RegistrosTratados,
+		            Table.ColumnNames(Tabela),
+		            MissingField.UseNull
+		        ),
+		
+		    Resultado =
+		        Table.TransformColumnTypes(
+		            ResultadoSemTipos,
+		            TiposColunas,
+		            "pt-BR"
+		        )
+		in
+		    Resultado
+		in
+		    Fonte
+	lineageTag: a01cce3f-639e-4bb2-b68f-d344d5d28111
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fxDescartarRecsSigilosas =
+		let
+		    Fonte = (
+		    TabelaRecomendacoes as table,
+		    TabelaProcessos as table,
+		    ChaveRecomendacoes as text,
+		    ChaveProcessos as text
+		) as table =>
+		let
+		    ProcessosSigilosos =
+		        Table.Distinct(
+		            Table.SelectColumns(
+		                Table.SelectRows(
+		                    TabelaProcessos,
+		                    each Record.FieldOrDefault(
+		                        _,
+		                        "P - Processo sigiloso",
+		                        false
+		                    ) = true
+		                ),
+		                {ChaveProcessos}
+		            )
+		        ),
+		
+		    Resultado =
+		        Table.NestedJoin(
+		            TabelaRecomendacoes,
+		            {ChaveRecomendacoes},
+		            ProcessosSigilosos,
+		            {ChaveProcessos},
+		            "ProcessoSigiloso",
+		            JoinKind.LeftAnti
+		        )
+		in
+		    Resultado
+		in
+		    Fonte
+	lineageTag: 9d6b1abd-52dd-4aa3-be7a-89d88aca973b
+	queryGroup: fx
+
+	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Function
 

@@ -5,48 +5,70 @@ table fDesignacoes
 	column 'ID Designação'
 		dataType: string
 		lineageTag: f137870c-76bd-41d3-8091-6975cc5c6464
+		summarizeBy: none
 		sourceColumn: ID Designação
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Nº PROA'
 		dataType: string
 		lineageTag: 23386f92-e9d4-440d-9d6d-d0f6dab3c4f1
+		summarizeBy: none
 		sourceColumn: Nº PROA
+
+		annotation SummarizationSetBy = Automatic
 
 	column Ciclo
 		dataType: string
 		lineageTag: dd101ca9-956e-4a2f-b917-4a076e780029
+		summarizeBy: none
 		sourceColumn: Ciclo
 		sortByColumn: 'Ciclo Nº'
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Ciclo Nº'
 		dataType: int64
 		isHidden
 		lineageTag: e0213137-8e49-49ff-a48c-5f5515750564
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Ciclo Nº
+
+		annotation SummarizationSetBy = Automatic
 
 	column Função
 		dataType: string
 		lineageTag: acc42abe-299e-4509-b89c-8dca5eaec388
+		summarizeBy: none
 		sourceColumn: Função
 		sortByColumn: 'Função Ordem'
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Função Ordem'
 		dataType: int64
 		isHidden
 		lineageTag: 2c675eae-f08d-44d9-aaa9-b635bb05239a
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Função Ordem
+
+		annotation SummarizationSetBy = Automatic
 
 	column Auditor
 		dataType: string
 		lineageTag: 16221731-4b1f-42bd-b85e-57c883af29da
+		summarizeBy: none
 		sourceColumn: Auditor
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Nome na Planilha'
 		dataType: string
 		lineageTag: 3b2d9297-7af0-4556-a709-a0f09cb0e325
+		summarizeBy: none
 		sourceColumn: Nome na Planilha
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data Inicial Designação'
 		dataType: dateTime
@@ -95,47 +117,68 @@ table fDesignacoes
 	column 'Nº Relatório'
 		dataType: string
 		lineageTag: 35685115-cf63-41a0-8b7f-1aa1ab4fe091
+		summarizeBy: none
 		sourceColumn: Nº Relatório
+
+		annotation SummarizationSetBy = Automatic
 
 	column Situação
 		dataType: string
 		lineageTag: 35b2a5de-69f4-4f89-ab0d-340526f182a7
+		summarizeBy: none
 		sourceColumn: Situação
 		sortByColumn: 'Situação Ordem'
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Situação Ordem'
 		dataType: int64
 		isHidden
 		lineageTag: 40a2aa58-f644-48ae-a3f9-538bcf546322
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Situação Ordem
+
+		annotation SummarizationSetBy = Automatic
 
 	column Entregue
 		dataType: string
 		lineageTag: 8227109b-1898-479e-b156-e206fcbd703b
+		summarizeBy: none
 		sourceColumn: Entregue
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Dias para Entrega'
 		dataType: int64
 		lineageTag: 85745a96-84d5-4137-84f8-f59b6b48249e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Dias para Entrega
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Dias de Atraso'
 		dataType: int64
 		lineageTag: 424189d5-015d-487c-a3a6-9898abb58e7a
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Dias de Atraso
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Status do Ciclo'
 		dataType: string
 		lineageTag: 913d8ba4-b0a9-4253-8801-21c44692f52c
+		summarizeBy: none
 		sourceColumn: Status do Ciclo
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Alerta de Qualidade'
 		dataType: string
 		lineageTag: 70de1911-a0c7-49c7-9e0a-3953740be2f6
+		summarizeBy: none
 		sourceColumn: Alerta de Qualidade
+
+		annotation SummarizationSetBy = Automatic
 
 	column 'Data de Referência'
 		dataType: dateTime
@@ -260,4 +303,6 @@ table fDesignacoes
 				    Final
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
 

@@ -1,0 +1,25 @@
+table AnoDeCorte
+	lineageTag: 0230916c-2b5f-4148-bf2d-4fbc97f52a83
+
+	column AnoDeCorte
+		dataType: double
+		lineageTag: 42ba06d8-87e9-4a95-9e24-d566b7ff790d
+		summarizeBy: sum
+		sourceColumn: AnoDeCorte
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition AnoDeCorte = m
+		mode: import
+		source =
+				let
+				    Fonte = 2023
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Number
+

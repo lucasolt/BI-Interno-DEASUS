@@ -7,11 +7,19 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
+queryGroup fx
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup cfg_dicts
+
+	annotation PBI_QueryGroupOrder = 1
+
 annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
 
-annotation PBI_QueryOrder = ["fDesignacoes","fAuditoria","dAuditor","dProcesso","dFuncao","dSituacao","CaminhoPlanilha","PrazoPadraoDias","PrazoRAIDias","PrazoRAFDias","fxNormalizaNome","fxAuditorOficial","fxParticipantes","MapaAuditores","stgProcessos","stgAuditores","AliasesAuditores"]
+annotation PBI_QueryOrder = ["fDesignacoes","fAuditoria","dAuditor","dProcesso","dFuncao","dSituacao","PrazoPadraoDias","PrazoRAIDias","PrazoRAFDias","fxNormalizaNome","fxAuditorOficial","fxParticipantes","MapaAuditores","stgProcessos","stgAuditores","AliasesAuditores","AnoDeCorte","DadosDep","fxSelecionarCols","fxTyparCols","fxRenameCols","fxNormalizarQuebraDeLinha","fxPrefixoNum","fxAplicarCasing","fxProcessarSigiloso","fxDescartarRecsSigilosas","dictDadosDep","DadosDep_legacy"]
 
 ref table fDesignacoes
 ref table dAuditor
@@ -21,6 +29,10 @@ ref table _Medidas
 ref table fAuditoria
 ref table dFuncao
 ref table dSituacao
+ref table AnoDeCorte
+ref table DadosDep
+ref table dictDadosDep
+ref table DadosDep_legacy
 
 ref cultureInfo pt-BR
 
