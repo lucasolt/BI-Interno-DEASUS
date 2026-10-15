@@ -41,8 +41,8 @@ let
     ComQuem = Table.AddColumn(SemDesignacao, "Com Quem", each
         let n = Prefixo([Status Geral]) in
         if n = 1 then "Aguardando auditado"
-        else if n = 2 then "Com a equipe"
-        else if n = 4 then "Com a chefia"
+        else if n = 2 or n = 4 then "Com a equipe"   // 04: coordenador já designado
+        else if n = 6 then "Com a chefia"            // 06: conclusão técnica do ciclo pela chefia
         else "A classificar", type text),
     ComQuemOrdem = Table.AddColumn(ComQuem, "Com Quem Ordem", each
         List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
