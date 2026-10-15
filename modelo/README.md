@@ -10,7 +10,9 @@ estes arquivos servem para revisão/diff.
 | `CaminhoPlanilha` | não | Parâmetro: caminho do .xlsx fonte |
 | `PrazoPadraoDias` | não | Parâmetro: prazo padrão (30 dias) |
 | `fxNormalizaNome` | não | Chave de nome (minúsculas, sem acento, espaços colapsados) |
-| `stgProcessos` | não | Aba PROCESSOS (cabeçalho na linha 3), só linhas com Nº PROA |
+| `dictDadosDep` | sim | Dicionário das colunas da aba PROCESSOS: código `(n)` → nome, `Incluir`, tipo e casing |
+| `DadosDep` | sim | Aba PROCESSOS tratada pelo dicionário (`fxSelecionarCols` → `fxRenameCols` → `fxTyparCols` → `fxAplicarCasing`), só linhas com Nº PROA e abertura ≥ `AnoDeCorte` |
+| `stgProcessos` | não | Apenas aponta para `DadosDep` (origem comum das fatos e de `dProcesso`) |
 | `stgAuditores` | não | Lista SERVIDORES da aba APOIO |
 | `AliasesAuditores` | não | De-para manual de grafias divergentes |
 | `PrazoRAIDias` / `PrazoRAFDias` | não | Parâmetros: prazos do RAI (30) e RAF (60) a partir da designação |
@@ -22,8 +24,13 @@ estes arquivos servem para revisão/diff.
 | `dFuncao`, `dSituacao` | sim | Dimensões compartilhadas (filtros valem para as duas fases) |
 | `dCalendario` | sim (DAX) | Calendário |
 
-As colunas da planilha são localizadas pelo **código do campo** (`(56)`, `(57)`…), não pelo texto
-do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
+As colunas da planilha são localizadas pelo **código do campo** (`(56)`, `(57)`…) via `dictDadosDep`,
+não pelo texto do cabeçalho, então renomear o texto do cabeçalho não quebra o BI. As consultas usam os
+nomes do dicionário (`012 - Nº PROA`, `1C - Coordenador`…). Para trazer uma coluna nova, marque
+`Incluir = 1` no dicionário. Colunas sem código no cabeçalho (`Monitoramento`, `Qtde Martiz Qualidade RIA/RFA`)
+são incluídas por `ColunasForaDict` em `DadosDep` (as matrizes viram `MQ - Qtde Matriz Qualidade RAI/RAF`).
+Valores que não convertem no tipo do dicionário viram null. O mascaramento de sigilo (`fxProcessarSigiloso`)
+não é aplicado neste painel interno.
 
 ## Relacionamentos
 

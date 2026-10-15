@@ -197,44 +197,30 @@ table fDesignacoes
 		source =
 				let
 				    Origem = stgProcessos,
-				    Col = (codigo as text) as text =>
-				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
 				
-				    Ciclos = {
-				        [Ciclo = 1, Ini = "52",  Fim = "53",  NRel = "54",  Rel = "55",  Coord = "56",  Equipe = "57",  Status = "65"],
-				        [Ciclo = 2, Ini = "77",  Fim = "78",  NRel = "79",  Rel = "80",  Coord = "81",  Equipe = "82",  Status = "89"],
-				        [Ciclo = 3, Ini = "101", Fim = "102", NRel = "103", Rel = "104", Coord = "105", Equipe = "106", Status = "113"]
-				    },
+				    Ciclos = {[Ciclo = 1, Prefixo = "1C - "], [Ciclo = 2, Prefixo = "2C - "], [Ciclo = 3, Prefixo = "3C - "]},
+				    CamposCiclo = {"Data Inicial Designação", "Data Final Designação", "Nº Relatório",
+				                   "Data Relatório", "Coordenador", "Equipe", "Status Atual"},
 				    NomesPadrao = {"Nº PROA", "Data Inicial Designação", "Data Final Designação", "Nº Relatório",
 				                   "Data Relatório", "Coordenador", "EquipeTexto", "Status do Ciclo"},
 				
 				    // ---- 1. Empilha os 3 ciclos (largo -> longo) ----
 				    PorCiclo = List.Transform(Ciclos, (c) =>
 				        let
-				            Sel = Table.SelectColumns(Origem, {Col("12"), Col(c[Ini]), Col(c[Fim]), Col(c[NRel]),
-				                                               Col(c[Rel]), Col(c[Coord]), Col(c[Equipe]), Col(c[Status])}),
+				            Sel = Table.SelectColumns(Origem, {"012 - Nº PROA"} & List.Transform(CamposCiclo, each c[Prefixo] & _)),
 				            Ren = Table.RenameColumns(Sel, List.Zip({Table.ColumnNames(Sel), NomesPadrao})),
 				            ComCiclo = Table.AddColumn(Ren, "Ciclo Nº", each c[Ciclo], Int64.Type)
 				        in
 				            ComCiclo),
 				    Empilhado = Table.Combine(PorCiclo),
 				
-				    // ---- 2. Limpeza de tipos ("-", vazio e textos inválidos viram null) ----
+				    // ---- 2. Limpeza de textos ("-" e vazio viram null; datas já chegam tipadas pelo dicionário) ----
 				    ParaTexto = (v as any) as nullable text =>
 				        let t = if v = null then null else Text.Trim(Text.From(v))
 				        in if t = null or t = "" or t = "-" then null else t,
-				    ParaData = (v as any) as nullable date =>
-				        if v = null then null
-				        else if v is date then v
-				        else if v is datetime then Date.From(v)
-				        else if v is number then Date.From(v)
-				        else try Date.FromText(Text.Trim(Text.From(v)), [Culture = "pt-BR"]) otherwise null,
 				    Tipado = Table.TransformColumns(Empilhado, {
 				        {"Nº PROA", ParaTexto, type text},
-				        {"Data Inicial Designação", ParaData, type nullable date},
-				        {"Data Final Designação", ParaData, type nullable date},
 				        {"Nº Relatório", ParaTexto, type nullable text},
-				        {"Data Relatório", ParaData, type nullable date},
 				        {"Coordenador", ParaTexto, type nullable text},
 				        {"EquipeTexto", ParaTexto, type nullable text},
 				        {"Status do Ciclo", ParaTexto, type nullable text}
