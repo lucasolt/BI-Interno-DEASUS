@@ -741,6 +741,21 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 98ee255d-b692-40e4-bfea-8380ca67603a
 
+	/// 1 se o usuário logado (USERPRINCIPALNAME) está no Excel da chefia.
+	measure 'É Chefia' = IF(LOWER(USERPRINCIPALNAME()) IN VALUES(UsuariosChefia[E-mail]), 1, 0)
+		formatString: 0
+		displayFolder: 9. Acesso
+		lineageTag: 1af81047-5d5b-45dc-938b-8ed9b9a0b7d6
+
+	/// Destino do botão "Área da chefia" (nome da página).
+	measure 'Destino Área da Chefia' = IF([É Chefia] = 1, "Trabalhos em Andamento", "Acesso Restrito")
+		displayFolder: 9. Acesso
+		lineageTag: 88dbd54d-b890-40fb-9bce-30b4f2b406ce
+
+	measure 'Usuário Logado' = "Usuário: " & USERPRINCIPALNAME()
+		displayFolder: 9. Acesso
+		lineageTag: d81c1a5b-a75e-49d2-81c3-e0cfd3ea99bf
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a

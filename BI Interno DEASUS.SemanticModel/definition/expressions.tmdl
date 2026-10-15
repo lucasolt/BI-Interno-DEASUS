@@ -155,6 +155,12 @@ expression MapaFases =
 
 	annotation PBI_ResultType = Table
 
+/// Link (SharePoint/OneDrive) do Excel com os e-mails da chefia. Vazio ou inacessível = ninguém é chefia.
+expression CaminhoListaChefia = "" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
+	lineageTag: a56ac203-6306-4487-8d28-7eccd30f274d
+
+	annotation PBI_ResultType = Text
+
 /// Prazo (dias) do Relatório Inicial de Auditoria, contado da Data de Designação.
 expression PrazoRAIDias = 30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
 	lineageTag: 4093c038-e685-4c7d-8107-4c4729c9af28

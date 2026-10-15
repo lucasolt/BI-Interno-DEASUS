@@ -89,7 +89,18 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
   (chave já normalizada → nome oficial) ou corrigir na aba APOIO.
 - `fDesignacoes[Alerta de Qualidade]` sinaliza registros a revisar na planilha.
 
+## Área da chefia (acesso por página)
+
+- Páginas ocultas (só via botão): Trabalhos em Andamento, Desempenho por Auditor, Auditoria · Por Auditor,
+  Monitoramento · Por Auditor, Auditoria · Detalhes, Monitoramento · Detalhes (+ Acesso Restrito).
+- Botão "Área da chefia" (menu lateral): `[Destino Área da Chefia]` = "Trabalhos em Andamento" se
+  `[É Chefia] = 1`, senão "Acesso Restrito".
+- `[É Chefia]`: `USERPRINCIPALNAME()` está em `UsuariosChefia`, lida do Excel em `CaminhoListaChefia`
+  (1ª aba, 1ª coluna com "mail" no cabeçalho). Link vazio ou inacessível = ninguém é chefia.
+- **Não é segurança de dados**: quem pode editar o relatório ou compilar sobre o modelo vê tudo. Serve para
+  organizar a navegação de quem só visualiza.
+
 ## Relatório (visuais)
 
-Gerado por `modelo/gerar_relatorio.py` (formato PBIR). Rodar **com o Desktop fechado**;
+Inicialmente gerado por `modelo/gerar_relatorio.py` (formato PBIR) — **hoje desatualizado, não rodar** (ver aviso no script). Rodar **com o Desktop fechado**;
 ajustes manuais feitos nas páginas pelo Desktop são sobrescritos ao rodar de novo.

@@ -1,5 +1,9 @@
 """Gera as páginas/visuais (formato PBIR) do relatório 'BI Interno DEASUS'.
 
+ATENÇÃO (desatualizado): a partir da criação da Área da chefia, as páginas foram reorganizadas direto nos
+arquivos PBIR e este script NÃO as reproduz. Não rode sem antes atualizá-lo; ele apagaria a reorganização.
+Continua útil como biblioteca de estilos (moldura, cartões, matrizes, gráficos).
+
 Uso (com o Power BI Desktop FECHADO):
     python modelo/gerar_relatorio.py
 

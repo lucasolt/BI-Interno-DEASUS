@@ -339,6 +339,48 @@
                     }
                   }
                 ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Área da chefia",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#0B2E59",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Acesso: ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "as páginas por auditor, de detalhes e Trabalhos em Andamento ficam na Área da chefia, liberada para os e-mails da lista da chefia.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
               }
             ]
           }

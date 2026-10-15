@@ -1,0 +1,36 @@
+/// E-mails da chefia (Excel em CaminhoListaChefia). Controla o botão "Área da chefia".
+table UsuariosChefia
+	isHidden
+	lineageTag: 7bfda80c-abf4-4d1d-bbff-581d66971d0c
+
+	column 'E-mail'
+		dataType: string
+		isHidden
+		lineageTag: eacf24d7-3965-41b4-8da7-87e09f3dc1c2
+		summarizeBy: none
+		sourceColumn: E-mail
+
+		annotation SummarizationSetBy = Automatic
+
+	partition UsuariosChefia = m
+		mode: import
+		source =
+				let
+				    // 1ª aba do Excel da chefia; usa a 1ª coluna cujo cabeçalho contém "mail". Qualquer falha = lista vazia.
+				    Emails =
+				        try
+				            let
+				                Fonte = Excel.Workbook(Web.Contents(CaminhoListaChefia), null, true),
+				                Aba = Table.SelectRows(Fonte, each [Kind] = "Sheet"){0}[Data],
+				                Cab = Table.PromoteHeaders(Aba, [PromoteAllScalars = true]),
+				                ColEmail = List.First(List.Select(Table.ColumnNames(Cab), each Text.Contains(Text.Lower(_), "mail"))),
+				                Valores = List.Transform(Table.Column(Cab, ColEmail), each if _ = null then null else Text.Lower(Text.Trim(Text.From(_))))
+				            in
+				                List.Distinct(List.Select(Valores, each _ <> null and Text.Contains(_, "@")))
+				        otherwise {},
+				    Tabela = Table.FromColumns({Emails}, type table [#"E-mail" = text])
+				in
+				    Tabela
+
+	annotation PBI_ResultType = Table
+
