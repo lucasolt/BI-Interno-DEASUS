@@ -3,7 +3,7 @@ table UsuariosChefia
 	isHidden
 	lineageTag: 7bfda80c-abf4-4d1d-bbff-581d66971d0c
 
-	column 'E-mail'
+	column E-mail
 		dataType: string
 		isHidden
 		lineageTag: eacf24d7-3965-41b4-8da7-87e09f3dc1c2

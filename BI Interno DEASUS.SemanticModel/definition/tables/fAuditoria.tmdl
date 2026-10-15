@@ -125,34 +125,6 @@ table fAuditoria
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Dias desde a designação dos relatórios ainda não entregues (Pendente ou Em andamento).
-	column 'Dias em Aberto'
-		dataType: int64
-		lineageTag: 6f0b6c9e-2d61-4f3e-9a57-0c1e8b7d4a21
-		summarizeBy: none
-		sourceColumn: Dias em Aberto
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Faixa de dias entre a designação e a entrega (até 60 / 61-120 / 121-180 / mais de 180).
-	column 'Faixa de Tempo'
-		dataType: string
-		lineageTag: fc0d8c63-8789-4dd0-b0ef-1f25c765ff1b
-		summarizeBy: none
-		sourceColumn: Faixa de Tempo
-		sortByColumn: 'Faixa Ordem'
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Faixa Ordem'
-		dataType: int64
-		isHidden
-		lineageTag: 20c9ed35-3321-45f1-9c46-8d054fd5d512
-		summarizeBy: none
-		sourceColumn: Faixa Ordem
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Matrizes de Qualidade'
 		dataType: int64
 		lineageTag: 9a902fb2-c82d-4c32-8ac6-7c611d71ecdb
@@ -186,6 +158,34 @@ table fAuditoria
 		sourceColumn: Data de Referência
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dias desde a designação dos relatórios ainda não entregues (Pendente ou Em andamento).
+	column 'Dias em Aberto'
+		dataType: int64
+		lineageTag: 6f0b6c9e-2d61-4f3e-9a57-0c1e8b7d4a21
+		summarizeBy: none
+		sourceColumn: Dias em Aberto
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Faixa de dias entre a designação e a entrega (até 60 / 61-120 / 121-180 / mais de 180).
+	column 'Faixa de Tempo'
+		dataType: string
+		lineageTag: fc0d8c63-8789-4dd0-b0ef-1f25c765ff1b
+		summarizeBy: none
+		sourceColumn: Faixa de Tempo
+		sortByColumn: 'Faixa Ordem'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faixa Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 20c9ed35-3321-45f1-9c46-8d054fd5d512
+		summarizeBy: none
+		sourceColumn: Faixa Ordem
 
 		annotation SummarizationSetBy = Automatic
 

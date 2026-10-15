@@ -80,87 +80,6 @@ expression AliasesAuditores =
 		    Fonte
 	lineageTag: eebdb62f-53b3-4c30-a59e-6db2a31d3694
 
-/// Nomes oficiais marcados "é auditor = Não" na aba APOIO. Excluídos das fatos e da dAuditor.
-expression NaoAuditores =
-		let
-		    Lista = Table.SelectRows(stgAuditores, each [É Auditor] = "Não")[Auditor]
-		in
-		    List.Buffer(Lista)
-	lineageTag: 3c9f0a7e-6b2d-4e8a-9f41-7d2b5c1e0a93
-
-	annotation PBI_ResultType = List
-
-/// De-para do Eixo (campo 04) -> Eixo Temático. Chave já normalizada (fxNormalizaNome); eixo fora da lista mantém o próprio nome.
-expression MapaEixos =
-		let
-		    Fonte = #table(
-		        type table [EixoChave = text, #"Eixo Temático" = text],
-		        {
-		            {"aih", "AIH"},
-		            {"auditoria aih", "AIH"},
-		            {"uti", "AIH"},
-		
-		            {"amb gestacao alto risco (agar)", "Rede Materno Paterno Infantil"},
-		            {"materno infantil", "Rede Materno Paterno Infantil"},
-		            {"rede materno paterno infantil", "Rede Materno Paterno Infantil"},
-		            {"uti neonatal", "Rede Materno Paterno Infantil"},
-		
-		            {"auditiva", "Pessoas com Deficiência - Auditiva"},
-		            {"politicas de atencao as pessoas com deficiencia - auditiva", "Pessoas com Deficiência - Auditiva"},
-		
-		            {"citopatologia", "Saúde da Mulher"}, // será?
-		            {"politicas de saude da mulher", "Saúde da Mulher"},
-		            {"politicas de saude da mulher - cito", "Saúde da Mulher"},
-		
-		            {"doencas cronicas", "Doenças Crônicas"},
-		            {"doencas cronicas - cardiovascular", "Doenças Crônicas"},
-		            {"doencas cronicas -trs", "Doenças Crônicas"},
-		            {"politicas de atencao a doencas cronicas - bariatrica", "Doenças Crônicas"},
-		            {"politicas de atencao a doencas cronicas - nefro", "Doenças Crônicas"},
-		            {"politicas de atencao a doencas cronicas - onco", "Doenças Crônicas"},
-		
-		            {"mental", "Rede de Atenção Psicossocial (RAPS)"}, // será?
-		            {"rede de atencao psicossocial (raps)", "Rede de Atenção Psicossocial (RAPS)"}
-		        }
-		    )
-		in
-		    Fonte
-	lineageTag: 8e21d4b7-5a0c-4f93-b6e8-2c7f19a0d354
-
-	annotation PBI_ResultType = Table
-
-/// Status do processo (campo 42) -> fase da auditoria e com quem está a próxima ação. Chave normalizada (fxNormalizaNome).
-expression MapaFases =
-		let
-		    Fonte = #table(
-		        type table [StatusChave = text, Fase = text, #"Fase Ordem" = Int64.Type, #"Com Quem" = text],
-		        {
-		            {"aguarda criacao de rai",            "Elaboração do RAI",          1,  "Com a equipe"},
-		            {"aguarda acolhimento rai",           "Revisão do RAI (chefia)",    2,  "Com a chefia"},
-		            {"aguarda envio do rai ao auditado",  "RAI enviado ao auditado",    3,  "Aguardando auditado"},
-		            {"aguarda apresentacao de defesa",    "Prazo de defesa",            4,  "Aguardando auditado"},
-		            {"aguarda analise de defesa",         "Análise de defesa",          5,  "Com a equipe"},
-		            {"aguarda emissao raf",               "Elaboração do RAF",          6,  "Com a equipe"},
-		            {"aguarda acolhimento raf",           "Revisão do RAF (chefia)",    7,  "Com a chefia"},
-		            {"aguarda envio do raf ao auditado",  "RAF enviado ao auditado",    8,  "Aguardando auditado"},
-		            {"aguarda interposicao de recurso",   "Prazo de recurso",           9,  "Aguardando auditado"},
-		            {"aguarda analise de recurso",        "Análise de recurso",         10, "Com a equipe"},
-		            {"aguarda decisao",                   "Decisão",                    11, "Com a chefia"},
-		            {"encaminhado ao fes",                "Encaminhado ao FES",         12, "Fora da equipe"}
-		        }
-		    )
-		in
-		    Fonte
-	lineageTag: 3c9239f3-60de-4254-9e04-19bb5a72042b
-
-	annotation PBI_ResultType = Table
-
-/// Link (SharePoint/OneDrive) do Excel com os e-mails da chefia. Vazio ou inacessível = ninguém é chefia.
-expression CaminhoListaChefia = "" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
-	lineageTag: a56ac203-6306-4487-8d28-7eccd30f274d
-
-	annotation PBI_ResultType = Text
-
 /// Prazo (dias) do Relatório Inicial de Auditoria, contado da Data de Designação.
 expression PrazoRAIDias = 30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
 	lineageTag: 4093c038-e685-4c7d-8107-4c4729c9af28
@@ -616,4 +535,87 @@ expression fxDescartarRecsSigilosas =
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Function
+
+/// Nomes oficiais marcados "é auditor = Não" na aba APOIO. Excluídos das fatos e da dAuditor.
+expression NaoAuditores =
+		let
+		    Lista = Table.SelectRows(stgAuditores, each [É Auditor] = "Não")[Auditor]
+		in
+		    List.Buffer(Lista)
+	lineageTag: 3c9f0a7e-6b2d-4e8a-9f41-7d2b5c1e0a93
+
+	annotation PBI_ResultType = List
+
+/// De-para do Eixo (campo 04) -> Eixo Temático. Chave já normalizada (fxNormalizaNome); eixo fora da lista mantém o próprio nome.
+expression MapaEixos =
+		let
+		    Fonte = #table(
+		        type table [EixoChave = text, #"Eixo Temático" = text],
+		        {
+		            {"aih", "AIH"},
+		            {"auditoria aih", "AIH"},
+		            {"uti", "AIH"},
+		
+		            {"amb gestacao alto risco (agar)", "Rede Materno Paterno Infantil"},
+		            {"materno infantil", "Rede Materno Paterno Infantil"},
+		            {"rede materno paterno infantil", "Rede Materno Paterno Infantil"},
+		            {"uti neonatal", "Rede Materno Paterno Infantil"},
+		
+		            {"auditiva", "Pessoas com Deficiência - Auditiva"},
+		            {"politicas de atencao as pessoas com deficiencia - auditiva", "Pessoas com Deficiência - Auditiva"},
+		
+		            {"citopatologia", "Saúde da Mulher"}, // será?
+		            {"politicas de saude da mulher", "Saúde da Mulher"},
+		            {"politicas de saude da mulher - cito", "Saúde da Mulher"},
+		
+		            {"doencas cronicas", "Doenças Crônicas"},
+		            {"doencas cronicas - cardiovascular", "Doenças Crônicas"},
+		            {"doencas cronicas -trs", "Doenças Crônicas"},
+		            {"politicas de atencao a doencas cronicas - bariatrica", "Doenças Crônicas"},
+		            {"politicas de atencao a doencas cronicas - nefro", "Doenças Crônicas"},
+		            {"politicas de atencao a doencas cronicas - onco", "Doenças Crônicas"},
+		
+		            {"mental", "Rede de Atenção Psicossocial (RAPS)"}, // será?
+		            {"rede de atencao psicossocial (raps)", "Rede de Atenção Psicossocial (RAPS)"}
+		        }
+		    )
+		in
+		    Fonte
+	lineageTag: 8e21d4b7-5a0c-4f93-b6e8-2c7f19a0d354
+
+	annotation PBI_ResultType = Table
+
+/// Status do processo (campo 42) -> fase da auditoria e com quem está a próxima ação. Chave normalizada (fxNormalizaNome).
+expression MapaFases =
+		let
+		    Fonte = #table(
+		        type table [StatusChave = text, Fase = text, #"Fase Ordem" = Int64.Type, #"Com Quem" = text],
+		        {
+		            {"aguarda criacao de rai",            "Elaboração do RAI",          1,  "Com a equipe"},
+		            {"aguarda acolhimento rai",           "Revisão do RAI (chefia)",    2,  "Com a chefia"},
+		            {"aguarda envio do rai ao auditado",  "RAI enviado ao auditado",    3,  "Aguardando auditado"},
+		            {"aguarda apresentacao de defesa",    "Prazo de defesa",            4,  "Aguardando auditado"},
+		            {"aguarda analise de defesa",         "Análise de defesa",          5,  "Com a equipe"},
+		            {"aguarda emissao raf",               "Elaboração do RAF",          6,  "Com a equipe"},
+		            {"aguarda acolhimento raf",           "Revisão do RAF (chefia)",    7,  "Com a chefia"},
+		            {"aguarda envio do raf ao auditado",  "RAF enviado ao auditado",    8,  "Aguardando auditado"},
+		            {"aguarda interposicao de recurso",   "Prazo de recurso",           9,  "Aguardando auditado"},
+		            {"aguarda analise de recurso",        "Análise de recurso",         10, "Com a equipe"},
+		            {"aguarda decisao",                   "Decisão",                    11, "Com a chefia"},
+		            {"encaminhado ao fes",                "Encaminhado ao FES",         12, "Fora da equipe"}
+		        }
+		    )
+		in
+		    Fonte
+	lineageTag: 3c9239f3-60de-4254-9e04-19bb5a72042b
+
+	annotation PBI_ResultType = Table
+
+/// Link (SharePoint/OneDrive) do Excel com os e-mails da chefia. Vazio ou inacessível = ninguém é chefia.
+expression CaminhoListaChefia = "https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/14%20-%20DIVIS%C3%83O%20DE%20PLANEJAMENTO,%20MONITORAMENTO,%20AVALIA%C3%87%C3%83O%20E%20GEST%C3%83O%20DA%20QUALIDADEDE/01%20-%20SE%C3%87%C3%83O%20DE%20MONITORAMENTO%20E%20AVALIA%C3%87%C3%83O/01%20-%20MONITORAMENTO%20DAS%20RECOMENDA%C3%87%C3%95ES%20EMITIDAS/13%20-%20MONITORAMENTO%20UNIFICADO/AutorizacaoBIprodutividade.xlsx?web=1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
+	lineageTag: a56ac203-6306-4487-8d28-7eccd30f274d
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navegação
 

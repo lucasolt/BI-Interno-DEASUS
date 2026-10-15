@@ -35,7 +35,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Período (Data Final da Designação)": {
+			          "Período (Data Inicial da Designação)": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -74,19 +74,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Lotação"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Unidade (Lotação)": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "dfuncao.função": {
 			      "Definition": {
@@ -171,7 +159,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "RAI · Entregues": {
+			          "RAI Entregues": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -181,7 +169,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "RAI Entregues": {
+			          "RAI · Entregues": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -233,6 +221,26 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
+			          "RAI Dias Médios": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "RAI": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
 			          "RAI · Dias Médios": {
 			            "State": "Suggested",
 			            "Source": {
@@ -244,16 +252,6 @@ cultureInfo pt-BR
 			        },
 			        {
 			          "RAI Dias": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "RAI": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -274,7 +272,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "RAF · Entregues": {
+			          "RAF Entregues": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -284,7 +282,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "RAF Entregues": {
+			          "RAF · Entregues": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -336,6 +334,26 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
+			          "RAF Dias Médios": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "RAF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
 			          "RAF · Dias Médios": {
 			            "State": "Suggested",
 			            "Source": {
@@ -354,16 +372,6 @@ cultureInfo pt-BR
 			            },
 			            "Weight": 0.9
 			          }
-			        },
-			        {
-			          "RAF": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -374,19 +382,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Aud Pendências Vencidas"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "AUD · Pend. Vencidas": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.aud_média_de_matrizes_por_relatório": {
 			      "Definition": {
@@ -398,7 +394,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "AUD · Matrizes/Rel.": {
+			          "Matrizes/Rel.": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -408,7 +404,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Matrizes/Rel.": {
+			          "AUD · Matrizes/Rel.": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -460,7 +456,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "MON · Entregues": {
+			          "Entregues": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -470,7 +466,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Entregues": {
+			          "MON · Entregues": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -491,7 +487,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "MON · % no Prazo": {
+			          "% no Prazo": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -502,6 +498,16 @@ cultureInfo pt-BR
 			        },
 			        {
 			          "Taxa de Pontualidade": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "MON · % no Prazo": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -522,37 +528,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "MON · Dias Médios": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Média de Dias (Entrega)": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Dias médios": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Tempo Médio de Entrega": {
+			          "Dias Médios": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -563,6 +539,26 @@ cultureInfo pt-BR
 			        },
 			        {
 			          "Dias médios p/ entrega": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "MON · Dias Médios": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Tempo Médio de Entrega": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -583,27 +579,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "MON · Pend. Vencidas": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Pend. Vencidas": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Monitoramento": {
+			          "Pend. vencidas": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -621,19 +597,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Aud No Prazo (por Data Entrega)"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Entregues no prazo": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.aud_fora_do_prazo_por_data_entrega": {
 			      "Definition": {
@@ -642,19 +606,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Aud Fora do Prazo (por Data Entrega)"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Fora do prazo": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.aud_pendências_vencidas_por_data_limite": {
 			      "Definition": {
@@ -663,19 +615,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Aud Pendências Vencidas (por Data Limite)"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Pendentes vencidos": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.rai_no_prazo": {
 			      "Definition": {
@@ -726,29 +666,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "RAI Pendências Vencidas"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "RAI Pend. Venc.": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "RAI": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.raf_no_prazo": {
 			      "Definition": {
@@ -799,29 +717,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "RAF Pendências Vencidas"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "RAF Pend. Venc.": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "RAF": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.rai_média_de_matrizes": {
 			      "Definition": {
@@ -872,19 +768,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Designações Encerradas"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Encerradas": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.entregues_no_prazo": {
 			      "Definition": {
@@ -1061,19 +945,7 @@ cultureInfo pt-BR
 			          "ConceptualProperty": "Relatórios Pendentes"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Pendências": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "table_medidas.dias_médios_de_atraso": {
 			      "Definition": {
@@ -1085,7 +957,7 @@ cultureInfo pt-BR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Dias Médios de Atraso": {
+			          "Dias médios de atraso": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -1789,6 +1661,656 @@ cultureInfo pt-BR
 			      "Terms": [
 			        {
 			          "Alerta de Qualidade": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dauditor.ativo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dAuditor",
+			          "ConceptualProperty": "Ativo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Auditores ativos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dprocesso.eixo_temático": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dProcesso",
+			          "ConceptualProperty": "Eixo Temático"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Eixo Temático": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Eixo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.gráfico_entregas_até_60_dias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Gráfico Entregas Até 60 Dias"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Até 60 dias": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.gráfico_entregas_61_a_120_dias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Gráfico Entregas 61 a 120 Dias"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "61 a 120 dias": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.gráfico_entregas_121_a_180_dias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Gráfico Entregas 121 a 180 Dias"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "121 a 180 dias": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.gráfico_entregas_mais_de_180_dias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Gráfico Entregas Mais de 180 Dias"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mais de 180 dias": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.aud_processos_designados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Aud Processos Designados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Processos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.rai_mediana_dias_para_entrega": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "RAI Mediana Dias para Entrega"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RAI Mediana": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.raf_mediana_dias_para_entrega": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "RAF Mediana Dias para Entrega"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RAF Mediana": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.monitoramentos_designados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Monitoramentos Designados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Designados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Ciclos Designados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.mediana_dias_para_entrega": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Mediana Dias para Entrega"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mediana": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.carteira_auditoria": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Carteira Auditoria"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Trabalhos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.carteira_aud_coordenador": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Carteira Aud Coordenador"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Coordenador": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_medidas.carteira_aud_equipe": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Carteira Aud Equipe"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Equipe": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "prelatoriografico.relatório": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "pRelatorioGrafico",
+			          "ConceptualProperty": "Relatório"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Relatório:": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.auditor": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Auditor"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Auditor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.função": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Função"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Função": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.ciclo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Ciclo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Ciclo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.n_proa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Nº PROA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Nº PROA": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.status_geral": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Status Geral"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Status": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.com_quem": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Com Quem"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Com quem": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fmonitaberto.dias_no_status_atual": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fMonitAberto",
+			          "ConceptualProperty": "Dias no Status Atual"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Dias no status": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.auditor": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Auditor"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Auditor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.função": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Função"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Função": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.n_proa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Nº PROA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Nº PROA": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.fase": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Fase"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fase": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.com_quem": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Com Quem"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Com quem": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.data_designação": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Data Designação"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Designação": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.dias_desde_a_designação": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Dias desde a Designação"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Dias desde a designação": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fcarteira.dias_desde_a_última_movimentação": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fCarteira",
+			          "ConceptualProperty": "Dias desde a Última Movimentação"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Dias desde a últ. movimentação": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

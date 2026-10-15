@@ -35,15 +35,6 @@ table dProcesso
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Eixo agrupado (MapaEixos). Use este no filtro de eixo.
-	column 'Eixo Temático'
-		dataType: string
-		lineageTag: d47a2c19-8b3e-4f05-a6d1-5e9c0b72f8a4
-		summarizeBy: none
-		sourceColumn: Eixo Temático
-
-		annotation SummarizationSetBy = Automatic
-
 	column Auditado
 		dataType: string
 		lineageTag: 46615311-edd0-43da-a2b0-77f66be462b8
@@ -105,6 +96,15 @@ table dProcesso
 		lineageTag: 02b84b07-e941-4de7-b9e8-14132e938735
 		summarizeBy: none
 		sourceColumn: Status Geral do Monitoramento
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Eixo agrupado (MapaEixos). Use este no filtro de eixo.
+	column 'Eixo Temático'
+		dataType: string
+		lineageTag: d47a2c19-8b3e-4f05-a6d1-5e9c0b72f8a4
+		summarizeBy: none
+		sourceColumn: Eixo Temático
 
 		annotation SummarizationSetBy = Automatic
 

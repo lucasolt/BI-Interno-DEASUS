@@ -18,7 +18,7 @@ table fCarteira
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Função'
+	column Função
 		dataType: string
 		lineageTag: 436fb7c0-44f6-44b6-8c0d-12c18121b95c
 		summarizeBy: none
@@ -36,10 +36,10 @@ table fCarteira
 
 	column Fase
 		dataType: string
-		sortByColumn: 'Fase Ordem'
 		lineageTag: 7fa1f287-f731-4a78-a04f-58bc837e186e
 		summarizeBy: none
 		sourceColumn: Fase
+		sortByColumn: 'Fase Ordem'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -54,10 +54,10 @@ table fCarteira
 
 	column 'Com Quem'
 		dataType: string
-		sortByColumn: 'Com Quem Ordem'
 		lineageTag: eb6fc9d2-b6e7-4f14-af2c-360029c8d001
 		summarizeBy: none
 		sourceColumn: Com Quem
+		sortByColumn: 'Com Quem Ordem'
 
 		annotation SummarizationSetBy = Automatic
 

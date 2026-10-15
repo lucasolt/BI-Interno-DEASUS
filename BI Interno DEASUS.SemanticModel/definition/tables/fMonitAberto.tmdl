@@ -12,10 +12,10 @@ table fMonitAberto
 
 	column Ciclo
 		dataType: string
-		sortByColumn: 'Ciclo Nº'
 		lineageTag: 8def7ece-0718-4168-bb6f-567d8466282e
 		summarizeBy: none
 		sourceColumn: Ciclo
+		sortByColumn: 'Ciclo Nº'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -28,7 +28,7 @@ table fMonitAberto
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Função'
+	column Função
 		dataType: string
 		lineageTag: e440e5ac-d487-4a40-af93-a47a82eb8f75
 		summarizeBy: none
@@ -46,10 +46,10 @@ table fMonitAberto
 
 	column 'Status Geral'
 		dataType: string
-		sortByColumn: 'Status Ordem'
 		lineageTag: 0ef51906-ce05-4491-8915-ba07a8dc1aa8
 		summarizeBy: none
 		sourceColumn: Status Geral
+		sortByColumn: 'Status Ordem'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -64,10 +64,10 @@ table fMonitAberto
 
 	column 'Com Quem'
 		dataType: string
-		sortByColumn: 'Com Quem Ordem'
 		lineageTag: 540ab44e-2ea6-4434-97cb-7d8ea9cdf3b0
 		summarizeBy: none
 		sourceColumn: Com Quem
+		sortByColumn: 'Com Quem Ordem'
 
 		annotation SummarizationSetBy = Automatic
 

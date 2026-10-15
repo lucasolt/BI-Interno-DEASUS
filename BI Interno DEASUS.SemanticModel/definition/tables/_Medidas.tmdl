@@ -124,17 +124,6 @@ table _Medidas
 		displayFolder: 2. Prazo
 		lineageTag: c19c25b4-3bfb-4c8c-a850-ddc4ebd72218
 
-	/// Mediana de (Data Relatório − Data Inicial da Designação) por relatório entregue. Menos sensível a casos extremos que a média.
-	measure 'Mediana Dias para Entrega' =
-			CALCULATE(
-			    MEDIANX(VALUES(fDesignacoes[ID Designação]), CALCULATE(MAX(fDesignacoes[Dias para Entrega]))),
-			    KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}),
-			    KEEPFILTERS(fDesignacoes[Dias para Entrega] >= 0)
-			)
-		formatString: #,0.0
-		displayFolder: 2. Prazo
-		lineageTag: 78317c80-5771-4897-b67a-9eb17c273099
-
 	/// Média de (Data Relatório − Data Limite) por relatório entregue fora do prazo (PROA x Ciclo).
 	measure 'Dias Médios de Atraso' =
 			CALCULATE(
@@ -222,18 +211,6 @@ table _Medidas
 	measure 'Sub Fora do Prazo' = FORMAT([% Fora do Prazo s/ Designações] + 0, "0.0%") & " dos ciclos designados"
 		displayFolder: 6. Rótulos
 		lineageTag: 1f7634a8-f3bd-4b24-af71-f3f116a1fdf3
-
-	/// Para cartões: mostra 0 em vez de vazio quando não há pendências vencidas.
-	measure 'Pendências Vencidas (cartão)' = [Pendências Vencidas] + 0
-		formatString: #,0
-		displayFolder: 6. Rótulos
-		lineageTag: 1b881ed2-822c-490d-aa0a-b277f97d916a
-
-	/// Para cartões: mostra 0 em vez de vazio quando não há pendências vencidas.
-	measure 'Aud Pendências Vencidas (cartão)' = [Aud Pendências Vencidas] + 0
-		formatString: #,0
-		displayFolder: 6. Rótulos
-		lineageTag: d76d12b2-5d9c-498e-8171-84cb04f9654b
 
 	measure 'Sub Pendências Vencidas' = FORMAT([Taxa de Pendência Vencida] + 0, "0.00%") & " das designações"
 		displayFolder: 6. Rótulos
@@ -336,27 +313,6 @@ table _Medidas
 		displayFolder: 7. Auditoria
 		lineageTag: f6a48e90-b923-482c-9537-9c64e966a6c5
 
-	/// Mediana de (Data Entrega − Data Designação) por relatório entregue.
-	measure 'Aud Mediana Dias para Entrega' =
-			CALCULATE(
-			    MEDIANX(VALUES(fAuditoria[ID Relatório]), CALCULATE(MAX(fAuditoria[Dias para Entrega]))),
-			    KEEPFILTERS(fAuditoria[Situação] IN {"No prazo", "Fora do prazo"}),
-			    KEEPFILTERS(fAuditoria[Dias para Entrega] >= 0)
-			)
-		formatString: #,0.0
-		displayFolder: 7. Auditoria
-		lineageTag: 96a61a0c-c915-4812-970f-19ab3c67a60f
-
-	/// Idade média (hoje − Data Designação) dos relatórios ainda não entregues.
-	measure 'Aud Dias Médios em Aberto' =
-			CALCULATE(
-			    AVERAGEX(VALUES(fAuditoria[ID Relatório]), CALCULATE(MAX(fAuditoria[Dias em Aberto]))),
-			    KEEPFILTERS(fAuditoria[Situação] IN {"Pendente (vencida)", "Em andamento"})
-			)
-		formatString: #,0.0
-		displayFolder: 7. Auditoria
-		lineageTag: 653daf9a-08a5-41a1-9014-ba24dbf5642f
-
 	/// Média de (Data Entrega − Data Limite) por relatório entregue fora do prazo (PROA x RAI/RAF).
 	measure 'Aud Dias Médios de Atraso' =
 			CALCULATE(
@@ -439,16 +395,6 @@ table _Medidas
 		displayFolder: 7. Auditoria\RAI
 		lineageTag: ea9f06d1-2000-4cd9-b5d7-544d369f4d55
 
-	measure 'RAI Mediana Dias para Entrega' = CALCULATE([Aud Mediana Dias para Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
-		formatString: #,0.0
-		displayFolder: 7. Auditoria\RAI
-		lineageTag: 34bc0581-848c-4d57-a61e-f3debce9b9a7
-
-	measure 'RAI Dias Médios em Aberto' = CALCULATE([Aud Dias Médios em Aberto], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
-		formatString: #,0.0
-		displayFolder: 7. Auditoria\RAI
-		lineageTag: 0efafaad-82b6-49b8-b788-f0e86339f796
-
 	measure 'RAI Dias Médios de Atraso' = CALCULATE([Aud Dias Médios de Atraso], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
 		formatString: #,0.0
 		displayFolder: 7. Auditoria\RAI
@@ -494,16 +440,6 @@ table _Medidas
 		displayFolder: 7. Auditoria\RAF
 		lineageTag: e63693d6-6d94-4ec4-8cf9-228a6e56f9fd
 
-	measure 'RAF Mediana Dias para Entrega' = CALCULATE([Aud Mediana Dias para Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
-		formatString: #,0.0
-		displayFolder: 7. Auditoria\RAF
-		lineageTag: 15d3f67a-b6f2-48b1-ad2a-7f45257aebaa
-
-	measure 'RAF Dias Médios em Aberto' = CALCULATE([Aud Dias Médios em Aberto], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
-		formatString: #,0.0
-		displayFolder: 7. Auditoria\RAF
-		lineageTag: 3987e047-209d-4ea5-9f89-ab5341530b9c
-
 	measure 'RAF Dias Médios de Atraso' = CALCULATE([Aud Dias Médios de Atraso], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
 		formatString: #,0.0
 		displayFolder: 7. Auditoria\RAF
@@ -534,6 +470,74 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: ead2de13-b08e-4f8a-adf1-9ae2e7589753
 
+	measure 'Sub RAI Dias' = "RAF: " & FORMAT([RAF Dias Médios para Entrega], "#,0") & " dias · prazos 30/60"
+		displayFolder: 6. Rótulos
+		lineageTag: 59a30523-be03-404a-9dd7-fa9333a258be
+
+	/// Mediana de (Data Relatório − Data Inicial da Designação) por relatório entregue. Menos sensível a casos extremos que a média.
+	measure 'Mediana Dias para Entrega' =
+			CALCULATE(
+			    MEDIANX(VALUES(fDesignacoes[ID Designação]), CALCULATE(MAX(fDesignacoes[Dias para Entrega]))),
+			    KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}),
+			    KEEPFILTERS(fDesignacoes[Dias para Entrega] >= 0)
+			)
+		formatString: #,0.0
+		displayFolder: 2. Prazo
+		lineageTag: 78317c80-5771-4897-b67a-9eb17c273099
+
+	/// Para cartões: mostra 0 em vez de vazio quando não há pendências vencidas.
+	measure 'Pendências Vencidas (cartão)' = [Pendências Vencidas] + 0
+		formatString: #,0
+		displayFolder: 6. Rótulos
+		lineageTag: 1b881ed2-822c-490d-aa0a-b277f97d916a
+
+	/// Para cartões: mostra 0 em vez de vazio quando não há pendências vencidas.
+	measure 'Aud Pendências Vencidas (cartão)' = [Aud Pendências Vencidas] + 0
+		formatString: #,0
+		displayFolder: 6. Rótulos
+		lineageTag: d76d12b2-5d9c-498e-8171-84cb04f9654b
+
+	/// Mediana de (Data Entrega − Data Designação) por relatório entregue.
+	measure 'Aud Mediana Dias para Entrega' =
+			CALCULATE(
+			    MEDIANX(VALUES(fAuditoria[ID Relatório]), CALCULATE(MAX(fAuditoria[Dias para Entrega]))),
+			    KEEPFILTERS(fAuditoria[Situação] IN {"No prazo", "Fora do prazo"}),
+			    KEEPFILTERS(fAuditoria[Dias para Entrega] >= 0)
+			)
+		formatString: #,0.0
+		displayFolder: 7. Auditoria
+		lineageTag: 96a61a0c-c915-4812-970f-19ab3c67a60f
+
+	/// Idade média (hoje − Data Designação) dos relatórios ainda não entregues.
+	measure 'Aud Dias Médios em Aberto' =
+			CALCULATE(
+			    AVERAGEX(VALUES(fAuditoria[ID Relatório]), CALCULATE(MAX(fAuditoria[Dias em Aberto]))),
+			    KEEPFILTERS(fAuditoria[Situação] IN {"Pendente (vencida)", "Em andamento"})
+			)
+		formatString: #,0.0
+		displayFolder: 7. Auditoria
+		lineageTag: 653daf9a-08a5-41a1-9014-ba24dbf5642f
+
+	measure 'RAI Mediana Dias para Entrega' = CALCULATE([Aud Mediana Dias para Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 34bc0581-848c-4d57-a61e-f3debce9b9a7
+
+	measure 'RAI Dias Médios em Aberto' = CALCULATE([Aud Dias Médios em Aberto], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAI
+		lineageTag: 0efafaad-82b6-49b8-b788-f0e86339f796
+
+	measure 'RAF Mediana Dias para Entrega' = CALCULATE([Aud Mediana Dias para Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 15d3f67a-b6f2-48b1-ad2a-7f45257aebaa
+
+	measure 'RAF Dias Médios em Aberto' = CALCULATE([Aud Dias Médios em Aberto], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0.0
+		displayFolder: 7. Auditoria\RAF
+		lineageTag: 3987e047-209d-4ea5-9f89-ab5341530b9c
+
 	measure 'Sub RAI Dias Card' = "Mediana " & FORMAT([RAI Mediana Dias para Entrega], "#,0") & " dias · prazo 30"
 		displayFolder: 6. Rótulos
 		lineageTag: d0f4bf7b-7605-4f07-a93b-1e10f278af35
@@ -541,10 +545,6 @@ table _Medidas
 	measure 'Sub RAF Dias Card' = "Mediana " & FORMAT([RAF Mediana Dias para Entrega], "#,0") & " dias · prazo 60"
 		displayFolder: 6. Rótulos
 		lineageTag: c6640e15-ccfb-41da-a24d-d56221332c2d
-
-	measure 'Sub RAI Dias' = "RAF: " & FORMAT([RAF Dias Médios para Entrega], "#,0") & " dias · prazos 30/60"
-		displayFolder: 6. Rótulos
-		lineageTag: 59a30523-be03-404a-9dd7-fa9333a258be
 
 	/// Processos em aberto na fase de auditoria (na linha de um auditor = os processos dele). Não segue o filtro de Período.
 	measure 'Carteira Auditoria' =

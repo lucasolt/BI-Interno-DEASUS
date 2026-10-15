@@ -164,23 +164,6 @@ table fDesignacoes
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Sim = ciclo aberto (não arquivado/encerrado) e relatório ainda não entregue.
-	column 'Em Carteira'
-		dataType: string
-		lineageTag: 66557243-6785-4ffa-9e3d-723983393dcf
-		summarizeBy: none
-		sourceColumn: Em Carteira
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Dias desde a Designação'
-		dataType: int64
-		lineageTag: cd099f7a-d47b-4368-aaa1-ee9b82ffc2dc
-		summarizeBy: none
-		sourceColumn: Dias desde a Designação
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Status do Ciclo'
 		dataType: string
 		lineageTag: 913d8ba4-b0a9-4253-8801-21c44692f52c
@@ -206,6 +189,23 @@ table fDesignacoes
 		sourceColumn: Data de Referência
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sim = ciclo aberto (não arquivado/encerrado) e relatório ainda não entregue.
+	column 'Em Carteira'
+		dataType: string
+		lineageTag: 66557243-6785-4ffa-9e3d-723983393dcf
+		summarizeBy: none
+		sourceColumn: Em Carteira
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias desde a Designação'
+		dataType: int64
+		lineageTag: cd099f7a-d47b-4368-aaa1-ee9b82ffc2dc
+		summarizeBy: none
+		sourceColumn: Dias desde a Designação
 
 		annotation SummarizationSetBy = Automatic
 
