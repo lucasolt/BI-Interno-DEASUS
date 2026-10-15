@@ -673,8 +673,8 @@ def pg_monit_detalhe():
 
 def pg_carteira():
     # mesmo id da antiga página "Pendências", que esta substitui
-    p = Pagina("pendencias", "CARTEIRA ATUAL · O QUE CADA AUDITOR TEM EM MÃOS")
-    p.nome_exib = "Carteira Atual"
+    p = Pagina("pendencias", "TRABALHOS EM ANDAMENTO · O QUE CADA AUDITOR TEM EM MÃOS")
+    p.nome_exib = "Trabalhos em Andamento"
     moldura(p, "carteira", com_filtros=False)
     # sem filtro de Período/Situação: a carteira é sempre a posição de hoje
     y, h = 90, 66
@@ -784,7 +784,7 @@ def pg_metodologia():
         [n("Índice de Produtividade (monitoramento): "), c("40% Taxa de Entrega + 40% Pontualidade + 20% Participação "
                                                           "(designações do auditor ÷ maior nº entre os auditores filtrados).")],
         [c(" ")],
-        [t("Carteira Atual")],
+        [t("Trabalhos em Andamento")],
         [n("Auditoria: "), c("processos com Status (42) diferente de Arquivado / Fase de auditoria finalizada. A fase e com quem "
                              "está a próxima ação (equipe, chefia ou auditado) vêm do Status.")],
         [n("Monitoramento: "), c("ciclos sem relatório e não arquivados/encerrados.")],
@@ -795,8 +795,8 @@ def pg_metodologia():
 
 
 def main():
-    paginas = [pg_resumo(), pg_auditoria(), pg_auditoria_detalhe(), pg_monitoramento(), pg_monit_auditor(),
-               pg_monit_ciclo(), pg_monit_detalhe(), pg_carteira(), pg_metodologia()]
+    paginas = [pg_resumo(), pg_carteira(), pg_auditoria(), pg_auditoria_detalhe(), pg_monitoramento(), pg_monit_auditor(),
+               pg_monit_ciclo(), pg_monit_detalhe(), pg_metodologia()]
 
     def _forcar(func, caminho, _exc):  # OneDrive marca pastas como somente-leitura
         os.chmod(caminho, stat.S_IWRITE)

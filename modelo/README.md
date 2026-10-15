@@ -73,7 +73,7 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 - Equipe: nomes separados por `;` `,` `/` ou ` e `. Cada membro conta 1 designação.
 - "Hoje" = data da última atualização do modelo (coluna `Data de Referência`).
 
-### Carteira Atual
+### Trabalhos em Andamento (antiga "Carteira Atual")
 - **Auditoria** (`fCarteira`): processos com Status (42) diferente de ARQUIVADO / FASE DE AUDITORIA FINALIZADA.
   Fase e "Com Quem" vêm de `MapaFases`; status fora do de-para aparece como "A classificar".
 - **Monitoramento** (`fDesignacoes[Em Carteira] = "Sim"`): ciclo não arquivado/encerrado/reclassificado e sem relatório.
