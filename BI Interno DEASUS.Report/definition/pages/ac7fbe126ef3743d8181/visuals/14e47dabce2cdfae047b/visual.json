@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Pendências Vencidas"
+                  "Property": "Pendências Vencidas (cartão)"
                 }
               },
-              "queryRef": "_Medidas.Pendências Vencidas",
-              "nativeQueryRef": "Pendências Vencidas"
+              "queryRef": "_Medidas.Pendências Vencidas (cartão)",
+              "nativeQueryRef": "Pendências Vencidas (cartão)"
             }
           ]
         }

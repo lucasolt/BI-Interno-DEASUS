@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Pendências Vencidas"
+                  "Property": "Aud Pendências Vencidas (cartão)"
                 }
               },
-              "queryRef": "_Medidas.Aud Pendências Vencidas",
-              "nativeQueryRef": "Aud Pendências Vencidas"
+              "queryRef": "_Medidas.Aud Pendências Vencidas (cartão)",
+              "nativeQueryRef": "Aud Pendências Vencidas (cartão)"
             }
           ]
         }
