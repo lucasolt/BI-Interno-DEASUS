@@ -5,7 +5,7 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 195.89730746620646
       },
       "nodes": [
         {
@@ -108,6 +108,58 @@
           "nodeLineageTag": "9e4cc604-26bf-4c2c-9cdd-2260581385ab",
           "size": {
             "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1985.2228399272449,
+            "y": 519.92658062236092
+          },
+          "nodeIndex": "AnoDeCorte",
+          "nodeLineageTag": "0230916c-2b5f-4148-bf2d-4fbc97f52a83",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1751.2228399272449,
+            "y": 371.92658062236092
+          },
+          "nodeIndex": "DadosDep",
+          "nodeLineageTag": "96213033-db52-4168-bbf5-8b59d81e3b2a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1467.2228399272449,
+            "y": 371.92658062236092
+          },
+          "nodeIndex": "DadosDep_legacy",
+          "nodeLineageTag": "7135cd77-bf01-4e18-84cb-e630ea2e1d25",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2269.2228399272449,
+            "y": 471.92658062236092
+          },
+          "nodeIndex": "dictDadosDep",
+          "nodeLineageTag": "68236794-e5e5-4e65-a0e1-4ade6658efda",
+          "size": {
+            "height": 200,
             "width": 234
           },
           "zIndex": 0

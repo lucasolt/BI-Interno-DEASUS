@@ -43,7 +43,6 @@ expression stgProcessos =
 expression stgAuditores =
 		let
 		    Fonte = Excel.Workbook(Web.Contents("https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/30%20-%20INSTRUMENTOS%20DE%20GEST%C3%83O/05%20-%20RELAT%C3%93RIO%20DETALHADO%20DO%20QUADRIMESTRE%20ANTERIOR%20(RDQA)/2023/ESTUDO%20DOS%20PROCESSOS%20PARA%20AN%C3%81LISE%20DO%20RDQA%20-%20Copiar.xlsx"), null, true),
-		    PROCESSOS_Sheet = Fonte{[Item="PROCESSOS",Kind="Sheet"]}[Data],
 		    Planilha = Fonte{[Item = "APOIO", Kind = "Sheet"]}[Data],
 		    Cabecalhos = Table.PromoteHeaders(Planilha, [PromoteAllScalars = true]),
 		    Colunas = Table.SelectColumns(Cabecalhos, {"SERVIDORES", "é auditor", "Lotação", "Ativo?"}),
@@ -55,6 +54,7 @@ expression stgAuditores =
 		        {"Lotação", each if _ = null then null else Text.Trim(Text.From(_)), type nullable text},
 		        {"Ativo", each if _ = null then null else Text.Proper(Text.Trim(Text.From(_))), type nullable text}
 		    }),
+		    //Filtrado = Table.SelectRows(Limpo, each [É Auditor] <> "Não"),
 		    ComChave = Table.AddColumn(Limpo, "NomeChave", each fxNormalizaNome([Auditor]), type text),
 		    Distintos = Table.Distinct(ComChave, {"NomeChave"})
 		in

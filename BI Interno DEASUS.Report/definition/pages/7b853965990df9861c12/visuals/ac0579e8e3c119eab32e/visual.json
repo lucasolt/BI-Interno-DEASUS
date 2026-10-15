@@ -242,10 +242,10 @@
                     "Entity": "_Medidas"
                   }
                 },
-                "Property": "Designações"
+                "Property": "Ranking Produtividade"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -461,6 +461,134 @@
             }
           }
         }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "75.45896679943684D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Relatórios Pendentes"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.41032978796198D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Pendências Vencidas"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "67.53688329861585D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Taxa de Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "89.7949280491595D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Taxa de Pontualidade"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "99.01824964933621D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Dias Médios para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "85.93614587280653D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Dias Médios de Atraso"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "67.11548765205123D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Entregues Fora do Prazo"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "52.787232599014956D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Entregues no Prazo"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "208.49240041100106D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dAuditor.Auditor"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -647,5 +775,205 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e54fbb91aa7f1823844b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dAuditor"
+              }
+            },
+            "Property": "Auditor"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "0b508c18a4f7905c83fa",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dFuncao"
+              }
+            },
+            "Property": "Função"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "90e7765d7a54140d816c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Designações"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "36e97d3c96cc34665f37",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Relatórios Entregues"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d107d6e2485f96a7249b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Entregues no Prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "871b3bb39039279393be",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Entregues Fora do Prazo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d76433042e2dc3bb3a53",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Relatórios Pendentes"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "480c34610862d3d3af29",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Pendências Vencidas"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "83b2e8e6e3d5c3b92ca8",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Taxa de Entrega"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4b0b724359b4983cebd4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Taxa de Pontualidade"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c90cc005f51d09d2d83b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Dias Médios para Entrega"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "19149b7df16e33006b91",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Dias Médios de Atraso"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "18fde40d0443650e52c9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Índice de Produtividade"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0db7e52ccafdcb3ea5e9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Ranking Produtividade"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

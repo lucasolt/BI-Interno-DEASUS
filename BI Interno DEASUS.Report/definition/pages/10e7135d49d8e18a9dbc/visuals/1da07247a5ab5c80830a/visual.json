@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "1da07247a5ab5c80830a",
   "position": {
     "x": 195,
@@ -266,29 +266,16 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "dAuditor"
+                    "Entity": "_Medidas"
                   }
                 },
-                "Property": "Auditor"
+                "Property": "RAI Dias Médios para Entrega"
               }
             },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dFuncao"
-                  }
-                },
-                "Property": "Função"
-              }
-            },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
         ]
       }

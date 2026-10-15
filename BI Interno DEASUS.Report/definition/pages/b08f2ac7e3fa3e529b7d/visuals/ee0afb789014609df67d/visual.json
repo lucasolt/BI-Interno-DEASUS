@@ -562,6 +562,132 @@
             }
           ]
         }
+      },
+      {
+        "name": "c81bfcdfbeb98d4a284e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Relatório"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3d1477b1946750dc59af",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Auditor"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "65d130f11e857ffbc81d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Função"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "39c099c899ce03229736",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Nº PROA"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "694603f4f9fc0cc0ee39",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dProcesso"
+              }
+            },
+            "Property": "Auditado"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c4759037ebce4145fdf4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Data Designação"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ec50164e149462c017fe",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Data Limite"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1d1c1eb5cd3f67ece797",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Dias de Atraso"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5392034ecab1d3e24ed9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fAuditoria"
+              }
+            },
+            "Property": "Status do Processo"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "638a9111d3538e8b4324",
   "position": {
-    "x": 1433,
-    "y": 294,
+    "x": 1437.0820668693009,
+    "y": 294.71124620060789,
     "z": 42000,
-    "height": 34,
-    "width": 472,
+    "height": 33.556231003039514,
+    "width": 468.32826747720367,
     "tabOrder": 42000
   },
   "visual": {
@@ -21,9 +21,9 @@
                   {
                     "value": "TAXAS GERAIS",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "12pt",
-                      "color": "#0B2E59",
-                      "fontWeight": "bold"
+                      "color": "#0b2e59"
                     }
                   }
                 ]
