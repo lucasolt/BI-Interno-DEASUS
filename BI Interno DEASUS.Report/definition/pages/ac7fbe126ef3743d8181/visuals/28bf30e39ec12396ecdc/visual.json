@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Sub RAI Dias"
+                  "Property": "Sub RAF Dias Card"
                 }
               },
-              "queryRef": "_Medidas.Sub RAI Dias",
-              "nativeQueryRef": "Sub RAI Dias"
+              "queryRef": "_Medidas.Sub RAF Dias Card",
+              "nativeQueryRef": "Sub RAF Dias Card"
             }
           ]
         }

@@ -416,7 +416,7 @@ KPIS_AUD = [
     ("RAI Entregues", "Sub RAI Entregues", "RAI Entregues", AZUL),
     ("RAF Entregues", "Sub RAF Entregues", "RAF Entregues", VERDE),
     ("Carteira Auditoria", "Sub Carteira Quem", "Em Andamento Hoje (Auditoria)", AMARELO),
-    ("RAI Dias Médios para Entrega", "Sub RAI Dias", "Dias Médios até o RAI", NAVY),
+    ("RAF Dias Médios para Entrega", "Sub RAF Dias Card", "Dias Médios até o RAF", NAVY),
     ("Aud Média de Matrizes por Relatório", "Sub Aud Matrizes", "Matrizes de Qualidade / Relatório", VERMELHO),
 ]
 # Página Auditoria: foco em dias (contínuo) no lugar de pendências vencidas (binário)
