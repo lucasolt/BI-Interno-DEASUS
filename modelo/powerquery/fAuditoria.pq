@@ -1,33 +1,39 @@
 // Fato da fase de AUDITORIA: 1 linha por Nº PROA x Relatório (RAI/RAF) x Função x Auditor.
-// Campos (nomes do dictDadosDep): Coordenador (014), Equipe (018), Data de Designação (017), Nº RAI (015),
-//         Entrega RAI (019), Nº RAF (020), Entrega RAF (021), Matriz de Qualidade RAI/RAF (MQ), Status (042).
+// Campos: Coordenador (14), Equipe (18), Data de Designação (17), Nº RAI (15), Entrega RAI (19),
+//         Nº RAF (20), Entrega RAF (21), Qtde Matriz Qualidade RIA/RFA, Status (42).
 // Prazos: RAI = Designação + PrazoRAIDias (30) | RAF = Designação + PrazoRAFDias (60).
 // Sem data de entrega em processo ARQUIVADO / FASE DE AUDITORIA FINALIZADA -> "Não se aplica".
 let
     Origem = stgProcessos,
+    Col = (codigo as text) as text =>
+        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
     Mapa = {
-        {"012 - Nº PROA", "Nº PROA"},
-        {"014 - COORDENADOR", "Coordenador"},
-        {"018 - EQUIPE", "EquipeTexto"},
-        {"017 - DATA DE DESIGNAÇÃO", "Data Designação"},
-        {"015 - N° RELATÓRIO INICIAL", "Nº RAI"},
-        {"019 - DATA ENTREGA RELATÓRIO INICIAL EQUIPE => CHEFIA", "Data RAI"},
-        {"020 - N° RELATÓRIO FINAL", "Nº RAF"},
-        {"021 - DATA ENTREGA RELATÓRIO FINAL EQUIPE => CHEFIA", "Data RAF"},
-        {"MQ - Qtde Matriz Qualidade RAI", "Matriz RAI"},
-        {"MQ - Qtde Matriz Qualidade RAF", "Matriz RAF"},
-        {"042 - STATUS", "Status do Processo"}
+        {Col("12"), "Nº PROA"}, {Col("14"), "Coordenador"}, {Col("18"), "EquipeTexto"},
+        {Col("17"), "Data Designação"}, {Col("15"), "Nº RAI"}, {Col("19"), "Data RAI"},
+        {Col("20"), "Nº RAF"}, {Col("21"), "Data RAF"},
+        {"Qtde Martiz Qualidade RIA", "Matriz RAI"}, {"Qtde Martiz Qualidade RFA", "Matriz RAF"},
+        {Col("42"), "Status do Processo"}
     },
     Sel = Table.RenameColumns(Table.SelectColumns(Origem, List.Transform(Mapa, each _{0})), Mapa),
 
     ParaTexto = (v as any) as nullable text =>
         let t = if v = null then null else Text.Trim(Text.From(v))
         in if t = null or t = "" or t = "-" then null else t,
-    // Datas e matrizes já chegam tipadas pelo dicionário; textos: "-" e vazio viram null
+    ParaData = (v as any) as nullable date =>
+        if v = null then null
+        else if v is date then v
+        else if v is datetime then Date.From(v)
+        else if v is number then Date.From(v)
+        else try Date.FromText(Text.Trim(Text.From(v)), [Culture = "pt-BR"]) otherwise null,
+    ParaNumero = (v as any) as nullable number =>
+        if v = null then null else if v is number then v else try Number.From(Text.Trim(Text.From(v))) otherwise null,
     Tipado = Table.TransformColumns(Sel, {
         {"Nº PROA", ParaTexto, type text}, {"Coordenador", ParaTexto, type nullable text},
-        {"EquipeTexto", ParaTexto, type nullable text}, {"Nº RAI", ParaTexto, type nullable text},
-        {"Nº RAF", ParaTexto, type nullable text}, {"Status do Processo", ParaTexto, type nullable text}
+        {"EquipeTexto", ParaTexto, type nullable text}, {"Data Designação", ParaData, type nullable date},
+        {"Nº RAI", ParaTexto, type nullable text}, {"Data RAI", ParaData, type nullable date},
+        {"Nº RAF", ParaTexto, type nullable text}, {"Data RAF", ParaData, type nullable date},
+        {"Matriz RAI", ParaNumero, type nullable number}, {"Matriz RAF", ParaNumero, type nullable number},
+        {"Status do Processo", ParaTexto, type nullable text}
     }),
     ComDesignacao = Table.SelectRows(Tipado, each [Data Designação] <> null or [Coordenador] <> null),
 

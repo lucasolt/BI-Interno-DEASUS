@@ -60,22 +60,22 @@ relationship fDesignacoes_Situação_dSituacao_Situação
 
 relationship AutoDetected_42c5867d-1487-45de-84a9-d156efc2d102
 	fromColumn: fDesignacoes.'Nº PROA'
-	toColumn: DadosDep.'012 - Nº PROA'
+	toColumn: DadosDep.'(12)Nº PROA'
 
 relationship AutoDetected_3a61cd22-f2ba-4196-842b-64a02128af22
 	isActive: false
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
 	fromColumn: dProcesso.'Nº PROA'
-	toColumn: DadosDep.'012 - Nº PROA'
+	toColumn: DadosDep.'(12)Nº PROA'
 
 relationship AutoDetected_668695ad-ef4d-4ef3-a376-d60ac43407a6
 	fromColumn: fAuditoria.'Nº PROA'
-	toColumn: DadosDep.'012 - Nº PROA'
+	toColumn: DadosDep.'(12)Nº PROA'
 
 relationship AutoDetected_eaad6f99-9b04-44a0-bf7d-f39228b906eb
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
 	fromColumn: DadosDep_legacy.'012 - Nº PROA'
-	toColumn: DadosDep.'012 - Nº PROA'
+	toColumn: DadosDep.'(12)Nº PROA'
 

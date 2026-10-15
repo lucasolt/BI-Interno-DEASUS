@@ -24,12 +24,15 @@ expression fxNormalizaNome =
 		    Resultado
 	lineageTag: 2ff725eb-59dc-4586-bd5e-b3921dbad300
 
-/// Aba PROCESSOS tratada pelo dicionário (DadosDep). Não carregada.
+/// Aba PROCESSOS crua, apenas linhas com Nº PROA. Não carregada.
 expression stgProcessos =
 		let
-		    Fonte = DadosDep
+		    Fonte = DadosDep,
+		    ColProa = List.First(List.Select(Table.ColumnNames(Fonte), each Text.StartsWith(_, "(12)"))),
+		    ComProa = Table.SelectRows(Fonte, each
+		        let v = Record.Field(_, ColProa) in v <> null and Text.Trim(Text.From(v)) <> "" and Text.Trim(Text.From(v)) <> "-")
 		in
-		    Fonte
+		    ComProa
 	lineageTag: 5efddc3e-85f7-4e4b-8436-6134dcade75e
 
 	annotation PBI_NavigationStepName = Navegação

@@ -104,19 +104,21 @@ table dProcesso
 		source =
 				let
 				    Origem = stgProcessos,
+				    Col = (codigo as text) as text =>
+				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
 				    Mapa = {
-				        {"012 - Nº PROA", "Nº PROA"},
+				        {Col("12"), "Nº PROA"},
 				        {"Monitoramento", "Classificação Monitoramento"},
-				        {"003 - TIPO DE AUDITORIA", "Tipo de Auditoria"},
-				        {"004 - EIXO", "Eixo"},
-				        {"006 - AUDITADO", "Auditado"},
-				        {"007 - TIPO DE ESTABELECIMENTO", "Tipo de Estabelecimento"},
-				        {"008 - MUNICÍPIO", "Município"},
-				        {"009 - CRS", "CRS"},
-				        {"010 - REGIÃO DE SAÚDE", "Região de Saúde"},
-				        {"011 - MACRORREGIÃO", "Macrorregião"},
-				        {"M - Ciclo Atual", "Ciclo Atual"},
-				        {"M - Status Atual Geral do Monitoramento", "Status Geral do Monitoramento"}
+				        {Col("03"), "Tipo de Auditoria"},
+				        {Col("04"), "Eixo"},
+				        {Col("06"), "Auditado"},
+				        {Col("07"), "Tipo de Estabelecimento"},
+				        {Col("08"), "Município"},
+				        {Col("09"), "CRS"},
+				        {Col("10"), "Região de Saúde"},
+				        {Col("11"), "Macrorregião"},
+				        {Col("117"), "Ciclo Atual"},
+				        {Col("118"), "Status Geral do Monitoramento"}
 				    },
 				    Sel = Table.SelectColumns(Origem, List.Transform(Mapa, each _{0})),
 				    Ren = Table.RenameColumns(Sel, Mapa),

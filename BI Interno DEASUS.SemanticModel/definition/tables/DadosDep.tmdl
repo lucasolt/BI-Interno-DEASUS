@@ -1,617 +1,1243 @@
 table DadosDep
 	lineageTag: 96213033-db52-4168-bbf5-8b59d81e3b2a
 
-
-	column '003 - TIPO DE AUDITORIA'
-		dataType: string
-		lineageTag: 34941721-f6da-4759-a2f5-8e1938d9b17a
-		summarizeBy: none
-		sourceColumn: 003 - TIPO DE AUDITORIA
-
-		annotation SummarizationSetBy = Automatic
-
-	column '004 - EIXO'
-		dataType: string
-		lineageTag: 415da500-0fbd-4fdd-a95e-b190cd8faa57
-		summarizeBy: none
-		sourceColumn: 004 - EIXO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '005 - CNES'
-		dataType: string
-		lineageTag: 6130518a-e66f-408e-a3bb-aa7ea55ac7bc
-		summarizeBy: none
-		sourceColumn: 005 - CNES
-
-		annotation SummarizationSetBy = Automatic
-
-	column '006 - AUDITADO'
-		dataType: string
-		lineageTag: c7cbf10d-ab8e-4117-b211-08bbdaed6ae8
-		summarizeBy: none
-		sourceColumn: 006 - AUDITADO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '007 - TIPO DE ESTABELECIMENTO'
-		dataType: string
-		lineageTag: 4fbb0a17-a7cc-4056-b09c-e1fa3982fdff
-		summarizeBy: none
-		sourceColumn: 007 - TIPO DE ESTABELECIMENTO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '008 - MUNICÍPIO'
-		dataType: string
-		lineageTag: 062a591e-b917-4aa5-b3f8-90f825180174
-		summarizeBy: none
-		sourceColumn: 008 - MUNICÍPIO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '009 - CRS'
-		dataType: string
-		lineageTag: 9f984938-c3b3-45b2-8fa1-c814f6b1e46a
-		summarizeBy: none
-		sourceColumn: 009 - CRS
-
-		annotation SummarizationSetBy = Automatic
-
-	column '010 - REGIÃO DE SAÚDE'
-		dataType: string
-		lineageTag: 0b74aa9e-1e4a-41df-a977-1ef211423568
-		summarizeBy: none
-		sourceColumn: 010 - REGIÃO DE SAÚDE
-
-		annotation SummarizationSetBy = Automatic
-
-	column '011 - MACRORREGIÃO'
-		dataType: string
-		lineageTag: c8281d35-55d2-407d-b8c9-0772b22ea3c2
-		summarizeBy: none
-		sourceColumn: 011 - MACRORREGIÃO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '012 - Nº PROA'
-		dataType: string
-		lineageTag: bdbd0bfd-677e-42d0-95d5-1135eb3e022f
-		summarizeBy: none
-		sourceColumn: 012 - Nº PROA
-
-		annotation SummarizationSetBy = Automatic
-
-	column '013 - DATA DE ABERTURA'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: ea63553b-4bfb-4300-8385-94ba6ee3a525
-		summarizeBy: none
-		sourceColumn: 013 - DATA DE ABERTURA
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '014 - COORDENADOR'
-		dataType: string
-		lineageTag: 41eedbc5-3d9d-4a4a-a189-df5fe8acda8f
-		summarizeBy: none
-		sourceColumn: 014 - COORDENADOR
-
-		annotation SummarizationSetBy = Automatic
-
-	column '015 - N° RELATÓRIO INICIAL'
-		dataType: string
-		lineageTag: 7acd7066-5c60-43c4-a3ff-5421ed8d5f26
-		summarizeBy: none
-		sourceColumn: 015 - N° RELATÓRIO INICIAL
-
-		annotation SummarizationSetBy = Automatic
-
-	column '017 - DATA DE DESIGNAÇÃO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: aa144c0d-35e0-4c55-b542-a61ae2ae4157
-		summarizeBy: none
-		sourceColumn: 017 - DATA DE DESIGNAÇÃO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '018 - EQUIPE'
-		dataType: string
-		lineageTag: 4fd83925-fabc-459e-8d82-c8dd5c3e4442
-		summarizeBy: none
-		sourceColumn: 018 - EQUIPE
-
-		annotation SummarizationSetBy = Automatic
-
-	column '019 - DATA ENTREGA RELATÓRIO INICIAL EQUIPE => CHEFIA'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 3b183d54-ad6b-41be-b1b1-1f643ed397b7
-		summarizeBy: none
-		sourceColumn: 019 - DATA ENTREGA RELATÓRIO INICIAL EQUIPE => CHEFIA
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '020 - N° RELATÓRIO FINAL'
-		dataType: string
-		lineageTag: e5636042-fcbe-4a12-8014-8181f7dd67bd
-		summarizeBy: none
-		sourceColumn: 020 - N° RELATÓRIO FINAL
-
-		annotation SummarizationSetBy = Automatic
-
-	column '021 - DATA ENTREGA RELATÓRIO FINAL EQUIPE => CHEFIA'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 64626a8c-085a-4b3d-a78c-6cec577242ab
-		summarizeBy: none
-		sourceColumn: 021 - DATA ENTREGA RELATÓRIO FINAL EQUIPE => CHEFIA
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '022 - PRAZO ENTREGA RELATÓRIO FINAL'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: e67ccb10-89a8-49a3-8356-2446597b0598
-		summarizeBy: none
-		sourceColumn: 022 - PRAZO ENTREGA RELATÓRIO FINAL
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '023 - DATA ENVIO RELATORIO INICIAL AO AUDITADO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 0634f123-67bc-4aec-8a5f-5d9decc820a9
-		summarizeBy: none
-		sourceColumn: 023 - DATA ENVIO RELATORIO INICIAL AO AUDITADO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '024 - DATA RECEBIMENTO RELATORIO INICIAL'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: d22737cb-ca51-41be-8385-b64f5b630378
-		summarizeBy: none
-		sourceColumn: 024 - DATA RECEBIMENTO RELATORIO INICIAL
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '025 - DATA RECEBIMENTO DEFESA / CERTIDÃO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: ca2b4ce7-3ec2-4d41-a7eb-369605540546
-		summarizeBy: none
-		sourceColumn: 025 - DATA RECEBIMENTO DEFESA / CERTIDÃO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '026 - DATA ENVIO RELATÓRIO FINAL AO AUDITADO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: f520f574-3f6e-4779-af4f-44bafd8f7076
-		summarizeBy: none
-		sourceColumn: 026 - DATA ENVIO RELATÓRIO FINAL AO AUDITADO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '027 - DATA RECEBIMENTO RELATÓRIO FINAL'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 1173b0c2-7ccd-4847-9aa0-187d5c22a29f
-		summarizeBy: none
-		sourceColumn: 027 - DATA RECEBIMENTO RELATÓRIO FINAL
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '028 - DATA RECEBIMENTO RECURSO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 5748bfe7-a375-4f3c-8f18-ca250fbb7b73
-		summarizeBy: none
-		sourceColumn: 028 - DATA RECEBIMENTO RECURSO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '029 - PRAZO FINAL'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: c0fc5942-2411-4ec9-b752-7c13e0eb32e9
-		summarizeBy: none
-		sourceColumn: 029 - PRAZO FINAL
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '030 - DATA ENVIO DECISÃO AO AUDITADO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 5968b438-8d63-49d4-877e-3d86be2debc4
-		summarizeBy: none
-		sourceColumn: 030 - DATA ENVIO DECISÃO AO AUDITADO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '031 - DATA CIÊNCIA DO AUDITADO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: af5ccab2-7148-4dcb-92f1-a2117fe7fdf8
-		summarizeBy: none
-		sourceColumn: 031 - DATA CIÊNCIA DO AUDITADO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '032 - PENALIDADE ADMINISTRATIVA'
-		dataType: string
-		lineageTag: 5b4899ae-aacd-43e0-b039-cad43814db35
-		summarizeBy: none
-		sourceColumn: 032 - PENALIDADE ADMINISTRATIVA
-
-		annotation SummarizationSetBy = Automatic
-
-	column '033 - VALOR RESSARCIMENTO'
-		dataType: double
-		lineageTag: 6319ffdf-090d-41cb-8598-706c4536134c
-		summarizeBy: sum
-		sourceColumn: 033 - VALOR RESSARCIMENTO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '034 - VALOR MULTA'
-		dataType: double
-		lineageTag: 03a1d0db-f364-4a3b-b15c-ba0d97c6f4b1
-		summarizeBy: sum
-		sourceColumn: 034 - VALOR MULTA
-
-		annotation SummarizationSetBy = Automatic
-
-	column '035 - VALOR TOTAL'
-		dataType: double
-		lineageTag: 28c3e08d-70b1-44cc-96ea-ccef8e783818
-		summarizeBy: sum
-		sourceColumn: 035 - VALOR TOTAL
-
-		annotation SummarizationSetBy = Automatic
-
-	column '036 - TIPO PAGAMENTO'
-		dataType: string
-		lineageTag: 9a8fe181-e7a4-48c8-8ddb-6b64c2ff5ea6
-		summarizeBy: none
-		sourceColumn: 036 - TIPO PAGAMENTO
-
-		annotation SummarizationSetBy = Automatic
-
-	column '037 - DATA PAGAMENTO'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 8105a37a-41eb-483e-a0f3-d1192f3c0add
-		summarizeBy: none
-		sourceColumn: 037 - DATA PAGAMENTO
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '040 - DATA ARQUIVAMENTO / DEVOLUÇÃO PROA'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: e376e9f6-c6d1-45d6-bc6f-275d17b339a7
-		summarizeBy: none
-		sourceColumn: 040 - DATA ARQUIVAMENTO / DEVOLUÇÃO PROA
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '042 - STATUS'
-		dataType: string
-		lineageTag: 9d59f2cb-c67f-4edc-b1ec-079aee3ad69b
-		summarizeBy: none
-		sourceColumn: 042 - STATUS
-
-		annotation SummarizationSetBy = Automatic
-
-	column '1C - Data Recebimento E-mail Ofício de Abertura'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: bed0922a-930f-42ee-81fd-5f7274eefb59
-		summarizeBy: none
-		sourceColumn: 1C - Data Recebimento E-mail Ofício de Abertura
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '1C - Data Inicial Designação'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: c84f1704-edff-446a-8b47-b7c73ac611db
-		summarizeBy: none
-		sourceColumn: 1C - Data Inicial Designação
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '1C - Data Final Designação'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: f7677dfc-8d13-40f4-a480-ce97bebfb688
-		summarizeBy: none
-		sourceColumn: 1C - Data Final Designação
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '1C - Nº Relatório'
-		dataType: string
-		lineageTag: abd38d94-d23f-426b-a85d-b7da2cc3adff
-		summarizeBy: none
-		sourceColumn: 1C - Nº Relatório
-
-		annotation SummarizationSetBy = Automatic
-
-	column '1C - Data Relatório'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 50b7f437-1009-4026-95fd-48990d8cdc0e
-		summarizeBy: none
-		sourceColumn: 1C - Data Relatório
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '1C - Coordenador'
-		dataType: string
-		lineageTag: 6384350b-d2a0-42de-92c5-b9ee6a8c2236
-		summarizeBy: none
-		sourceColumn: 1C - Coordenador
-
-		annotation SummarizationSetBy = Automatic
-
-	column '1C - Equipe'
-		dataType: string
-		lineageTag: ffb8a40d-1bb7-482f-ad58-d916b2b7db21
-		summarizeBy: none
-		sourceColumn: 1C - Equipe
-
-		annotation SummarizationSetBy = Automatic
-
-	column '1C - Data Reclassificação (não monitorável)'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: a966f194-a6a1-4c41-90d2-9b03c46b2fa5
-		summarizeBy: none
-		sourceColumn: 1C - Data Reclassificação (não monitorável)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '1C - Status Atual'
-		dataType: string
-		lineageTag: ab2ae3e6-afa1-4fa4-8635-5959018502cc
-		summarizeBy: none
-		sourceColumn: 1C - Status Atual
-
-		annotation SummarizationSetBy = Automatic
-
-	column '2C - Data Inicial Designação'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 83b8d501-8020-43cb-afef-eae6332d9c94
-		summarizeBy: none
-		sourceColumn: 2C - Data Inicial Designação
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '2C - Data Final Designação'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: e8cef76f-3d05-4176-a2c8-882df3fed745
-		summarizeBy: none
-		sourceColumn: 2C - Data Final Designação
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '2C - Nº Relatório'
-		dataType: string
-		lineageTag: 5c25c3fb-9708-4ec6-983e-4e108a6f40d9
-		summarizeBy: none
-		sourceColumn: 2C - Nº Relatório
-
-		annotation SummarizationSetBy = Automatic
-
-	column '2C - Data Relatório'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 6a3e9b50-a6eb-4d13-87f7-af604e4bf651
-		summarizeBy: none
-		sourceColumn: 2C - Data Relatório
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '2C - Coordenador'
-		dataType: string
-		lineageTag: d5661ae4-1040-464c-9f21-f4fecb155477
-		summarizeBy: none
-		sourceColumn: 2C - Coordenador
-
-		annotation SummarizationSetBy = Automatic
-
-	column '2C - Equipe'
-		dataType: string
-		lineageTag: 3491a04a-0052-4377-9908-b7a3b0a0d9cb
-		summarizeBy: none
-		sourceColumn: 2C - Equipe
-
-		annotation SummarizationSetBy = Automatic
-
-	column '2C - Status Atual'
-		dataType: string
-		lineageTag: b8439ac1-9942-43b9-8ce9-bfcef6f13be2
-		summarizeBy: none
-		sourceColumn: 2C - Status Atual
-
-		annotation SummarizationSetBy = Automatic
-
-	column '3C - Data Inicial Designação'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 84ca5ce1-4ed2-48ea-9e3d-9c699b08817a
-		summarizeBy: none
-		sourceColumn: 3C - Data Inicial Designação
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '3C - Data Final Designação'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: cd19d6d6-79f9-4283-98d6-fed899b43992
-		summarizeBy: none
-		sourceColumn: 3C - Data Final Designação
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '3C - Nº Relatório'
-		dataType: string
-		lineageTag: 38e8520a-436b-4631-8b82-468e5add4974
-		summarizeBy: none
-		sourceColumn: 3C - Nº Relatório
-
-		annotation SummarizationSetBy = Automatic
-
-	column '3C - Data Relatório'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 44b04e85-45c3-46c7-bb21-69114fb2a647
-		summarizeBy: none
-		sourceColumn: 3C - Data Relatório
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column '3C - Coordenador'
-		dataType: string
-		lineageTag: 4e5af6b1-6447-475a-b0e2-f1833c635d64
-		summarizeBy: none
-		sourceColumn: 3C - Coordenador
-
-		annotation SummarizationSetBy = Automatic
-
-	column '3C - Equipe'
-		dataType: string
-		lineageTag: de9cabfc-33fb-497d-9297-6fab089faba9
-		summarizeBy: none
-		sourceColumn: 3C - Equipe
-
-		annotation SummarizationSetBy = Automatic
-
-	column '3C - Status Atual'
-		dataType: string
-		lineageTag: 58162b5b-0298-4500-8dcc-ab697dc961fe
-		summarizeBy: none
-		sourceColumn: 3C - Status Atual
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'M - Ciclo Atual'
-		dataType: string
-		lineageTag: fe9ae598-f7b7-42ee-94dc-b4b6d9fa57dc
-		summarizeBy: none
-		sourceColumn: M - Ciclo Atual
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'M - Status Atual Geral do Monitoramento'
-		dataType: string
-		lineageTag: 8d94766b-f60f-4634-96bf-52892c67452b
-		summarizeBy: none
-		sourceColumn: M - Status Atual Geral do Monitoramento
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'M - Data do Status Atual Geral'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 7db4d6d4-23e4-4b9a-881c-f53491246169
-		summarizeBy: none
-		sourceColumn: M - Data do Status Atual Geral
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'P - Processo sigiloso'
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 937c356c-6e4b-4b86-b980-605c5834316b
-		summarizeBy: none
-		sourceColumn: P - Processo sigiloso
-
-		annotation SummarizationSetBy = Automatic
-
 	column Monitoramento
 		dataType: string
-		lineageTag: 36b53607-e97e-47c5-b5c0-7ce202265d59
+		lineageTag: 42bda344-200e-488e-bb85-dc833f49fb37
 		summarizeBy: none
 		sourceColumn: Monitoramento
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'MQ - Qtde Matriz Qualidade RAI'
-		dataType: double
-		lineageTag: 63e1d14e-f541-4c39-9531-617a28527aee
-		summarizeBy: sum
-		sourceColumn: MQ - Qtde Matriz Qualidade RAI
+	column (01)DEMANDANTE
+		dataType: string
+		lineageTag: 45738623-1882-4de7-a849-a6da5a9d53c4
+		summarizeBy: none
+		sourceColumn: (01)DEMANDANTE
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'MQ - Qtde Matriz Qualidade RAF'
-		dataType: double
-		lineageTag: f32ae9ea-b209-42a1-bdb0-10e38852307d
-		summarizeBy: sum
-		sourceColumn: MQ - Qtde Matriz Qualidade RAF
+	column (02)ORIGEM
+		dataType: string
+		lineageTag: fc66ee31-e26e-4cee-8cb2-1c26836e1663
+		summarizeBy: none
+		sourceColumn: (02)ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(03)TIPO DE AUDITORIA'
+		dataType: string
+		lineageTag: a32774c5-5bea-4e63-8c3e-480eefdf7e6f
+		summarizeBy: none
+		sourceColumn: (03)TIPO DE AUDITORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column (04)EIXO
+		dataType: string
+		lineageTag: 989a5243-1655-4077-9acd-02755739770c
+		summarizeBy: none
+		sourceColumn: (04)EIXO
+
+		annotation SummarizationSetBy = Automatic
+
+	column (05)CNES
+		dataType: string
+		lineageTag: a4ad79e4-72fe-4875-89af-dfd6ac4b2477
+		summarizeBy: none
+		sourceColumn: (05)CNES
+
+		annotation SummarizationSetBy = Automatic
+
+	column (06)AUDITADO
+		dataType: string
+		lineageTag: 9f69e2ca-c308-4e75-85a4-1f7d1a025f85
+		summarizeBy: none
+		sourceColumn: (06)AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(07)TIPO DE ESTABELECIMENTO'
+		dataType: string
+		lineageTag: c3ab51d0-68fb-4858-9de0-2862803fe0a5
+		summarizeBy: none
+		sourceColumn: (07)TIPO DE ESTABELECIMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column (08)MUNICÍPIO
+		dataType: string
+		lineageTag: 049684f5-fac6-4937-8f41-464501bfb7b1
+		summarizeBy: none
+		sourceColumn: (08)MUNICÍPIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column (09)CRS
+		dataType: string
+		lineageTag: e88d6393-644d-41ae-aab7-cd0df6229cb2
+		summarizeBy: none
+		sourceColumn: (09)CRS
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(10)REGIÃO DE SAÚDE'
+		dataType: string
+		lineageTag: ab5fdfe6-74b5-4176-9571-b2c7b30682f0
+		summarizeBy: none
+		sourceColumn: (10)REGIÃO DE SAÚDE
+
+		annotation SummarizationSetBy = Automatic
+
+	column (11)MACRORREGIÃO
+		dataType: string
+		lineageTag: 83d4bd7b-caea-44e7-aff3-6bb1f669347d
+		summarizeBy: none
+		sourceColumn: (11)MACRORREGIÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ACOMPANHAMENTO
+		dataType: string
+		lineageTag: 4df372bc-9794-4df6-832b-d2d30f8ac4e0
+		summarizeBy: none
+		sourceColumn: ACOMPANHAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(12)Nº PROA'
+		dataType: string
+		lineageTag: d7f00e56-693f-41a1-bdca-2cc9c168b767
+		summarizeBy: none
+		sourceColumn: (12)Nº PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(13)DATA DE ABERTURA '
+		dataType: string
+		lineageTag: 5d49660b-ca7d-4781-8f13-b2d39968d10b
+		summarizeBy: none
+		sourceColumn: "(13)DATA DE ABERTURA "
+
+		annotation SummarizationSetBy = Automatic
+
+	column (14)COORDENADOR
+		dataType: string
+		lineageTag: be7f6638-c4a3-4117-906b-64db4f9f6f45
+		summarizeBy: none
+		sourceColumn: (14)COORDENADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Coord. Designados'
+		dataType: string
+		lineageTag: 42c6f8ab-600e-445f-8653-3e98cd0a26bd
+		summarizeBy: none
+		sourceColumn: Coord. Designados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Última alteração Coord.'
+		dataType: string
+		lineageTag: 62a55b3b-5a51-4a4b-9c57-13c187c4b4f4
+		summarizeBy: none
+		sourceColumn: Última alteração Coord.
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(15)N° RELATÓRIO INICIAL'
+		dataType: string
+		lineageTag: 0db179f8-b99d-4866-9f55-9cd474dbb0a3
+		summarizeBy: none
+		sourceColumn: (15)N° RELATÓRIO INICIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column (16)SUBTIPO
+		dataType: string
+		lineageTag: 03d1e518-6c27-496e-8b52-bebd6db66bb1
+		summarizeBy: none
+		sourceColumn: (16)SUBTIPO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(17)DATA DE DESIGNAÇÃO'
+		dataType: string
+		lineageTag: 0f571380-8c5b-44e3-8d0a-bcd76b938c9d
+		summarizeBy: none
+		sourceColumn: (17)DATA DE DESIGNAÇÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column (18)EQUIPE
+		dataType: string
+		lineageTag: 52ef3b1d-4553-4e95-acfc-e09f8843b219
+		summarizeBy: none
+		sourceColumn: (18)EQUIPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dilação de Prazo'
+		dataType: string
+		lineageTag: d1a41518-29ca-487e-9b96-75ee10bb5f57
+		summarizeBy: none
+		sourceColumn: Dilação de Prazo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prazo Total Concedido (em dias)'
+		dataType: string
+		lineageTag: c961cbf4-3e21-498a-8ca4-558631b81eb9
+		summarizeBy: none
+		sourceColumn: Prazo Total Concedido (em dias)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ultima solicitação'
+		dataType: string
+		lineageTag: ce9568b2-0874-432b-93d0-84e05b7cc6d4
+		summarizeBy: none
+		sourceColumn: Ultima solicitação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(19)DATA ENTREGA RELATÓRIO INICIALEQUIPE => CHEFIA'
+		dataType: string
+		lineageTag: bfc2c9d9-9bf5-4099-bda0-bf72cf2edf78
+		summarizeBy: none
+		sourceColumn: (19)DATA ENTREGA RELATÓRIO INICIALEQUIPE => CHEFIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Qtde Martiz Qualidade RIA'
+		dataType: string
+		lineageTag: afcc15e4-221f-46b1-be33-8e8eb8aeae49
+		summarizeBy: none
+		sourceColumn: Qtde Martiz Qualidade RIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ultima Entrega MqRAI'
+		dataType: string
+		lineageTag: 7f0c4c29-7652-4495-a4aa-71471e9273ab
+		summarizeBy: none
+		sourceColumn: Ultima Entrega MqRAI
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(20)N° RELATÓRIO FINAL'
+		dataType: string
+		lineageTag: 4a11e7b6-2c7f-44eb-a253-8bd89384d27a
+		summarizeBy: none
+		sourceColumn: (20)N° RELATÓRIO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(21)DATA ENTREGA RELATÓRIO FINALEQUIPE => CHEFIA'
+		dataType: string
+		lineageTag: 4b46ea74-167d-45b4-8347-2a72f4a291c7
+		summarizeBy: none
+		sourceColumn: (21)DATA ENTREGA RELATÓRIO FINALEQUIPE => CHEFIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Qtde Martiz Qualidade RFA'
+		dataType: string
+		lineageTag: bdc79b22-2400-4083-88ae-837ec55740da
+		summarizeBy: none
+		sourceColumn: Qtde Martiz Qualidade RFA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ultima Entrega MqRAF'
+		dataType: string
+		lineageTag: fa12c61f-c918-41c5-b099-41099762f81f
+		summarizeBy: none
+		sourceColumn: Ultima Entrega MqRAF
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(22)PRAZO ENTREGA RELATÓRIO FINAL'
+		dataType: string
+		lineageTag: 97c453c2-0393-4ea0-9338-b3ec301f0bae
+		summarizeBy: none
+		sourceColumn: (22)PRAZO ENTREGA RELATÓRIO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(23)DATA ENVIO RELATORIO INICIAL AO AUDITADO'
+		dataType: string
+		lineageTag: 7e270d63-0473-497e-b3e7-1a1e1c9a27db
+		summarizeBy: none
+		sourceColumn: (23)DATA ENVIO RELATORIO INICIAL AO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(24)DATA RECEBIMENTO RELATORIO INICIAL'
+		dataType: string
+		lineageTag: 27b89fe7-6d10-4f35-935e-cf7cbd8d5bfe
+		summarizeBy: none
+		sourceColumn: (24)DATA RECEBIMENTO RELATORIO INICIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dilação de Prazo (em dias)'
+		dataType: string
+		lineageTag: c2a736fe-830f-442f-a3f8-796181c20d55
+		summarizeBy: none
+		sourceColumn: Dilação de Prazo (em dias)
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(24a)EMITIDA CERTIDÃO'
+		dataType: string
+		lineageTag: 9c437391-282c-4597-a554-1f6e3246a82e
+		summarizeBy: none
+		sourceColumn: (24a)EMITIDA CERTIDÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(25)DATA RECEBIMENTO DEFESA / CERTIDÃO'
+		dataType: string
+		lineageTag: 47a7e4b5-fa8b-4dd5-b867-69ee9f4dcfdb
+		summarizeBy: none
+		sourceColumn: (25)DATA RECEBIMENTO DEFESA / CERTIDÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(26)DATA ENVIO RELATÓRIO FINAL AO AUDITADO'
+		dataType: string
+		lineageTag: 23dcac44-5050-45b5-982a-1956b8acdbec
+		summarizeBy: none
+		sourceColumn: (26)DATA ENVIO RELATÓRIO FINAL AO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(27)DATA RECEBIMENTO RELATÓRIO FINAL'
+		dataType: string
+		lineageTag: 916d5c71-8a7a-422a-990b-2518e7455780
+		summarizeBy: none
+		sourceColumn: (27)DATA RECEBIMENTO RELATÓRIO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(27a)EMITIDA CERTIDÃO'
+		dataType: string
+		lineageTag: 178a8d32-a1ac-4bcd-83f9-dca74d6b1e70
+		summarizeBy: none
+		sourceColumn: (27a)EMITIDA CERTIDÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(28)DATA RECEBIMENTO RECURSO'
+		dataType: string
+		lineageTag: 7341707d-8699-4c08-9a5b-63b5441f1df5
+		summarizeBy: none
+		sourceColumn: (28)DATA RECEBIMENTO RECURSO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(29)PRAZO FINAL'
+		dataType: string
+		lineageTag: 757ee59c-8e28-45a5-99d5-aae01cd6f4b0
+		summarizeBy: none
+		sourceColumn: (29)PRAZO FINAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(30)DATA ENVIO DECISÃO AO AUDITADO'
+		dataType: string
+		lineageTag: 46ffb39c-fb01-4b8e-8fdd-4f6cb54e5383
+		summarizeBy: none
+		sourceColumn: (30)DATA ENVIO DECISÃO AO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(31)DATA CIÊNCIA DO AUDITADO'
+		dataType: string
+		lineageTag: ac0b03e1-ecc5-42c5-b8f5-742aee6ea97b
+		summarizeBy: none
+		sourceColumn: (31)DATA CIÊNCIA DO AUDITADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(31a)ENVIO PARA FES'
+		dataType: string
+		lineageTag: 5c335438-f410-4754-ab61-f217b87507c1
+		summarizeBy: none
+		sourceColumn: (31a)ENVIO PARA FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(32)PENALIDADE ADMINISTRATIVA'
+		dataType: string
+		lineageTag: 2849f2dc-2882-46a8-a7f9-3024ece800a6
+		summarizeBy: none
+		sourceColumn: (32)PENALIDADE ADMINISTRATIVA
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(33)VALOR RESSARCIMENTO'
+		dataType: string
+		lineageTag: aad9dbe6-9ed0-45ea-b7b9-570a8a3e714b
+		summarizeBy: none
+		sourceColumn: (33)VALOR RESSARCIMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(34)VALOR MULTA'
+		dataType: string
+		lineageTag: d3428363-1d45-4c77-9590-bd5fc9ec4fdd
+		summarizeBy: none
+		sourceColumn: (34)VALOR MULTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(35)VALOR TOTAL'
+		dataType: string
+		lineageTag: 1c69aaa6-1ad2-41d2-83eb-9e55af9685b9
+		summarizeBy: none
+		sourceColumn: (35)VALOR TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(36)TIPO PAGAMENTO'
+		dataType: string
+		lineageTag: c7e6ebb5-e547-41c8-85a3-e9d1372f1f8a
+		summarizeBy: none
+		sourceColumn: (36)TIPO PAGAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(36a) ENVIO PARA FES'
+		dataType: string
+		lineageTag: 3f67f47b-bcdc-48e3-9dc2-a1489684c997
+		summarizeBy: none
+		sourceColumn: (36a) ENVIO PARA FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(37)DATA PAGAMENTO'
+		dataType: string
+		lineageTag: 348fce9f-fe3e-4aee-8bca-fdb51276cdfa
+		summarizeBy: none
+		sourceColumn: (37)DATA PAGAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(38)DATA DOE'
+		dataType: string
+		lineageTag: 91e0e299-b25b-4ce7-86ac-d9497ae43da1
+		summarizeBy: none
+		sourceColumn: (38)DATA DOE
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(39)PÁG. DOE'
+		dataType: string
+		lineageTag: c582e6ef-bdb8-4a4e-beee-5199ff4614be
+		summarizeBy: none
+		sourceColumn: (39)PÁG. DOE
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(40)DATA ARQUIVAMENTO / DEVOLUÇÃO PROA'
+		dataType: string
+		lineageTag: 871ca9e2-12d1-4874-8b9d-53ef91bb2007
+		summarizeBy: none
+		sourceColumn: (40)DATA ARQUIVAMENTO / DEVOLUÇÃO PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column (41)OBSERVAÇÕES
+		dataType: string
+		lineageTag: 7d2a65bd-3260-416d-8626-0d3f2c05f2da
+		summarizeBy: none
+		sourceColumn: (41)OBSERVAÇÕES
+
+		annotation SummarizationSetBy = Automatic
+
+	column (42)STATUS
+		dataType: string
+		lineageTag: d70c197b-f55c-4aaf-876b-f6d16091a270
+		summarizeBy: none
+		sourceColumn: (42)STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column (43)RECOMENDAÇÕES
+		dataType: string
+		lineageTag: 03a95fc9-0316-4909-a2f6-80d786a1e8b3
+		summarizeBy: none
+		sourceColumn: (43)RECOMENDAÇÕES
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(44)Nº do Ofício de início do 1º Ciclo'
+		dataType: string
+		lineageTag: 9f893436-649e-4fc3-90c5-99c24c622fe9
+		summarizeBy: none
+		sourceColumn: (44)Nº do Ofício de início do 1º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(45)1º Ciclo data de ENVIO e-mail do Ofício de Abertura'
+		dataType: string
+		lineageTag: fa251ce6-8676-4c74-9cfc-a28a40ff149d
+		summarizeBy: none
+		sourceColumn: (45)1º Ciclo data de ENVIO e-mail do Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(46)1º Ciclo data de RECEBIMENTO do e-mail do Ofício de Abertura'
+		dataType: string
+		lineageTag: 1f46d86d-fc79-46d1-ac4b-d949d39af08d
+		summarizeBy: none
+		sourceColumn: (46)1º Ciclo data de RECEBIMENTO do e-mail do Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(47)1º Ciclo Data REITERAÇÃO'
+		dataType: string
+		lineageTag: feff589b-f1cc-460e-b365-45cc95d57924
+		summarizeBy: none
+		sourceColumn: (47)1º Ciclo Data REITERAÇÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(48a) Prazo para Final do 1º Ciclo'
+		dataType: string
+		lineageTag: 709da604-12fb-4438-910a-8501b328956e
+		summarizeBy: none
+		sourceColumn: (48a) Prazo para Final do 1º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(48)1º Ciclo Data Final do Ciclo'
+		dataType: string
+		lineageTag: a053a191-6806-4738-b37a-18d99cae0945
+		summarizeBy: none
+		sourceColumn: (48)1º Ciclo Data Final do Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(49)1º Ciclo Auditado enviou Doc.'
+		dataType: string
+		lineageTag: e00101b5-18b0-46aa-b05e-97a0f0e12117
+		summarizeBy: none
+		sourceColumn: (49)1º Ciclo Auditado enviou Doc.
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(50)1º Ciclo Data de entrega dos documentos comprobatórios'
+		dataType: string
+		lineageTag: 22b2c35c-5419-4fa9-b02d-0db6d8b91bcb
+		summarizeBy: none
+		sourceColumn: (50)1º Ciclo Data de entrega dos documentos comprobatórios
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(51)1º Ciclo Data de emissão da certidão caso emitida'
+		dataType: string
+		lineageTag: dd382e8b-a2b3-4b8d-95de-111c127313df
+		summarizeBy: none
+		sourceColumn: (51)1º Ciclo Data de emissão da certidão caso emitida
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(52)1º Ciclo Data Inicial Designação'
+		dataType: string
+		lineageTag: af53272c-a393-4745-91c7-46f53b9b1f98
+		summarizeBy: none
+		sourceColumn: (52)1º Ciclo Data Inicial Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(53a)1º Ciclo Prazo para Data Final de Designação'
+		dataType: string
+		lineageTag: a5649b35-6122-4d49-8957-62392230c2b3
+		summarizeBy: none
+		sourceColumn: (53a)1º Ciclo Prazo para Data Final de Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(53)1º Ciclo Data Final Designação'
+		dataType: string
+		lineageTag: a5b5c8c6-e7f2-498e-9b25-35354be7a1d8
+		summarizeBy: none
+		sourceColumn: (53)1º Ciclo Data Final Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(54)1º Ciclo N° RELATÓRIO'
+		dataType: string
+		lineageTag: c74de644-99a3-4655-8d43-3168cdf376bb
+		summarizeBy: none
+		sourceColumn: (54)1º Ciclo N° RELATÓRIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(55)1º Ciclo Data Relatório'
+		dataType: string
+		lineageTag: 789cdca2-3c2a-418e-ae03-52347f79e8de
+		summarizeBy: none
+		sourceColumn: (55)1º Ciclo Data Relatório
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(56)1º Ciclo COORDENADOR'
+		dataType: string
+		lineageTag: 6119567c-06d5-4073-afa2-df012ad33db9
+		summarizeBy: none
+		sourceColumn: (56)1º Ciclo COORDENADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(57)1º Ciclo EQUIPE'
+		dataType: string
+		lineageTag: a419f7e0-5df0-452a-94d5-373881934994
+		summarizeBy: none
+		sourceColumn: (57)1º Ciclo EQUIPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(58)1º Ciclo Acolhimento'
+		dataType: string
+		lineageTag: 968aa822-6d91-4669-bdb9-dca1dbe06eaf
+		summarizeBy: none
+		sourceColumn: (58)1º Ciclo Acolhimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(59)1º Ciclo Data Conclusão Técnica'
+		dataType: string
+		lineageTag: 3e6b07c7-e4d2-427a-8377-801899feeadb
+		summarizeBy: none
+		sourceColumn: (59)1º Ciclo Data Conclusão Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(60)1º Ciclo Data de RECLASSIFICAÇÃO como Não Monitorado'
+		dataType: string
+		lineageTag: 18f2866d-f972-4fae-b665-4c99d5520cf5
+		summarizeBy: none
+		sourceColumn: (60)1º Ciclo Data de RECLASSIFICAÇÃO como Não Monitorado
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(61)1º Ciclo Data de ENCERRAMENTO'
+		dataType: string
+		lineageTag: 4dab3bb4-f96c-4a5c-a559-42333e966155
+		summarizeBy: none
+		sourceColumn: (61)1º Ciclo Data de ENCERRAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(62)1º Ciclo Data de Notificação para Área Técnica'
+		dataType: string
+		lineageTag: 34553a67-fe0e-49eb-b794-e5f0dee20ec9
+		summarizeBy: none
+		sourceColumn: (62)1º Ciclo Data de Notificação para Área Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(63)1º Ciclo Data RESPOSTA da Notificação para Área Técnica'
+		dataType: string
+		lineageTag: df382aee-feba-40fb-9e28-bcb41bc58fa0
+		summarizeBy: none
+		sourceColumn: (63)1º Ciclo Data RESPOSTA da Notificação para Área Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(64)1º Ciclo Data de ARQUIVAMENTO'
+		dataType: string
+		lineageTag: dc0d10c3-4537-4470-8298-5a69c77b5da2
+		summarizeBy: none
+		sourceColumn: (64)1º Ciclo Data de ARQUIVAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(65)1º Ciclo Status Atual'
+		dataType: string
+		lineageTag: f8cbeb14-40f5-429d-9e9e-503d0b4b020f
+		summarizeBy: none
+		sourceColumn: (65)1º Ciclo Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(66)1º Ciclo Data Status Atual'
+		dataType: string
+		lineageTag: 6e767229-3a58-448b-8085-2f1825fe2256
+		summarizeBy: none
+		sourceColumn: (66)1º Ciclo Data Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(67)1º Ciclo Data do Checklist'
+		dataType: string
+		lineageTag: 22b2e629-afd6-40d0-a7dd-ce99562b3488
+		summarizeBy: none
+		sourceColumn: (67)1º Ciclo Data do Checklist
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(68)Obs 1º Ciclo'
+		dataType: string
+		lineageTag: 72146809-4820-428b-a33f-1f60d2b20e4a
+		summarizeBy: none
+		sourceColumn: (68)Obs 1º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(69)2 Ciclo Nº do Ofício de início do 2º Ciclo ou de encerramento do monitoramento das recomendações'
+		dataType: string
+		lineageTag: 7ddb7705-7eef-43a4-a19c-5ee9b864c249
+		summarizeBy: none
+		sourceColumn: (69)2 Ciclo Nº do Ofício de início do 2º Ciclo ou de encerramento do monitoramento das recomendações
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(70)2º Ciclo data de ENVIO e-mail do Ofício de Abertura'
+		dataType: string
+		lineageTag: c535132e-1d5e-4fd4-b7e4-d020942e7037
+		summarizeBy: none
+		sourceColumn: (70)2º Ciclo data de ENVIO e-mail do Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(71)2º Ciclo data de RECEBIMENTO do e-mail do Ofício de Abertura'
+		dataType: string
+		lineageTag: 2dd5924e-08a3-4ac6-bd70-5e89972c4b5c
+		summarizeBy: none
+		sourceColumn: (71)2º Ciclo data de RECEBIMENTO do e-mail do Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(72)2º Ciclo Data REITERAÇÃO'
+		dataType: string
+		lineageTag: 7462a367-adce-4d22-a50f-3d977199d299
+		summarizeBy: none
+		sourceColumn: (72)2º Ciclo Data REITERAÇÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(73a)Prazo para Final do 2º Ciclo'
+		dataType: string
+		lineageTag: 41c6f659-a6fd-43f3-bbad-793a8ec74126
+		summarizeBy: none
+		sourceColumn: (73a)Prazo para Final do 2º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(73)2º Ciclo Data Final do Ciclo'
+		dataType: string
+		lineageTag: 40541e5a-2baf-4b27-a6b7-c7a6256cd299
+		summarizeBy: none
+		sourceColumn: (73)2º Ciclo Data Final do Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(74)2º Ciclo Auditado enviou Doc.'
+		dataType: string
+		lineageTag: 4ea9f6ca-5064-41e8-85bf-e8380911cc6a
+		summarizeBy: none
+		sourceColumn: (74)2º Ciclo Auditado enviou Doc.
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(75)2º Ciclo Data de entrega dos documentos comprobatórios'
+		dataType: string
+		lineageTag: 540a4f4b-50b1-4304-a632-573ef1e037d7
+		summarizeBy: none
+		sourceColumn: (75)2º Ciclo Data de entrega dos documentos comprobatórios
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(76)2º Ciclo Data de emissão da certidão caso emitida'
+		dataType: string
+		lineageTag: a399c7b8-8867-4de6-93d9-871dfc75faf4
+		summarizeBy: none
+		sourceColumn: (76)2º Ciclo Data de emissão da certidão caso emitida
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(77)2º Ciclo Data Inicial Designação'
+		dataType: string
+		lineageTag: 2c04d949-bdaf-42cb-9fc8-6c817281a073
+		summarizeBy: none
+		sourceColumn: (77)2º Ciclo Data Inicial Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(78a)2º Ciclo Prazo para Data Final de Designação'
+		dataType: string
+		lineageTag: 1573a461-3c83-4c38-8b8f-28fdec1485f9
+		summarizeBy: none
+		sourceColumn: (78a)2º Ciclo Prazo para Data Final de Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(78)2º Ciclo Data Final Designação'
+		dataType: string
+		lineageTag: 7957f1a1-1eff-4426-83fa-bb3feaf01100
+		summarizeBy: none
+		sourceColumn: (78)2º Ciclo Data Final Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(79)2º Ciclo N° RELATÓRIO'
+		dataType: string
+		lineageTag: 253aa424-2ca7-4a31-aba2-421ad0b89ee0
+		summarizeBy: none
+		sourceColumn: (79)2º Ciclo N° RELATÓRIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(80)2º Ciclo Data Relatório'
+		dataType: string
+		lineageTag: 7c483634-eedc-4de9-a998-3026db6756f3
+		summarizeBy: none
+		sourceColumn: (80)2º Ciclo Data Relatório
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(81)2º Ciclo COORDENADOR'
+		dataType: string
+		lineageTag: a7af7ac5-2a8a-4858-8cee-08e44d79b2c4
+		summarizeBy: none
+		sourceColumn: (81)2º Ciclo COORDENADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(82)2º Ciclo EQUIPE'
+		dataType: string
+		lineageTag: c6bf1d72-0ece-4f56-95d8-1fff3c49066b
+		summarizeBy: none
+		sourceColumn: (82)2º Ciclo EQUIPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(83)2º Ciclo Acolhimento'
+		dataType: string
+		lineageTag: 0653962a-39b5-4c47-83d3-67f7f829c8d2
+		summarizeBy: none
+		sourceColumn: (83)2º Ciclo Acolhimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(84)2º Ciclo Data Coclusão Técnica'
+		dataType: string
+		lineageTag: e5ca017f-0f67-4e3d-967d-937893b13697
+		summarizeBy: none
+		sourceColumn: (84)2º Ciclo Data Coclusão Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(85)2º Ciclo Data de ENCERRAMENTO'
+		dataType: string
+		lineageTag: 5be152ce-443e-4c6e-9925-17864bc52c7b
+		summarizeBy: none
+		sourceColumn: (85)2º Ciclo Data de ENCERRAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(86)2º Ciclo Data de Notificação para Área Técnica'
+		dataType: string
+		lineageTag: b0138702-9181-4c32-b98e-58e7f20336ab
+		summarizeBy: none
+		sourceColumn: (86)2º Ciclo Data de Notificação para Área Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(87)2º Ciclo Data RESPOSTA da Notificação para Área Técnica'
+		dataType: string
+		lineageTag: f27568b0-3976-4144-b21d-1ea2062fe620
+		summarizeBy: none
+		sourceColumn: (87)2º Ciclo Data RESPOSTA da Notificação para Área Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(88)2º Ciclo Data de ARQUIVAMENTO'
+		dataType: string
+		lineageTag: 858b2342-2fcf-44b1-ba87-9ad77f9c1e26
+		summarizeBy: none
+		sourceColumn: (88)2º Ciclo Data de ARQUIVAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(89)2º Ciclo Status Atual'
+		dataType: string
+		lineageTag: 7233c24e-7bd0-4a01-bda4-3dbcb93431c1
+		summarizeBy: none
+		sourceColumn: (89)2º Ciclo Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(90)2º Ciclo Data Status Atual'
+		dataType: string
+		lineageTag: d49f4bdc-7455-45d2-969e-f7650296e754
+		summarizeBy: none
+		sourceColumn: (90)2º Ciclo Data Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(91)2º Ciclo Data do Checklist'
+		dataType: string
+		lineageTag: b3f1f803-39f3-4f03-bb32-4b5e49dba0fd
+		summarizeBy: none
+		sourceColumn: (91)2º Ciclo Data do Checklist
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(92)Obs 2º Ciclo'
+		dataType: string
+		lineageTag: 14d27bd1-6187-4b91-a36d-ce8d67dcbaad
+		summarizeBy: none
+		sourceColumn: (92)Obs 2º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(93)Nº do Ofício de início do 3º Ciclo ou de encerramento do monitoramento das recomendações'
+		dataType: string
+		lineageTag: e752db74-9201-4f8b-b156-adc8d276582b
+		summarizeBy: none
+		sourceColumn: (93)Nº do Ofício de início do 3º Ciclo ou de encerramento do monitoramento das recomendações
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(94)3º Ciclo data de ENVIO e-mail do Ofício de Abertura'
+		dataType: string
+		lineageTag: 81d0d5c1-189c-4019-9874-2caf204a2b62
+		summarizeBy: none
+		sourceColumn: (94)3º Ciclo data de ENVIO e-mail do Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(95)3º Ciclo data de RECEBIMENTO do e-mail do Ofício de Abertura'
+		dataType: string
+		lineageTag: 8cdd6ea3-9f6e-442c-a90c-fefab07806ac
+		summarizeBy: none
+		sourceColumn: (95)3º Ciclo data de RECEBIMENTO do e-mail do Ofício de Abertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(96)3º Ciclo Data REITERAÇÃO'
+		dataType: string
+		lineageTag: c5f10c72-481f-4360-91ee-fe04d86bda6a
+		summarizeBy: none
+		sourceColumn: (96)3º Ciclo Data REITERAÇÃO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(97a)Prazo para Final do 3º Ciclo'
+		dataType: string
+		lineageTag: f06cc50f-edc0-44d2-94cf-4c0b213a79b8
+		summarizeBy: none
+		sourceColumn: (97a)Prazo para Final do 3º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(97)3º Ciclo Data Final do Ciclo'
+		dataType: string
+		lineageTag: 0f8ce484-6aaf-46d2-aab9-e7bb075f7798
+		summarizeBy: none
+		sourceColumn: (97)3º Ciclo Data Final do Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(98)3º Ciclo Auditado enviou Doc.'
+		dataType: string
+		lineageTag: da914774-f127-481c-8e3f-744f2cbb8517
+		summarizeBy: none
+		sourceColumn: (98)3º Ciclo Auditado enviou Doc.
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(99)3º Ciclo Data de entrega dos documentos comprobatórios'
+		dataType: string
+		lineageTag: 21b4d625-a4e0-473b-814c-e27e07256055
+		summarizeBy: none
+		sourceColumn: (99)3º Ciclo Data de entrega dos documentos comprobatórios
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(100)3º Ciclo Data de emissão da certidão caso emitida'
+		dataType: string
+		lineageTag: b02785c6-97f9-48da-944c-b299a3b78d6f
+		summarizeBy: none
+		sourceColumn: (100)3º Ciclo Data de emissão da certidão caso emitida
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(101)3º Ciclo Data Inicial Designação'
+		dataType: string
+		lineageTag: 2738627f-8fd7-46be-8f6b-41b9e94da707
+		summarizeBy: none
+		sourceColumn: (101)3º Ciclo Data Inicial Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(102a)3º Ciclo Prazo para Data Final de Designação'
+		dataType: string
+		lineageTag: 25e95dd9-04d2-45b5-8086-90d9fc7abacb
+		summarizeBy: none
+		sourceColumn: (102a)3º Ciclo Prazo para Data Final de Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(102)3º Ciclo Data Final Designação'
+		dataType: string
+		lineageTag: ed7417a5-9ade-4e7c-ba1b-56300d9edb04
+		summarizeBy: none
+		sourceColumn: (102)3º Ciclo Data Final Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(103)3º Ciclo N° RELATÓRIO'
+		dataType: string
+		lineageTag: 7fb15658-114a-43b3-a140-cf45b4d20bae
+		summarizeBy: none
+		sourceColumn: (103)3º Ciclo N° RELATÓRIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(104)3º Ciclo Data Relatório'
+		dataType: string
+		lineageTag: 685adcf7-5cdd-49a0-847f-bb35de418829
+		summarizeBy: none
+		sourceColumn: (104)3º Ciclo Data Relatório
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(105)3º Ciclo COORDENADOR'
+		dataType: string
+		lineageTag: caffaf64-0015-419e-87dc-e40ecc45fc61
+		summarizeBy: none
+		sourceColumn: (105)3º Ciclo COORDENADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(106)3º Ciclo EQUIPE'
+		dataType: string
+		lineageTag: 71f5e377-4830-4d6d-a041-cdbf974a3da9
+		summarizeBy: none
+		sourceColumn: (106)3º Ciclo EQUIPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(107)3º Ciclo Acolhimento'
+		dataType: string
+		lineageTag: 82c1b448-24ff-4020-9a77-5066f1d0c914
+		summarizeBy: none
+		sourceColumn: (107)3º Ciclo Acolhimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(108)3º Ciclo Data Conclusão Técnica'
+		dataType: string
+		lineageTag: 58d519be-7c20-4d5a-8d59-591f7d0dcf12
+		summarizeBy: none
+		sourceColumn: (108)3º Ciclo Data Conclusão Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(109)3º Ciclo Data de ENCERRAMENTO'
+		dataType: string
+		lineageTag: 600fe5fe-29e3-427d-8319-d1649b3d6c2b
+		summarizeBy: none
+		sourceColumn: (109)3º Ciclo Data de ENCERRAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(110)3º Ciclo Data de Notificação para Área Técnica'
+		dataType: string
+		lineageTag: c0dd02d8-4341-4d8d-9761-f834be939e54
+		summarizeBy: none
+		sourceColumn: (110)3º Ciclo Data de Notificação para Área Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(111)3º Ciclo Data RESPOSTA da Notificação para Área Técnica'
+		dataType: string
+		lineageTag: 92f5a2e4-806e-483e-9213-3d4043e173fc
+		summarizeBy: none
+		sourceColumn: (111)3º Ciclo Data RESPOSTA da Notificação para Área Técnica
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(112)3º Ciclo Data de ARQUIVAMENTO'
+		dataType: string
+		lineageTag: 6adf7d8a-e328-4fa0-909c-f36a273f1ee6
+		summarizeBy: none
+		sourceColumn: (112)3º Ciclo Data de ARQUIVAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(113)3º Ciclo Status Atual'
+		dataType: string
+		lineageTag: b1a6d6f0-29f0-417c-8977-40a0fe278c1a
+		summarizeBy: none
+		sourceColumn: (113)3º Ciclo Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(114)3º Ciclo Data Status Atual'
+		dataType: string
+		lineageTag: d6b02bb6-8208-4114-a199-7fe8564220d2
+		summarizeBy: none
+		sourceColumn: (114)3º Ciclo Data Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(115)3º Ciclo Data do Checklist'
+		dataType: string
+		lineageTag: ad37551e-05b8-41da-8710-6b78783e599d
+		summarizeBy: none
+		sourceColumn: (115)3º Ciclo Data do Checklist
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(116)Obs 3º Ciclo'
+		dataType: string
+		lineageTag: a88096f0-d035-40fd-b2dd-ac8d34d72837
+		summarizeBy: none
+		sourceColumn: (116)Obs 3º Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(117)Ciclo Atual'
+		dataType: string
+		lineageTag: 5238fb60-b249-488e-a748-6e4b0a1cb4a5
+		summarizeBy: none
+		sourceColumn: (117)Ciclo Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(118)Status Atual GERAL do Monitoramento'
+		dataType: string
+		lineageTag: 945989c2-5f05-48d8-a10b-4ae2d8fb3f08
+		summarizeBy: none
+		sourceColumn: (118)Status Atual GERAL do Monitoramento
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(119)Data do Status Atual GERAL do Monitoramento'
+		dataType: string
+		lineageTag: 022ffe8b-1361-43d1-bd28-299a2b6ee5f1
+		summarizeBy: none
+		sourceColumn: (119)Data do Status Atual GERAL do Monitoramento
+
+		annotation SummarizationSetBy = Automatic
+
+	column '(120)Processo sigiloso?'
+		dataType: string
+		lineageTag: cb5a42e6-9b06-49ee-a25c-14ec92032549
+		summarizeBy: none
+		sourceColumn: (120)Processo sigiloso?
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: string
+		lineageTag: 825ac6ab-1970-4d88-9d69-8d12ee72e257
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano entrega RAI para CHEFIA coluna (21)'
+		dataType: string
+		lineageTag: afa64177-e1fa-47b6-94c2-1c5a65b2301e
+		summarizeBy: none
+		sourceColumn: Ano entrega RAI para CHEFIA coluna (21)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano do envio do RAI ao auditado'
+		dataType: string
+		lineageTag: d88c3323-6655-4413-9ad3-d16c687ee384
+		summarizeBy: none
+		sourceColumn: Ano do envio do RAI ao auditado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano recebimento RAF'
+		dataType: string
+		lineageTag: f515b6f5-5add-46e5-8409-693852ea144c
+		summarizeBy: none
+		sourceColumn: Ano recebimento RAF
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês recebimento RAF'
+		dataType: string
+		lineageTag: aafff05d-95a4-4b80-983e-234bab9a2d5b
+		summarizeBy: none
+		sourceColumn: Mês recebimento RAF
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Consulta Pública'
+		dataType: string
+		lineageTag: ecaa5d65-2795-4808-b055-df228bd3fb15
+		summarizeBy: none
+		sourceColumn: Consulta Pública
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cod_Proa
+		dataType: string
+		lineageTag: b461f411-aad8-4716-8e7a-49b5355ead79
+		summarizeBy: none
+		sourceColumn: Cod_Proa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Catalogado
+		dataType: string
+		lineageTag: 773dac07-08a1-43c5-8901-a3d18e71bf05
+		summarizeBy: none
+		sourceColumn: Catalogado
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ação
+		dataType: string
+		lineageTag: e271a5ac-8be3-4f00-8fa0-f6db60c8a253
+		summarizeBy: none
+		sourceColumn: Ação
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROA
+		dataType: string
+		lineageTag: a5741a8a-96c6-4041-9d20-2150a6d49b50
+		summarizeBy: none
+		sourceColumn: PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column RESPONSÁVEL
+		dataType: string
+		lineageTag: 96fa9a30-df7a-484a-8664-f9c1049294d8
+		summarizeBy: none
+		sourceColumn: RESPONSÁVEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column CONTAGEM
+		dataType: string
+		lineageTag: c23d813a-47f0-484a-9b28-fe34b391a1d2
+		summarizeBy: none
+		sourceColumn: CONTAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Observação
+		dataType: string
+		lineageTag: d5549701-3367-45df-8699-017932ec7385
+		summarizeBy: none
+		sourceColumn: Observação
 
 		annotation SummarizationSetBy = Automatic
 
@@ -622,40 +1248,18 @@ table DadosDep
 				    Fonte = Excel.Workbook(Web.Contents("https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/30%20-%20INSTRUMENTOS%20DE%20GEST%C3%83O/05%20-%20RELAT%C3%93RIO%20DETALHADO%20DO%20QUADRIMESTRE%20ANTERIOR%20(RDQA)/2023/ESTUDO%20DOS%20PROCESSOS%20PARA%20AN%C3%81LISE%20DO%20RDQA%20-%20Copiar.xlsx"), null, true),
 				    PROCESSOS_Sheet = Fonte{[Item="PROCESSOS",Kind="Sheet"]}[Data],
 				    #"Linhas Superiores Removidas" = Table.Skip(PROCESSOS_Sheet,2),
-				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Linhas Superiores Removidas", [PromoteAllScalars=true]),
-				
-				    // Colunas sem código "(n)" no cabeçalho (fora do dicionário) usadas pelo painel: {origem, novo nome, tipo}
-				    ColunasForaDict = {
-				        {"Monitoramento",             "Monitoramento",                  type text},
-				        {"Qtde Martiz Qualidade RIA", "MQ - Qtde Matriz Qualidade RAI", type number},
-				        {"Qtde Martiz Qualidade RFA", "MQ - Qtde Matriz Qualidade RAF", type number}
-				    },
-				
-				    ColsDict   = Table.ColumnNames(fxSelecionarCols(#"Cabeçalhos Promovidos", dictDadosDep)),
-				    ColsManter = ColsDict & List.Transform(ColunasForaDict, each _{0}),
-				    #"ColSelecionadas" = Table.SelectColumns(#"Cabeçalhos Promovidos",
-				        List.Select(Table.ColumnNames(#"Cabeçalhos Promovidos"), each List.Contains(ColsManter, _))),
-				
-				    #"ColRenomeadas" = fxRenameCols(#"ColSelecionadas", dictDadosDep),
-				    #"ColTipadas"    = fxTyparCols(#"ColRenomeadas", dictDadosDep),
-				
-				    #"ExtrasRenomeadas" = Table.RenameColumns(#"ColTipadas", List.Transform(ColunasForaDict, each {_{0}, _{1}})),
-				    #"ExtrasTipadas"    = Table.TransformColumnTypes(#"ExtrasRenomeadas", List.Transform(ColunasForaDict, each {_{1}, _{2}}), "pt-BR"),
-				
-				    // Valores que não convertem no tipo do dicionário ("-", "s/d", texto em coluna de data...) viram null
-				    #"ErrosParaNull" = Table.ReplaceErrorValues(#"ExtrasTipadas",
-				        List.Transform(Table.ColumnNames(#"ExtrasTipadas"), each {_, null})),
-				
-				    #"RetirarLinhasVazias" = Table.SelectRows(#"ErrosParaNull", each
-				        not List.Contains({null, "", "-"}, try Text.Trim([#"012 - Nº PROA"]) otherwise null)),
-				
-				    #"FiltrarAnoCorte" = Table.SelectRows(#"RetirarLinhasVazias", each
-				        [#"013 - DATA DE ABERTURA"] <> null and Date.Year([#"013 - DATA DE ABERTURA"]) >= AnoDeCorte),
-				
-				    // Sem fxProcessarSigiloso: painel interno, e o mascaramento do "042 - STATUS" quebraria a regra "Não se aplica" de fAuditoria
-				    #"AplicarCasing" = fxAplicarCasing(#"FiltrarAnoCorte", dictDadosDep)
+				    CabecalhosPromovidos = Table.PromoteHeaders(#"Linhas Superiores Removidas", [PromoteAllScalars=true]),
+				    FiltrarAnoCorte = Table.SelectRows(
+				        CabecalhosPromovidos,
+				        each
+				            let
+				                DataConvertida = try Date.From([#"(13)#(lf)DATA DE ABERTURA "], "pt-BR") otherwise null
+				         in
+				                DataConvertida <> null
+				                and Date.Year(DataConvertida) >= AnoDeCorte
+				        )
 				in
-				    #"AplicarCasing"
+				    FiltrarAnoCorte
 
 	annotation PBI_NavigationStepName = Navegação
 
