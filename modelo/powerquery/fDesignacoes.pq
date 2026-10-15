@@ -70,7 +70,7 @@ let
     Hoje = Date.From(DateTime.LocalNow()),
     // ciclo arquivado/encerrado sem relatório não é pendência do auditor
     CicloFechado = (status as nullable text) as logical =>
-        let t = Text.Lower(status ?? "") in Text.Contains(t, "arquivado") or Text.Contains(t, "encerrado"),
+        let t = Text.Lower(status ?? "") in Text.Contains(t, "arquivado") or Text.Contains(t, "encerrado") or Text.Contains(t, "reclassificado"),
     ComLimite = Table.AddColumn(SoAuditores, "Data Limite", each
         if [Data Final Designação] = null then null else Date.AddDays([Data Final Designação], PrazoPadraoDias),
         type nullable date),
@@ -95,7 +95,13 @@ let
         else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
         else null,
         Int64.Type),
-    ComAlerta = Table.AddColumn(ComDiasAtraso, "Alerta de Qualidade", each
+    // carteira atual: ciclo aberto e relatório ainda não entregue
+    ComCarteira = Table.AddColumn(ComDiasAtraso, "Em Carteira", each
+        if [Data Relatório] = null and not CicloFechado([Status do Ciclo]) then "Sim" else "Não", type text),
+    ComDiasDesig = Table.AddColumn(ComCarteira, "Dias desde a Designação", each
+        if [Em Carteira] = "Sim" and [Data Inicial Designação] <> null then Duration.Days(Hoje - [Data Inicial Designação]) else null,
+        Int64.Type),
+    ComAlerta = Table.AddColumn(ComDiasDesig, "Alerta de Qualidade", each
         if [Auditor] = "(Não informado)" then "Auditor não informado"
         else if [Data Final Designação] = null then "Sem Data Final de Designação"
         else if [Data Relatório] <> null and [Data Inicial Designação] <> null and [Data Relatório] < [Data Inicial Designação]
@@ -113,7 +119,7 @@ let
     Final = Table.SelectColumns(Tipos, {
         "ID Designação", "Nº PROA", "Ciclo", "Ciclo Nº", "Função", "Função Ordem", "Auditor", "Nome na Planilha",
         "Data Inicial Designação", "Data Final Designação", "Data Limite", "Data Relatório", "Nº Relatório",
-        "Situação", "Situação Ordem", "Entregue", "Dias para Entrega", "Dias de Atraso",
+        "Situação", "Situação Ordem", "Entregue", "Dias para Entrega", "Dias de Atraso", "Em Carteira", "Dias desde a Designação",
         "Status do Ciclo", "Alerta de Qualidade", "Data de Referência"})
 in
     Final

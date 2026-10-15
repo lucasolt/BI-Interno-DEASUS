@@ -162,21 +162,6 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.Aud Pendências Vencidas",
-              "nativeQueryRef": "AUD · Pend. Vencidas",
-              "displayName": "AUD · Pend. Vencidas"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
                   "Property": "Aud Média de Matrizes por Relatório"
                 }
               },
@@ -243,21 +228,6 @@
               "queryRef": "_Medidas.Dias Médios para Entrega",
               "nativeQueryRef": "MON · Dias Médios",
               "displayName": "MON · Dias Médios"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.Pendências Vencidas",
-              "nativeQueryRef": "MON · Pend. Vencidas",
-              "displayName": "MON · Pend. Vencidas"
             }
           ]
         }

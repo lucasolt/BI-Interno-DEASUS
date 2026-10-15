@@ -320,6 +320,7 @@ def tabela(campos, titulo, ordem=None):
 SUBTITULO = {
     "geral": "Auditoria (RAI · RAF) e Monitoramento (1º, 2º e 3º Ciclos) · Designações, entregas e prazos",
     "aud": "Fase de Auditoria · Relatório Inicial (prazo 30 dias) e Relatório Final (prazo 60 dias) a partir da designação",
+    "carteira": "Posição de hoje (não segue o filtro de Período) · auditoria pelo Status do processo (42), monitoramento pelo status do ciclo",
     "monit": "Monitoramento das Recomendações (1º, 2º e 3º Ciclos) · prazo de 30 dias após a Data Final da Designação",
 }
 
@@ -477,11 +478,9 @@ def pg_resumo():
          ("RAI Dias Médios para Entrega", "RAI · Dias Médios"),
          ("RAF Entregues", "RAF · Entregues"), ("RAF Taxa de Pontualidade", "RAF · % no Prazo"),
          ("RAF Dias Médios para Entrega", "RAF · Dias Médios"),
-         ("Aud Pendências Vencidas", "AUD · Pend. Vencidas"),
          ("Aud Média de Matrizes por Relatório", "AUD · Matrizes/Rel."),
          ("Designações", "MON · Designações"), ("Relatórios Entregues", "MON · Entregues"),
-         ("Taxa de Pontualidade", "MON · % no Prazo"), ("Dias Médios para Entrega", "MON · Dias Médios"),
-         ("Pendências Vencidas", "MON · Pend. Vencidas")],
+         ("Taxa de Pontualidade", "MON · % no Prazo"), ("Dias Médios para Entrega", "MON · Dias Médios")],
         "RESUMO POR AUDITOR · AUDITORIA x MONITORAMENTO (expanda para ver Coordenador x Equipe)",
         ordem_medida="Aud Designações"))
     return p
@@ -509,10 +508,10 @@ def pg_auditoria():
         [AUDITOR, FUNCAO],
         [("Aud Designações", "Designações"),
          ("RAI Entregues", "RAI Entregues"), ("RAI No Prazo", "RAI No Prazo"), ("RAI Fora do Prazo", "RAI Fora"),
-         ("RAI Pendências Vencidas", "RAI Pend. Venc."), ("RAI Taxa de Pontualidade", "RAI % Prazo"),
+         ("RAI Taxa de Pontualidade", "RAI % Prazo"),
          ("RAI Dias Médios para Entrega", "RAI Dias"),
          ("RAF Entregues", "RAF Entregues"), ("RAF No Prazo", "RAF No Prazo"), ("RAF Fora do Prazo", "RAF Fora"),
-         ("RAF Pendências Vencidas", "RAF Pend. Venc."), ("RAF Taxa de Pontualidade", "RAF % Prazo"),
+         ("RAF Taxa de Pontualidade", "RAF % Prazo"),
          ("RAF Dias Médios para Entrega", "RAF Dias"),
          ("Aud Média de Matrizes por Relatório", "Matrizes/Rel.")],
         "DESEMPENHO POR AUDITOR NA AUDITORIA", ordem_medida="Aud Designações"))
@@ -568,9 +567,9 @@ def pg_monitoramento():
     y3, h3 = YG + h2 + 10, 320
     p.add("matriz", X0, y3, 1220, h3, matriz(
         [AUDITOR, FUNCAO],
-        [("Designações", "Designações"), ("Designações Encerradas", "Encerradas"), ("Relatórios Entregues", "Entregues"),
+        [("Designações", "Designações"), ("Relatórios Entregues", "Entregues"),
          ("Entregues no Prazo", "No Prazo"), ("Entregues Fora do Prazo", "Fora do Prazo"),
-         ("Pendências Vencidas", "Pend. Vencidas"), ("Taxa de Entrega", "Taxa de Entrega"),
+         ("Taxa de Entrega", "Taxa de Entrega"),
          ("Taxa de Pontualidade", "Taxa de Pontualidade"), ("Dias Médios para Entrega", "Média de Dias (Entrega)")],
         "DESEMPENHO POR AUDITOR · Visão consolidada (Coordenador + Equipe)", ordem_medida="Designações"))
     hh = (h3 - 10) / 2
@@ -608,7 +607,6 @@ def pg_monit_auditor():
         [AUDITOR, FUNCAO],
         [("Designações", "Designações"), ("Relatórios Entregues", "Entregues"),
          ("Entregues no Prazo", "No Prazo"), ("Entregues Fora do Prazo", "Fora do Prazo"),
-         ("Relatórios Pendentes", "Pendências"), ("Pendências Vencidas", "Pend. Vencidas"),
          ("Taxa de Entrega", "Taxa de Entrega"), ("Taxa de Pontualidade", "Taxa de Pontualidade"),
          ("Dias Médios para Entrega", "Tempo Médio de Entrega"), ("Dias Médios de Atraso", "Dias Médios de Atraso"),
          ("Índice de Produtividade", "Índice"), ("Ranking Produtividade", "Ranking")],
@@ -673,37 +671,64 @@ def pg_monit_detalhe():
     return p
 
 
-def pg_pendencias():
-    p = Pagina("pendencias", "PENDÊNCIAS E ATRASOS")
-    p.nome_exib = "Pendências"
-    moldura(p, "geral")
-    y = 166
-    h = H - y - 8
-    wl = 540
-    p.add("pend_aud", X0, y, wl, h, grafico(
+def pg_carteira():
+    # mesmo id da antiga página "Pendências", que esta substitui
+    p = Pagina("pendencias", "CARTEIRA ATUAL · O QUE CADA AUDITOR TEM EM MÃOS")
+    p.nome_exib = "Carteira Atual"
+    moldura(p, "carteira", com_filtros=False)
+    # sem filtro de Período/Situação: a carteira é sempre a posição de hoje
+    y, h = 90, 66
+    x = X0
+    for chave, campo, tit in [("f_funcao", col("dFuncao", "Função"), "Função"),
+                              ("f_auditor", col("dAuditor", "Auditor"), "Auditor"),
+                              ("f_eixo", col("dProcesso", "Eixo Temático"), "Eixo Temático")]:
+        filtros = [filtro_in("dAuditor", "Possui Designação", ["Sim"], "fPossuiDesig")] if chave == "f_auditor" else None
+        p.add(chave, x, y, 400, h, slicer(campo, tit, tit), filtros=filtros)
+        x += 410
+    ativo = slicer(col("dAuditor", "Ativo"), "Auditores ativos", "Auditores ativos")
+    ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim"], "x")["filter"]}}}]
+    p.add("f_ativo", 8, 760, SIDEBAR - 16, 66, ativo)
+
+    kpis(p, [
+        ("Carteira Auditoria", "Sub Carteira Aud", "Trabalhos em Auditoria", NAVY),
+        ("Carteira Aud Com a Equipe", "Sub Carteira Com a Equipe", "Com a Equipe", AZUL),
+        ("Carteira Aud Com a Chefia", "Sub Carteira Com a Chefia", "Com a Chefia", VERDE),
+        ("Carteira Aud Aguardando Auditado", "Sub Carteira Aguardando", "Aguardando Auditado", CINZA),
+        ("Carteira Aud Dias Médios desde a Designação", "Sub Carteira Mov", "Dias Médios desde a Designação", VERMELHO),
+        ("Carteira Monitoramento", "Sub Carteira Mon", "Ciclos de Monitoramento em Aberto", AMARELO),
+    ], y=166)
+
+    c = "fCarteira"
+    y2, h2 = 288, 420
+    w2 = 1100
+    mat = matriz([AUDITOR, FUNCAO], [("Carteira Auditoria", "Trabalhos")],
+                 "AUDITORIA · TRABALHOS POR AUDITOR E COM QUEM ESTÁ A PRÓXIMA AÇÃO", ordem_medida="Carteira Auditoria")
+    mat["query"]["queryState"]["Columns"] = {"projections": [proj(col(c, "Com Quem"), active=True)]}
+    p.add("mat_carteira", X0, y2, w2, h2, mat)
+    p.add("bar_funcao", X0 + w2 + 10, y2, XMAX - X0 - w2 - 10, h2, grafico(
         "barChart", AUDITOR,
-        [("RAI Pendências Vencidas", "RAI"), ("RAF Pendências Vencidas", "RAF"),
-         ("Pendências Vencidas", "Monitoramento")],
-        "PENDÊNCIAS VENCIDAS POR AUDITOR", cores=[AZUL, NAVY, AMARELO],
-        ordem=(med("RAF Pendências Vencidas"), "Descending")))
-    x2 = X0 + wl + 10
-    w2 = XMAX - x2
-    hh = (h - 10) / 2
-    a, m = "fAuditoria", "fDesignacoes"
-    p.add("lista_aud", x2, y, w2, hh, tabela(
-        [(col(a, "Situação"), "Situação"), (col(a, "Relatório"), "Relatório"), (col(a, "Auditor"), "Auditor"),
-         (col(a, "Função"), "Função"), (col(a, "Nº PROA"), "Nº PROA"), (col("dProcesso", "Auditado"), "Auditado"),
-         (col(a, "Data Designação"), "Designação"), (col(a, "Data Limite"), "Data Limite"),
-         (col(a, "Dias de Atraso"), "Dias de Atraso"), (col(a, "Status do Processo"), "Status do Processo")],
-        "AUDITORIA · RELATÓRIOS PENDENTES", ordem=(col(a, "Dias de Atraso"), "Descending")),
-        filtros=[filtro_in(a, "Situação", ["Pendente (vencida)", "Em andamento"], "fSitPendAud")])
-    p.add("lista_mon", x2, y + hh + 10, w2, hh, tabela(
-        [(col(m, "Situação"), "Situação"), (col(m, "Ciclo"), "Ciclo"), (col(m, "Auditor"), "Auditor"),
-         (col(m, "Função"), "Função"), (col(m, "Nº PROA"), "Nº PROA"), (col("dProcesso", "Auditado"), "Auditado"),
-         (col(m, "Data Final Designação"), "Fim Designação"), (col(m, "Data Limite"), "Data Limite"),
-         (col(m, "Data Relatório"), "Data Relatório"), (col(m, "Dias de Atraso"), "Dias de Atraso")],
-        "MONITORAMENTO · PENDENTES OU ENTREGUES FORA DO PRAZO", ordem=(col(m, "Dias de Atraso"), "Descending")),
-        filtros=[filtro_in(m, "Situação", ["Pendente (vencida)", "Em andamento", "Fora do prazo"], "fSitPendMon")])
+        [("Carteira Aud Coordenador", "Coordenador"), ("Carteira Aud Equipe", "Equipe")],
+        "AUDITORIA · COORDENAÇÃO x EQUIPE POR AUDITOR", cores=[NAVY, AZUL],
+        ordem=(med("Carteira Auditoria"), "Descending")))
+
+    y3 = y2 + h2 + 10
+    h3 = H - y3 - 8
+    w3 = 1100
+    p.add("lista_aud", X0, y3, w3, h3, tabela(
+        [(col(c, "Auditor"), "Auditor"), (col(c, "Função"), "Função"), (col(c, "Nº PROA"), "Nº PROA"),
+         (col("dProcesso", "Auditado"), "Auditado"), (col("dProcesso", "Eixo Temático"), "Eixo"),
+         (col(c, "Fase"), "Fase"), (col(c, "Com Quem"), "Com quem"), (col(c, "Data Designação"), "Designação"),
+         (col(c, "Dias desde a Designação"), "Dias desde a designação"),
+         (col(c, "Dias desde a Última Movimentação"), "Dias desde a últ. movimentação")],
+        "AUDITORIA · TRABALHOS EM ABERTO (mais parados no topo)",
+        ordem=(col(c, "Dias desde a Última Movimentação"), "Descending")))
+    m = "fDesignacoes"
+    p.add("lista_mon", X0 + w3 + 10, y3, XMAX - X0 - w3 - 10, h3, tabela(
+        [(col(m, "Auditor"), "Auditor"), (col(m, "Função"), "Função"), (col(m, "Ciclo"), "Ciclo"),
+         (col(m, "Nº PROA"), "Nº PROA"), (col(m, "Status do Ciclo"), "Status do ciclo"),
+         (col(m, "Dias desde a Designação"), "Dias desde a designação")],
+        "MONITORAMENTO · CICLOS EM ABERTO", ordem=(col(m, "Dias desde a Designação"), "Descending")),
+        filtros=[filtro_in(m, "Em Carteira", ["Sim"], "fEmCarteira")])
     return p
 
 
@@ -758,13 +783,20 @@ def pg_metodologia():
         [n("Dias de Atraso: "), c("entrega − Data Limite (entregas fora do prazo).")],
         [n("Índice de Produtividade (monitoramento): "), c("40% Taxa de Entrega + 40% Pontualidade + 20% Participação "
                                                           "(designações do auditor ÷ maior nº entre os auditores filtrados).")],
+        [c(" ")],
+        [t("Carteira Atual")],
+        [n("Auditoria: "), c("processos com Status (42) diferente de Arquivado / Fase de auditoria finalizada. A fase e com quem "
+                             "está a próxima ação (equipe, chefia ou auditado) vêm do Status.")],
+        [n("Monitoramento: "), c("ciclos sem relatório e não arquivados/encerrados.")],
+        [n("Posição de hoje: "), c("não segue o filtro de Período. Dias desde a última movimentação = hoje − data mais recente "
+                                   "entre designação, RAI e RAF.")],
     ], fundo=BRANCO))
     return p
 
 
 def main():
     paginas = [pg_resumo(), pg_auditoria(), pg_auditoria_detalhe(), pg_monitoramento(), pg_monit_auditor(),
-               pg_monit_ciclo(), pg_monit_detalhe(), pg_pendencias(), pg_metodologia()]
+               pg_monit_ciclo(), pg_monit_detalhe(), pg_carteira(), pg_metodologia()]
 
     def _forcar(func, caminho, _exc):  # OneDrive marca pastas como somente-leitura
         os.chmod(caminho, stat.S_IWRITE)

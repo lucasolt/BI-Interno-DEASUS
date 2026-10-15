@@ -259,6 +259,86 @@
                     }
                   }
                 ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Carteira Atual",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#0B2E59",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Auditoria: ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "processos com Status (42) diferente de Arquivado / Fase de auditoria finalizada. A fase e com quem está a próxima ação (equipe, chefia ou auditado) vêm do Status.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Monitoramento: ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "ciclos sem relatório e não arquivados/encerrados.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Posição de hoje: ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "não segue o filtro de Período. Dias desde a última movimentação = hoje − data mais recente entre designação, RAI e RAF.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
               }
             ]
           }

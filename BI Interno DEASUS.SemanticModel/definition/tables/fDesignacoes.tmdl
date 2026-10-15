@@ -164,6 +164,23 @@ table fDesignacoes
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Sim = ciclo aberto (não arquivado/encerrado) e relatório ainda não entregue.
+	column 'Em Carteira'
+		dataType: string
+		lineageTag: 66557243-6785-4ffa-9e3d-723983393dcf
+		summarizeBy: none
+		sourceColumn: Em Carteira
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias desde a Designação'
+		dataType: int64
+		lineageTag: cd099f7a-d47b-4368-aaa1-ee9b82ffc2dc
+		summarizeBy: none
+		sourceColumn: Dias desde a Designação
+
+		annotation SummarizationSetBy = Automatic
+
 	column 'Status do Ciclo'
 		dataType: string
 		lineageTag: 913d8ba4-b0a9-4253-8801-21c44692f52c
@@ -261,7 +278,7 @@ table fDesignacoes
 				    Hoje = Date.From(DateTime.LocalNow()),
 				    // ciclo arquivado/encerrado sem relatório não é pendência do auditor
 				    CicloFechado = (status as nullable text) as logical =>
-				        let t = Text.Lower(status ?? "") in Text.Contains(t, "arquivado") or Text.Contains(t, "encerrado"),
+				        let t = Text.Lower(status ?? "") in Text.Contains(t, "arquivado") or Text.Contains(t, "encerrado") or Text.Contains(t, "reclassificado"),
 				    ComLimite = Table.AddColumn(SoAuditores, "Data Limite", each
 				        if [Data Final Designação] = null then null else Date.AddDays([Data Final Designação], PrazoPadraoDias),
 				        type nullable date),
@@ -286,7 +303,13 @@ table fDesignacoes
 				        else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
 				        else null,
 				        Int64.Type),
-				    ComAlerta = Table.AddColumn(ComDiasAtraso, "Alerta de Qualidade", each
+				    // carteira atual: ciclo aberto e relatório ainda não entregue
+				    ComCarteira = Table.AddColumn(ComDiasAtraso, "Em Carteira", each
+				        if [Data Relatório] = null and not CicloFechado([Status do Ciclo]) then "Sim" else "Não", type text),
+				    ComDiasDesig = Table.AddColumn(ComCarteira, "Dias desde a Designação", each
+				        if [Em Carteira] = "Sim" and [Data Inicial Designação] <> null then Duration.Days(Hoje - [Data Inicial Designação]) else null,
+				        Int64.Type),
+				    ComAlerta = Table.AddColumn(ComDiasDesig, "Alerta de Qualidade", each
 				        if [Auditor] = "(Não informado)" then "Auditor não informado"
 				        else if [Data Final Designação] = null then "Sem Data Final de Designação"
 				        else if [Data Relatório] <> null and [Data Inicial Designação] <> null and [Data Relatório] < [Data Inicial Designação]
@@ -304,7 +327,7 @@ table fDesignacoes
 				    Final = Table.SelectColumns(Tipos, {
 				        "ID Designação", "Nº PROA", "Ciclo", "Ciclo Nº", "Função", "Função Ordem", "Auditor", "Nome na Planilha",
 				        "Data Inicial Designação", "Data Final Designação", "Data Limite", "Data Relatório", "Nº Relatório",
-				        "Situação", "Situação Ordem", "Entregue", "Dias para Entrega", "Dias de Atraso",
+				        "Situação", "Situação Ordem", "Entregue", "Dias para Entrega", "Dias de Atraso", "Em Carteira", "Dias desde a Designação",
 				        "Status do Ciclo", "Alerta de Qualidade", "Data de Referência"})
 				in
 				    Final

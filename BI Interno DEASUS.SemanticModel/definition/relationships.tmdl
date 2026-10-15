@@ -84,3 +84,14 @@ relationship AutoDetected_eaad6f99-9b04-44a0-bf7d-f39228b906eb
 	fromColumn: DadosDep_legacy.'012 - Nº PROA'
 	toColumn: DadosDep.'(12)Nº PROA'
 
+relationship fCarteira_Auditor_dAuditor_Auditor
+	fromColumn: fCarteira.Auditor
+	toColumn: dAuditor.Auditor
+
+relationship 'fCarteira_Nº PROA_dProcesso_Nº PROA'
+	fromColumn: fCarteira.'Nº PROA'
+	toColumn: dProcesso.'Nº PROA'
+
+relationship fCarteira_Função_dFuncao_Função
+	fromColumn: fCarteira.Função
+	toColumn: dFuncao.Função

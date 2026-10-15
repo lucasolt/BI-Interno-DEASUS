@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ee0afb789014609df67d",
   "position": {
-    "x": 745,
-    "y": 166,
-    "z": 15000,
-    "height": 448,
-    "width": 1168,
-    "tabOrder": 15000
+    "x": 195,
+    "y": 718,
+    "z": 38000,
+    "height": 354,
+    "width": 1100,
+    "tabOrder": 38000
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,43 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fAuditoria"
-                    }
-                  },
-                  "Property": "Situação"
-                }
-              },
-              "queryRef": "fAuditoria.Situação",
-              "nativeQueryRef": "Situação",
-              "displayName": "Situação"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fAuditoria"
-                    }
-                  },
-                  "Property": "Relatório"
-                }
-              },
-              "queryRef": "fAuditoria.Relatório",
-              "nativeQueryRef": "Relatório",
-              "displayName": "Relatório"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fAuditoria"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Auditor"
                 }
               },
-              "queryRef": "fAuditoria.Auditor",
+              "queryRef": "fCarteira.Auditor",
               "nativeQueryRef": "Auditor",
               "displayName": "Auditor"
             },
@@ -65,13 +35,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fAuditoria"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Função"
                 }
               },
-              "queryRef": "fAuditoria.Função",
+              "queryRef": "fCarteira.Função",
               "nativeQueryRef": "Função",
               "displayName": "Função"
             },
@@ -80,13 +50,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fAuditoria"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Nº PROA"
                 }
               },
-              "queryRef": "fAuditoria.Nº PROA",
+              "queryRef": "fCarteira.Nº PROA",
               "nativeQueryRef": "Nº PROA",
               "displayName": "Nº PROA"
             },
@@ -110,13 +80,58 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fAuditoria"
+                      "Entity": "dProcesso"
+                    }
+                  },
+                  "Property": "Eixo Temático"
+                }
+              },
+              "queryRef": "dProcesso.Eixo Temático",
+              "nativeQueryRef": "Eixo",
+              "displayName": "Eixo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fCarteira"
+                    }
+                  },
+                  "Property": "Fase"
+                }
+              },
+              "queryRef": "fCarteira.Fase",
+              "nativeQueryRef": "Fase",
+              "displayName": "Fase"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fCarteira"
+                    }
+                  },
+                  "Property": "Com Quem"
+                }
+              },
+              "queryRef": "fCarteira.Com Quem",
+              "nativeQueryRef": "Com quem",
+              "displayName": "Com quem"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Data Designação"
                 }
               },
-              "queryRef": "fAuditoria.Data Designação",
+              "queryRef": "fCarteira.Data Designação",
               "nativeQueryRef": "Designação",
               "displayName": "Designação"
             },
@@ -125,45 +140,30 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fAuditoria"
+                      "Entity": "fCarteira"
                     }
                   },
-                  "Property": "Data Limite"
+                  "Property": "Dias desde a Designação"
                 }
               },
-              "queryRef": "fAuditoria.Data Limite",
-              "nativeQueryRef": "Data Limite",
-              "displayName": "Data Limite"
+              "queryRef": "fCarteira.Dias desde a Designação",
+              "nativeQueryRef": "Dias desde a designação",
+              "displayName": "Dias desde a designação"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fAuditoria"
+                      "Entity": "fCarteira"
                     }
                   },
-                  "Property": "Dias de Atraso"
+                  "Property": "Dias desde a Última Movimentação"
                 }
               },
-              "queryRef": "fAuditoria.Dias de Atraso",
-              "nativeQueryRef": "Dias de Atraso",
-              "displayName": "Dias de Atraso"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fAuditoria"
-                    }
-                  },
-                  "Property": "Status do Processo"
-                }
-              },
-              "queryRef": "fAuditoria.Status do Processo",
-              "nativeQueryRef": "Status do Processo",
-              "displayName": "Status do Processo"
+              "queryRef": "fCarteira.Dias desde a Última Movimentação",
+              "nativeQueryRef": "Dias desde a últ. movimentação",
+              "displayName": "Dias desde a últ. movimentação"
             }
           ]
         }
@@ -175,10 +175,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "fAuditoria"
+                    "Entity": "fCarteira"
                   }
                 },
-                "Property": "Dias de Atraso"
+                "Property": "Dias desde a Última Movimentação"
               }
             },
             "direction": "Descending"
@@ -459,7 +459,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'AUDITORIA · RELATÓRIOS PENDENTES'"
+                  "Value": "'AUDITORIA · TRABALHOS EM ABERTO (mais parados no topo)'"
                 }
               }
             },
@@ -500,195 +500,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "fSitPendAud",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Situação"
-          }
-        },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "t",
-              "Entity": "fAuditoria",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "t"
-                          }
-                        },
-                        "Property": "Situação"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Pendente (vencida)'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Em andamento'"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      },
-      {
-        "name": "c81bfcdfbeb98d4a284e",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Relatório"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "3d1477b1946750dc59af",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Auditor"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "65d130f11e857ffbc81d",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Função"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "39c099c899ce03229736",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Nº PROA"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "694603f4f9fc0cc0ee39",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dProcesso"
-              }
-            },
-            "Property": "Auditado"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "c4759037ebce4145fdf4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Data Designação"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "ec50164e149462c017fe",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Data Limite"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "1d1c1eb5cd3f67ece797",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Dias de Atraso"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "5392034ecab1d3e24ed9",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fAuditoria"
-              }
-            },
-            "Property": "Status do Processo"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

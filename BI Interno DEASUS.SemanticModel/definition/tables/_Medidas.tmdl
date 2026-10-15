@@ -546,6 +546,100 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 59a30523-be03-404a-9dd7-fa9333a258be
 
+	/// Trabalhos em aberto na fase de auditoria (processo x função x auditor). Não segue o filtro de Período.
+	measure 'Carteira Auditoria' = COUNTROWS(fCarteira) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: ac245758-6ee2-4f79-aa81-a31622e9867a
+
+	measure 'Carteira Aud Coordenador' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Função] = "Coordenador")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: bdcd700c-b4f9-4612-b039-8a9e82412a87
+
+	measure 'Carteira Aud Equipe' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Função] = "Equipe")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: bf94c4a4-6bf1-4e24-a423-f5e39972b50d
+
+	measure 'Carteira Aud Com a Equipe' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Com Quem] = "Com a equipe")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: f31c5b49-cda9-495a-beb5-59554eb27cec
+
+	measure 'Carteira Aud Com a Chefia' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Com Quem] = "Com a chefia")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: a4e23dec-11d5-4fd3-a218-d4158e02b74b
+
+	measure 'Carteira Aud Aguardando Auditado' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Com Quem] = "Aguardando auditado")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 1ef50810-9d53-4d2b-a04d-0d8cf23845db
+
+	/// Processos distintos em aberto na fase de auditoria.
+	measure 'Carteira Aud Processos' = DISTINCTCOUNT(fCarteira[Nº PROA]) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: a0f91fad-a677-4e1a-9073-8c4ffea0cf94
+
+	/// Idade média dos processos em aberto (hoje − Data de Designação), por processo.
+	measure 'Carteira Aud Dias Médios desde a Designação' = AVERAGEX(VALUES(fCarteira[Nº PROA]), CALCULATE(MAX(fCarteira[Dias desde a Designação])))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 7c69fafd-f783-4eaa-9bc4-f9d3b9d1d933
+
+	/// Dias desde a última data registrada (designação, RAI ou RAF), por processo.
+	measure 'Carteira Aud Dias Médios desde a Última Movimentação' = AVERAGEX(VALUES(fCarteira[Nº PROA]), CALCULATE(MAX(fCarteira[Dias desde a Última Movimentação])))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 69b34980-95ae-4fd9-8616-00716a53c9f7
+
+	/// Ciclos de monitoramento em aberto sem relatório (designação x auditor). Ignora os filtros de Período e Situação.
+	measure 'Carteira Monitoramento' = CALCULATE(COUNTROWS(fDesignacoes), KEEPFILTERS(fDesignacoes[Em Carteira] = "Sim"), REMOVEFILTERS(dCalendario), REMOVEFILTERS(dSituacao)) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 9fdf578d-89d8-4c94-b3c0-a62d7a1dd3f7
+
+	measure 'Carteira Mon Coordenador' = CALCULATE([Carteira Monitoramento], KEEPFILTERS(fDesignacoes[Função] = "Coordenador")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 15868446-38a7-4b8f-8d4f-afbaf8c985ed
+
+	measure 'Carteira Mon Equipe' = CALCULATE([Carteira Monitoramento], KEEPFILTERS(fDesignacoes[Função] = "Equipe")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: a51533fe-e927-4076-86e6-39d95acbe0e0
+
+	measure 'Carteira Mon Dias Médios desde a Designação' = CALCULATE(AVERAGEX(VALUES(fDesignacoes[ID Designação]), CALCULATE(MAX(fDesignacoes[Dias desde a Designação]))), KEEPFILTERS(fDesignacoes[Em Carteira] = "Sim"), REMOVEFILTERS(dCalendario), REMOVEFILTERS(dSituacao))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 2dd05817-7840-43ff-a5be-f1e2ab75be20
+
+	measure 'Sub Carteira Aud' = FORMAT([Carteira Aud Coordenador], "#,0") & " coordenador · " & FORMAT([Carteira Aud Equipe], "#,0") & " equipe"
+		displayFolder: 6. Rótulos
+		lineageTag: a0a9c493-8217-4165-adcd-c91bd888d79e
+
+	measure 'Sub Carteira Mon' = FORMAT([Carteira Mon Coordenador], "#,0") & " coordenador · " & FORMAT([Carteira Mon Equipe], "#,0") & " equipe"
+		displayFolder: 6. Rótulos
+		lineageTag: aefb9557-13aa-4b4a-abb5-ea257812939f
+
+	measure 'Sub Carteira Mov' = FORMAT([Carteira Aud Dias Médios desde a Última Movimentação], "#,0") & " dias desde a última movimentação"
+		displayFolder: 6. Rótulos
+		lineageTag: ed997fcb-48b7-4925-b190-949a99656014
+
+	measure 'Sub Carteira Com a Equipe' = FORMAT(DIVIDE([Carteira Aud Com a Equipe], [Carteira Auditoria]) + 0, "0%") & " dos trabalhos"
+		displayFolder: 6. Rótulos
+		lineageTag: 30447bb2-34de-4789-b88a-3b7178d9b8c1
+
+	measure 'Sub Carteira Com a Chefia' = FORMAT(DIVIDE([Carteira Aud Com a Chefia], [Carteira Auditoria]) + 0, "0%") & " dos trabalhos"
+		displayFolder: 6. Rótulos
+		lineageTag: d2772105-ea5d-43ae-9933-ea6ff9120dcf
+
+	measure 'Sub Carteira Aguardando' = FORMAT(DIVIDE([Carteira Aud Aguardando Auditado], [Carteira Auditoria]) + 0, "0%") & " dos trabalhos"
+		displayFolder: 6. Rótulos
+		lineageTag: ab93c697-a45e-46ef-a3f4-8f50a28ce5f4
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a

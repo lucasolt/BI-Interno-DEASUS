@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "PENDÊNCIAS E ATRASOS",
+                    "value": "CARTEIRA ATUAL · O QUE CADA AUDITOR TEM EM MÃOS",
                     "textStyle": {
                       "fontSize": "20pt",
                       "color": "#FFFFFF",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Auditoria (RAI · RAF) e Monitoramento (1º, 2º e 3º Ciclos) · Designações, entregas e prazos",
+                    "value": "Posição de hoje (não segue o filtro de Período) · auditoria pelo Status do processo (42), monitoramento pelo status do ciclo",
                     "textStyle": {
                       "fontSize": "11pt",
                       "color": "#BFD0E6"

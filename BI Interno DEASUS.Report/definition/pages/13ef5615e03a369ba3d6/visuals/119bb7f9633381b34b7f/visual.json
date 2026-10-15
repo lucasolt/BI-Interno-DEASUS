@@ -72,21 +72,6 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Designações Encerradas"
-                }
-              },
-              "queryRef": "_Medidas.Designações Encerradas",
-              "nativeQueryRef": "Encerradas",
-              "displayName": "Encerradas"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
                   "Property": "Relatórios Entregues"
                 }
               },
@@ -123,21 +108,6 @@
               "queryRef": "_Medidas.Entregues Fora do Prazo",
               "nativeQueryRef": "Fora do Prazo",
               "displayName": "Fora do Prazo"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.Pendências Vencidas",
-              "nativeQueryRef": "Pend. Vencidas",
-              "displayName": "Pend. Vencidas"
             },
             {
               "field": {

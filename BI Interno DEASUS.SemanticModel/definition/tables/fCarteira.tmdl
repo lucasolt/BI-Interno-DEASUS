@@ -1,0 +1,191 @@
+/// Carteira atual da fase de Auditoria: 1 linha por processo em aberto x Função x Auditor, com fase e com quem está a próxima ação.
+table fCarteira
+	lineageTag: 854ffd31-f268-4151-bac9-e901f893b7f9
+
+	column 'ID Trabalho'
+		dataType: string
+		lineageTag: cde529dc-9662-4514-953c-36582e8a30ee
+		summarizeBy: none
+		sourceColumn: ID Trabalho
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nº PROA'
+		dataType: string
+		lineageTag: ac47f3c6-ba41-4b7c-86c4-c23b03499824
+		summarizeBy: none
+		sourceColumn: Nº PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Função'
+		dataType: string
+		lineageTag: 436fb7c0-44f6-44b6-8c0d-12c18121b95c
+		summarizeBy: none
+		sourceColumn: Função
+
+		annotation SummarizationSetBy = Automatic
+
+	column Auditor
+		dataType: string
+		lineageTag: 355ece82-de9e-4266-a89e-8d21b98ef862
+		summarizeBy: none
+		sourceColumn: Auditor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fase
+		dataType: string
+		sortByColumn: 'Fase Ordem'
+		lineageTag: 7fa1f287-f731-4a78-a04f-58bc837e186e
+		summarizeBy: none
+		sourceColumn: Fase
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fase Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: e481c6b5-1352-451c-9704-decf7080bfec
+		summarizeBy: none
+		sourceColumn: Fase Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem'
+		dataType: string
+		sortByColumn: 'Com Quem Ordem'
+		lineageTag: eb6fc9d2-b6e7-4f14-af2c-360029c8d001
+		summarizeBy: none
+		sourceColumn: Com Quem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 474a3b8f-5d35-4619-b88e-eb368a59ae6c
+		summarizeBy: none
+		sourceColumn: Com Quem Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status do Processo'
+		dataType: string
+		lineageTag: e2ad1ead-f640-4f98-a6a1-c52a059fc8b7
+		summarizeBy: none
+		sourceColumn: Status do Processo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Designação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 1dd0eb07-c31f-4ffb-8ab6-03cb96de32cb
+		summarizeBy: none
+		sourceColumn: Data Designação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data RAI'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 8e01dc8b-44fb-4213-af61-a645d4ec615e
+		summarizeBy: none
+		sourceColumn: Data RAI
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data RAF'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 7ee4b467-d33e-4e6d-bb23-f7966b4b43b0
+		summarizeBy: none
+		sourceColumn: Data RAF
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Última Movimentação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: f25d0a92-a3c6-4849-ae6c-757480eaaacb
+		summarizeBy: none
+		sourceColumn: Última Movimentação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias desde a Designação'
+		dataType: int64
+		lineageTag: 33a48747-77c6-4a37-9878-7a716d536bd5
+		summarizeBy: none
+		sourceColumn: Dias desde a Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias desde a Última Movimentação'
+		dataType: int64
+		lineageTag: 465999c6-28b6-4208-955f-244cf67f7610
+		summarizeBy: none
+		sourceColumn: Dias desde a Última Movimentação
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fCarteira = m
+		mode: import
+		source =
+				let
+				    Hoje = Date.From(DateTime.LocalNow()),
+				    Encerrados = {"arquivado", "fase de auditoria finalizada"},
+				    // 1 linha por Nº PROA x Função x Auditor (fAuditoria tem uma linha para RAI e outra para RAF)
+				    Agrupado = Table.Group(fAuditoria, {"Nº PROA", "Função", "Auditor", "Data Designação", "Status do Processo"}, {
+				        {"Data RAI", each List.Max(Table.SelectRows(_, each [Relatório] = "RAI")[Data Entrega]), type nullable date},
+				        {"Data RAF", each List.Max(Table.SelectRows(_, each [Relatório] = "RAF")[Data Entrega]), type nullable date}
+				    }),
+				    ComChave = Table.AddColumn(Agrupado, "StatusChave", each fxNormalizaNome([Status do Processo]), type nullable text),
+				    // processos encerrados não estão na carteira
+				    Abertos = Table.SelectRows(ComChave, each not List.Contains(Encerrados, [StatusChave])),
+				    Fases = Table.Buffer(MapaFases),
+				    ComFase = Table.NestedJoin(Abertos, {"StatusChave"}, Fases, {"StatusChave"}, "F", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(ComFase, "F", {"Fase", "Fase Ordem", "Com Quem"}),
+				    // status fora do de-para: mostra o próprio status e fica "A classificar" (incluir em MapaFases)
+				    Renomeado = Table.RenameColumns(Expandido, {{"Fase", "FaseMapa"}, {"Fase Ordem", "OrdemMapa"}, {"Com Quem", "QuemMapa"}}),
+				    ComFaseFinal = Table.AddColumn(Renomeado, "Fase", each
+				        if [FaseMapa] <> null then [FaseMapa]
+				        else if [Status do Processo] = null then "Sem status"
+				        else Text.Proper([Status do Processo]), type text),
+				    ComOrdemFinal = Table.AddColumn(ComFaseFinal, "Fase Ordem", each [OrdemMapa] ?? 99, Int64.Type),
+				    ComQuemFinal = Table.AddColumn(ComOrdemFinal, "Com Quem", each [QuemMapa] ?? "A classificar", type text),
+				    Tabela = Table.RemoveColumns(ComQuemFinal, {"FaseMapa", "OrdemMapa", "QuemMapa", "StatusChave"}),
+				    ComOrdemQuem = Table.AddColumn(Tabela, "Com Quem Ordem", each
+				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
+				        Int64.Type),
+				    ComDias = Table.AddColumn(ComOrdemQuem, "Dias desde a Designação", each
+				        if [Data Designação] = null then null else Duration.Days(Hoje - [Data Designação]), Int64.Type),
+				    // aproximação de "tempo na fase": última data registrada entre designação, RAI e RAF
+				    ComUltima = Table.AddColumn(ComDias, "Última Movimentação", each
+				        List.Max(List.RemoveNulls({[Data Designação], [Data RAI], [Data RAF]})), type nullable date),
+				    ComDiasUltima = Table.AddColumn(ComUltima, "Dias desde a Última Movimentação", each
+				        if [Última Movimentação] = null then null else Duration.Days(Hoje - [Última Movimentação]), Int64.Type),
+				    ComId = Table.AddColumn(ComDiasUltima, "ID Trabalho", each [Nº PROA] & " | " & [Função] & " | " & [Auditor], type text),
+				    Tipos = Table.TransformColumnTypes(ComId, {
+				        {"Nº PROA", type text}, {"Função", type text}, {"Auditor", type text}, {"Data Designação", type nullable date},
+				        {"Status do Processo", type nullable text}, {"Fase", type text}, {"Fase Ordem", Int64.Type}, {"Com Quem", type text}}),
+				    Final = Table.SelectColumns(Tipos, {
+				        "ID Trabalho", "Nº PROA", "Função", "Auditor", "Fase", "Fase Ordem", "Com Quem", "Com Quem Ordem",
+				        "Status do Processo", "Data Designação", "Data RAI", "Data RAF", "Última Movimentação",
+				        "Dias desde a Designação", "Dias desde a Última Movimentação"})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

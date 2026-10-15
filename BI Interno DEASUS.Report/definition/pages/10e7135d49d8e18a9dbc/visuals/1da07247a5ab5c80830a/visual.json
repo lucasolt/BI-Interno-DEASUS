@@ -117,21 +117,6 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "RAI Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.RAI Pendências Vencidas",
-              "nativeQueryRef": "RAI Pend. Venc.",
-              "displayName": "RAI Pend. Venc."
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
                   "Property": "RAI Taxa de Pontualidade"
                 }
               },
@@ -198,21 +183,6 @@
               "queryRef": "_Medidas.RAF Fora do Prazo",
               "nativeQueryRef": "RAF Fora",
               "displayName": "RAF Fora"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "RAF Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.RAF Pendências Vencidas",
-              "nativeQueryRef": "RAF Pend. Venc.",
-              "displayName": "RAF Pend. Venc."
             },
             {
               "field": {

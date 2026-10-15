@@ -15,6 +15,8 @@ estes arquivos servem para revisão/diff.
 | `AliasesAuditores` | não | De-para manual de grafias divergentes |
 | `NaoAuditores` | não | Nomes com `é auditor = Não` na APOIO (excluídos das fatos e da `dAuditor`) |
 | `MapaEixos` | não | De-para Eixo (campo 04) → Eixo Temático |
+| `MapaFases` | não | De-para Status (42) → Fase e Com Quem (equipe / chefia / auditado) |
+| `fCarteira` | sim | Carteira atual da auditoria: processo aberto × Função × Auditor |
 | `PrazoRAIDias` / `PrazoRAFDias` | não | Parâmetros: prazos do RAI (30) e RAF (60) a partir da designação |
 | `MapaAuditores`, `fxAuditorOficial`, `fxParticipantes` | não | Regras de nomes compartilhadas pelas duas fatos |
 | `fAuditoria` | sim | Fato Auditoria: Nº PROA × Relatório (RAI/RAF) × Função × Auditor |
@@ -70,6 +72,13 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 - **Índice de Produtividade** = 40% Taxa de Entrega + 40% Pontualidade + 20% Participação relativa.
 - Equipe: nomes separados por `;` `,` `/` ou ` e `. Cada membro conta 1 designação.
 - "Hoje" = data da última atualização do modelo (coluna `Data de Referência`).
+
+### Carteira Atual
+- **Auditoria** (`fCarteira`): processos com Status (42) diferente de ARQUIVADO / FASE DE AUDITORIA FINALIZADA.
+  Fase e "Com Quem" vêm de `MapaFases`; status fora do de-para aparece como "A classificar".
+- **Monitoramento** (`fDesignacoes[Em Carteira] = "Sim"`): ciclo não arquivado/encerrado/reclassificado e sem relatório.
+- Não segue o filtro de Período nem de Situação (é a posição de hoje).
+- "Dias desde a Última Movimentação" = hoje − a data mais recente entre designação, RAI e RAF (aproximação do tempo na fase).
 
 ## Manutenção
 

@@ -117,36 +117,6 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Relatórios Pendentes"
-                }
-              },
-              "queryRef": "_Medidas.Relatórios Pendentes",
-              "nativeQueryRef": "Pendências",
-              "displayName": "Pendências"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.Pendências Vencidas",
-              "nativeQueryRef": "Pend. Vencidas",
-              "displayName": "Pend. Vencidas"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
                   "Property": "Taxa de Entrega"
                 }
               },
@@ -463,34 +433,6 @@
         }
       ],
       "columnWidth": [
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "75.45896679943684D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Relatórios Pendentes"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "80.41032978796198D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Pendências Vencidas"
-          }
-        },
         {
           "properties": {
             "value": {
@@ -858,34 +800,6 @@
               }
             },
             "Property": "Entregues Fora do Prazo"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "d76433042e2dc3bb3a53",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Relatórios Pendentes"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "480c34610862d3d3af29",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Pendências Vencidas"
           }
         },
         "type": "Advanced"

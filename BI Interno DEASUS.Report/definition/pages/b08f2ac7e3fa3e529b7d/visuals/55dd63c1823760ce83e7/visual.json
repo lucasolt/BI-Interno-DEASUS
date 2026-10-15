@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "55dd63c1823760ce83e7",
   "position": {
-    "x": 745,
-    "y": 624,
-    "z": 16000,
-    "height": 448,
-    "width": 1168,
-    "tabOrder": 16000
+    "x": 1305,
+    "y": 718,
+    "z": 39000,
+    "height": 354,
+    "width": 608,
+    "tabOrder": 39000
   },
   "visual": {
     "visualType": "tableEx",
@@ -15,36 +15,6 @@
       "queryState": {
         "Values": {
           "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fDesignacoes"
-                    }
-                  },
-                  "Property": "Situação"
-                }
-              },
-              "queryRef": "fDesignacoes.Situação",
-              "nativeQueryRef": "Situação",
-              "displayName": "Situação"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fDesignacoes"
-                    }
-                  },
-                  "Property": "Ciclo"
-                }
-              },
-              "queryRef": "fDesignacoes.Ciclo",
-              "nativeQueryRef": "Ciclo",
-              "displayName": "Ciclo"
-            },
             {
               "field": {
                 "Column": {
@@ -83,6 +53,21 @@
                       "Entity": "fDesignacoes"
                     }
                   },
+                  "Property": "Ciclo"
+                }
+              },
+              "queryRef": "fDesignacoes.Ciclo",
+              "nativeQueryRef": "Ciclo",
+              "displayName": "Ciclo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fDesignacoes"
+                    }
+                  },
                   "Property": "Nº PROA"
                 }
               },
@@ -95,15 +80,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dProcesso"
+                      "Entity": "fDesignacoes"
                     }
                   },
-                  "Property": "Auditado"
+                  "Property": "Status do Ciclo"
                 }
               },
-              "queryRef": "dProcesso.Auditado",
-              "nativeQueryRef": "Auditado",
-              "displayName": "Auditado"
+              "queryRef": "fDesignacoes.Status do Ciclo",
+              "nativeQueryRef": "Status do ciclo",
+              "displayName": "Status do ciclo"
             },
             {
               "field": {
@@ -113,57 +98,12 @@
                       "Entity": "fDesignacoes"
                     }
                   },
-                  "Property": "Data Final Designação"
+                  "Property": "Dias desde a Designação"
                 }
               },
-              "queryRef": "fDesignacoes.Data Final Designação",
-              "nativeQueryRef": "Fim Designação",
-              "displayName": "Fim Designação"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fDesignacoes"
-                    }
-                  },
-                  "Property": "Data Limite"
-                }
-              },
-              "queryRef": "fDesignacoes.Data Limite",
-              "nativeQueryRef": "Data Limite",
-              "displayName": "Data Limite"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fDesignacoes"
-                    }
-                  },
-                  "Property": "Data Relatório"
-                }
-              },
-              "queryRef": "fDesignacoes.Data Relatório",
-              "nativeQueryRef": "Data Relatório",
-              "displayName": "Data Relatório"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fDesignacoes"
-                    }
-                  },
-                  "Property": "Dias de Atraso"
-                }
-              },
-              "queryRef": "fDesignacoes.Dias de Atraso",
-              "nativeQueryRef": "Dias de Atraso",
-              "displayName": "Dias de Atraso"
+              "queryRef": "fDesignacoes.Dias desde a Designação",
+              "nativeQueryRef": "Dias desde a designação",
+              "displayName": "Dias desde a designação"
             }
           ]
         }
@@ -178,7 +118,7 @@
                     "Entity": "fDesignacoes"
                   }
                 },
-                "Property": "Dias de Atraso"
+                "Property": "Dias desde a Designação"
               }
             },
             "direction": "Descending"
@@ -459,7 +399,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'MONITORAMENTO · PENDENTES OU ENTREGUES FORA DO PRAZO'"
+                  "Value": "'MONITORAMENTO · CICLOS EM ABERTO'"
                 }
               }
             },
@@ -504,7 +444,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "fSitPendMon",
+        "name": "fEmCarteira",
         "field": {
           "Column": {
             "Expression": {
@@ -512,7 +452,7 @@
                 "Entity": "fDesignacoes"
               }
             },
-            "Property": "Situação"
+            "Property": "Em Carteira"
           }
         },
         "type": "Categorical",
@@ -537,7 +477,7 @@
                             "Source": "t"
                           }
                         },
-                        "Property": "Situação"
+                        "Property": "Em Carteira"
                       }
                     }
                   ],
@@ -545,21 +485,7 @@
                     [
                       {
                         "Literal": {
-                          "Value": "'Pendente (vencida)'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Em andamento'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Fora do prazo'"
+                          "Value": "'Sim'"
                         }
                       }
                     ]
