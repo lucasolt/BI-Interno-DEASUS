@@ -45,7 +45,8 @@ let
     ComAuditor = Table.AddColumn(Expandido, "Auditor", each fxAuditorOficial([Nome]), type text),
     SemDuplicadas = Table.Distinct(Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}), {"Nº PROA", "Função", "Auditor"}),
     // pessoas marcadas "é auditor = Não" na aba APOIO não entram nas contagens
-    SoAuditores = Table.SelectRows(SemDuplicadas, each not List.Contains(NaoAuditores, [Auditor])),
+    ListaNaoAuditores = List.Buffer(NaoAuditores),
+    SoAuditores = Table.SelectRows(SemDuplicadas, each not List.Contains(ListaNaoAuditores, [Auditor])),
 
     // Um registro por relatório (RAI e RAF)
     ComRelatorios = Table.AddColumn(SoAuditores, "Rel", each {

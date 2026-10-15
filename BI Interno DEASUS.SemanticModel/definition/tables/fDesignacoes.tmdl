@@ -254,7 +254,8 @@ table fDesignacoes
 				    // mesma pessoa repetida na mesma função do mesmo ciclo conta uma vez
 				    SemDuplicadas = Table.Distinct(SemNomeOriginal, {"Nº PROA", "Ciclo Nº", "Função", "Auditor"}),
 				    // pessoas marcadas "é auditor = Não" na aba APOIO não entram nas contagens
-				    SoAuditores = Table.SelectRows(SemDuplicadas, each not List.Contains(NaoAuditores, [Auditor])),
+				    ListaNaoAuditores = List.Buffer(NaoAuditores),
+				    SoAuditores = Table.SelectRows(SemDuplicadas, each not List.Contains(ListaNaoAuditores, [Auditor])),
 				
 				    // ---- 4. Prazo e classificação ----
 				    Hoje = Date.From(DateTime.LocalNow()),

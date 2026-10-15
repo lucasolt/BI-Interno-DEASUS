@@ -34,12 +34,18 @@ let
         in if e = null and Text.Lower([Tipo de Auditoria] ?? "") = "auditoria especial" then "Solicitação Externa" else e,
         type nullable text),
     // eixos fora do de-para ficam em "título" (ex.: ATENÇÃO BÁSICA -> Atenção Básica)
-    DicCasing = #table(type table [Rename = text, Incluir = number, Type = text, Casing = text], {{"EixoBase", 1, "texto", "titulo"}}),
-    EixoTitulo = fxAplicarCasing(ComEixoBase, DicCasing),
+    Minusculas = {"a", "as", "à", "às", "com", "da", "das", "de", "do", "dos", "e", "em", "na", "no", "para"},
+    Siglas = {"AIH", "UPA", "OPME", "RUE", "RAPS", "UTI", "SUS", "II", "III"},
+    Titulo = (t as text) as text =>
+        Text.Combine(List.Transform(List.Positions(Text.Split(t, " ")), (i) =>
+            let w = Text.Split(t, " "){i}, nucleo = Text.Upper(Text.Remove(w, {"(", ")"})) in
+            if List.Contains(Siglas, nucleo) then Text.Upper(w)
+            else if i > 0 and List.Contains(Minusculas, Text.Lower(w)) then Text.Lower(w)
+            else Text.Proper(w)), " "),
     Mapa = Record.FromList(MapaEixos[Eixo Temático], MapaEixos[EixoChave]),
-    ComEixoTematico = Table.AddColumn(EixoTitulo, "Eixo Temático", each
+    ComEixoTematico = Table.AddColumn(ComEixoBase, "Eixo Temático", each
         let k = fxNormalizaNome([EixoBase]) in
-        if k = null then "(Não informado)" else Record.FieldOrDefault(Mapa, k, [EixoBase]),
+        if k = null then "(Não informado)" else Record.FieldOrDefault(Mapa, k, Titulo([EixoBase])),
         type text),
     Final = Table.RemoveColumns(ComEixoTematico, {"EixoBase"})
 in
