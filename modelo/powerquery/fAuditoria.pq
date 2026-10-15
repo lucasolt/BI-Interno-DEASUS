@@ -83,7 +83,16 @@ let
         if [Situação] = "Pendente (vencida)" or [Situação] = "Em andamento" then Duration.Days(Hoje - [Data Designação])
         else null,
         Int64.Type),
-    ComAlerta = Table.AddColumn(ComDiasAberto, "Alerta de Qualidade", each
+    // faixa de tempo até a entrega em múltiplos do prazo (RAI 30 / RAF 60): mesma régua para os dois
+    Faixas = {"Até o prazo", "Até 2× o prazo", "Até 4× o prazo", "Mais de 4× o prazo"},
+    ComFaixa = Table.AddColumn(ComDiasAberto, "Faixa de Tempo", each
+        if [Dias para Entrega] = null or [Dias para Entrega] < 0 or [Prazo] = null then null
+        else let r = [Dias para Entrega] / [Prazo] in
+            if r <= 1 then Faixas{0} else if r <= 2 then Faixas{1} else if r <= 4 then Faixas{2} else Faixas{3},
+        type nullable text),
+    ComFaixaOrdem = Table.AddColumn(ComFaixa, "Faixa Ordem", each
+        if [Faixa de Tempo] = null then null else List.PositionOf(Faixas, [Faixa de Tempo]) + 1, Int64.Type),
+    ComAlerta = Table.AddColumn(ComFaixaOrdem, "Alerta de Qualidade", each
         if [Auditor] = "(Não informado)" then "Auditor não informado"
         else if [Data Designação] = null then "Sem Data de Designação"
         else if [Data Entrega] <> null and [Data Entrega] < [Data Designação] then "Entrega anterior à designação"
@@ -103,7 +112,7 @@ let
     Final = Table.SelectColumns(Tipos, {
         "ID Relatório", "Nº PROA", "Relatório", "Relatório Ordem", "Função", "Auditor", "Nome na Planilha",
         "Data Designação", "Data Limite", "Data Entrega", "Nº Relatório", "Situação",
-        "Dias para Entrega", "Dias de Atraso", "Dias em Aberto", "Matrizes de Qualidade", "Status do Processo",
+        "Dias para Entrega", "Dias de Atraso", "Dias em Aberto", "Faixa de Tempo", "Faixa Ordem", "Matrizes de Qualidade", "Status do Processo",
         "Alerta de Qualidade", "Data de Referência"})
 in
     Final

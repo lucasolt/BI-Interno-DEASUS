@@ -495,10 +495,12 @@ def pg_auditoria():
     p.add("donut", X0, YG, 440, h2, donut_situacao("Aud Relatórios", "RELATÓRIOS POR SITUAÇÃO (RAI + RAF)"))
     p.add("evolucao", X0 + 450, YG, 770, h2, grafico(
         "columnChart", col("dCalendario", "Mês/Ano"),
-        [("Aud No Prazo (por Data Entrega)", "Entregues no prazo"),
-         ("Aud Fora do Prazo (por Data Entrega)", "Fora do prazo"),
-         ("Aud Pendências Vencidas (por Data Limite)", "Pendentes vencidos")],
-        "EVOLUÇÃO MENSAL DE ENTREGAS (RAI + RAF)", cores=[VERDE, VERMELHO, AMARELO],
+        [("Aud Entregas Até o Prazo (por Data Entrega)", "Até o prazo"),
+         ("Aud Entregas Até 2x o Prazo (por Data Entrega)", "Até 2× o prazo"),
+         ("Aud Entregas Até 4x o Prazo (por Data Entrega)", "Até 4× o prazo"),
+         ("Aud Entregas Mais de 4x o Prazo (por Data Entrega)", "Mais de 4× o prazo")],
+        "ENTREGAS POR MÊS · TEMPO ATÉ A ENTREGA (em múltiplos do prazo: RAI 30 / RAF 60 dias)",
+        cores=["#BDD7EE", "#6FA8DC", "#2E75B6", "#0B2E59"],
         ordem=(col("dCalendario", "Mês/Ano"), "Ascending")))
     taxas(p, XG, YG, WG, h2, [("RAI Taxa de Pontualidade", "Pontualidade RAI", AZUL),
                               ("RAF Taxa de Pontualidade", "Pontualidade RAF", VERDE),

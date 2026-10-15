@@ -687,6 +687,26 @@ table _Medidas
 		displayFolder: 8. Carteira Atual
 		lineageTag: 20acda8d-b8b3-445d-b08c-d8edc1978daa
 
+	measure 'Aud Entregas Até o Prazo (por Data Entrega)' = CALCULATE([Aud Entregas (por Data Entrega)], KEEPFILTERS(fAuditoria[Faixa de Tempo] = "Até o prazo"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: c6aeedb9-e028-4aaf-a668-9d94fa9a88fd
+
+	measure 'Aud Entregas Até 2x o Prazo (por Data Entrega)' = CALCULATE([Aud Entregas (por Data Entrega)], KEEPFILTERS(fAuditoria[Faixa de Tempo] = "Até 2× o prazo"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: fb206f21-9805-4a82-b625-517618967a17
+
+	measure 'Aud Entregas Até 4x o Prazo (por Data Entrega)' = CALCULATE([Aud Entregas (por Data Entrega)], KEEPFILTERS(fAuditoria[Faixa de Tempo] = "Até 4× o prazo"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: 76dc3513-b52b-4fdb-aa20-7acac3f9bc7e
+
+	measure 'Aud Entregas Mais de 4x o Prazo (por Data Entrega)' = CALCULATE([Aud Entregas (por Data Entrega)], KEEPFILTERS(fAuditoria[Faixa de Tempo] = "Mais de 4× o prazo"))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: 18e61db4-1c74-485e-98e2-7a0144f90acf
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a

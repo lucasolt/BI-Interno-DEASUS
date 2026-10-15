@@ -42,12 +42,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud No Prazo (por Data Entrega)"
+                  "Property": "Aud Entregas Até o Prazo (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud No Prazo (por Data Entrega)",
-              "nativeQueryRef": "Entregues no prazo",
-              "displayName": "Entregues no prazo"
+              "queryRef": "_Medidas.Aud Entregas Até o Prazo (por Data Entrega)",
+              "nativeQueryRef": "Até o prazo",
+              "displayName": "Até o prazo"
             },
             {
               "field": {
@@ -57,12 +57,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Fora do Prazo (por Data Entrega)"
+                  "Property": "Aud Entregas Até 2x o Prazo (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud Fora do Prazo (por Data Entrega)",
-              "nativeQueryRef": "Fora do prazo",
-              "displayName": "Fora do prazo"
+              "queryRef": "_Medidas.Aud Entregas Até 2x o Prazo (por Data Entrega)",
+              "nativeQueryRef": "Até 2× o prazo",
+              "displayName": "Até 2× o prazo"
             },
             {
               "field": {
@@ -72,12 +72,27 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Pendências Vencidas (por Data Limite)"
+                  "Property": "Aud Entregas Até 4x o Prazo (por Data Entrega)"
                 }
               },
-              "queryRef": "_Medidas.Aud Pendências Vencidas (por Data Limite)",
-              "nativeQueryRef": "Pendentes vencidos",
-              "displayName": "Pendentes vencidos"
+              "queryRef": "_Medidas.Aud Entregas Até 4x o Prazo (por Data Entrega)",
+              "nativeQueryRef": "Até 4× o prazo",
+              "displayName": "Até 4× o prazo"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Aud Entregas Mais de 4x o Prazo (por Data Entrega)"
+                }
+              },
+              "queryRef": "_Medidas.Aud Entregas Mais de 4x o Prazo (por Data Entrega)",
+              "nativeQueryRef": "Mais de 4× o prazo",
+              "displayName": "Mais de 4× o prazo"
             }
           ]
         }
@@ -217,7 +232,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2E9E44'"
+                      "Value": "'#BDD7EE'"
                     }
                   }
                 }
@@ -225,7 +240,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud No Prazo (por Data Entrega)"
+            "metadata": "_Medidas.Aud Entregas Até o Prazo (por Data Entrega)"
           }
         },
         {
@@ -235,7 +250,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D64545'"
+                      "Value": "'#6FA8DC'"
                     }
                   }
                 }
@@ -243,7 +258,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Fora do Prazo (por Data Entrega)"
+            "metadata": "_Medidas.Aud Entregas Até 2x o Prazo (por Data Entrega)"
           }
         },
         {
@@ -253,7 +268,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F2B705'"
+                      "Value": "'#2E75B6'"
                     }
                   }
                 }
@@ -261,7 +276,25 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Pendências Vencidas (por Data Limite)"
+            "metadata": "_Medidas.Aud Entregas Até 4x o Prazo (por Data Entrega)"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0B2E59'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Aud Entregas Mais de 4x o Prazo (por Data Entrega)"
           }
         }
       ]
@@ -409,7 +442,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'EVOLUÇÃO MENSAL DE ENTREGAS (RAI + RAF)'"
+                  "Value": "'ENTREGAS POR MÊS · TEMPO ATÉ A ENTREGA (em múltiplos do prazo: RAI 30 / RAF 60 dias)'"
                 }
               }
             },
