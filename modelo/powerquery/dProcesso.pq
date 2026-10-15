@@ -42,10 +42,10 @@ let
             if List.Contains(Siglas, nucleo) then Text.Upper(w)
             else if i > 0 and List.Contains(Minusculas, Text.Lower(w)) then Text.Lower(w)
             else Text.Proper(w)), " "),
-    Mapa = Record.FromList(MapaEixos[Eixo Temático], MapaEixos[EixoChave]),
+    DeParaEixo = Record.FromList(MapaEixos[Eixo Temático], MapaEixos[EixoChave]),
     ComEixoTematico = Table.AddColumn(ComEixoBase, "Eixo Temático", each
         let k = fxNormalizaNome([EixoBase]) in
-        if k = null then "(Não informado)" else Record.FieldOrDefault(Mapa, k, Titulo([EixoBase])),
+        if k = null then "(Não informado)" else Record.FieldOrDefault(DeParaEixo, k, Titulo([EixoBase])),
         type text),
     Final = Table.RemoveColumns(ComEixoTematico, {"EixoBase"})
 in
