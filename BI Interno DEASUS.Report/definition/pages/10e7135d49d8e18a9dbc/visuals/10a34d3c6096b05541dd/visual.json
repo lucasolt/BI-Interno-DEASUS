@@ -17,17 +17,42 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "dCalendario"
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Hierarchy": "Ano Hierarquia"
                     }
                   },
-                  "Property": "Mês/Ano"
+                  "Level": "Ano"
                 }
               },
-              "queryRef": "dCalendario.Mês/Ano",
-              "nativeQueryRef": "Mês/Ano",
+              "queryRef": "dCalendario.Ano Hierarquia.Ano",
+              "nativeQueryRef": "Ano Hierarquia Ano",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Hierarchy": "Ano Hierarquia"
+                    }
+                  },
+                  "Level": "Mês"
+                }
+              },
+              "queryRef": "dCalendario.Ano Hierarquia.Mês",
+              "nativeQueryRef": "Ano Hierarquia Mês",
               "active": true
             }
           ]
@@ -42,10 +67,10 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas Até 60 Dias (por Data Entrega)"
+                  "Property": "Gráfico Entregas Até 60 Dias"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas Até 60 Dias (por Data Entrega)",
+              "queryRef": "_Medidas.Gráfico Entregas Até 60 Dias",
               "nativeQueryRef": "Até 60 dias",
               "displayName": "Até 60 dias"
             },
@@ -57,10 +82,10 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas 61 a 120 Dias (por Data Entrega)"
+                  "Property": "Gráfico Entregas 61 a 120 Dias"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas 61 a 120 Dias (por Data Entrega)",
+              "queryRef": "_Medidas.Gráfico Entregas 61 a 120 Dias",
               "nativeQueryRef": "61 a 120 dias",
               "displayName": "61 a 120 dias"
             },
@@ -72,10 +97,10 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas 121 a 180 Dias (por Data Entrega)"
+                  "Property": "Gráfico Entregas 121 a 180 Dias"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas 121 a 180 Dias (por Data Entrega)",
+              "queryRef": "_Medidas.Gráfico Entregas 121 a 180 Dias",
               "nativeQueryRef": "121 a 180 dias",
               "displayName": "121 a 180 dias"
             },
@@ -87,10 +112,10 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Entregas Mais de 180 Dias (por Data Entrega)"
+                  "Property": "Gráfico Entregas Mais de 180 Dias"
                 }
               },
-              "queryRef": "_Medidas.Aud Entregas Mais de 180 Dias (por Data Entrega)",
+              "queryRef": "_Medidas.Gráfico Entregas Mais de 180 Dias",
               "nativeQueryRef": "Mais de 180 dias",
               "displayName": "Mais de 180 dias"
             }
@@ -101,13 +126,18 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "HierarchyLevel": {
                 "Expression": {
-                  "SourceRef": {
-                    "Entity": "dCalendario"
+                  "Hierarchy": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "dCalendario"
+                      }
+                    },
+                    "Hierarchy": "Ano Hierarquia"
                   }
                 },
-                "Property": "Mês/Ano"
+                "Level": "Ano"
               }
             },
             "direction": "Ascending"
@@ -220,6 +250,27 @@
                   "Value": "9D"
                 }
               }
+            },
+            "concatenateLabels": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "gridlineShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "gridlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dotted'"
+                }
+              }
             }
           }
         }
@@ -240,7 +291,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas Até 60 Dias (por Data Entrega)"
+            "metadata": "_Medidas.Gráfico Entregas Até 60 Dias"
           }
         },
         {
@@ -258,7 +309,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas 61 a 120 Dias (por Data Entrega)"
+            "metadata": "_Medidas.Gráfico Entregas 61 a 120 Dias"
           }
         },
         {
@@ -276,7 +327,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas 121 a 180 Dias (por Data Entrega)"
+            "metadata": "_Medidas.Gráfico Entregas 121 a 180 Dias"
           }
         },
         {
@@ -294,7 +345,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Aud Entregas Mais de 180 Dias (por Data Entrega)"
+            "metadata": "_Medidas.Gráfico Entregas Mais de 180 Dias"
           }
         }
       ]
@@ -441,8 +492,13 @@
             },
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'ENTREGAS POR MÊS · DIAS ENTRE A DESIGNAÇÃO E A ENTREGA (prazos: RAI 30 / RAF 60)'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Título Gráfico Entregas"
                 }
               }
             },

@@ -60,6 +60,18 @@ table dCalendario
 		isNameInferred
 		sourceColumn: [Data]
 
+	/// Ano > Mês, para eixos com o ano agrupando os meses.
+	hierarchy 'Ano Hierarquia'
+		lineageTag: d02396d6-95fb-4d38-93b5-9db1cc69d431
+
+		level Ano
+			lineageTag: 23064480-0164-4d26-9da7-da72ce853c46
+			column: Ano
+
+		level Mês
+			lineageTag: 0bcf306c-2bde-412f-bb6d-cc8f19345cb9
+			column: Mês
+
 	partition dCalendario = calculated
 		mode: import
 		source =

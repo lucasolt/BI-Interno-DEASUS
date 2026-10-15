@@ -1,0 +1,28 @@
+/// Seletor do gráfico mensal da Auditoria (não filtra o resto da página). Padrão: RAF.
+table pRelatorioGrafico
+	lineageTag: 5dd10241-8ebd-439c-89c9-54934a6aae78
+
+	column Relatório
+		dataType: string
+		lineageTag: 1badd04e-3c45-4bdd-80c5-93a569b966b6
+		summarizeBy: none
+		sourceColumn: Relatório
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		isHidden
+		lineageTag: c2bbb84f-fc30-41e1-a67d-bbcc4296baeb
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pRelatorioGrafico = m
+		mode: import
+		source = #table(type table [Relatório = text, Ordem = Int64.Type], {{"RAF", 1}, {"RAI", 2}})
+
+	annotation PBI_ResultType = Table
+

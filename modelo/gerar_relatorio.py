@@ -316,6 +316,22 @@ def tabela(campos, titulo, ordem=None):
     return v
 
 
+def nivel_ano_mes(nivel):
+    return {"HierarchyLevel": {"Expression": {"Hierarchy": {"Expression": {"SourceRef": {"Entity": "dCalendario"}},
+                                                            "Hierarchy": "Ano Hierarquia"}}, "Level": nivel}}
+
+
+def eixo_ano_mes(v):
+    """Eixo X com o ano agrupando os meses (hierarquia Ano > Mês expandida, rótulos não concatenados)."""
+    v["query"]["queryState"]["Category"] = {"projections": [
+        {"field": nivel_ano_mes("Ano"), "queryRef": "dCalendario.Ano Hierarquia.Ano", "nativeQueryRef": "Ano Hierarquia Ano", "active": True},
+        {"field": nivel_ano_mes("Mês"), "queryRef": "dCalendario.Ano Hierarquia.Mês", "nativeQueryRef": "Ano Hierarquia Mês", "active": True}]}
+    v["query"]["sortDefinition"] = {"sort": [{"field": nivel_ano_mes("Ano"), "direction": "Ascending"}]}
+    v["objects"]["categoryAxis"][0]["properties"].update({
+        "concatenateLabels": B(False), "gridlineShow": B(True), "gridlineStyle": S("dotted")})
+    return v
+
+
 # ---------------- Moldura comum (sidebar, cabeçalho, filtros) ----------------
 SUBTITULO = {
     "geral": "Auditoria (RAI · RAF) e Monitoramento (1º, 2º e 3º Ciclos) · Designações, entregas e prazos",
@@ -492,15 +508,22 @@ def pg_auditoria():
     moldura(p, "aud")
     kpis(p, KPIS_AUD_PAGINA)
     h2 = 330
-    p.add("evolucao", X0, YG, 1220, h2, grafico(
+    evo = eixo_ano_mes(grafico(
         "columnChart", col("dCalendario", "Mês/Ano"),
-        [("Aud Entregas Até 60 Dias (por Data Entrega)", "Até 60 dias"),
-         ("Aud Entregas 61 a 120 Dias (por Data Entrega)", "61 a 120 dias"),
-         ("Aud Entregas 121 a 180 Dias (por Data Entrega)", "121 a 180 dias"),
-         ("Aud Entregas Mais de 180 Dias (por Data Entrega)", "Mais de 180 dias")],
-        "ENTREGAS POR MÊS · DIAS ENTRE A DESIGNAÇÃO E A ENTREGA (prazos: RAI 30 / RAF 60)",
-        cores=["#BDD7EE", "#6FA8DC", "#2E75B6", "#0B2E59"],
-        ordem=(col("dCalendario", "Mês/Ano"), "Ascending")))
+        [("Gráfico Entregas Até 60 Dias", "Até 60 dias"),
+         ("Gráfico Entregas 61 a 120 Dias", "61 a 120 dias"),
+         ("Gráfico Entregas 121 a 180 Dias", "121 a 180 dias"),
+         ("Gráfico Entregas Mais de 180 Dias", "Mais de 180 dias")],
+        "ENTREGAS POR MÊS", cores=["#BDD7EE", "#6FA8DC", "#2E75B6", "#0B2E59"]))
+    evo["visualContainerObjects"]["title"][0]["properties"]["text"] = {"expr": med("Título Gráfico Entregas")}
+    p.add("evolucao", X0, YG, 1220, h2, evo)
+    # seletor RAI/RAF só do gráfico (tabela desconectada), padrão RAF
+    sel = slicer(col("pRelatorioGrafico", "Relatório"), "Relatório:", None, "Basic")
+    del sel["syncGroup"]
+    sel["objects"]["selection"] = [{"properties": {"singleSelect": B(False), "strictSingleSelect": B(True)}}]
+    sel["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("pRelatorioGrafico", "Relatório", ["RAF"], "x")["filter"]}}}]
+    sel["visualContainerObjects"] = {"background": [{"properties": {"show": B(False)}}]}
+    p.add("f_rel_grafico", X0 + 1220 - 150, YG + 6, 140, 70, sel)
     taxas(p, XG, YG, WG, h2, [("RAI Taxa de Pontualidade", "Pontualidade RAI", AZUL),
                               ("RAF Taxa de Pontualidade", "Pontualidade RAF", VERDE),
                               ("Aud Taxa de Pendência Vencida", "Pendência Vencida", VERMELHO)])
@@ -555,13 +578,12 @@ def pg_monitoramento():
     kpis(p, KPIS_MONIT)
     h2 = 330
     p.add("donut", X0, YG, 440, h2, donut_situacao("Designações", "DESIGNAÇÕES POR SITUAÇÃO"))
-    p.add("evolucao", X0 + 450, YG, 770, h2, grafico(
+    p.add("evolucao", X0 + 450, YG, 770, h2, eixo_ano_mes(grafico(
         "columnChart", col("dCalendario", "Mês/Ano"),
         [("Entregas no Prazo (por Data Relatório)", "Entregues no prazo"),
          ("Entregas Fora do Prazo (por Data Relatório)", "Fora do prazo"),
          ("Pendências Vencidas (por Data Limite)", "Pendentes vencidos")],
-        "EVOLUÇÃO DE ENTREGAS POR MÊS", cores=[VERDE, VERMELHO, AMARELO],
-        ordem=(col("dCalendario", "Mês/Ano"), "Ascending")))
+        "EVOLUÇÃO DE ENTREGAS POR MÊS", cores=[VERDE, VERMELHO, AMARELO])))
     taxas(p, XG, YG, WG, h2, [("Taxa de Entrega", "Taxa de Entrega", AZUL),
                               ("Taxa de Pontualidade", "Taxa de Pontualidade", AZUL),
                               ("Taxa de Pendência Vencida", "Taxa de Pendência Vencida", VERMELHO)])

@@ -707,6 +707,40 @@ table _Medidas
 		displayFolder: 7. Auditoria\Faixas de Tempo
 		lineageTag: 18e61db4-1c74-485e-98e2-7a0144f90acf
 
+	measure 'Gráfico Entregas Até 60 Dias' =
+			VAR _rel = SELECTEDVALUE(pRelatorioGrafico[Relatório], "RAF")
+			RETURN CALCULATE([Aud Entregas Até 60 Dias (por Data Entrega)], KEEPFILTERS(fAuditoria[Relatório] = _rel))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: cc3a4a8b-5a45-4d37-9e4c-732b33219e3f
+
+	measure 'Gráfico Entregas 61 a 120 Dias' =
+			VAR _rel = SELECTEDVALUE(pRelatorioGrafico[Relatório], "RAF")
+			RETURN CALCULATE([Aud Entregas 61 a 120 Dias (por Data Entrega)], KEEPFILTERS(fAuditoria[Relatório] = _rel))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: f3691798-c213-4d4b-ab91-04f0c675a2df
+
+	measure 'Gráfico Entregas 121 a 180 Dias' =
+			VAR _rel = SELECTEDVALUE(pRelatorioGrafico[Relatório], "RAF")
+			RETURN CALCULATE([Aud Entregas 121 a 180 Dias (por Data Entrega)], KEEPFILTERS(fAuditoria[Relatório] = _rel))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: cb2e1554-6b68-4f89-b7b1-d2a25dd0d7b8
+
+	measure 'Gráfico Entregas Mais de 180 Dias' =
+			VAR _rel = SELECTEDVALUE(pRelatorioGrafico[Relatório], "RAF")
+			RETURN CALCULATE([Aud Entregas Mais de 180 Dias (por Data Entrega)], KEEPFILTERS(fAuditoria[Relatório] = _rel))
+		formatString: #,0
+		displayFolder: 7. Auditoria\Faixas de Tempo
+		lineageTag: 03946871-19ae-47ab-8652-9dbe4ebf3363
+
+	measure 'Título Gráfico Entregas' =
+			VAR _rel = SELECTEDVALUE(pRelatorioGrafico[Relatório], "RAF")
+			RETURN "ENTREGAS DO " & _rel & " POR MÊS · DIAS ENTRE A DESIGNAÇÃO E A ENTREGA (prazo " & IF(_rel = "RAI", "30", "60") & " dias)"
+		displayFolder: 6. Rótulos
+		lineageTag: 98ee255d-b692-40e4-bfea-8380ca67603a
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a
