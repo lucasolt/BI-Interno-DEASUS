@@ -404,24 +404,24 @@ def moldura(p: Pagina, fase="geral", com_filtros=True):
 
 
 KPIS_MONIT = [
-    ("Designações", "Sub Designações", "Designações (Monitoramento)", NAVY),
+    ("Monitoramentos Designados", "Sub Designações", "Ciclos Designados (Monitoramento)", NAVY),
     ("Relatórios Entregues", "Sub Entregues", "Relatórios Entregues", AZUL),
     ("Entregues no Prazo", "Sub No Prazo", "Entregues no Prazo", VERDE),
     ("Entregues Fora do Prazo", "Sub Fora do Prazo", "Entregues Fora do Prazo", VERMELHO),
-    ("Pendências Vencidas", "Sub Pendências Vencidas", "Pendências Vencidas", AMARELO),
-    ("Dias Médios para Entrega", "Sub Prazo Médio", "Prazo Médio de Entrega (dias)", NAVY),
+    ("Carteira Monitoramento", "Sub Carteira Mon", "Ciclos em Aberto Hoje", AMARELO),
+    ("Dias Médios para Entrega", "Sub Prazo Médio", "Tempo Médio até a Entrega (dias)", NAVY),
 ]
 KPIS_AUD = [
-    ("Aud Designações", "Sub Aud Designações", "Designações (Auditoria)", NAVY),
+    ("Aud Processos Designados", "Sub Aud Designações", "Processos Designados (Auditoria)", NAVY),
     ("RAI Entregues", "Sub RAI Entregues", "RAI Entregues", AZUL),
     ("RAF Entregues", "Sub RAF Entregues", "RAF Entregues", VERDE),
-    ("Aud Pendências Vencidas", "Sub Aud Pendências", "Pendências Vencidas", AMARELO),
+    ("Carteira Auditoria", "Sub Carteira Quem", "Em Andamento Hoje (Auditoria)", AMARELO),
     ("RAI Dias Médios para Entrega", "Sub RAI Dias", "Dias Médios até o RAI", NAVY),
     ("Aud Média de Matrizes por Relatório", "Sub Aud Matrizes", "Matrizes de Qualidade / Relatório", VERMELHO),
 ]
 # Página Auditoria: foco em dias (contínuo) no lugar de pendências vencidas (binário)
 KPIS_AUD_PAGINA = [
-    ("Aud Designações", "Sub Aud Designações", "Designações (Auditoria)", NAVY),
+    ("Aud Processos Designados", "Sub Aud Designações", "Processos Designados (Auditoria)", NAVY),
     ("RAI Entregues", "Sub RAI Entregues", "RAI Entregues", AZUL),
     ("RAF Entregues", "Sub RAF Entregues", "RAF Entregues", VERDE),
     ("RAI Dias Médios para Entrega", "Sub RAI Dias Card", "Dias Médios até o RAI", AZUL),
@@ -690,7 +690,7 @@ def pg_carteira():
     p.add("f_ativo", 8, 760, SIDEBAR - 16, 66, ativo)
 
     kpis(p, [
-        ("Carteira Auditoria", "Sub Carteira Aud", "Trabalhos em Auditoria", NAVY),
+        ("Carteira Auditoria", "Sub Carteira Aud", "Processos em Auditoria", NAVY),
         ("Carteira Aud Com a Equipe", "Sub Carteira Com a Equipe", "Com a Equipe", AZUL),
         ("Carteira Aud Com a Chefia", "Sub Carteira Com a Chefia", "Com a Chefia", VERDE),
         ("Carteira Aud Aguardando Auditado", "Sub Carteira Aguardando", "Aguardando Auditado", CINZA),
@@ -776,7 +776,8 @@ def pg_metodologia():
         [n("Dias para entrega: "), c("Data do Relatório − Data Inicial da Designação.")],
         [c(" ")],
         [t("Indicadores")],
-        [n("Designações: "), c("cada auditor em cada função de cada processo/ciclo conta 1 (equipe de 3 = 3 designações).")],
+        [n("Designações: "), c("cada auditor em cada função de cada processo/ciclo conta 1 (equipe de 3 = 3 designações). "
+                                "Usado nas tabelas por auditor; cartões e gráficos gerais contam processos/ciclos/relatórios uma vez só.")],
         [n("Taxa de Entrega: "), c("Entregues ÷ (Entregues + Pendências vencidas).")],
         [n("Taxa de Pontualidade: "), c("No prazo ÷ Entregues.")],
         [n("Taxa de Pendência Vencida: "), c("Pendências vencidas ÷ designações (auditoria: ÷ relatórios aplicáveis).")],

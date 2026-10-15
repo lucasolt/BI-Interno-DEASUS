@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Designações"
+                  "Property": "Aud Processos Designados"
                 }
               },
-              "queryRef": "_Medidas.Aud Designações",
-              "nativeQueryRef": "Aud Designações"
+              "queryRef": "_Medidas.Aud Processos Designados",
+              "nativeQueryRef": "Aud Processos Designados"
             }
           ]
         }
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Designações (Auditoria)'"
+                  "Value": "'Processos Designados (Auditoria)'"
                 }
               }
             },

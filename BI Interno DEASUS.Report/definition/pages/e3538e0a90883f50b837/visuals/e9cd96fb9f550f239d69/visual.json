@@ -157,7 +157,7 @@
                     }
                   },
                   {
-                    "value": "cada auditor em cada função de cada processo/ciclo conta 1 (equipe de 3 = 3 designações).",
+                    "value": "cada auditor em cada função de cada processo/ciclo conta 1 (equipe de 3 = 3 designações). Usado nas tabelas por auditor; cartões e gráficos gerais contam processos/ciclos/relatórios uma vez só.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"

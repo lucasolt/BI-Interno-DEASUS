@@ -24,7 +24,7 @@ table _Medidas
 		displayFolder: 1. Produção
 		lineageTag: 66b3ccc6-1c7f-49b1-ad8f-a7ab36f0d2d7
 
-	measure 'Relatórios Entregues' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}))
+	measure 'Relatórios Entregues' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] IN {"No prazo", "Fora do prazo"}))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: eafc6e31-dea8-46de-837e-3f5e092fcacb
@@ -35,36 +35,36 @@ table _Medidas
 		displayFolder: 1. Produção
 		lineageTag: 81f48b07-3842-4e79-a701-a74b0b60e66c
 
-	measure 'Entregues no Prazo' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "No prazo"))
+	measure 'Entregues no Prazo' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "No prazo"))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: f3da6954-9511-4eb8-8d0b-847aaaf09619
 
-	measure 'Entregues Fora do Prazo' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Fora do prazo"))
+	measure 'Entregues Fora do Prazo' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Fora do prazo"))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: 4dc47402-4b1d-4e82-b154-f920bf4b46fc
 
 	/// Sem data de relatório (vencidas + em andamento).
-	measure 'Relatórios Pendentes' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] IN {"Pendente (vencida)", "Em andamento"}))
+	measure 'Relatórios Pendentes' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] IN {"Pendente (vencida)", "Em andamento"}))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: 122eead8-7387-4731-a069-a281a86be5a2
 
 	/// Sem relatório e com Data Limite já ultrapassada na data da atualização.
-	measure 'Pendências Vencidas' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Pendente (vencida)"))
+	measure 'Pendências Vencidas' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Pendente (vencida)"))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: ba3abbab-7e08-45cd-b129-ea437037ce77
 
 	/// Sem relatório, ainda dentro do prazo.
-	measure 'Em Andamento' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Em andamento"))
+	measure 'Em Andamento' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Em andamento"))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: b40862b3-7e37-4e43-9bd3-54ae8ab92d48
 
 	/// Designações sem Data Final de Designação (prazo não mensurável).
-	measure 'Sem Prazo Definido' = CALCULATE([Designações], KEEPFILTERS(fDesignacoes[Situação] = "Sem prazo definido"))
+	measure 'Sem Prazo Definido' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Sem prazo definido"))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: 2bd5553f-f988-4656-b219-8db94536bcf6
@@ -92,23 +92,23 @@ table _Medidas
 		displayFolder: 2. Prazo
 		lineageTag: 31147c08-6ead-418a-9f1d-91e828519d8a
 
-	/// Pendências vencidas ÷ Designações.
-	measure 'Taxa de Pendência Vencida' = DIVIDE([Pendências Vencidas], [Designações])
+	/// Pendências vencidas ÷ ciclos designados.
+	measure 'Taxa de Pendência Vencida' = DIVIDE([Pendências Vencidas], [Monitoramentos Designados])
 		formatString: 0.00%
 		displayFolder: 2. Prazo
 		lineageTag: 4f680c58-729c-437c-a87c-fc695c2cd16e
 
-	measure '% Entregues s/ Designações' = DIVIDE([Relatórios Entregues], [Designações])
+	measure '% Entregues s/ Designações' = DIVIDE([Relatórios Entregues], [Monitoramentos Designados])
 		formatString: 0.00%
 		displayFolder: 2. Prazo
 		lineageTag: 489d8e80-a29f-45d8-a233-0828708269a2
 
-	measure '% No Prazo s/ Designações' = DIVIDE([Entregues no Prazo], [Designações])
+	measure '% No Prazo s/ Designações' = DIVIDE([Entregues no Prazo], [Monitoramentos Designados])
 		formatString: 0.00%
 		displayFolder: 2. Prazo
 		lineageTag: 3b1e75a3-3cbb-4694-8fb8-b5b6e443a2b7
 
-	measure '% Fora do Prazo s/ Designações' = DIVIDE([Entregues Fora do Prazo], [Designações])
+	measure '% Fora do Prazo s/ Designações' = DIVIDE([Entregues Fora do Prazo], [Monitoramentos Designados])
 		formatString: 0.00%
 		displayFolder: 2. Prazo
 		lineageTag: 1461748b-6d75-4f6d-afc7-eb463260abea
@@ -207,19 +207,19 @@ table _Medidas
 		displayFolder: 5. Info
 		lineageTag: a04b4855-d8b9-4c54-a1c4-1a39a10ed811
 
-	measure 'Sub Designações' = FORMAT([Designações Coordenador], "#,0") & " coordenador · " & FORMAT([Designações Equipe], "#,0") & " equipe"
+	measure 'Sub Designações' = FORMAT([Designações Coordenador] + 0, "#,0") & " como coordenador · " & FORMAT([Designações Equipe] + 0, "#,0") & " como equipe"
 		displayFolder: 6. Rótulos
 		lineageTag: 0399a53f-b3d0-4e7f-a2ad-18552530bc19
 
-	measure 'Sub Entregues' = FORMAT([% Entregues s/ Designações], "0.00%") & " das designações"
+	measure 'Sub Entregues' = FORMAT([% Entregues s/ Designações] + 0, "0.0%") & " dos ciclos designados"
 		displayFolder: 6. Rótulos
 		lineageTag: 9291be2d-ca1c-4fcf-8c32-13a6911ce203
 
-	measure 'Sub No Prazo' = FORMAT([% No Prazo s/ Designações], "0.00%") & " das designações"
+	measure 'Sub No Prazo' = FORMAT([% No Prazo s/ Designações] + 0, "0.0%") & " dos ciclos designados"
 		displayFolder: 6. Rótulos
 		lineageTag: c5f6cc1b-8a57-4a4e-817d-ef926a91b330
 
-	measure 'Sub Fora do Prazo' = FORMAT([% Fora do Prazo s/ Designações], "0.00%") & " das designações"
+	measure 'Sub Fora do Prazo' = FORMAT([% Fora do Prazo s/ Designações] + 0, "0.0%") & " dos ciclos designados"
 		displayFolder: 6. Rótulos
 		lineageTag: 1f7634a8-f3bd-4b24-af71-f3f116a1fdf3
 
@@ -239,7 +239,7 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: e20fcaf6-13c4-40b3-ac12-a66e3dda1037
 
-	measure 'Sub Prazo Médio' = "Prazo padrão: " & [Prazo Padrão (dias)] & " dias após a designação"
+	measure 'Sub Prazo Médio' = "Mediana " & FORMAT([Mediana Dias para Entrega], "#,0") & " · prazo: fim da designação + " & [Prazo Padrão (dias)]
 		displayFolder: 6. Rótulos
 		lineageTag: 1f500fa2-8583-4706-82e4-a0527ccc44f3
 
@@ -265,44 +265,44 @@ table _Medidas
 		lineageTag: b952b5d5-d613-4bd0-96ff-6863bc34ae28
 
 	/// Registros de relatório (RAI + RAF) x auditor, todas as situações.
-	measure 'Aud Relatórios' = COUNTROWS(fAuditoria)
+	measure 'Aud Relatórios' = DISTINCTCOUNT(fAuditoria[ID Relatório])
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 8b0535a1-8e4a-4b4b-8de5-9ff290e48d4c
 
 	/// Relatórios esperados (exclui 'Não se aplica').
-	measure 'Aud Relatórios Aplicáveis' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] <> "Não se aplica"))
+	measure 'Aud Relatórios Aplicáveis' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] <> "Não se aplica"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: cda06467-56c3-4388-9b52-5dec4f8f4c23
 
-	measure 'Aud Entregues' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] IN {"No prazo", "Fora do prazo"}))
+	measure 'Aud Entregues' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] IN {"No prazo", "Fora do prazo"}))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 0431d583-8f10-4104-9663-787b262604fd
 
-	measure 'Aud No Prazo' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "No prazo"))
+	measure 'Aud No Prazo' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "No prazo"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: c401c1a8-6223-4fce-9d40-abc19a6351d2
 
-	measure 'Aud Fora do Prazo' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Fora do prazo"))
+	measure 'Aud Fora do Prazo' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "Fora do prazo"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 5b5a623f-f1d7-45f6-8775-ebd94f0e748f
 
-	measure 'Aud Pendências Vencidas' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Pendente (vencida)"))
+	measure 'Aud Pendências Vencidas' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "Pendente (vencida)"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: b06f7e62-c370-473e-aa77-f14cca942187
 
-	measure 'Aud Em Andamento' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Em andamento"))
+	measure 'Aud Em Andamento' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "Em andamento"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: e65534a0-f458-447a-8f66-d9cba20344c3
 
 	/// Sem data de entrega em processo arquivado/fase finalizada.
-	measure 'Aud Não se Aplica' = CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Situação] = "Não se aplica"))
+	measure 'Aud Não se Aplica' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "Não se aplica"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: ed3ae117-311a-445c-b98e-2418c9e29b24
@@ -514,7 +514,7 @@ table _Medidas
 		displayFolder: 7. Auditoria\RAF
 		lineageTag: edfe640d-1860-4564-bcd5-527c48eb9feb
 
-	measure 'Sub Aud Designações' = FORMAT([Aud Designações Coordenador], "#,0") & " coordenador · " & FORMAT([Aud Designações Equipe], "#,0") & " equipe"
+	measure 'Sub Aud Designações' = FORMAT([Aud Designações Coordenador] + 0, "#,0") & " como coordenador · " & FORMAT([Aud Designações Equipe] + 0, "#,0") & " como equipe"
 		displayFolder: 6. Rótulos
 		lineageTag: 76c89ec2-739e-44e0-84bf-64ad9a0e2622
 
@@ -546,8 +546,8 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 59a30523-be03-404a-9dd7-fa9333a258be
 
-	/// Trabalhos em aberto na fase de auditoria (processo x função x auditor). Não segue o filtro de Período.
-	measure 'Carteira Auditoria' = COUNTROWS(fCarteira) + 0
+	/// Processos em aberto na fase de auditoria (na linha de um auditor = os processos dele). Não segue o filtro de Período.
+	measure 'Carteira Auditoria' = DISTINCTCOUNT(fCarteira[Nº PROA]) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: ac245758-6ee2-4f79-aa81-a31622e9867a
@@ -562,17 +562,17 @@ table _Medidas
 		displayFolder: 8. Carteira Atual
 		lineageTag: bf94c4a4-6bf1-4e24-a423-f5e39972b50d
 
-	measure 'Carteira Aud Com a Equipe' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Com Quem] = "Com a equipe")) + 0
+	measure 'Carteira Aud Com a Equipe' = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Com Quem] = "Com a equipe")) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: f31c5b49-cda9-495a-beb5-59554eb27cec
 
-	measure 'Carteira Aud Com a Chefia' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Com Quem] = "Com a chefia")) + 0
+	measure 'Carteira Aud Com a Chefia' = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Com Quem] = "Com a chefia")) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: a4e23dec-11d5-4fd3-a218-d4158e02b74b
 
-	measure 'Carteira Aud Aguardando Auditado' = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Com Quem] = "Aguardando auditado")) + 0
+	measure 'Carteira Aud Aguardando Auditado' = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Com Quem] = "Aguardando auditado")) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: 1ef50810-9d53-4d2b-a04d-0d8cf23845db
@@ -595,8 +595,8 @@ table _Medidas
 		displayFolder: 8. Carteira Atual
 		lineageTag: 69b34980-95ae-4fd9-8616-00716a53c9f7
 
-	/// Ciclos de monitoramento em aberto sem relatório (designação x auditor). Ignora os filtros de Período e Situação.
-	measure 'Carteira Monitoramento' = CALCULATE(COUNTROWS(fDesignacoes), KEEPFILTERS(fDesignacoes[Em Carteira] = "Sim"), REMOVEFILTERS(dCalendario), REMOVEFILTERS(dSituacao)) + 0
+	/// Ciclos de monitoramento (PROA x Ciclo) em aberto sem relatório. Ignora os filtros de Período e Situação.
+	measure 'Carteira Monitoramento' = CALCULATE(DISTINCTCOUNT(fDesignacoes[ID Designação]), KEEPFILTERS(fDesignacoes[Em Carteira] = "Sim"), REMOVEFILTERS(dCalendario), REMOVEFILTERS(dSituacao)) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: 9fdf578d-89d8-4c94-b3c0-a62d7a1dd3f7
@@ -639,6 +639,10 @@ table _Medidas
 	measure 'Sub Carteira Aguardando' = FORMAT(DIVIDE([Carteira Aud Aguardando Auditado], [Carteira Auditoria]) + 0, "0%") & " dos trabalhos"
 		displayFolder: 6. Rótulos
 		lineageTag: ab93c697-a45e-46ef-a3f4-8f50a28ce5f4
+
+	measure 'Sub Carteira Quem' = FORMAT([Carteira Aud Com a Equipe], "#,0") & " equipe · " & FORMAT([Carteira Aud Com a Chefia], "#,0") & " chefia · " & FORMAT([Carteira Aud Aguardando Auditado], "#,0") & " auditado"
+		displayFolder: 6. Rótulos
+		lineageTag: 5f11361a-6d37-47a8-9e9b-81978f29a405
 
 	column Coluna
 		isHidden

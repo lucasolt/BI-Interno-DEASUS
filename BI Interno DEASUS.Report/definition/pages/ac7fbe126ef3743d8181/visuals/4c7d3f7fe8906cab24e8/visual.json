@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Prazo Médio de Entrega (dias)'"
+                  "Value": "'Tempo Médio até a Entrega (dias)'"
                 }
               }
             },

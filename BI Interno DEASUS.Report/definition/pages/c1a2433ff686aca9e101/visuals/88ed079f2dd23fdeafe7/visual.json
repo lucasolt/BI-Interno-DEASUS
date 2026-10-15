@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Designações"
+                  "Property": "Monitoramentos Designados"
                 }
               },
-              "queryRef": "_Medidas.Designações",
-              "nativeQueryRef": "Designações"
+              "queryRef": "_Medidas.Monitoramentos Designados",
+              "nativeQueryRef": "Monitoramentos Designados"
             }
           ]
         }
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Designações (Monitoramento)'"
+                  "Value": "'Ciclos Designados (Monitoramento)'"
                 }
               }
             },

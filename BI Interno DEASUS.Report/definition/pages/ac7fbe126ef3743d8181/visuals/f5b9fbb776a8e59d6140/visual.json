@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Sub Aud Pendências"
+                  "Property": "Sub Carteira Quem"
                 }
               },
-              "queryRef": "_Medidas.Sub Aud Pendências",
-              "nativeQueryRef": "Sub Aud Pendências"
+              "queryRef": "_Medidas.Sub Carteira Quem",
+              "nativeQueryRef": "Sub Carteira Quem"
             }
           ]
         }

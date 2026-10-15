@@ -42,11 +42,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Designações"
+                  "Property": "Monitoramentos Designados"
                 }
               },
-              "queryRef": "_Medidas.Designações",
-              "nativeQueryRef": "Designações"
+              "queryRef": "_Medidas.Monitoramentos Designados",
+              "nativeQueryRef": "Monitoramentos Designados"
             }
           ]
         }
@@ -516,7 +516,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'DESIGNAÇÕES POR SITUAÇÃO'"
+                  "Value": "'CICLOS POR SITUAÇÃO'"
                 }
               }
             },

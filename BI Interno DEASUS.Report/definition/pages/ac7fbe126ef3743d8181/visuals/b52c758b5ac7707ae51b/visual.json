@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Pendências Vencidas (cartão)"
+                  "Property": "Carteira Auditoria"
                 }
               },
-              "queryRef": "_Medidas.Aud Pendências Vencidas (cartão)",
-              "nativeQueryRef": "Aud Pendências Vencidas (cartão)"
+              "queryRef": "_Medidas.Carteira Auditoria",
+              "nativeQueryRef": "Carteira Auditoria"
             }
           ]
         }
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pendências Vencidas'"
+                  "Value": "'Em Andamento Hoje (Auditoria)'"
                 }
               }
             },

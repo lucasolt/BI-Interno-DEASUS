@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Pendências Vencidas (cartão)"
+                  "Property": "Carteira Monitoramento"
                 }
               },
-              "queryRef": "_Medidas.Pendências Vencidas (cartão)",
-              "nativeQueryRef": "Pendências Vencidas (cartão)"
+              "queryRef": "_Medidas.Carteira Monitoramento",
+              "nativeQueryRef": "Carteira Monitoramento"
             }
           ]
         }
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pendências Vencidas'"
+                  "Value": "'Ciclos em Aberto Hoje'"
                 }
               }
             },

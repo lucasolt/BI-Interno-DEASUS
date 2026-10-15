@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Sub Pendências Vencidas"
+                  "Property": "Sub Carteira Mon"
                 }
               },
-              "queryRef": "_Medidas.Sub Pendências Vencidas",
-              "nativeQueryRef": "Sub Pendências Vencidas"
+              "queryRef": "_Medidas.Sub Carteira Mon",
+              "nativeQueryRef": "Sub Carteira Mon"
             }
           ]
         }

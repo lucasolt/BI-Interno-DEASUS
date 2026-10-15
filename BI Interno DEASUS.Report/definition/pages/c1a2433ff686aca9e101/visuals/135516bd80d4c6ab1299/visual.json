@@ -376,7 +376,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PRAZO MÉDIO DE ENTREGA E ATRASO POR CICLO (DIAS)'"
+                  "Value": "'TEMPO MÉDIO ATÉ A ENTREGA E ATRASO POR CICLO (DIAS)'"
                 }
               }
             },

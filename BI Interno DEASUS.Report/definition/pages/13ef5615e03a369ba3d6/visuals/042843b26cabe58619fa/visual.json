@@ -42,12 +42,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Designações"
+                  "Property": "Monitoramentos Designados"
                 }
               },
-              "queryRef": "_Medidas.Designações",
-              "nativeQueryRef": "Designações",
-              "displayName": "Designações"
+              "queryRef": "_Medidas.Monitoramentos Designados",
+              "nativeQueryRef": "Monitoramentos Designados",
+              "displayName": "Designados"
             },
             {
               "field": {
@@ -210,7 +210,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Designações"
+            "metadata": "_Medidas.Monitoramentos Designados"
           }
         },
         {
@@ -376,7 +376,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'DESIGNAÇÕES POR CICLO'"
+                  "Value": "'CICLOS DESIGNADOS E ENTREGUES'"
                 }
               }
             },
