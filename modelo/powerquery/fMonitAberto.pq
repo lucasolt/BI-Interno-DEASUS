@@ -36,9 +36,11 @@ let
     Juntado = Table.NestedJoin(ComCicloNo, {"Nº PROA", "Ciclo Nº"}, Designados, {"Nº PROA", "Ciclo Nº"}, "D", JoinKind.LeftOuter),
     Expandido = Table.ExpandTableColumn(Juntado, "D", {"Função", "Auditor", "Data Inicial Designação", "Data Relatório"}),
     SemDesignacao = Table.ReplaceValue(Expandido, null, "(Sem designação)", Replacer.ReplaceValue, {"Auditor"}),
+    // sem designação: Função "Não designado" (evita linha em branco nas tabelas e filtros por Função)
+    SemFuncao = Table.ReplaceValue(SemDesignacao, null, "Não designado", Replacer.ReplaceValue, {"Função"}),
 
     Hoje = Date.From(DateTime.LocalNow()),
-    ComQuem = Table.AddColumn(SemDesignacao, "Com Quem", each
+    ComQuem = Table.AddColumn(SemFuncao, "Com Quem", each
         let n = Prefixo([Status Geral]) in
         if n = 1 then "Aguardando auditado"
         else if n = 2 or n = 4 then "Com a equipe"   // 04: coordenador já designado

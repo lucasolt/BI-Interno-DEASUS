@@ -18,5 +18,5 @@ table dFuncao
 
 	partition dFuncao = m
 		mode: import
-		source = #table(type table [Função = text, #"Função Ordem" = Int64.Type], {{"Coordenador", 1}, {"Equipe", 2}})
+		source = #table(type table [Função = text, #"Função Ordem" = Int64.Type], {{"Coordenador", 1}, {"Equipe", 2}, {"Não designado", 3}})
 
