@@ -44,9 +44,11 @@ let
         "Participantes", {"Função", "Nome"}),
     ComAuditor = Table.AddColumn(Expandido, "Auditor", each fxAuditorOficial([Nome]), type text),
     SemDuplicadas = Table.Distinct(Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}), {"Nº PROA", "Função", "Auditor"}),
+    // pessoas marcadas "é auditor = Não" na aba APOIO não entram nas contagens
+    SoAuditores = Table.SelectRows(SemDuplicadas, each not List.Contains(NaoAuditores, [Auditor])),
 
     // Um registro por relatório (RAI e RAF)
-    ComRelatorios = Table.AddColumn(SemDuplicadas, "Rel", each {
+    ComRelatorios = Table.AddColumn(SoAuditores, "Rel", each {
         [Relatório = "RAI", #"Relatório Ordem" = 1, Prazo = PrazoRAIDias, #"Data Entrega" = [Data RAI],
          #"Nº Relatório" = [Nº RAI], #"Matrizes de Qualidade" = [Matriz RAI]],
         [Relatório = "RAF", #"Relatório Ordem" = 2, Prazo = PrazoRAFDias, #"Data Entrega" = [Data RAF],
@@ -75,7 +77,12 @@ let
         else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
         else null,
         Int64.Type),
-    ComAlerta = Table.AddColumn(ComDiasAtraso, "Alerta de Qualidade", each
+    // idade do relatório ainda não entregue (pendente ou em andamento)
+    ComDiasAberto = Table.AddColumn(ComDiasAtraso, "Dias em Aberto", each
+        if [Situação] = "Pendente (vencida)" or [Situação] = "Em andamento" then Duration.Days(Hoje - [Data Designação])
+        else null,
+        Int64.Type),
+    ComAlerta = Table.AddColumn(ComDiasAberto, "Alerta de Qualidade", each
         if [Auditor] = "(Não informado)" then "Auditor não informado"
         else if [Data Designação] = null then "Sem Data de Designação"
         else if [Data Entrega] <> null and [Data Entrega] < [Data Designação] then "Entrega anterior à designação"
@@ -95,7 +102,7 @@ let
     Final = Table.SelectColumns(Tipos, {
         "ID Relatório", "Nº PROA", "Relatório", "Relatório Ordem", "Função", "Auditor", "Nome na Planilha",
         "Data Designação", "Data Limite", "Data Entrega", "Nº Relatório", "Situação",
-        "Dias para Entrega", "Dias de Atraso", "Matrizes de Qualidade", "Status do Processo",
+        "Dias para Entrega", "Dias de Atraso", "Dias em Aberto", "Matrizes de Qualidade", "Status do Processo",
         "Alerta de Qualidade", "Data de Referência"})
 in
     Final

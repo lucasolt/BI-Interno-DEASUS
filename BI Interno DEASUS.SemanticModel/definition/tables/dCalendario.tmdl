@@ -1,4 +1,4 @@
-/// Calendário. Ativas: fDesignacoes[Data Final Designação] e fAuditoria[Data Designação]. Inativas: datas de entrega/relatório e limite (USERELATIONSHIP).
+/// Calendário. Ativas: fDesignacoes[Data Inicial Designação] e fAuditoria[Data Designação]. Inativas: datas de entrega/relatório e limite (USERELATIONSHIP).
 table dCalendario
 	lineageTag: 27df70cc-7ae1-41ef-92b2-e282e18dc834
 	dataCategory: Time

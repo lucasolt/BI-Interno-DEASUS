@@ -96,7 +96,7 @@
                     }
                   },
                   {
-                    "value": "Data Final da Designação + 30 dias.",
+                    "value": "Data Final da Designação + 30 dias. Sem relatório em ciclo arquivado ou encerrado = Não se aplica (não conta como pendência).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"

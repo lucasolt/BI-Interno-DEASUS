@@ -359,10 +359,15 @@ def moldura(p: Pagina, fase="geral", com_filtros=True):
 
     if not com_filtros:
         return
+    # barra lateral: eixo temático e auditores ativos (padrão: só ativos)
+    p.add("f_eixo", 8, 760, SIDEBAR - 16, 66, slicer(col("dProcesso", "Eixo Temático"), "Eixo Temático", "Eixo Temático"))
+    ativo = slicer(col("dAuditor", "Ativo"), "Auditores ativos", "Auditores ativos")
+    ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim"], "x")["filter"]}}}]
+    p.add("f_ativo", 8, 836, SIDEBAR - 16, 66, ativo)
     y, h = 90, 66
     x = X0
     titulo_periodo = {"geral": "Período (Designação)", "aud": "Período (Data de Designação)",
-                      "monit": "Período (Data Final da Designação)"}[fase]
+                      "monit": "Período (Data Inicial da Designação)"}[fase]
     p.add("f_periodo", x, y, 300, h, slicer(col("dCalendario", "Data"), titulo_periodo, "Periodo", "Between"))
     x += 310
     lista = []
@@ -412,6 +417,15 @@ KPIS_AUD = [
     ("RAF Entregues", "Sub RAF Entregues", "RAF Entregues", VERDE),
     ("Aud Pendências Vencidas", "Sub Aud Pendências", "Pendências Vencidas", AMARELO),
     ("RAI Dias Médios para Entrega", "Sub RAI Dias", "Dias Médios até o RAI", NAVY),
+    ("Aud Média de Matrizes por Relatório", "Sub Aud Matrizes", "Matrizes de Qualidade / Relatório", VERMELHO),
+]
+# Página Auditoria: foco em dias (contínuo) no lugar de pendências vencidas (binário)
+KPIS_AUD_PAGINA = [
+    ("Aud Designações", "Sub Aud Designações", "Designações (Auditoria)", NAVY),
+    ("RAI Entregues", "Sub RAI Entregues", "RAI Entregues", AZUL),
+    ("RAF Entregues", "Sub RAF Entregues", "RAF Entregues", VERDE),
+    ("RAI Dias Médios para Entrega", "Sub RAI Dias Card", "Dias Médios até o RAI", AZUL),
+    ("RAF Dias Médios para Entrega", "Sub RAF Dias Card", "Dias Médios até o RAF", VERDE),
     ("Aud Média de Matrizes por Relatório", "Sub Aud Matrizes", "Matrizes de Qualidade / Relatório", VERMELHO),
 ]
 
@@ -478,7 +492,7 @@ def pg_auditoria():
     p = Pagina("auditoria", "AUDITORIA · PRODUTIVIDADE")
     p.nome_exib = "Auditoria"
     moldura(p, "aud")
-    kpis(p, KPIS_AUD)
+    kpis(p, KPIS_AUD_PAGINA)
     h2 = 330
     p.add("donut", X0, YG, 440, h2, donut_situacao("Aud Relatórios", "RELATÓRIOS POR SITUAÇÃO (RAI + RAF)"))
     p.add("evolucao", X0 + 450, YG, 770, h2, grafico(
@@ -702,7 +716,8 @@ def pg_metodologia():
     w = (XMAX - X0 - 10) / 2
     p.add("texto_aud", X0, 92, w, H - 100, textbox([
         [t("Fonte")],
-        [c("Planilha 'ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA', aba PROCESSOS. Nomes padronizados pela lista de SERVIDORES (aba APOIO).")],
+        [c("Planilha 'ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA', aba PROCESSOS. Nomes padronizados pela lista de SERVIDORES (aba APOIO); "
+           "quem está marcado como 'é auditor = Não' não entra nas contagens.")],
         [c(" ")],
         [t("Auditoria")],
         [n("Campos: "), c("Coordenador (14), Equipe (18), Data de Designação (17), Entrega do RAI (19), Entrega do RAF (21), "
@@ -710,7 +725,8 @@ def pg_metodologia():
         [n("Prazo do RAI: "), c("Data de Designação + 30 dias.")],
         [n("Prazo do RAF: "), c("Data de Designação + 60 dias (mesmo cálculo da coluna 22).")],
         [n("Não se aplica: "), c("sem data de entrega em processo ARQUIVADO ou FASE DE AUDITORIA FINALIZADA (fora das taxas).")],
-        [n("Dias para entrega: "), c("Data de Entrega − Data de Designação.")],
+        [n("Dias para entrega: "), c("Data de Entrega − Data de Designação. Média e mediana calculadas por relatório "
+                                     "(não pesam o tamanho da equipe); dias negativos são ignorados.")],
         [n("Matrizes de Qualidade: "), c("total de matrizes ÷ relatórios avaliados (indicador de retrabalho).")],
         [c(" ")],
         [t("Situação (vale para as duas fases)")],
@@ -719,15 +735,20 @@ def pg_metodologia():
         [n("Em andamento: "), c("sem entrega, ainda no prazo.   "), n("Sem prazo definido: "), c("sem data de designação.")],
         [c(" ")],
         [t("Filtro de Período")],
-        [c("Auditoria: Data de Designação. Monitoramento: Data Final da Designação. Os gráficos de evolução mensal usam a "
+        [c("Auditoria: Data de Designação. Monitoramento: Data Inicial da Designação do ciclo. Os gráficos de evolução mensal usam a "
            "data de entrega (entregas) e a Data Limite (pendências vencidas).")],
+        [c(" ")],
+        [t("Filtros da barra lateral")],
+        [c("Eixo Temático: agrupa as variações do campo 04 (ex.: Uti, Auditoria Aih → AIH). Sem eixo em Auditoria Especial = Solicitação Externa.")],
+        [c("Auditores ativos: coluna 'Ativo?' da aba APOIO. Vem marcado em 'Sim'; limpe o filtro para incluir inativos e não cadastrados.")],
     ], fundo=BRANCO))
     p.add("texto_mon", X0 + w + 10, 92, w, H - 100, textbox([
         [t("Monitoramento")],
         [n("1º Ciclo: "), c("Coordenador (56), Equipe (57), Início (52), Fim (53), Relatório (55).")],
         [n("2º Ciclo: "), c("Coordenador (81), Equipe (82), Início (77), Fim (78), Relatório (80).")],
         [n("3º Ciclo: "), c("Coordenador (105), Equipe (106), Início (101), Fim (102), Relatório (104).")],
-        [n("Prazo: "), c("Data Final da Designação + 30 dias.")],
+        [n("Prazo: "), c("Data Final da Designação + 30 dias. Sem relatório em ciclo arquivado ou encerrado = Não se aplica "
+                         "(não conta como pendência).")],
         [n("Dias para entrega: "), c("Data do Relatório − Data Inicial da Designação.")],
         [c(" ")],
         [t("Indicadores")],

@@ -253,20 +253,26 @@ table fDesignacoes
 				    SemNomeOriginal = Table.RenameColumns(ComAuditor, {{"Nome", "Nome na Planilha"}}),
 				    // mesma pessoa repetida na mesma função do mesmo ciclo conta uma vez
 				    SemDuplicadas = Table.Distinct(SemNomeOriginal, {"Nº PROA", "Ciclo Nº", "Função", "Auditor"}),
+				    // pessoas marcadas "é auditor = Não" na aba APOIO não entram nas contagens
+				    SoAuditores = Table.SelectRows(SemDuplicadas, each not List.Contains(NaoAuditores, [Auditor])),
 				
 				    // ---- 4. Prazo e classificação ----
 				    Hoje = Date.From(DateTime.LocalNow()),
-				    ComLimite = Table.AddColumn(SemDuplicadas, "Data Limite", each
+				    // ciclo arquivado/encerrado sem relatório não é pendência do auditor
+				    CicloFechado = (status as nullable text) as logical =>
+				        let t = Text.Lower(status ?? "") in Text.Contains(t, "arquivado") or Text.Contains(t, "encerrado"),
+				    ComLimite = Table.AddColumn(SoAuditores, "Data Limite", each
 				        if [Data Final Designação] = null then null else Date.AddDays([Data Final Designação], PrazoPadraoDias),
 				        type nullable date),
 				    ComSituacao = Table.AddColumn(ComLimite, "Situação", each
 				        if [Data Limite] = null then "Sem prazo definido"
 				        else if [Data Relatório] <> null then (if [Data Relatório] <= [Data Limite] then "No prazo" else "Fora do prazo")
+				        else if CicloFechado([Status do Ciclo]) then "Não se aplica"
 				        else if Hoje > [Data Limite] then "Pendente (vencida)"
 				        else "Em andamento",
 				        type text),
 				    ComOrdemSituacao = Table.AddColumn(ComSituacao, "Situação Ordem", each
-				        List.PositionOf({"No prazo", "Fora do prazo", "Pendente (vencida)", "Em andamento", "Sem prazo definido"}, [Situação]) + 1,
+				        List.PositionOf({"No prazo", "Fora do prazo", "Pendente (vencida)", "Em andamento", "Não se aplica", "Sem prazo definido"}, [Situação]) + 1,
 				        Int64.Type),
 				    ComEntregue = Table.AddColumn(ComOrdemSituacao, "Entregue", each
 				        if [Data Relatório] <> null then "Entregue" else "Não entregue", type text),

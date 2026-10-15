@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Planilha 'ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA', aba PROCESSOS. Nomes padronizados pela lista de SERVIDORES (aba APOIO).",
+                    "value": "Planilha 'ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA', aba PROCESSOS. Nomes padronizados pela lista de SERVIDORES (aba APOIO); quem está marcado como 'é auditor = Não' não entra nas contagens.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"
@@ -149,7 +149,7 @@
                     }
                   },
                   {
-                    "value": "Data de Entrega − Data de Designação.",
+                    "value": "Data de Entrega − Data de Designação. Média e mediana calculadas por relatório (não pesam o tamanho da equipe); dias negativos são ignorados.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"
@@ -312,7 +312,52 @@
               {
                 "textRuns": [
                   {
-                    "value": "Auditoria: Data de Designação. Monitoramento: Data Final da Designação. Os gráficos de evolução mensal usam a data de entrega (entregas) e a Data Limite (pendências vencidas).",
+                    "value": "Auditoria: Data de Designação. Monitoramento: Data Inicial da Designação do ciclo. Os gráficos de evolução mensal usam a data de entrega (entregas) e a Data Limite (pendências vencidas).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Filtros da barra lateral",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#0B2E59",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Eixo Temático: agrupa as variações do campo 04 (ex.: Uti, Auditoria Aih → AIH). Sem eixo em Auditoria Especial = Solicitação Externa.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1F2D3D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Auditores ativos: coluna 'Ativo?' da aba APOIO. Vem marcado em 'Sim'; limpe o filtro para incluir inativos e não cadastrados.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"

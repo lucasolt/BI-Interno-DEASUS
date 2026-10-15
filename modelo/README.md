@@ -13,6 +13,8 @@ estes arquivos servem para revisão/diff.
 | `stgProcessos` | não | Aba PROCESSOS (cabeçalho na linha 3), só linhas com Nº PROA |
 | `stgAuditores` | não | Lista SERVIDORES da aba APOIO |
 | `AliasesAuditores` | não | De-para manual de grafias divergentes |
+| `NaoAuditores` | não | Nomes com `é auditor = Não` na APOIO (excluídos das fatos e da `dAuditor`) |
+| `MapaEixos` | não | De-para Eixo (campo 04) → Eixo Temático |
 | `PrazoRAIDias` / `PrazoRAFDias` | não | Parâmetros: prazos do RAI (30) e RAF (60) a partir da designação |
 | `MapaAuditores`, `fxAuditorOficial`, `fxParticipantes` | não | Regras de nomes compartilhadas pelas duas fatos |
 | `fAuditoria` | sim | Fato Auditoria: Nº PROA × Relatório (RAI/RAF) × Função × Auditor |
@@ -29,7 +31,8 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 
 - `fDesignacoes[Auditor]` → `dAuditor[Auditor]`
 - `fDesignacoes[Nº PROA]` → `dProcesso[Nº PROA]`
-- `fDesignacoes[Data Final Designação]` → `dCalendario[Data]` (**ativo** – filtro de Período)
+- `fDesignacoes[Data Inicial Designação]` → `dCalendario[Data]` (**ativo** – filtro de Período)
+- `fDesignacoes[Data Final Designação]` → `dCalendario[Data]` (inativo)
 - `fDesignacoes[Data Relatório]` → `dCalendario[Data]` (inativo – evolução mensal de entregas)
 - `fDesignacoes[Data Limite]` → `dCalendario[Data]` (inativo – pendências por mês de vencimento)
 - `fAuditoria`: `Auditor`, `Nº PROA`, `Data Designação` (**ativo**), `Data Entrega` e `Data Limite` (inativos)
@@ -37,10 +40,20 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 
 ## Regras de negócio aplicadas
 
+### Gerais
+- Pessoas marcadas `é auditor = Não` na aba APOIO são removidas das duas fatos e da `dAuditor`.
+- `dAuditor[Ativo]` é sempre preenchido (`Sim` / `Não` / `Não cadastrado` / `Não informado`); o filtro
+  "Auditores ativos" da barra lateral vem marcado em `Sim`.
+- `dProcesso[Eixo Temático]`: Eixo (04) normalizado e agrupado por `MapaEixos`; eixo vazio em Auditoria Especial
+  = `Solicitação Externa`; eixo fora do de-para fica com o próprio nome em formato título.
+- Dias médios / medianas são calculados **por relatório** (`ID Relatório` / `ID Designação`), sem pesar o tamanho
+  da equipe; dias negativos (entrega antes da designação) são ignorados.
+
 ### Auditoria
 - **RAI**: Data Limite = Data de Designação (17) + 30 dias; entrega = campo (19).
 - **RAF**: Data Limite = Data de Designação (17) + 60 dias (igual à coluna 22); entrega = campo (21).
 - Sem entrega em processo `ARQUIVADO` / `FASE DE AUDITORIA FINALIZADA` → `Não se aplica` (fora das taxas).
+- **Dias em Aberto** = hoje − Data de Designação dos relatórios ainda não entregues (Pendente ou Em andamento).
 - Matrizes de Qualidade: colunas `Qtde Martiz Qualidade RIA/RFA`; média = matrizes ÷ relatórios avaliados.
 
 ### Monitoramento
@@ -48,6 +61,7 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 - **Data Limite** = Data Final da Designação + 30 dias.
 - **Situação**: `No prazo` (Relatório ≤ Limite) · `Fora do prazo` (Relatório > Limite) ·
   `Pendente (vencida)` (sem relatório e hoje > Limite) · `Em andamento` (sem relatório, dentro do prazo) ·
+  `Não se aplica` (sem relatório e Status do Ciclo contém "arquivado" ou "encerrado") ·
   `Sem prazo definido` (sem Data Final da Designação).
 - **Dias para Entrega** = Data Relatório − Data Inicial da Designação.
 - **Dias de Atraso** = Data Relatório − Data Limite (entregues fora do prazo) ou hoje − Data Limite (pendências vencidas).

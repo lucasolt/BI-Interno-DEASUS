@@ -26,6 +26,21 @@ let
     Limpo = Table.TransformColumns(Ren, List.Transform(List.Transform(Mapa, each _{1}), (n) => {n, ParaTexto, type nullable text})),
     ProasFato = List.Buffer(List.Distinct(fDesignacoes[Nº PROA] & fAuditoria[Nº PROA])),
     ComDesignacao = Table.SelectRows(Limpo, each List.Contains(ProasFato, [Nº PROA])),
-    Distintos = Table.Distinct(ComDesignacao, {"Nº PROA"})
+    Distintos = Table.Distinct(ComDesignacao, {"Nº PROA"}),
+
+    // ---- Eixo Temático (agrupa variações do campo 04 via MapaEixos) ----
+    ComEixoBase = Table.AddColumn(Distintos, "EixoBase", each
+        let e = if [Eixo] = null then null else Text.Trim(Text.Replace([Eixo], Character.FromNumber(160), " "))
+        in if e = null and Text.Lower([Tipo de Auditoria] ?? "") = "auditoria especial" then "Solicitação Externa" else e,
+        type nullable text),
+    // eixos fora do de-para ficam em "título" (ex.: ATENÇÃO BÁSICA -> Atenção Básica)
+    DicCasing = #table(type table [Rename = text, Incluir = number, Type = text, Casing = text], {{"EixoBase", 1, "texto", "titulo"}}),
+    EixoTitulo = fxAplicarCasing(ComEixoBase, DicCasing),
+    Mapa = Record.FromList(MapaEixos[Eixo Temático], MapaEixos[EixoChave]),
+    ComEixoTematico = Table.AddColumn(EixoTitulo, "Eixo Temático", each
+        let k = fxNormalizaNome([EixoBase]) in
+        if k = null then "(Não informado)" else Record.FieldOrDefault(Mapa, k, [EixoBase]),
+        type text),
+    Final = Table.RemoveColumns(ComEixoTematico, {"EixoBase"})
 in
-    Distintos
+    Final

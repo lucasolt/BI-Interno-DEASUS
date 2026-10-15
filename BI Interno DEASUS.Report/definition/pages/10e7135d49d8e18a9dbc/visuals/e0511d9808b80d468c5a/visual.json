@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aud Pendências Vencidas"
+                  "Property": "RAI Dias Médios para Entrega"
                 }
               },
-              "queryRef": "_Medidas.Aud Pendências Vencidas",
-              "nativeQueryRef": "Aud Pendências Vencidas"
+              "queryRef": "_Medidas.RAI Dias Médios para Entrega",
+              "nativeQueryRef": "RAI Dias Médios para Entrega"
             }
           ]
         }
@@ -42,7 +42,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F2B705'"
+                      "Value": "'#1F6FD1'"
                     }
                   }
                 }
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pendências Vencidas'"
+                  "Value": "'Dias Médios até o RAI'"
                 }
               }
             },

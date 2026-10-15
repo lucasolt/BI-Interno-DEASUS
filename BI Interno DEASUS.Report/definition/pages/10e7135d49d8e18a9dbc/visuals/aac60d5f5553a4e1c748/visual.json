@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "RAI Dias Médios para Entrega"
+                  "Property": "RAF Dias Médios para Entrega"
                 }
               },
-              "queryRef": "_Medidas.RAI Dias Médios para Entrega",
-              "nativeQueryRef": "RAI Dias Médios para Entrega"
+              "queryRef": "_Medidas.RAF Dias Médios para Entrega",
+              "nativeQueryRef": "RAF Dias Médios para Entrega"
             }
           ]
         }
@@ -42,7 +42,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B2E59'"
+                      "Value": "'#2E9E44'"
                     }
                   }
                 }
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dias Médios até o RAI'"
+                  "Value": "'Dias Médios até o RAF'"
                 }
               }
             },
@@ -264,7 +264,7 @@
                 "Entity": "_Medidas"
               }
             },
-            "Property": "RAI Dias Médios para Entrega"
+            "Property": "RAF Dias Médios para Entrega"
           }
         },
         "type": "Advanced"

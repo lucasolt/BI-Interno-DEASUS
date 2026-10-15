@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "dCalendario.Data",
-              "nativeQueryRef": "Período (Data Final da Designação)",
+              "nativeQueryRef": "Período (Data Inicial da Designação)",
               "active": true,
-              "displayName": "Período (Data Final da Designação)"
+              "displayName": "Período (Data Inicial da Designação)"
             }
           ]
         }

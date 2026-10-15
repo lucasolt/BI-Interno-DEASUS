@@ -6,7 +6,12 @@ relationship 'fDesignacoes_Nº PROA_dProcesso_Nº PROA'
 	fromColumn: fDesignacoes.'Nº PROA'
 	toColumn: dProcesso.'Nº PROA'
 
+relationship 'fDesignacoes_Data Inicial Designação_dCalendario_Data'
+	fromColumn: fDesignacoes.'Data Inicial Designação'
+	toColumn: dCalendario.Data
+
 relationship 'fDesignacoes_Data Final Designação_dCalendario_Data'
+	isActive: false
 	fromColumn: fDesignacoes.'Data Final Designação'
 	toColumn: dCalendario.Data
 

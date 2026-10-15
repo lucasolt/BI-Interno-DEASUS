@@ -80,6 +80,55 @@ expression AliasesAuditores =
 		    Fonte
 	lineageTag: eebdb62f-53b3-4c30-a59e-6db2a31d3694
 
+/// Nomes oficiais marcados "é auditor = Não" na aba APOIO. Excluídos das fatos e da dAuditor.
+expression NaoAuditores =
+		let
+		    Lista = Table.SelectRows(stgAuditores, each [É Auditor] = "Não")[Auditor]
+		in
+		    List.Buffer(Lista)
+	lineageTag: 3c9f0a7e-6b2d-4e8a-9f41-7d2b5c1e0a93
+
+	annotation PBI_ResultType = List
+
+/// De-para do Eixo (campo 04) -> Eixo Temático. Chave já normalizada (fxNormalizaNome); eixo fora da lista mantém o próprio nome.
+expression MapaEixos =
+		let
+		    Fonte = #table(
+		        type table [EixoChave = text, #"Eixo Temático" = text],
+		        {
+		            {"aih", "AIH"},
+		            {"auditoria aih", "AIH"},
+		            {"uti", "AIH"},
+		
+		            {"amb gestacao alto risco (agar)", "Rede Materno Paterno Infantil"},
+		            {"materno infantil", "Rede Materno Paterno Infantil"},
+		            {"rede materno paterno infantil", "Rede Materno Paterno Infantil"},
+		            {"uti neonatal", "Rede Materno Paterno Infantil"},
+		
+		            {"auditiva", "Pessoas com Deficiência - Auditiva"},
+		            {"politicas de atencao as pessoas com deficiencia - auditiva", "Pessoas com Deficiência - Auditiva"},
+		
+		            {"citopatologia", "Saúde da Mulher"}, // será?
+		            {"politicas de saude da mulher", "Saúde da Mulher"},
+		            {"politicas de saude da mulher - cito", "Saúde da Mulher"},
+		
+		            {"doencas cronicas", "Doenças Crônicas"},
+		            {"doencas cronicas - cardiovascular", "Doenças Crônicas"},
+		            {"doencas cronicas -trs", "Doenças Crônicas"},
+		            {"politicas de atencao a doencas cronicas - bariatrica", "Doenças Crônicas"},
+		            {"politicas de atencao a doencas cronicas - nefro", "Doenças Crônicas"},
+		            {"politicas de atencao a doencas cronicas - onco", "Doenças Crônicas"},
+		
+		            {"mental", "Rede de Atenção Psicossocial (RAPS)"}, // será?
+		            {"rede de atencao psicossocial (raps)", "Rede de Atenção Psicossocial (RAPS)"}
+		        }
+		    )
+		in
+		    Fonte
+	lineageTag: 8e21d4b7-5a0c-4f93-b6e8-2c7f19a0d354
+
+	annotation PBI_ResultType = Table
+
 /// Prazo (dias) do Relatório Inicial de Auditoria, contado da Data de Designação.
 expression PrazoRAIDias = 30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
 	lineageTag: 4093c038-e685-4c7d-8107-4c4729c9af28

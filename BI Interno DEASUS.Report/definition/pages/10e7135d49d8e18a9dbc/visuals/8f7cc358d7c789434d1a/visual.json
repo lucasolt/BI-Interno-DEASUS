@@ -23,11 +23,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Sub Aud Pendências"
+                  "Property": "Sub RAI Dias Card"
                 }
               },
-              "queryRef": "_Medidas.Sub Aud Pendências",
-              "nativeQueryRef": "Sub Aud Pendências"
+              "queryRef": "_Medidas.Sub RAI Dias Card",
+              "nativeQueryRef": "Sub RAI Dias Card"
             }
           ]
         }
