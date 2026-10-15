@@ -612,7 +612,7 @@ expression MapaFases =
 	annotation PBI_ResultType = Table
 
 /// Link (SharePoint/OneDrive) do Excel com os e-mails da chefia. Vazio ou inacessível = ninguém é chefia.
-expression CaminhoListaChefia = "https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/14%20-%20DIVIS%C3%83O%20DE%20PLANEJAMENTO,%20MONITORAMENTO,%20AVALIA%C3%87%C3%83O%20E%20GEST%C3%83O%20DA%20QUALIDADEDE/01%20-%20SE%C3%87%C3%83O%20DE%20MONITORAMENTO%20E%20AVALIA%C3%87%C3%83O/01%20-%20MONITORAMENTO%20DAS%20RECOMENDA%C3%87%C3%95ES%20EMITIDAS/13%20-%20MONITORAMENTO%20UNIFICADO/AutorizacaoBIprodutividade.xlsx?web=1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
+expression CaminhoListaChefia = "https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/14%20-%20DIVIS%C3%83O%20DE%20PLANEJAMENTO,%20MONITORAMENTO,%20AVALIA%C3%87%C3%83O%20E%20GEST%C3%83O%20DA%20QUALIDADEDE/01%20-%20SE%C3%87%C3%83O%20DE%20MONITORAMENTO%20E%20AVALIA%C3%87%C3%83O/01%20-%20MONITORAMENTO%20DAS%20RECOMENDA%C3%87%C3%95ES%20EMITIDAS/13%20-%20MONITORAMENTO%20UNIFICADO/AutorizacaoBIprodutividade.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
 	lineageTag: a56ac203-6306-4487-8d28-7eccd30f274d
 
 	annotation PBI_ResultType = Text
