@@ -41,7 +41,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Área da chefia'"
+                  "Value": "'🔒 Área da chefia'"
                 }
               }
             },
@@ -91,7 +91,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B2E59'"
+                      "Value": "'#24548F'"
                     }
                   }
                 }
@@ -221,5 +221,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "howCreated": "InsertVisualButton"
 }
