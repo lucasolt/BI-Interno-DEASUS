@@ -95,3 +95,15 @@ relationship 'fCarteira_Nº PROA_dProcesso_Nº PROA'
 relationship fCarteira_Função_dFuncao_Função
 	fromColumn: fCarteira.Função
 	toColumn: dFuncao.Função
+
+relationship fMonitAberto_Auditor_dAuditor_Auditor
+	fromColumn: fMonitAberto.Auditor
+	toColumn: dAuditor.Auditor
+
+relationship 'fMonitAberto_Nº PROA_dProcesso_Nº PROA'
+	fromColumn: fMonitAberto.'Nº PROA'
+	toColumn: dProcesso.'Nº PROA'
+
+relationship fMonitAberto_Função_dFuncao_Função
+	fromColumn: fMonitAberto.Função
+	toColumn: dFuncao.Função

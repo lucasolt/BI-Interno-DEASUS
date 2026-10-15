@@ -149,6 +149,27 @@
                                 "Value": "'Sim'"
                               }
                             }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Não cadastrado'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Não informado'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Não se aplica'"
+                              }
+                            }
                           ]
                         ]
                       }

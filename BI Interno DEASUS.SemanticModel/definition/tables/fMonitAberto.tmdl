@@ -1,0 +1,200 @@
+/// Monitoramentos em aberto (mesma regra do Painel de Auditorias: monitorável e Status GERAL 01 a 06) x participantes do ciclo atual.
+table fMonitAberto
+	lineageTag: dd6fec0d-c6e1-439c-8f15-2a01b4167fab
+
+	column 'Nº PROA'
+		dataType: string
+		lineageTag: d4503af9-bc91-44e1-ac1f-8f9752f1768b
+		summarizeBy: none
+		sourceColumn: Nº PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciclo
+		dataType: string
+		sortByColumn: 'Ciclo Nº'
+		lineageTag: 8def7ece-0718-4168-bb6f-567d8466282e
+		summarizeBy: none
+		sourceColumn: Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ciclo Nº'
+		dataType: int64
+		isHidden
+		lineageTag: de7e8d51-ff13-4952-94ac-4264f1b892c8
+		summarizeBy: none
+		sourceColumn: Ciclo Nº
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Função'
+		dataType: string
+		lineageTag: e440e5ac-d487-4a40-af93-a47a82eb8f75
+		summarizeBy: none
+		sourceColumn: Função
+
+		annotation SummarizationSetBy = Automatic
+
+	column Auditor
+		dataType: string
+		lineageTag: c35b9974-4f0f-44de-97a7-f1b617313e50
+		summarizeBy: none
+		sourceColumn: Auditor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status Geral'
+		dataType: string
+		sortByColumn: 'Status Ordem'
+		lineageTag: 0ef51906-ce05-4491-8915-ba07a8dc1aa8
+		summarizeBy: none
+		sourceColumn: Status Geral
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 2798ea32-2aee-4515-afa5-25d8071bb0f8
+		summarizeBy: none
+		sourceColumn: Status Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem'
+		dataType: string
+		sortByColumn: 'Com Quem Ordem'
+		lineageTag: 540ab44e-2ea6-4434-97cb-7d8ea9cdf3b0
+		summarizeBy: none
+		sourceColumn: Com Quem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 2ecc19d4-3f75-423f-b3a5-28386e2c6fd3
+		summarizeBy: none
+		sourceColumn: Com Quem Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data do Status'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: e4f767d9-6a2d-462c-9174-81d521e56930
+		summarizeBy: none
+		sourceColumn: Data do Status
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias no Status Atual'
+		dataType: int64
+		lineageTag: 38230d12-ce44-476d-aab6-4dd49d6dbddf
+		summarizeBy: none
+		sourceColumn: Dias no Status Atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Inicial Designação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: b599ee0e-a6d5-4ef5-b1be-e97955028413
+		summarizeBy: none
+		sourceColumn: Data Inicial Designação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Relatório'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 62df73a6-42b6-4a66-ac16-a223d26ee56a
+		summarizeBy: none
+		sourceColumn: Data Relatório
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias desde a Designação'
+		dataType: int64
+		lineageTag: 8317c487-dfef-4996-9d5b-088612b0963c
+		summarizeBy: none
+		sourceColumn: Dias desde a Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fMonitAberto = m
+		mode: import
+		source =
+				let
+				    Origem = stgProcessos,
+				    Col = (codigo as text) as text =>
+				        List.First(List.Select(Table.ColumnNames(Origem), each Text.StartsWith(_, "(" & codigo & ")"))),
+				    Sel = Table.SelectColumns(Origem, {Col("12"), Col("46"), Col("60"), Col("117"), Col("118"), Col("119")}),
+				    Ren = Table.RenameColumns(Sel, List.Zip({Table.ColumnNames(Sel),
+				        {"Nº PROA", "Recebimento Ofício", "Reclassificação", "Ciclo Atual", "Status Geral", "Data do Status"}})),
+				    ParaTexto = (v as any) as nullable text =>
+				        let t = if v = null then null else Text.Trim(Text.From(v))
+				        in if t = null or t = "" or t = "-" then null else t,
+				    ParaData = (v as any) as nullable date =>
+				        if v = null then null
+				        else if v is date then v
+				        else if v is datetime then Date.From(v)
+				        else if v is number then Date.From(v)
+				        else try Date.FromText(Text.Trim(Text.From(v)), [Culture = "pt-BR"]) otherwise null,
+				    Tipado = Table.TransformColumns(Ren, {
+				        {"Nº PROA", ParaTexto, type text}, {"Recebimento Ofício", ParaData, type nullable date},
+				        {"Reclassificação", ParaData, type nullable date}, {"Ciclo Atual", ParaTexto, type nullable text},
+				        {"Status Geral", ParaTexto, type nullable text}, {"Data do Status", ParaData, type nullable date}}),
+				
+				    // mesma regra do Painel de Auditorias: monitorável (ofício recebido e não reclassificado)
+				    // e Status GERAL (118) com prefixo 01 a 06 = "Ciclo ativo"
+				    Prefixo = (t as nullable text) as nullable number =>
+				        if t = null or not Text.Contains(t, " - ") then null
+				        else try Number.From(Text.BeforeDelimiter(t, " - ")) otherwise null,
+				    Abertos = Table.SelectRows(Tipado, each
+				        [Reclassificação] = null and [Recebimento Ofício] <> null
+				        and Prefixo([Status Geral]) <> null and Prefixo([Status Geral]) < 7),
+				    ComCicloNo = Table.AddColumn(Abertos, "Ciclo Nº", each
+				        try Number.From(Text.Select([Ciclo Atual] ?? "", {"0".."9"})) otherwise null, Int64.Type),
+				
+				    // participantes do ciclo atual (designação do monitoramento); sem designação = linha "(Sem designação)"
+				    Designados = Table.SelectColumns(fDesignacoes, {"Nº PROA", "Ciclo Nº", "Função", "Auditor", "Data Inicial Designação", "Data Relatório"}),
+				    Juntado = Table.NestedJoin(ComCicloNo, {"Nº PROA", "Ciclo Nº"}, Designados, {"Nº PROA", "Ciclo Nº"}, "D", JoinKind.LeftOuter),
+				    Expandido = Table.ExpandTableColumn(Juntado, "D", {"Função", "Auditor", "Data Inicial Designação", "Data Relatório"}),
+				    SemDesignacao = Table.ReplaceValue(Expandido, null, "(Sem designação)", Replacer.ReplaceValue, {"Auditor"}),
+				
+				    Hoje = Date.From(DateTime.LocalNow()),
+				    ComQuem = Table.AddColumn(SemDesignacao, "Com Quem", each
+				        let n = Prefixo([Status Geral]) in
+				        if n = 1 then "Aguardando auditado"
+				        else if n = 2 then "Com a equipe"
+				        else if n = 4 then "Com a chefia"
+				        else "A classificar", type text),
+				    ComQuemOrdem = Table.AddColumn(ComQuem, "Com Quem Ordem", each
+				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
+				        Int64.Type),
+				    ComOrdem = Table.AddColumn(ComQuemOrdem, "Status Ordem", each Prefixo([Status Geral]), Int64.Type),
+				    ComDiasStatus = Table.AddColumn(ComOrdem, "Dias no Status Atual", each
+				        if [Data do Status] = null then null else Duration.Days(Hoje - [Data do Status]), Int64.Type),
+				    ComDiasDesig = Table.AddColumn(ComDiasStatus, "Dias desde a Designação", each
+				        if [Data Inicial Designação] = null then null else Duration.Days(Hoje - [Data Inicial Designação]), Int64.Type),
+				    ComCiclo = Table.AddColumn(ComDiasDesig, "Ciclo", each if [Ciclo Nº] = null then [Ciclo Atual] else Text.From([Ciclo Nº]) & "º Ciclo", type nullable text),
+				    Tipos = Table.TransformColumnTypes(ComCiclo, {{"Função", type nullable text}, {"Auditor", type text},
+				        {"Data Inicial Designação", type nullable date}, {"Data Relatório", type nullable date}}),
+				    Final = Table.SelectColumns(Tipos, {"Nº PROA", "Ciclo", "Ciclo Nº", "Função", "Auditor", "Status Geral", "Status Ordem",
+				        "Com Quem", "Com Quem Ordem", "Data do Status", "Dias no Status Atual", "Data Inicial Designação",
+				        "Data Relatório", "Dias desde a Designação"})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

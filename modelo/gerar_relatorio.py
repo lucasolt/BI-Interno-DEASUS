@@ -362,7 +362,7 @@ def moldura(p: Pagina, fase="geral", com_filtros=True):
         return
     # barra lateral: auditores ativos (padrão: só ativos)
     ativo = slicer(col("dAuditor", "Ativo"), "Auditores ativos", "Auditores ativos")
-    ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim"], "x")["filter"]}}}]
+    ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim", "Não cadastrado", "Não informado", "Não se aplica"], "x")["filter"]}}}]
     p.add("f_ativo", 8, 760, SIDEBAR - 16, 66, ativo)
     y, h = 90, 66
     x = X0
@@ -408,7 +408,7 @@ KPIS_MONIT = [
     ("Relatórios Entregues", "Sub Entregues", "Relatórios Entregues", AZUL),
     ("Entregues no Prazo", "Sub No Prazo", "Entregues no Prazo", VERDE),
     ("Entregues Fora do Prazo", "Sub Fora do Prazo", "Entregues Fora do Prazo", VERMELHO),
-    ("Carteira Monitoramento", "Sub Carteira Mon", "Ciclos em Aberto Hoje", AMARELO),
+    ("Carteira Monitoramento", "Sub Carteira Mon", "Monitoramentos em Aberto Hoje", AMARELO),
     ("Dias Médios para Entrega", "Sub Prazo Médio", "Tempo Médio até a Entrega (dias)", NAVY),
 ]
 KPIS_AUD = [
@@ -686,7 +686,7 @@ def pg_carteira():
         p.add(chave, x, y, 400, h, slicer(campo, tit, tit), filtros=filtros)
         x += 410
     ativo = slicer(col("dAuditor", "Ativo"), "Auditores ativos", "Auditores ativos")
-    ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim"], "x")["filter"]}}}]
+    ativo["objects"]["general"] = [{"properties": {"filter": {"filter": filtro_in("dAuditor", "Ativo", ["Sim", "Não cadastrado", "Não informado", "Não se aplica"], "x")["filter"]}}}]
     p.add("f_ativo", 8, 760, SIDEBAR - 16, 66, ativo)
 
     kpis(p, [
@@ -695,7 +695,7 @@ def pg_carteira():
         ("Carteira Aud Com a Chefia", "Sub Carteira Com a Chefia", "Com a Chefia", VERDE),
         ("Carteira Aud Aguardando Auditado", "Sub Carteira Aguardando", "Aguardando Auditado", CINZA),
         ("Carteira Aud Dias Médios desde a Designação", "Sub Carteira Mov", "Dias Médios desde a Designação", VERMELHO),
-        ("Carteira Monitoramento", "Sub Carteira Mon", "Ciclos de Monitoramento em Aberto", AMARELO),
+        ("Carteira Monitoramento", "Sub Carteira Mon", "Monitoramentos em Aberto", AMARELO),
     ], y=166)
 
     c = "fCarteira"
@@ -722,13 +722,12 @@ def pg_carteira():
          (col(c, "Dias desde a Última Movimentação"), "Dias desde a últ. movimentação")],
         "AUDITORIA · TRABALHOS EM ABERTO (mais parados no topo)",
         ordem=(col(c, "Dias desde a Última Movimentação"), "Descending")))
-    m = "fDesignacoes"
+    m = "fMonitAberto"
     p.add("lista_mon", X0 + w3 + 10, y3, XMAX - X0 - w3 - 10, h3, tabela(
         [(col(m, "Auditor"), "Auditor"), (col(m, "Função"), "Função"), (col(m, "Ciclo"), "Ciclo"),
-         (col(m, "Nº PROA"), "Nº PROA"), (col(m, "Status do Ciclo"), "Status do ciclo"),
-         (col(m, "Dias desde a Designação"), "Dias desde a designação")],
-        "MONITORAMENTO · CICLOS EM ABERTO", ordem=(col(m, "Dias desde a Designação"), "Descending")),
-        filtros=[filtro_in(m, "Em Carteira", ["Sim"], "fEmCarteira")])
+         (col(m, "Nº PROA"), "Nº PROA"), (col(m, "Status Geral"), "Status"), (col(m, "Com Quem"), "Com quem"),
+         (col(m, "Dias no Status Atual"), "Dias no status")],
+        "MONITORAMENTOS EM ABERTO (ciclo atual)", ordem=(col(m, "Dias no Status Atual"), "Descending")))
     return p
 
 

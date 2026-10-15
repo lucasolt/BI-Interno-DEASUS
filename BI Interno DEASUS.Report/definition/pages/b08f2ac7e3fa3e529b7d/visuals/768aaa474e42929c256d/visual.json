@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ciclos de Monitoramento em Aberto'"
+                  "Value": "'Monitoramentos em Aberto'"
                 }
               }
             },

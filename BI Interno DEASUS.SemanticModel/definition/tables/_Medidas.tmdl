@@ -595,23 +595,23 @@ table _Medidas
 		displayFolder: 8. Carteira Atual
 		lineageTag: 69b34980-95ae-4fd9-8616-00716a53c9f7
 
-	/// Ciclos de monitoramento (PROA x Ciclo) em aberto sem relatório. Ignora os filtros de Período e Situação.
-	measure 'Carteira Monitoramento' = CALCULATE(DISTINCTCOUNT(fDesignacoes[ID Designação]), KEEPFILTERS(fDesignacoes[Em Carteira] = "Sim"), REMOVEFILTERS(dCalendario), REMOVEFILTERS(dSituacao)) + 0
+	/// Processos com monitoramento em aberto (regra do Painel de Auditorias: monitorável e Status GERAL 01 a 06). Não segue Período. Ignora os filtros de Período e Situação.
+	measure 'Carteira Monitoramento' = DISTINCTCOUNT(fMonitAberto[Nº PROA]) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: 9fdf578d-89d8-4c94-b3c0-a62d7a1dd3f7
 
-	measure 'Carteira Mon Coordenador' = CALCULATE([Carteira Monitoramento], KEEPFILTERS(fDesignacoes[Função] = "Coordenador")) + 0
+	measure 'Carteira Mon Coordenador' = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Função] = "Coordenador")) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: 15868446-38a7-4b8f-8d4f-afbaf8c985ed
 
-	measure 'Carteira Mon Equipe' = CALCULATE([Carteira Monitoramento], KEEPFILTERS(fDesignacoes[Função] = "Equipe")) + 0
+	measure 'Carteira Mon Equipe' = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Função] = "Equipe")) + 0
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: a51533fe-e927-4076-86e6-39d95acbe0e0
 
-	measure 'Carteira Mon Dias Médios desde a Designação' = CALCULATE(AVERAGEX(VALUES(fDesignacoes[ID Designação]), CALCULATE(MAX(fDesignacoes[Dias desde a Designação]))), KEEPFILTERS(fDesignacoes[Em Carteira] = "Sim"), REMOVEFILTERS(dCalendario), REMOVEFILTERS(dSituacao))
+	measure 'Carteira Mon Dias Médios desde a Designação' = AVERAGEX(VALUES(fMonitAberto[Nº PROA]), CALCULATE(MAX(fMonitAberto[Dias desde a Designação])))
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: 2dd05817-7840-43ff-a5be-f1e2ab75be20
@@ -620,7 +620,7 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: a0a9c493-8217-4165-adcd-c91bd888d79e
 
-	measure 'Sub Carteira Mon' = FORMAT([Carteira Mon Coordenador], "#,0") & " coordenador · " & FORMAT([Carteira Mon Equipe], "#,0") & " equipe"
+	measure 'Sub Carteira Mon' = FORMAT([Carteira Mon Sem Designação], "#,0") & " sem designação · " & FORMAT([Carteira Mon Dias Médios no Status], "#,0") & " dias no status (média)"
 		displayFolder: 6. Rótulos
 		lineageTag: aefb9557-13aa-4b4a-abb5-ea257812939f
 
@@ -643,6 +643,16 @@ table _Medidas
 	measure 'Sub Carteira Quem' = FORMAT([Carteira Aud Com a Equipe], "#,0") & " equipe · " & FORMAT([Carteira Aud Com a Chefia], "#,0") & " chefia · " & FORMAT([Carteira Aud Aguardando Auditado], "#,0") & " auditado"
 		displayFolder: 6. Rótulos
 		lineageTag: 5f11361a-6d37-47a8-9e9b-81978f29a405
+
+	measure 'Carteira Mon Sem Designação' = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] = "(Sem designação)")) + 0
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 164af1f7-01dd-46eb-9521-b84e26371a57
+
+	measure 'Carteira Mon Dias Médios no Status' = AVERAGEX(VALUES(fMonitAberto[Nº PROA]), CALCULATE(MAX(fMonitAberto[Dias no Status Atual])))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 20acda8d-b8b3-445d-b08c-d8edc1978daa
 
 	column Coluna
 		isHidden

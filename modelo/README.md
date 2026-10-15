@@ -76,7 +76,10 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 ### Trabalhos em Andamento (antiga "Carteira Atual")
 - **Auditoria** (`fCarteira`): processos com Status (42) diferente de ARQUIVADO / FASE DE AUDITORIA FINALIZADA.
   Fase e "Com Quem" vêm de `MapaFases`; status fora do de-para aparece como "A classificar".
-- **Monitoramento** (`fDesignacoes[Em Carteira] = "Sim"`): ciclo não arquivado/encerrado/reclassificado e sem relatório.
+- **Monitoramento** (`fMonitAberto`): mesma regra do Painel de Auditorias para "Ciclo ativo" — monitorável
+  (ofício do 1º ciclo recebido, sem reclassificação) e Status GERAL (118) de 01 a 06. Participantes = designação do
+  ciclo atual (117); sem designação = "(Sem designação)". "Dias no Status Atual" usa a data do campo 119.
+- Filtro "Auditores ativos": por padrão esconde só quem tem `Ativo? = Não` na APOIO.
 - Não segue o filtro de Período nem de Situação (é a posição de hoje).
 - "Dias desde a Última Movimentação" = hoje − a data mais recente entre designação, RAI e RAF (aproximação do tempo na fase).
 

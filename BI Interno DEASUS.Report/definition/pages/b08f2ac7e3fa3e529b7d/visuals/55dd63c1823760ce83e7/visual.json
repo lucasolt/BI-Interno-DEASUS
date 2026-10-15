@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "fMonitAberto"
                     }
                   },
                   "Property": "Auditor"
                 }
               },
-              "queryRef": "fDesignacoes.Auditor",
+              "queryRef": "fMonitAberto.Auditor",
               "nativeQueryRef": "Auditor",
               "displayName": "Auditor"
             },
@@ -35,13 +35,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "fMonitAberto"
                     }
                   },
                   "Property": "Função"
                 }
               },
-              "queryRef": "fDesignacoes.Função",
+              "queryRef": "fMonitAberto.Função",
               "nativeQueryRef": "Função",
               "displayName": "Função"
             },
@@ -50,13 +50,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "fMonitAberto"
                     }
                   },
                   "Property": "Ciclo"
                 }
               },
-              "queryRef": "fDesignacoes.Ciclo",
+              "queryRef": "fMonitAberto.Ciclo",
               "nativeQueryRef": "Ciclo",
               "displayName": "Ciclo"
             },
@@ -65,13 +65,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "fMonitAberto"
                     }
                   },
                   "Property": "Nº PROA"
                 }
               },
-              "queryRef": "fDesignacoes.Nº PROA",
+              "queryRef": "fMonitAberto.Nº PROA",
               "nativeQueryRef": "Nº PROA",
               "displayName": "Nº PROA"
             },
@@ -80,30 +80,45 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "fMonitAberto"
                     }
                   },
-                  "Property": "Status do Ciclo"
+                  "Property": "Status Geral"
                 }
               },
-              "queryRef": "fDesignacoes.Status do Ciclo",
-              "nativeQueryRef": "Status do ciclo",
-              "displayName": "Status do ciclo"
+              "queryRef": "fMonitAberto.Status Geral",
+              "nativeQueryRef": "Status",
+              "displayName": "Status"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fDesignacoes"
+                      "Entity": "fMonitAberto"
                     }
                   },
-                  "Property": "Dias desde a Designação"
+                  "Property": "Com Quem"
                 }
               },
-              "queryRef": "fDesignacoes.Dias desde a Designação",
-              "nativeQueryRef": "Dias desde a designação",
-              "displayName": "Dias desde a designação"
+              "queryRef": "fMonitAberto.Com Quem",
+              "nativeQueryRef": "Com quem",
+              "displayName": "Com quem"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fMonitAberto"
+                    }
+                  },
+                  "Property": "Dias no Status Atual"
+                }
+              },
+              "queryRef": "fMonitAberto.Dias no Status Atual",
+              "nativeQueryRef": "Dias no status",
+              "displayName": "Dias no status"
             }
           ]
         }
@@ -115,10 +130,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "fDesignacoes"
+                    "Entity": "fMonitAberto"
                   }
                 },
-                "Property": "Dias desde a Designação"
+                "Property": "Dias no Status Atual"
               }
             },
             "direction": "Descending"
@@ -399,7 +414,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'MONITORAMENTO · CICLOS EM ABERTO'"
+                  "Value": "'MONITORAMENTOS EM ABERTO (ciclo atual)'"
                 }
               }
             },
@@ -440,62 +455,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "fEmCarteira",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fDesignacoes"
-              }
-            },
-            "Property": "Em Carteira"
-          }
-        },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "t",
-              "Entity": "fDesignacoes",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "t"
-                          }
-                        },
-                        "Property": "Em Carteira"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Sim'"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
-    ]
   }
 }
