@@ -215,6 +215,32 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3689.2228399272449,
+            "y": 483.92658062236092
+          },
+          "nodeIndex": "dFaixaAberto",
+          "nodeLineageTag": "673e9453-8d88-4d5c-b1cc-9045d794d3d7",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3973.2228399272449,
+            "y": 507.92658062236092
+          },
+          "nodeIndex": "pAreaGrafico",
+          "nodeLineageTag": "41b5e233-cb10-421a-b179-ca5f5e9cdf01",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Todas as tabelas",

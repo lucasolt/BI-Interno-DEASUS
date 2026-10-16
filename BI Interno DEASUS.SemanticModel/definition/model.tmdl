@@ -36,9 +36,9 @@ ref table DadosDep_legacy
 ref table fCarteira
 ref table fMonitAberto
 ref table pRelatorioGrafico
+ref table UsuariosChefia
 ref table pAreaGrafico
 ref table dFaixaAberto
-ref table UsuariosChefia
 
 ref cultureInfo pt-BR
 

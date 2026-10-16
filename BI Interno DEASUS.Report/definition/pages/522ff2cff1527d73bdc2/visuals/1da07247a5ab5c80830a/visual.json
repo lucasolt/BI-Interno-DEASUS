@@ -236,16 +236,29 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Medidas"
+                    "Entity": "dAuditor"
                   }
                 },
-                "Property": "RAI Dias Médios para Entrega"
+                "Property": "Auditor"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dFuncao"
+                  }
+                },
+                "Property": "Função"
+              }
+            },
+            "direction": "Ascending"
           }
         ]
       }

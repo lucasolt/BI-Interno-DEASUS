@@ -2,17 +2,36 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "56de925de046c0a5c464",
   "position": {
-    "x": 195,
-    "y": 288,
+    "x": 195.26184538653368,
+    "y": 288.17955112219454,
     "z": 36000,
-    "height": 420,
-    "width": 1100,
+    "height": 420.14962593516208,
+    "width": 937.25685785536166,
     "tabOrder": 36000
   },
   "visual": {
     "visualType": "pivotTable",
     "query": {
       "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fCarteira"
+                    }
+                  },
+                  "Property": "Com Quem"
+                }
+              },
+              "queryRef": "fCarteira.Com Quem",
+              "nativeQueryRef": "Com Quem",
+              "active": true
+            }
+          ]
+        },
         "Rows": {
           "projections": [
             {
@@ -63,25 +82,6 @@
               "queryRef": "_Medidas.Carteira Auditoria",
               "nativeQueryRef": "Trabalhos",
               "displayName": "Trabalhos"
-            }
-          ]
-        },
-        "Columns": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fCarteira"
-                    }
-                  },
-                  "Property": "Com Quem"
-                }
-              },
-              "queryRef": "fCarteira.Com Quem",
-              "nativeQueryRef": "Com Quem",
-              "active": true
             }
           ]
         }
@@ -313,6 +313,199 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "83.40005920172625D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "total": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fCarteira"
+                        }
+                      },
+                      "Property": "Com Quem"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "111.73974289665924D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fCarteira"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'A classificar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "160.5928700315585D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fCarteira"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Aguardando auditado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "108.25730233493763D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fCarteira"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Com a chefia'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "242.15959935413838D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dAuditor.Auditor"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "99.03990206172188D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fCarteira"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Fora da equipe'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       ]
