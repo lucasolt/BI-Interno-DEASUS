@@ -161,16 +161,16 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Medidas"
+                    "Entity": "dProcesso"
                   }
                 },
-                "Property": "Aud Processos Designados"
+                "Property": "Eixo Temático"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -384,6 +384,134 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86.04122921664882D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Aud Média de Matrizes por Relatório"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "372.48830827862355D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dProcesso.Eixo Temático"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "91.4266039139196D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.RAF Mediana Dias para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "108.72383896073104D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.RAF Dias Médios para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "95.71253754011468D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.RAF Entregues"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "104.54613197653865D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.RAI Mediana Dias para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "129.93268154262455D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.RAI Dias Médios para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "111.54614122230473D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.RAI Entregues"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86.19950236488758D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Aud Processos Designados"
           }
         }
       ]
