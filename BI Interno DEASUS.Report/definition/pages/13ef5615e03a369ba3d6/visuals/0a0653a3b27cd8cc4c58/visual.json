@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "0a0653a3b27cd8cc4c58",
   "position": {
-    "x": 195,
-    "y": 628,
+    "x": 650.423940149626,
+    "y": 288.17955112219454,
     "z": 53000,
-    "height": 320,
-    "width": 1220,
+    "height": 329.92518703241893,
+    "width": 764.88778054862848,
     "tabOrder": 53000
   },
   "visual": {
@@ -354,6 +354,50 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "96.42064758144188D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Mediana Dias para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "81.34663336521697D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Dias Médios para Entrega"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "226.1995030975607D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dProcesso.Eixo Temático"
           }
         }
       ]
