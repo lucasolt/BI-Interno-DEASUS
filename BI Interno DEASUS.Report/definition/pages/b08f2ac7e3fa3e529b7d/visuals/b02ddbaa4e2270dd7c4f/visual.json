@@ -28,6 +28,13 @@
                   "Value": "8L"
                 }
               }
+            },
+            "rectangleRoundedCurve": {
+              "expr": {
+                "Literal": {
+                  "Value": "5L"
+                }
+              }
             }
           }
         }

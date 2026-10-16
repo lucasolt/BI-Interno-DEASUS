@@ -21,9 +21,9 @@
                   {
                     "value": "MONITORAMENTO  ·  1º, 2º e 3º Ciclos",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "12pt",
-                      "color": "#0B2E59",
-                      "fontWeight": "bold"
+                      "color": "#0b2e59"
                     }
                   }
                 ]

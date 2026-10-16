@@ -417,51 +417,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "ab9a9673796e1470f608",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dCalendario"
-              }
-            },
-            "Property": "Ano"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "33010102bfecaccdadf9",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "RAI Dias Médios para Entrega"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1555fe9495c39f439baf",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "RAF Dias Médios para Entrega"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

@@ -434,23 +434,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "e3bd79b56bc5c6e058d0",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "RAI Taxa de Pontualidade"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

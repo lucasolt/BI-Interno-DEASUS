@@ -324,23 +324,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "4a20b43cdd6c4a6219f2",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "RAF Taxa de Pontualidade"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

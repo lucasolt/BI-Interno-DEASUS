@@ -252,23 +252,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "5dd12da51ffc108df002",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "RAF Dias Médios para Entrega"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

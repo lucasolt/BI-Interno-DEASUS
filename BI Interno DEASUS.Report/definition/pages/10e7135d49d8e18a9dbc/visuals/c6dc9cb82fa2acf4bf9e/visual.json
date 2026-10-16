@@ -434,23 +434,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "4f11eb650e4d222bc17a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Aud Taxa de Pendência Vencida"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
