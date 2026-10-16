@@ -37,7 +37,11 @@
                   "Value": "true"
                 }
               }
-            },
+            }
+          }
+        },
+        {
+          "properties": {
             "text": {
               "expr": {
                 "Literal": {
@@ -85,7 +89,11 @@
                   "Value": "true"
                 }
               }
-            },
+            }
+          }
+        },
+        {
+          "properties": {
             "fillColor": {
               "solid": {
                 "color": {
@@ -120,7 +128,10 @@
                 }
               }
             }
-          },
+          }
+        },
+        {
+          "properties": {},
           "selector": {
             "id": "default"
           }
