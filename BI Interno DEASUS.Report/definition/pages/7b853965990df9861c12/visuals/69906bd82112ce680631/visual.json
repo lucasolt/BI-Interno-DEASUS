@@ -73,13 +73,6 @@
                   "Value": "true"
                 }
               }
-            },
-            "wordWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
             }
           },
           "selector": {
