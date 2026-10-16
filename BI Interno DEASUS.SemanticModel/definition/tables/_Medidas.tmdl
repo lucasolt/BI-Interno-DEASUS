@@ -741,6 +741,93 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 98ee255d-b692-40e4-bfea-8380ca67603a
 
+	/// Entradas da auditoria no mês: processos designados (pela Data de Designação).
+	measure 'Fluxo Aud Entradas' = [Aud Processos Designados]
+		formatString: #,0
+		displayFolder: 9. Fluxo
+		lineageTag: 1eaf5913-3730-4d42-a054-998e0ffdd088
+
+	/// Saídas da auditoria no mês: RAF entregues (pela Data de Entrega).
+	measure 'Fluxo Aud Saídas' = CALCULATE([Aud Entregas (por Data Entrega)], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
+		formatString: #,0
+		displayFolder: 9. Fluxo
+		lineageTag: 73eb8645-1b3b-4de5-a8ea-3dfc2292a168
+
+	/// Entradas do monitoramento no mês: ciclos designados (pela Data Inicial da Designação).
+	measure 'Fluxo Mon Entradas' = [Monitoramentos Designados]
+		formatString: #,0
+		displayFolder: 9. Fluxo
+		lineageTag: e94d889a-d78d-4428-96ca-89dc571ddc6a
+
+	/// Saídas do monitoramento no mês: relatórios de ciclo entregues (pela Data do Relatório).
+	measure 'Fluxo Mon Saídas' = [Entregas (por Data Relatório)]
+		formatString: #,0
+		displayFolder: 9. Fluxo
+		lineageTag: a1f44d2b-d81a-4056-8800-4162f829a142
+
+	/// Entradas conforme o seletor pAreaGrafico (padrão: auditoria + monitoramento).
+	measure 'Gráfico Fluxo Entradas' =
+			VAR _a = SELECTEDVALUE(pAreaGrafico[Área], "Auditoria e Monitoramento")
+			RETURN
+			    SWITCH(_a,
+			        "Auditoria", [Fluxo Aud Entradas],
+			        "Monitoramento", [Fluxo Mon Entradas],
+			        [Fluxo Aud Entradas] + [Fluxo Mon Entradas]
+			    )
+		formatString: #,0
+		displayFolder: 9. Fluxo
+		lineageTag: 7f19f4b5-84a3-4b90-a563-9cf04ee7a929
+
+	measure 'Gráfico Fluxo Saídas' =
+			VAR _a = SELECTEDVALUE(pAreaGrafico[Área], "Auditoria e Monitoramento")
+			RETURN
+			    SWITCH(_a,
+			        "Auditoria", [Fluxo Aud Saídas],
+			        "Monitoramento", [Fluxo Mon Saídas],
+			        [Fluxo Aud Saídas] + [Fluxo Mon Saídas]
+			    )
+		formatString: #,0
+		displayFolder: 9. Fluxo
+		lineageTag: 75c14a00-6c3d-4e4d-9d0d-0453f926350a
+
+	measure 'Título Gráfico Fluxo' =
+			VAR _a = SELECTEDVALUE(pAreaGrafico[Área], "Auditoria e Monitoramento")
+			RETURN
+			    "ENTRADAS × SAÍDAS POR MÊS"
+			        & SWITCH(_a, "Auditoria", " · AUDITORIA (RAF)", "Monitoramento", " · MONITORAMENTO", "")
+		displayFolder: 6. Rótulos
+		lineageTag: 1bd2e17a-96e8-4b4f-b84f-707f9a636344
+
+	/// Processos em aberto na fase de auditoria cuja designação mais antiga cai na faixa (dFaixaAberto). Não segue o filtro de Período.
+	measure 'Aberto Aud na Faixa' =
+			VAR _min = SELECTEDVALUE(dFaixaAberto[Dias Mín])
+			VAR _max = SELECTEDVALUE(dFaixaAberto[Dias Máx])
+			VAR _semData = SELECTEDVALUE(dFaixaAberto[Ordem]) = 6
+			VAR _proc = ADDCOLUMNS(VALUES(fCarteira[Nº PROA]), "@d", CALCULATE(MAX(fCarteira[Dias desde a Designação])))
+			RETURN
+			    IF(HASONEVALUE(dFaixaAberto[Faixa]),
+			        COUNTROWS(FILTER(_proc, IF(_semData, ISBLANK([@d]), NOT ISBLANK([@d]) && [@d] >= _min && [@d] <= _max))),
+			        COUNTROWS(_proc)
+			    )
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: ecc5a32e-6b8f-4029-ab5d-f1c65e10c1d8
+
+	/// Processos com monitoramento em aberto cujo ciclo atual foi designado há um tempo dentro da faixa (sem designação → "Sem data de designação").
+	measure 'Aberto Mon na Faixa' =
+			VAR _min = SELECTEDVALUE(dFaixaAberto[Dias Mín])
+			VAR _max = SELECTEDVALUE(dFaixaAberto[Dias Máx])
+			VAR _semData = SELECTEDVALUE(dFaixaAberto[Ordem]) = 6
+			VAR _proc = ADDCOLUMNS(VALUES(fMonitAberto[Nº PROA]), "@d", CALCULATE(MAX(fMonitAberto[Dias desde a Designação])))
+			RETURN
+			    IF(HASONEVALUE(dFaixaAberto[Faixa]),
+			        COUNTROWS(FILTER(_proc, IF(_semData, ISBLANK([@d]), NOT ISBLANK([@d]) && [@d] >= _min && [@d] <= _max))),
+			        COUNTROWS(_proc)
+			    )
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 7a403e75-b4e0-4118-a32a-3eea1ad48c08
+
 	/// 1 se o usuário logado (USERPRINCIPALNAME) está no Excel da chefia.
 	measure 'É Chefia' = IF(LOWER(USERPRINCIPALNAME()) IN VALUES(UsuariosChefia[E-mail]), 1, 0)
 		formatString: 0

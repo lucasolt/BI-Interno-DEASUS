@@ -1,0 +1,46 @@
+/// Faixas de tempo desde a designação para os trabalhos em aberto hoje (tabela desconectada, usada no eixo do gráfico da Resumo Geral).
+table dFaixaAberto
+	lineageTag: 673e9453-8d88-4d5c-b1cc-9045d794d3d7
+
+	column Faixa
+		dataType: string
+		lineageTag: 0d8b0a69-2b2d-4dff-ab99-0a7dc352432d
+		summarizeBy: none
+		sourceColumn: Faixa
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		isHidden
+		lineageTag: bb878123-782e-4f78-a456-eb51ea8b6ef8
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias Mín'
+		dataType: int64
+		isHidden
+		lineageTag: 9e24f81c-08a5-426d-bc7a-fd0dad972a95
+		summarizeBy: none
+		sourceColumn: Dias Mín
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias Máx'
+		dataType: int64
+		isHidden
+		lineageTag: f61b591c-05a7-420a-b8cb-d81edcafa441
+		summarizeBy: none
+		sourceColumn: Dias Máx
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dFaixaAberto = m
+		mode: import
+		source = #table(type table [Faixa = text, Ordem = Int64.Type, #"Dias Mín" = Int64.Type, #"Dias Máx" = Int64.Type], {{"Até 60 dias", 1, 0, 60}, {"61 a 120 dias", 2, 61, 120}, {"121 a 180 dias", 3, 121, 180}, {"181 a 365 dias", 4, 181, 365}, {"Mais de 1 ano", 5, 366, 999999}, {"Sem data de designação", 6, null, null}})
+
+	annotation PBI_ResultType = Table
+

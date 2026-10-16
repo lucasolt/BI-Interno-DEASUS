@@ -19,7 +19,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
 
-annotation PBI_QueryOrder = ["fDesignacoes","fAuditoria","fCarteira","fMonitAberto","pRelatorioGrafico","UsuariosChefia","dAuditor","dProcesso","dFuncao","dSituacao","PrazoPadraoDias","PrazoRAIDias","PrazoRAFDias","fxNormalizaNome","fxAuditorOficial","fxParticipantes","MapaAuditores","stgProcessos","stgAuditores","AliasesAuditores","AnoDeCorte","DadosDep","fxSelecionarCols","fxTyparCols","fxRenameCols","fxNormalizarQuebraDeLinha","fxPrefixoNum","fxAplicarCasing","fxProcessarSigiloso","fxDescartarRecsSigilosas","dictDadosDep","DadosDep_legacy","NaoAuditores","MapaEixos","MapaFases","CaminhoListaChefia"]
+annotation PBI_QueryOrder = ["fDesignacoes","fAuditoria","fCarteira","fMonitAberto","pRelatorioGrafico","pAreaGrafico","dFaixaAberto","UsuariosChefia","dAuditor","dProcesso","dFuncao","dSituacao","PrazoPadraoDias","PrazoRAIDias","PrazoRAFDias","fxNormalizaNome","fxAuditorOficial","fxParticipantes","MapaAuditores","stgProcessos","stgAuditores","AliasesAuditores","AnoDeCorte","DadosDep","fxSelecionarCols","fxTyparCols","fxRenameCols","fxNormalizarQuebraDeLinha","fxPrefixoNum","fxAplicarCasing","fxProcessarSigiloso","fxDescartarRecsSigilosas","dictDadosDep","DadosDep_legacy","NaoAuditores","MapaEixos","MapaFases","CaminhoListaChefia"]
 
 ref table fDesignacoes
 ref table dAuditor
@@ -36,6 +36,8 @@ ref table DadosDep_legacy
 ref table fCarteira
 ref table fMonitAberto
 ref table pRelatorioGrafico
+ref table pAreaGrafico
+ref table dFaixaAberto
 ref table UsuariosChefia
 
 ref cultureInfo pt-BR

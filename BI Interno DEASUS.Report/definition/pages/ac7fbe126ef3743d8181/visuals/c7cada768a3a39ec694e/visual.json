@@ -10,7 +10,7 @@
     "tabOrder": 67000
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -67,12 +67,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Gráfico Entregas Até 60 Dias"
+                  "Property": "Gráfico Fluxo Entradas"
                 }
               },
-              "queryRef": "_Medidas.Gráfico Entregas Até 60 Dias",
-              "nativeQueryRef": "Até 60 dias",
-              "displayName": "Até 60 dias"
+              "queryRef": "_Medidas.Gráfico Fluxo Entradas",
+              "nativeQueryRef": "Entradas (designações)",
+              "displayName": "Entradas (designações)"
             },
             {
               "field": {
@@ -82,42 +82,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Gráfico Entregas 61 a 120 Dias"
+                  "Property": "Gráfico Fluxo Saídas"
                 }
               },
-              "queryRef": "_Medidas.Gráfico Entregas 61 a 120 Dias",
-              "nativeQueryRef": "61 a 120 dias",
-              "displayName": "61 a 120 dias"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Gráfico Entregas 121 a 180 Dias"
-                }
-              },
-              "queryRef": "_Medidas.Gráfico Entregas 121 a 180 Dias",
-              "nativeQueryRef": "121 a 180 dias",
-              "displayName": "121 a 180 dias"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Gráfico Entregas Mais de 180 Dias"
-                }
-              },
-              "queryRef": "_Medidas.Gráfico Entregas Mais de 180 Dias",
-              "nativeQueryRef": "Mais de 180 dias",
-              "displayName": "Mais de 180 dias"
+              "queryRef": "_Medidas.Gráfico Fluxo Saídas",
+              "nativeQueryRef": "Saídas (relatórios finais)",
+              "displayName": "Saídas (relatórios finais)"
             }
           ]
         }
@@ -283,7 +253,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#BDD7EE'"
+                      "Value": "'#9DB9DD'"
                     }
                   }
                 }
@@ -291,43 +261,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Gráfico Entregas Até 60 Dias"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#6FA8DC'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Gráfico Entregas 61 a 120 Dias"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#2E75B6'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Gráfico Entregas 121 a 180 Dias"
+            "metadata": "_Medidas.Gráfico Fluxo Entradas"
           }
         },
         {
@@ -345,7 +279,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Gráfico Entregas Mais de 180 Dias"
+            "metadata": "_Medidas.Gráfico Fluxo Saídas"
           }
         }
       ]
@@ -498,7 +432,7 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Título Gráfico Entregas"
+                  "Property": "Título Gráfico Fluxo"
                 }
               }
             },

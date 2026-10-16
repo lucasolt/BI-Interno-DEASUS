@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ee3110fa45cc081f9383",
   "position": {
-    "x": 899,
-    "y": 436,
+    "x": 829,
+    "y": 438,
     "z": 68000,
-    "height": 70,
-    "width": 140,
+    "height": 56,
+    "width": 210,
     "tabOrder": 68000
   },
   "visual": {
@@ -20,16 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "pRelatorioGrafico"
+                      "Entity": "pAreaGrafico"
                     }
                   },
-                  "Property": "Relatório"
+                  "Property": "Área"
                 }
               },
-              "queryRef": "pRelatorioGrafico.Relatório",
-              "nativeQueryRef": "Relatório:",
+              "queryRef": "pAreaGrafico.Área",
+              "nativeQueryRef": "Área:",
               "active": true,
-              "displayName": "Relatório:"
+              "displayName": "Área:"
             }
           ]
         }
@@ -42,7 +42,7 @@
             "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "'Basic'"
+                  "Value": "'Dropdown'"
                 }
               }
             }
@@ -58,7 +58,7 @@
                 "From": [
                   {
                     "Name": "p",
-                    "Entity": "pRelatorioGrafico",
+                    "Entity": "pAreaGrafico",
                     "Type": 0
                   }
                 ],
@@ -74,7 +74,7 @@
                                   "Source": "p"
                                 }
                               },
-                              "Property": "Relatório"
+                              "Property": "Área"
                             }
                           }
                         ],
@@ -82,7 +82,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'RAF'"
+                                "Value": "'Auditoria e Monitoramento'"
                               }
                             }
                           ]

@@ -10,49 +10,24 @@
     "tabOrder": 69000
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
           "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "dCalendario"
-                        }
-                      },
-                      "Hierarchy": "Ano Hierarquia"
+                    "SourceRef": {
+                      "Entity": "dFaixaAberto"
                     }
                   },
-                  "Level": "Ano"
+                  "Property": "Faixa"
                 }
               },
-              "queryRef": "dCalendario.Ano Hierarquia.Ano",
-              "nativeQueryRef": "Ano Hierarquia Ano",
-              "active": true
-            },
-            {
-              "field": {
-                "HierarchyLevel": {
-                  "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "dCalendario"
-                        }
-                      },
-                      "Hierarchy": "Ano Hierarquia"
-                    }
-                  },
-                  "Level": "Mês"
-                }
-              },
-              "queryRef": "dCalendario.Ano Hierarquia.Mês",
-              "nativeQueryRef": "Ano Hierarquia Mês",
+              "queryRef": "dFaixaAberto.Faixa",
+              "nativeQueryRef": "Faixa",
               "active": true
             }
           ]
@@ -67,12 +42,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Entregas no Prazo (por Data Relatório)"
+                  "Property": "Aberto Aud na Faixa"
                 }
               },
-              "queryRef": "_Medidas.Entregas no Prazo (por Data Relatório)",
-              "nativeQueryRef": "Entregues no prazo",
-              "displayName": "Entregues no prazo"
+              "queryRef": "_Medidas.Aberto Aud na Faixa",
+              "nativeQueryRef": "Auditoria (processos)",
+              "displayName": "Auditoria (processos)"
             },
             {
               "field": {
@@ -82,27 +57,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Entregas Fora do Prazo (por Data Relatório)"
+                  "Property": "Aberto Mon na Faixa"
                 }
               },
-              "queryRef": "_Medidas.Entregas Fora do Prazo (por Data Relatório)",
-              "nativeQueryRef": "Fora do prazo",
-              "displayName": "Fora do prazo"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Pendências Vencidas (por Data Limite)"
-                }
-              },
-              "queryRef": "_Medidas.Pendências Vencidas (por Data Limite)",
-              "nativeQueryRef": "Pendentes vencidos",
-              "displayName": "Pendentes vencidos"
+              "queryRef": "_Medidas.Aberto Mon na Faixa",
+              "nativeQueryRef": "Monitoramento (processos)",
+              "displayName": "Monitoramento (processos)"
             }
           ]
         }
@@ -111,23 +71,19 @@
         "sort": [
           {
             "field": {
-              "HierarchyLevel": {
+              "Column": {
                 "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "dCalendario"
-                      }
-                    },
-                    "Hierarchy": "Ano Hierarquia"
+                  "SourceRef": {
+                    "Entity": "dFaixaAberto"
                   }
                 },
-                "Level": "Ano"
+                "Property": "Faixa"
               }
             },
             "direction": "Ascending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
@@ -236,13 +192,6 @@
                 }
               }
             },
-            "concatenateLabels": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
             "gridlineShow": {
               "expr": {
                 "Literal": {
@@ -268,7 +217,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2E9E44'"
+                      "Value": "'#0B2E59'"
                     }
                   }
                 }
@@ -276,7 +225,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Entregas no Prazo (por Data Relatório)"
+            "metadata": "_Medidas.Aberto Aud na Faixa"
           }
         },
         {
@@ -286,7 +235,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D64545'"
+                      "Value": "'#6FA8DC'"
                     }
                   }
                 }
@@ -294,25 +243,7 @@
             }
           },
           "selector": {
-            "metadata": "_Medidas.Entregas Fora do Prazo (por Data Relatório)"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#F2B705'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Pendências Vencidas (por Data Limite)"
+            "metadata": "_Medidas.Aberto Mon na Faixa"
           }
         }
       ]
@@ -460,7 +391,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'EVOLUÇÃO DE ENTREGAS POR MÊS'"
+                  "Value": "'TRABALHOS EM ABERTO HOJE · TEMPO DESDE A DESIGNAÇÃO'"
                 }
               }
             },

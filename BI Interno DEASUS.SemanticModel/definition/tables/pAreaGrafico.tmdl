@@ -1,0 +1,28 @@
+/// Seletor do gráfico de entradas × saídas da Resumo Geral (não filtra o resto da página). Padrão: ambas.
+table pAreaGrafico
+	lineageTag: 41b5e233-cb10-421a-b179-ca5f5e9cdf01
+
+	column Área
+		dataType: string
+		lineageTag: eb08c8eb-9e69-4494-8ebc-8d5d40b0e82e
+		summarizeBy: none
+		sourceColumn: Área
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		isHidden
+		lineageTag: 13725947-17ff-4fc4-ba60-e75df8aea246
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pAreaGrafico = m
+		mode: import
+		source = #table(type table [Área = text, Ordem = Int64.Type], {{"Auditoria e Monitoramento", 1}, {"Auditoria", 2}, {"Monitoramento", 3}})
+
+	annotation PBI_ResultType = Table
+
