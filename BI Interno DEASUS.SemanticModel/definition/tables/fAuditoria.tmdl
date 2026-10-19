@@ -141,6 +141,14 @@ table fAuditoria
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Etapa do Processo'
+		dataType: string
+		lineageTag: 658e8a2c-84a2-43fd-875c-31bf02813542
+		summarizeBy: none
+		sourceColumn: Etapa do Processo
+
+		annotation SummarizationSetBy = Automatic
+
 	column 'Alerta de Qualidade'
 		dataType: string
 		lineageTag: 59749fb7-2c68-4bbf-a2d5-6c6d2dc21b0f
@@ -293,7 +301,11 @@ table fAuditoria
 				
 				    ComId = Table.AddColumn(ComAlerta, "ID Relatório", each [Nº PROA] & " | " & [Relatório], type text),
 				    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
-				    Tipos = Table.TransformColumnTypes(ComRef, {
+				    // etapa do processo pelo status (MapaFases): Pré-designação / Em auditoria / Após a auditoria / Arquivado
+				    EtapaPorChave = Record.FromList(MapaFases[Etapa], MapaFases[StatusChave]),
+				    ComEtapa = Table.AddColumn(ComRef, "Etapa do Processo", each
+				        Record.FieldOrDefault(EtapaPorChave, fxNormalizaNome([Status do Processo]) ?? "", null), type nullable text),
+				    Tipos = Table.TransformColumnTypes(ComEtapa, {
 				        {"Função", type text}, {"Nome na Planilha", type nullable text}, {"Relatório", type text},
 				        {"Relatório Ordem", Int64.Type}, {"Data Entrega", type nullable date}, {"Nº Relatório", type nullable text},
 				        {"Matrizes de Qualidade", Int64.Type}}),
@@ -301,7 +313,7 @@ table fAuditoria
 				    Final = Table.SelectColumns(Tipos, {
 				        "ID Relatório", "Nº PROA", "Relatório", "Relatório Ordem", "Função", "Auditor", "Nome na Planilha",
 				        "Data Designação", "Data Limite", "Data Entrega", "Nº Relatório", "Situação",
-				        "Dias para Entrega", "Dias de Atraso", "Dias em Aberto", "Faixa de Tempo", "Faixa Ordem", "Matrizes de Qualidade", "Status do Processo",
+				        "Dias para Entrega", "Dias de Atraso", "Dias em Aberto", "Faixa de Tempo", "Faixa Ordem", "Matrizes de Qualidade", "Status do Processo", "Etapa do Processo",
 				        "Alerta de Qualidade", "Data de Referência"})
 				in
 				    Final

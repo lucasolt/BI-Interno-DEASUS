@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "577cc2bc9a6d81dd14c2",
+  "position": {
+    "x": 195,
+    "y": 162,
+    "z": 20100,
+    "height": 26,
+    "width": 1718,
+    "tabOrder": 20100
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "AUDITORIA  ·  do “Não distribuído” ao envio do RAF ao auditado (processos)",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#0B2E59",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

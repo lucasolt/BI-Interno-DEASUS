@@ -294,7 +294,7 @@
                     }
                   },
                   {
-                    "value": "processos com Status (42) diferente de Arquivado / Fase de auditoria finalizada. A fase e com quem está a próxima ação (equipe, chefia ou auditado) vêm do Status.",
+                    "value": "processos com Status (42) de “Não distribuído” até “Aguarda envio do RAF ao auditado”; “Não distribuído” aparece como Aguardando Designação (com a chefia). Fase de auditoria finalizada, recurso, decisão e FES ficam fora da carteira e aparecem só como contador (“após a auditoria”); Arquivado não conta. A fase repete o texto do Status e dele vem com quem está a próxima ação (equipe, chefia ou auditado).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"

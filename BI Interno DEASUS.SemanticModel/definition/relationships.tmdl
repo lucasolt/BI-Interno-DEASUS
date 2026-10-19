@@ -108,3 +108,14 @@ relationship fMonitAberto_Função_dFuncao_Função
 	fromColumn: fMonitAberto.Função
 	toColumn: dFuncao.Função
 
+relationship 5a777bca-443c-4ac0-b674-54be8b0a5d19
+	fromColumn: fTrabalhosAbertos.Auditor
+	toColumn: dAuditor.Auditor
+
+relationship dee580eb-28e1-40d7-b468-12387728013c
+	fromColumn: fTrabalhosAbertos.'Nº PROA'
+	toColumn: dProcesso.'Nº PROA'
+
+relationship f417a1e4-464f-45a4-9dd5-994a1d631839
+	fromColumn: fTrabalhosAbertos.Função
+	toColumn: dFuncao.Função

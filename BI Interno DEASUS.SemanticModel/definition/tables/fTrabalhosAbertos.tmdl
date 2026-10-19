@@ -1,0 +1,151 @@
+/// Trabalhos em aberto já designados (Auditoria + Monitoramento numa tabela só): 1 linha por processo/ciclo x Função x Auditor.
+/// Auditoria: fCarteira sem a Pré-designação. Monitoramento: fMonitAberto sem "(Sem designação)".
+/// Dias sem Movimentação: auditoria = desde a última data registrada (designação, RAI, RAF); monitoramento = dias no status atual.
+table fTrabalhosAbertos
+	lineageTag: f6d243d1-dd08-48c3-b474-6089a45471f9
+
+	column 'ID Trabalho'
+		dataType: string
+		isHidden
+		lineageTag: a2532c7b-904c-48b5-8065-f2b2ef6411dd
+		summarizeBy: none
+		sourceColumn: ID Trabalho
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo
+		dataType: string
+		lineageTag: 02fc73d6-aff1-43ee-8e51-0896a3855164
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nº PROA'
+		dataType: string
+		lineageTag: a796a246-682a-4856-b477-934cc6572465
+		summarizeBy: none
+		sourceColumn: Nº PROA
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciclo
+		dataType: string
+		lineageTag: c795e14c-9c6c-4933-95a5-75ba4178e667
+		summarizeBy: none
+		sourceColumn: Ciclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Função
+		dataType: string
+		lineageTag: 6311a7f5-caa5-4c41-b85e-c18a20deb30c
+		summarizeBy: none
+		sourceColumn: Função
+
+		annotation SummarizationSetBy = Automatic
+
+	column Auditor
+		dataType: string
+		lineageTag: 555d2c27-0ce5-44db-ae84-d5a1c834a205
+		summarizeBy: none
+		sourceColumn: Auditor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fase / Status'
+		dataType: string
+		lineageTag: 153759d2-6792-4f59-b172-f076f202eae9
+		summarizeBy: none
+		sourceColumn: Fase / Status
+		sortByColumn: 'Fase Ordem'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fase Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 6375775c-abaf-4cbc-a2d1-c0a9790dff10
+		summarizeBy: none
+		sourceColumn: Fase Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem'
+		dataType: string
+		lineageTag: 401ab98d-c295-4cf0-9dd7-916e1b1fb6f2
+		summarizeBy: none
+		sourceColumn: Com Quem
+		sortByColumn: 'Com Quem Ordem'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem Ordem'
+		dataType: int64
+		isHidden
+		lineageTag: 612fdad6-a536-45de-af42-0dbb2dcc6838
+		summarizeBy: none
+		sourceColumn: Com Quem Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Designação'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: f3a2026c-3733-43f4-b78e-1624cec08d3a
+		summarizeBy: none
+		sourceColumn: Data Designação
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias desde a Designação'
+		dataType: int64
+		lineageTag: bfebebd3-1ba4-47e4-a1b8-c07719cd3c0a
+		summarizeBy: none
+		sourceColumn: Dias desde a Designação
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias sem Movimentação'
+		dataType: int64
+		lineageTag: 22b6950a-a4da-4650-b323-e95181c673eb
+		summarizeBy: none
+		sourceColumn: Dias sem Movimentação
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fTrabalhosAbertos = m
+		mode: import
+		source =
+				let
+				    Aud = Table.SelectRows(fCarteira, each [Etapa] <> "Pré-designação"),
+				    AudPadrao = Table.FromRecords(Table.TransformRows(Aud, each [
+				        #"ID Trabalho" = "AUD | " & [ID Trabalho], Tipo = "Auditoria", #"Nº PROA" = [Nº PROA], Ciclo = null,
+				        Função = [Função], Auditor = [Auditor], #"Fase / Status" = [Fase], #"Fase Ordem" = [Fase Ordem],
+				        #"Com Quem" = [Com Quem], #"Data Designação" = [Data Designação],
+				        #"Dias desde a Designação" = [Dias desde a Designação],
+				        #"Dias sem Movimentação" = [Dias desde a Última Movimentação]])),
+				    Mon = Table.SelectRows(fMonitAberto, each [Auditor] <> "(Sem designação)"),
+				    MonPadrao = Table.FromRecords(Table.TransformRows(Mon, each [
+				        #"ID Trabalho" = "MON | " & [Nº PROA] & " | " & ([Ciclo] ?? "") & " | " & ([Função] ?? "") & " | " & [Auditor],
+				        Tipo = "Monitoramento", #"Nº PROA" = [Nº PROA], Ciclo = [Ciclo],
+				        Função = [Função], Auditor = [Auditor], #"Fase / Status" = [Status Geral], #"Fase Ordem" = 100 + ([Status Ordem] ?? 99),
+				        #"Com Quem" = [Com Quem], #"Data Designação" = [Data Inicial Designação],
+				        #"Dias desde a Designação" = [Dias desde a Designação],
+				        #"Dias sem Movimentação" = [Dias no Status Atual]])),
+				    Unido = Table.Combine({AudPadrao, MonPadrao}),
+				    ComQuemOrdem = Table.AddColumn(Unido, "Com Quem Ordem", each
+				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "A classificar"}, [Com Quem]) + 1, Int64.Type),
+				    Tipos = Table.TransformColumnTypes(ComQuemOrdem, {
+				        {"ID Trabalho", type text}, {"Tipo", type text}, {"Nº PROA", type text}, {"Ciclo", type nullable text},
+				        {"Função", type text}, {"Auditor", type text}, {"Fase / Status", type nullable text}, {"Fase Ordem", Int64.Type},
+				        {"Com Quem", type text}, {"Data Designação", type nullable date},
+				        {"Dias desde a Designação", Int64.Type}, {"Dias sem Movimentação", Int64.Type}})
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação

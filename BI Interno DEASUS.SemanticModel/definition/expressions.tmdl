@@ -585,25 +585,32 @@ expression MapaEixos =
 
 	annotation PBI_ResultType = Table
 
-/// Status do processo (campo 42) -> fase (mesmo texto do status bruto) e com quem está a próxima ação. Chave normalizada (fxNormalizaNome).
+/// Status do processo (campo 42) -> fase (texto do status bruto), com quem está a próxima ação e etapa.
+/// Etapa: Pré-designação e Em auditoria entram na carteira; Após a auditoria vira só contador; Arquivado fica fora.
+/// Chave normalizada (fxNormalizaNome); variantes de escrita do mesmo status repetem a linha.
 expression MapaFases =
 		let
 		    Fonte = #table(
-		        type table [StatusChave = text, Fase = text, #"Fase Ordem" = Int64.Type, #"Com Quem" = text],
+		        type table [StatusChave = text, Fase = text, #"Fase Ordem" = Int64.Type, #"Com Quem" = text, Etapa = text],
 		        {
-		            {"nao distribuido",                   "Não distribuído",                   0,  "Com a chefia"},
-		            {"aguarda criacao de rai",            "Aguarda criação de RAI",            1,  "Com a equipe"},
-		            {"aguarda acolhimento rai",           "Aguarda acolhimento RAI",           2,  "Com a chefia"},
-		            {"aguarda envio do rai ao auditado",  "Aguarda envio do RAI ao auditado",  3,  "Com a equipe"},
-		            {"aguarda apresentacao de defesa",    "Aguarda apresentação de defesa",    4,  "Aguardando auditado"},
-		            {"aguarda analise de defesa",         "Aguarda análise de defesa",         5,  "Com a equipe"},
-		            {"aguarda emissao raf",               "Aguarda emissão RAF",               6,  "Com a equipe"},
-		            {"aguarda acolhimento raf",           "Aguarda acolhimento RAF",           7,  "Com a chefia"},
-		            {"aguarda envio do raf ao auditado",  "Aguarda envio do RAF ao auditado",  8,  "Com a equipe"},
-		            {"aguarda interposicao de recurso",   "Aguarda interposição de recurso",   9,  "Aguardando auditado"},
-		            {"aguarda analise de recurso",        "Aguarda análise de recurso",        10, "Com a direção/jurídico"},
-		            {"aguarda decisao",                   "Aguarda decisão",                   11, "Com a direção/jurídico"},
-		            {"encaminhado ao fes",                "Encaminhado ao FES",                12, "Fora da equipe"}
+		            {"nao distribuido",                     "Não distribuído",                      1, "Com a chefia",        "Pré-designação"},
+		            {"aguarda criacao de rai",              "Aguarda criação de RAI",               2, "Com a equipe",        "Em auditoria"},
+		            {"aguarda acolhimento rai",             "Aguarda acolhimento RAI",              3, "Com a chefia",        "Em auditoria"},
+		            {"aguarda acolhimento do rai",          "Aguarda acolhimento RAI",              3, "Com a chefia",        "Em auditoria"},
+		            {"aguarda envio do rai ao auditado",    "Aguarda envio do RAI ao auditado",     4, "Com a equipe",        "Em auditoria"},
+		            {"aguarda apresentacao de defesa",      "Aguarda apresentação de defesa",       5, "Aguardando auditado", "Em auditoria"},
+		            {"aguarda analise de defesa",           "Aguarda análise de defesa",            6, "Com a equipe",        "Em auditoria"},
+		            {"aguarda emissao raf",                 "Aguarda emissão do RAF",               7, "Com a equipe",        "Em auditoria"},
+		            {"aguarda emissao do raf",              "Aguarda emissão do RAF",               7, "Com a equipe",        "Em auditoria"},
+		            {"aguarda acolhimento raf",             "Aguarda acolhimento do RAF",           8, "Com a chefia",        "Em auditoria"},
+		            {"aguarda acolhimento do raf",          "Aguarda acolhimento do RAF",           8, "Com a chefia",        "Em auditoria"},
+		            {"aguarda envio do raf ao auditado",    "Aguarda envio do RAF ao auditado",     9, "Com a equipe",        "Em auditoria"},
+		            {"fase de auditoria finalizada",        "Fase de auditoria finalizada",        10, "Fora da carteira",    "Após a auditoria"},
+		            {"aguarda interposicao de recurso",     "Aguarda interposição de recurso",     11, "Fora da carteira",    "Após a auditoria"},
+		            {"aguarda analise de recurso",          "Aguarda análise de recurso",          12, "Fora da carteira",    "Após a auditoria"},
+		            {"aguarda decisao",                     "Aguarda decisão",                     13, "Fora da carteira",    "Após a auditoria"},
+		            {"encaminhado ao fes",                  "Encaminhado ao FES",                  14, "Fora da carteira",    "Após a auditoria"},
+		            {"arquivado",                           "Arquivado",                           15, "Fora da carteira",    "Arquivado"}
 		        }
 		    )
 		in
@@ -612,7 +619,6 @@ expression MapaFases =
 
 	annotation PBI_ResultType = Table
 
-/// Link (SharePoint/OneDrive) do Excel com os e-mails da chefia. Vazio ou inacessível = ninguém é chefia.
 expression CaminhoListaChefia = "https://rsgovbr.sharepoint.com/sites/SES-qualidadedeasus/Shared%20Documents/DEASUS/14%20-%20DIVIS%C3%83O%20DE%20PLANEJAMENTO,%20MONITORAMENTO,%20AVALIA%C3%87%C3%83O%20E%20GEST%C3%83O%20DA%20QUALIDADEDE/01%20-%20SE%C3%87%C3%83O%20DE%20MONITORAMENTO%20E%20AVALIA%C3%87%C3%83O/01%20-%20MONITORAMENTO%20DAS%20RECOMENDA%C3%87%C3%95ES%20EMITIDAS/13%20-%20MONITORAMENTO%20UNIFICADO/AutorizacaoBIprodutividade.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
 	lineageTag: a56ac203-6306-4487-8d28-7eccd30f274d
 
