@@ -627,15 +627,7 @@
           }
         },
         {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "38.99617813436238D"
-                }
-              }
-            }
-          },
+          "properties": {},
           "selector": {
             "data": [
               {

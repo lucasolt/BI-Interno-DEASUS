@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "f6417107f0499725645b",
   "position": {
     "x": 195,
@@ -242,7 +242,7 @@
                     "Entity": "_Medidas"
                   }
                 },
-                "Property": "Aud Designações"
+                "Property": "Aud Média de Matrizes por Relatório"
               }
             },
             "direction": "Descending"

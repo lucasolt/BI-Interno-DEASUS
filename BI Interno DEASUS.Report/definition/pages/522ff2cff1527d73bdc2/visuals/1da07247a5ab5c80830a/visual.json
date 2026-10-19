@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "1da07247a5ab5c80830a",
   "position": {
-    "x": 195,
-    "y": 166,
+    "x": 195.26184538653368,
+    "y": 165.6359102244389,
     "z": 16000,
-    "height": 906,
-    "width": 1150,
+    "height": 906.284289276808,
+    "width": 1174.2643391521196,
     "tabOrder": 16000
   },
   "visual": {
@@ -236,29 +236,16 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "dAuditor"
+                    "Entity": "_Medidas"
                   }
                 },
-                "Property": "Auditor"
+                "Property": "RAI Taxa de Pontualidade"
               }
             },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dFuncao"
-                  }
-                },
-                "Property": "Função"
-              }
-            },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
         ]
       }
@@ -472,6 +459,22 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "215.2518378483506D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dAuditor.Auditor"
           }
         }
       ]

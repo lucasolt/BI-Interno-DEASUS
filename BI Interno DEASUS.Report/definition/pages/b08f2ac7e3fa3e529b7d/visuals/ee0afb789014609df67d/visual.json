@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ee0afb789014609df67d",
   "position": {
-    "x": 195.26184538653368,
+    "x": 197.95511221945137,
     "y": 816.05985037406481,
     "z": 30000,
     "height": 255.86034912718205,
-    "width": 937.25685785536166,
+    "width": 1182.3441396508729,
     "tabOrder": 30000
   },
   "visual": {
@@ -312,6 +312,92 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "129.78128255664558D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dProcesso.Auditado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "128.24187702472977D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dProcesso.Eixo Temático"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "151.25436056709492D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fCarteira.Auditor"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "146.17456653167892D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fCarteira.Fase"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "84.70821953259411D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fCarteira.Dias desde a Designação"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117.28176288900617D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fCarteira.Dias desde a Última Movimentação"
           }
         }
       ]

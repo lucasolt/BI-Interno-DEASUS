@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "55dd63c1823760ce83e7",
   "position": {
-    "x": 1143.2917705735661,
+    "x": 1377.6059850374065,
     "y": 816.05985037406481,
     "z": 31000,
     "height": 255.86034912718205,
-    "width": 770.27431421446386,
+    "width": 533.26683291770576,
     "tabOrder": 31000
   },
   "visual": {
@@ -267,6 +267,64 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "113.89525144328282D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fMonitAberto.Auditor"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "129.09728104402063D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fMonitAberto.Status Geral"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "92.86779762911195D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fMonitAberto.Com Quem"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117.34663331750902D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fMonitAberto.Nº PROA"
           }
         }
       ]

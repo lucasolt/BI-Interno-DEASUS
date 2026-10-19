@@ -212,7 +212,7 @@
                     "Entity": "_Medidas"
                   }
                 },
-                "Property": "Ranking Produtividade"
+                "Property": "Dias Médios de Atraso"
               }
             },
             "direction": "Ascending"
