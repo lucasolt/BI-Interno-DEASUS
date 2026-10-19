@@ -4,10 +4,10 @@
   "position": {
     "x": 505,
     "y": 90,
-    "z": 9000,
+    "z": 7000,
     "height": 66,
     "width": 232,
-    "tabOrder": 9000
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,8 +28,8 @@
               },
               "queryRef": "fDesignacoes.Ciclo",
               "nativeQueryRef": "Ciclo",
-              "displayName": "Ciclo",
-              "active": true
+              "active": true,
+              "displayName": "Ciclo"
             }
           ]
         }

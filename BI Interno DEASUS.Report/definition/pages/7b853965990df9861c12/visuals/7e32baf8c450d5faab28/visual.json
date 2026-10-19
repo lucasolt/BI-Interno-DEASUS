@@ -4,10 +4,10 @@
   "position": {
     "x": 8,
     "y": 760,
-    "z": 19000,
+    "z": 16000,
     "height": 66,
     "width": 164,
-    "tabOrder": 19000
+    "tabOrder": 16000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,8 +28,8 @@
               },
               "queryRef": "dAuditor.Ativo",
               "nativeQueryRef": "Auditores ativos",
-              "displayName": "Auditores ativos",
-              "active": true
+              "active": true,
+              "displayName": "Auditores ativos"
             }
           ]
         }
