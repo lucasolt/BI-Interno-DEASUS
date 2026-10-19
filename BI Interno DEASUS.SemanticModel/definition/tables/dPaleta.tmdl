@@ -1,5 +1,5 @@
 /// Fonte única de cores do relatório. Mude o hexadecimal aqui e atualize: muda em todas as tabelas (heat map) e nos botões dos cartões.
-/// Heat volume (verde claro; volumes e %) / Heat negativo (vermelho claro; dias médios e matrizes/relatório, mais = pior): Nível 0 (mais claro) a 4 (mais forte). Categoria: Chave = Com Quem / Total / Dias médios.
+/// Heat volume (verde claro; volumes e %) / Heat negativo (vermelho claro; dias médios e matrizes/relatório, mais = pior): Nível 0 (branco) a 9 (mais forte). Categoria: Chave = Com Quem / Total / Dias médios.
 table dPaleta
 	isHidden
 	lineageTag: 07733d70-08d2-45ce-ba76-ae4ce26a0a3e
@@ -51,16 +51,26 @@ table dPaleta
 				    Fonte = #table(
 				        type table [Paleta = text, #"Nível" = nullable Int64.Type, Cor = text, Chave = nullable text, Uso = text],
 				        {
-				        {"Heat volume", 0, "#F6F8F5", null, "tabelas: volumes e %"},
-				        {"Heat volume", 1, "#EAF0E7", null, "tabelas: volumes e %"},
-				        {"Heat volume", 2, "#DCE7D8", null, "tabelas: volumes e %"},
-				        {"Heat volume", 3, "#CDDDC7", null, "tabelas: volumes e %"},
-				        {"Heat volume", 4, "#BDD2B6", null, "tabelas: volumes e %"},
-				        {"Heat negativo", 0, "#FBF5F4", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
-				        {"Heat negativo", 1, "#F5E7E5", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
-				        {"Heat negativo", 2, "#EEDAD6", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
-				        {"Heat negativo", 3, "#E6CBC6", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
-				        {"Heat negativo", 4, "#DDBBB5", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat volume", 0, "#FFFFFF", null, "tabelas: volumes e %"},
+				        {"Heat volume", 1, "#F4F8F2", null, "tabelas: volumes e %"},
+				        {"Heat volume", 2, "#E9F2E6", null, "tabelas: volumes e %"},
+				        {"Heat volume", 3, "#DEEBD9", null, "tabelas: volumes e %"},
+				        {"Heat volume", 4, "#D3E5CD", null, "tabelas: volumes e %"},
+				        {"Heat volume", 5, "#C8DEC0", null, "tabelas: volumes e %"},
+				        {"Heat volume", 6, "#BDD8B4", null, "tabelas: volumes e %"},
+				        {"Heat volume", 7, "#B2D1A7", null, "tabelas: volumes e %"},
+				        {"Heat volume", 8, "#A7CB9B", null, "tabelas: volumes e %"},
+				        {"Heat volume", 9, "#9CC48E", null, "tabelas: volumes e %"},
+				        {"Heat negativo", 0, "#FFFFFF", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 1, "#FBF4F3", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 2, "#F8EAE7", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 3, "#F4DFDC", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 4, "#F0D4D0", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 5, "#EDCAC4", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 6, "#E9BFB8", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 7, "#E5B4AD", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 8, "#E2AAA1", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
+				        {"Heat negativo", 9, "#DE9F95", null, "tabelas: dias médios e matrizes/relatório (mais = pior)"},
 				        {"Categoria", null, "#0B2E59", "Total", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#F2B705", "Aguardando designação", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#1F6FD1", "Com a equipe", "cartões e botões de Trabalhos em Andamento"},
