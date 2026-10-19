@@ -1,5 +1,5 @@
-/// Trabalhos em aberto já designados (Auditoria + Monitoramento numa tabela só): 1 linha por processo/ciclo x Função x Auditor.
-/// Auditoria: fCarteira sem a Pré-designação. Monitoramento: fMonitAberto sem "(Sem designação)".
+/// Trabalhos em aberto (Auditoria + Monitoramento numa tabela só): 1 linha por processo/ciclo x Função x Auditor.
+/// Sem designação aparece como Auditor "(Sem designação)" (Com Quem "Aguardando designação" ou, no monitoramento sem resposta do auditado, "Aguardando auditado").
 /// Dias sem Movimentação: auditoria = desde a última data registrada (designação, RAI, RAF); monitoramento = dias no status atual.
 table fTrabalhosAbertos
 	lineageTag: f6d243d1-dd08-48c3-b474-6089a45471f9
@@ -120,14 +120,14 @@ table fTrabalhosAbertos
 		mode: import
 		source =
 				let
-				    Aud = Table.SelectRows(fCarteira, each [Etapa] <> "Pré-designação"),
+				    Aud = fCarteira,
 				    AudPadrao = Table.FromRecords(Table.TransformRows(Aud, each [
 				        #"ID Trabalho" = "AUD | " & [ID Trabalho], Tipo = "Auditoria", #"Nº PROA" = [Nº PROA], Ciclo = null,
 				        Função = [Função], Auditor = [Auditor], #"Fase / Status" = [Fase], #"Fase Ordem" = [Fase Ordem],
 				        #"Com Quem" = [Com Quem], #"Data Designação" = [Data Designação],
 				        #"Dias desde a Designação" = [Dias desde a Designação],
 				        #"Dias sem Movimentação" = [Dias desde a Última Movimentação]])),
-				    Mon = Table.SelectRows(fMonitAberto, each [Auditor] <> "(Sem designação)"),
+				    Mon = fMonitAberto,
 				    MonPadrao = Table.FromRecords(Table.TransformRows(Mon, each [
 				        #"ID Trabalho" = "MON | " & [Nº PROA] & " | " & ([Ciclo] ?? "") & " | " & ([Função] ?? "") & " | " & [Auditor],
 				        Tipo = "Monitoramento", #"Nº PROA" = [Nº PROA], Ciclo = [Ciclo],
@@ -137,7 +137,7 @@ table fTrabalhosAbertos
 				        #"Dias sem Movimentação" = [Dias no Status Atual]])),
 				    Unido = Table.Combine({AudPadrao, MonPadrao}),
 				    ComQuemOrdem = Table.AddColumn(Unido, "Com Quem Ordem", each
-				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "A classificar"}, [Com Quem]) + 1, Int64.Type),
+				        List.PositionOf({"Aguardando designação", "Com a equipe", "Com a chefia", "Aguardando auditado", "A classificar"}, [Com Quem]) + 1, Int64.Type),
 				    Tipos = Table.TransformColumnTypes(ComQuemOrdem, {
 				        {"ID Trabalho", type text}, {"Tipo", type text}, {"Nº PROA", type text}, {"Ciclo", type nullable text},
 				        {"Função", type text}, {"Auditor", type text}, {"Fase / Status", type nullable text}, {"Fase Ordem", Int64.Type},

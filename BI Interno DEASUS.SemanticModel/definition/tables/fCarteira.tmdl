@@ -161,7 +161,7 @@ table fCarteira
 				    // só Pré-designação e Em auditoria (status fora do de-para também entram, como "A classificar")
 				    ForaDaCarteira = List.Buffer(Table.SelectRows(MapaFases, each [Etapa] = "Após a auditoria" or [Etapa] = "Arquivado")[StatusChave]),
 				    Abertos = Table.SelectRows(ComChave, each not List.Contains(ForaDaCarteira, [StatusChave])),
-				    // não distribuídos: sem coordenador/designação não chegam em fAuditoria; entram aqui como "(Sem designação)" (fila da chefia)
+				    // não distribuídos sem coordenador/designação não chegam em fAuditoria; entram aqui como "(Sem designação)" (fila da chefia)
 				    Col = (codigo as text) as text =>
 				        List.First(List.Select(Table.ColumnNames(stgProcessos), each Text.StartsWith(_, "(" & codigo & ")"))),
 				    ProcStatus = Table.TransformColumns(
@@ -189,8 +189,14 @@ table fCarteira
 				    ComQuemFinal = Table.AddColumn(ComOrdemFinal, "Com Quem", each [QuemMapa] ?? "A classificar", type text),
 				    ComEtapaFinal = Table.AddColumn(ComQuemFinal, "Etapa", each [EtapaMapa] ?? "Em auditoria", type text),
 				    Tabela = Table.RemoveColumns(ComEtapaFinal, {"FaseMapa", "OrdemMapa", "QuemMapa", "EtapaMapa", "StatusChave"}),
-				    ComOrdemQuem = Table.AddColumn(Tabela, "Com Quem Ordem", each
-				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "A classificar"}, [Com Quem]) + 1,
+				    // status "Não distribuído" manda: nome/função/data que estejam na planilha são ignorados (1 linha por processo)
+				    PreDesig = Table.TransformRows(Table.SelectRows(Tabela, each [Etapa] = "Pré-designação"), each
+				        Record.TransformFields(_, {{"Auditor", (x) => "(Sem designação)"}, {"Função", (x) => "Não designado"},
+				            {"Data Designação", (x) => null}, {"Data RAI", (x) => null}, {"Data RAF", (x) => null}})),
+				    PreDesigTab = Table.Distinct(Table.FromRecords(PreDesig, Value.Type(Tabela)), {"Nº PROA"}),
+				    TabelaFinal = Table.Combine({Table.SelectRows(Tabela, each [Etapa] <> "Pré-designação"), PreDesigTab}),
+				    ComOrdemQuem = Table.AddColumn(TabelaFinal, "Com Quem Ordem", each
+				        List.PositionOf({"Aguardando designação", "Com a equipe", "Com a chefia", "Aguardando auditado", "A classificar"}, [Com Quem]) + 1,
 				        Int64.Type),
 				    ComDias = Table.AddColumn(ComOrdemQuem, "Dias desde a Designação", each
 				        if [Data Designação] = null then null else Duration.Days(Hoje - [Data Designação]), Int64.Type),

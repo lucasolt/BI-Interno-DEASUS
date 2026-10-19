@@ -1,5 +1,5 @@
 /// Fonte única de cores do relatório. Mude o hexadecimal aqui e atualize: muda em todas as tabelas (heat map) e nos botões dos cartões.
-/// Heat frio/quente: Nível 0 (mais claro) a 4 (mais forte). Categoria: Chave = Com Quem / Sem designação / Total / Dias médios.
+/// Heat frio/quente: Nível 0 (mais claro) a 4 (mais forte). Categoria: Chave = Com Quem / Total / Dias médios.
 table dPaleta
 	isHidden
 	lineageTag: 07733d70-08d2-45ce-ba76-ae4ce26a0a3e
@@ -62,7 +62,7 @@ table dPaleta
 				        {"Heat quente", 3, "#E0CBA9", null, "tabelas: dias médios (mais dias = mais forte)"},
 				        {"Heat quente", 4, "#D5BA8F", null, "tabelas: dias médios (mais dias = mais forte)"},
 				        {"Categoria", null, "#0B2E59", "Total", "cartões e botões de Trabalhos em Andamento"},
-				        {"Categoria", null, "#F2B705", "Sem designação", "cartões e botões de Trabalhos em Andamento"},
+				        {"Categoria", null, "#F2B705", "Aguardando designação", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#1F6FD1", "Com a equipe", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#2E9E44", "Com a chefia", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#A6A6A6", "Aguardando auditado", "cartões e botões de Trabalhos em Andamento"},

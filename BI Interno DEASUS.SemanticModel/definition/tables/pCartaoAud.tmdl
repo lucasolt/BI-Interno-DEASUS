@@ -1,4 +1,4 @@
-/// Segmentação de botão dos cartões de Auditoria (Trabalhos em Andamento). Desconectada; Chave = valor de fCarteira[Com Quem] ou "Sem designação".
+/// Segmentação de botão dos cartões de Auditoria (Trabalhos em Andamento). Desconectada; Chave = valor de fCarteira[Com Quem] (Aguardando designação / Com a equipe / Com a chefia / Aguardando auditado).
 table pCartaoAud
 	lineageTag: 4615c649-7038-4bb8-a946-0e200751d478
 
@@ -31,7 +31,7 @@ table pCartaoAud
 
 	partition pCartaoAud = m
 		mode: import
-		source = #table(type table [Situação = text, Chave = text, Ordem = Int64.Type], {{"Aguardando Designação", "Sem designação", 1}, {"Com a Equipe", "Com a equipe", 2}, {"Com a Chefia", "Com a chefia", 3}, {"Aguardando Auditado", "Aguardando auditado", 4}})
+		source = #table(type table [Situação = text, Chave = text, Ordem = Int64.Type], {{"Aguardando Designação", "Aguardando designação", 1}, {"Com a Equipe", "Com a equipe", 2}, {"Com a Chefia", "Com a chefia", 3}, {"Aguardando Auditado", "Aguardando auditado", 4}})
 
 	annotation PBI_ResultType = Table
 

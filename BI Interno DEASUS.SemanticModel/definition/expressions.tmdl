@@ -593,7 +593,7 @@ expression MapaFases =
 		    Fonte = #table(
 		        type table [StatusChave = text, Fase = text, #"Fase Ordem" = Int64.Type, #"Com Quem" = text, Etapa = text],
 		        {
-		            {"nao distribuido",                     "Não distribuído",                      1, "Com a chefia",        "Pré-designação"},
+		            {"nao distribuido",                     "Não distribuído",                      1, "Aguardando designação", "Pré-designação"},
 		            {"aguarda criacao de rai",              "Aguarda criação de RAI",               2, "Com a equipe",        "Em auditoria"},
 		            {"aguarda acolhimento rai",             "Aguarda acolhimento RAI",              3, "Com a chefia",        "Em auditoria"},
 		            {"aguarda acolhimento do rai",          "Aguarda acolhimento RAI",              3, "Com a chefia",        "Em auditoria"},
