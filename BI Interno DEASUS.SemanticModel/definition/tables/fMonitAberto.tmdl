@@ -175,8 +175,9 @@ table fMonitAberto
 				    Hoje = Date.From(DateTime.LocalNow()),
 				    ComQuem = Table.AddColumn(SemFuncao, "Com Quem", each
 				        let n = Prefixo([Status Geral]) in
-				        // sem designação: status 01 = auditado ainda não respondeu (não é fila de designação); demais = aguardando designação
-				        if [Auditor] = "(Sem designação)" then (if n = 1 then "Aguardando auditado" else "Aguardando designação")
+				        // sem designação: só 02 (documentos recebidos) e 04 (designação de coordenador) são fila de designação;
+				        // demais seguem o status (01 = auditado ainda não respondeu; 03/05/06 = com a chefia)
+				        if [Auditor] = "(Sem designação)" and (n = 2 or n = 4) then "Aguardando designação"
 				        else if n = 1 then "Aguardando auditado"
 				        else if n = 2 or n = 4 then "Com a equipe"   // 04: coordenador já designado
 				        else if n = 3 or n = 5 or n = 6 then "Com a chefia"   // 06: conclusão técnica do ciclo pela chefia
