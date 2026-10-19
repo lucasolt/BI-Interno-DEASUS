@@ -741,48 +741,6 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 98ee255d-b692-40e4-bfea-8380ca67603a
 
-	/// 1 = linha da tabela de auditoria passa nos botões clicados (filtro de visual = 1).
-	measure 'Filtro Cartão Aud' =
-			VAR _sel = VALUES(pCartaoAud[Chave])
-			VAR _semDesig = IF("Sem designação" IN _sel, CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Etapa] = "Pré-designação")), 0)
-			VAR _designados = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Etapa] <> "Pré-designação"), KEEPFILTERS(TREATAS(_sel, fCarteira[Com Quem])))
-			RETURN IF(NOT ISFILTERED(pCartaoAud[Situação]), 1, IF(_semDesig + _designados > 0, 1, 0))
-		formatString: 0
-		displayFolder: 8. Carteira Atual
-		lineageTag: af16368c-f4bf-4599-a2a2-2bac6cf6c511
-
-	/// 1 = linha da tabela de monitoramento passa nos botões clicados (filtro de visual = 1).
-	measure 'Filtro Cartão Mon' =
-			VAR _sel = VALUES(pCartaoMon[Chave])
-			VAR _semDesig = IF("Sem designação" IN _sel, CALCULATE(COUNTROWS(fMonitAberto), KEEPFILTERS(fMonitAberto[Auditor] = "(Sem designação)")), 0)
-			VAR _designados = CALCULATE(COUNTROWS(fMonitAberto), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(TREATAS(_sel, fMonitAberto[Com Quem])))
-			RETURN IF(NOT ISFILTERED(pCartaoMon[Situação]), 1, IF(_semDesig + _designados > 0, 1, 0))
-		formatString: 0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 27b510ae-2976-4019-b08d-9819e5b59aab
-
-	/// Número exibido em cada botão de pCartaoAud.
-	measure 'Cartão Aud Valor' =
-			SWITCH(SELECTEDVALUE(pCartaoAud[Chave]),
-			    "Sem designação", [Carteira Aud Sem Designação],
-			    "Com a equipe", [Carteira Aud Com a Equipe],
-			    "Com a chefia", [Carteira Aud Com a Chefia],
-			    "Aguardando auditado", [Carteira Aud Aguardando Auditado])
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: c86e391e-620f-4536-b04c-8b344e3dd31d
-
-	/// Número exibido em cada botão de pCartaoMon.
-	measure 'Cartão Mon Valor' =
-			SWITCH(SELECTEDVALUE(pCartaoMon[Chave]),
-			    "Sem designação", [Carteira Mon Sem Designação],
-			    "Com a equipe", [Carteira Mon Com a Equipe],
-			    "Com a chefia", [Carteira Mon Com a Chefia],
-			    "Aguardando auditado", [Carteira Mon Aguardando Monitorado])
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: e292b00b-57da-4865-bd7d-76d8451c327c
-
 	/// 1 se o usuário logado (USERPRINCIPALNAME) está no Excel da chefia.
 	measure 'É Chefia' = IF(LOWER(USERPRINCIPALNAME()) IN VALUES(UsuariosChefia[E-mail]), 1, 0)
 		formatString: 0
@@ -992,6 +950,48 @@ table _Medidas
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: c499f1d1-0531-4bd9-a31b-ffb19e80ef65
+
+	/// 1 = linha da tabela de auditoria passa nos botões clicados (filtro de visual = 1).
+	measure 'Filtro Cartão Aud' =
+			VAR _sel = VALUES(pCartaoAud[Chave])
+			VAR _semDesig = IF("Sem designação" IN _sel, CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Etapa] = "Pré-designação")), 0)
+			VAR _designados = CALCULATE(COUNTROWS(fCarteira), KEEPFILTERS(fCarteira[Etapa] <> "Pré-designação"), KEEPFILTERS(TREATAS(_sel, fCarteira[Com Quem])))
+			RETURN IF(NOT ISFILTERED(pCartaoAud[Situação]), 1, IF(_semDesig + _designados > 0, 1, 0))
+		formatString: 0
+		displayFolder: 8. Carteira Atual
+		lineageTag: af16368c-f4bf-4599-a2a2-2bac6cf6c511
+
+	/// 1 = linha da tabela de monitoramento passa nos botões clicados (filtro de visual = 1).
+	measure 'Filtro Cartão Mon' =
+			VAR _sel = VALUES(pCartaoMon[Chave])
+			VAR _semDesig = IF("Sem designação" IN _sel, CALCULATE(COUNTROWS(fMonitAberto), KEEPFILTERS(fMonitAberto[Auditor] = "(Sem designação)")), 0)
+			VAR _designados = CALCULATE(COUNTROWS(fMonitAberto), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(TREATAS(_sel, fMonitAberto[Com Quem])))
+			RETURN IF(NOT ISFILTERED(pCartaoMon[Situação]), 1, IF(_semDesig + _designados > 0, 1, 0))
+		formatString: 0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 27b510ae-2976-4019-b08d-9819e5b59aab
+
+	/// Número exibido em cada botão de pCartaoAud.
+	measure 'Cartão Aud Valor' =
+			SWITCH(SELECTEDVALUE(pCartaoAud[Chave]),
+			    "Sem designação", [Carteira Aud Sem Designação],
+			    "Com a equipe", [Carteira Aud Com a Equipe],
+			    "Com a chefia", [Carteira Aud Com a Chefia],
+			    "Aguardando auditado", [Carteira Aud Aguardando Auditado])
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: c86e391e-620f-4536-b04c-8b344e3dd31d
+
+	/// Número exibido em cada botão de pCartaoMon.
+	measure 'Cartão Mon Valor' =
+			SWITCH(SELECTEDVALUE(pCartaoMon[Chave]),
+			    "Sem designação", [Carteira Mon Sem Designação],
+			    "Com a equipe", [Carteira Mon Com a Equipe],
+			    "Com a chefia", [Carteira Mon Com a Chefia],
+			    "Aguardando auditado", [Carteira Mon Aguardando Monitorado])
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: e292b00b-57da-4865-bd7d-76d8451c327c
 
 	column Coluna
 		isHidden

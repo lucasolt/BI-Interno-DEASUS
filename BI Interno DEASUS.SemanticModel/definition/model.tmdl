@@ -38,10 +38,10 @@ ref table fMonitAberto
 ref table pRelatorioGrafico
 ref table UsuariosChefia
 ref table pAreaGrafico
-ref table pCartaoAud
-ref table pCartaoMon
 ref table dFaixaAberto
 ref table fTrabalhosAbertos
+ref table pCartaoAud
+ref table pCartaoMon
 
 ref cultureInfo pt-BR
 
