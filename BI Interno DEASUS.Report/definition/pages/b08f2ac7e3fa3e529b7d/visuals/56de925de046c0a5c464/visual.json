@@ -5,8 +5,8 @@
     "x": 195.26184538653368,
     "y": 429.57605985037407,
     "z": 28000,
-    "height": 329.92518703241893,
-    "width": 1251.0224438902744,
+    "height": 386.4837905236908,
+    "width": 1267.1820448877806,
     "tabOrder": 28000
   },
   "visual": {
@@ -114,7 +114,7 @@
                 "Property": "Trabalhos em Aberto"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -374,7 +374,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "127.44107901681832D"
+                  "Value": "50.94639993596357D"
                 }
               }
             }
@@ -403,7 +403,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "103.64994760309861D"
+                  "Value": "48.24644740166415D"
                 }
               }
             }
@@ -513,7 +513,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "110.93265544550968D"
+                  "Value": "93.41408846076074D"
                 }
               }
             }
@@ -572,7 +572,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "118.97257029282763D"
+                  "Value": "92.05374203888832D"
                 }
               }
             }
@@ -627,7 +627,15 @@
           }
         },
         {
-          "properties": {},
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "38.99617813436238D"
+                }
+              }
+            }
+          },
           "selector": {
             "data": [
               {
@@ -674,13 +682,72 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "409.1421260135684D"
+                  "Value": "165.48522973373755D"
                 }
               }
             }
           },
           "selector": {
             "metadata": "dAuditor.Auditor"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "137.6852567937599D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Tipo"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Monitoramento'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Aguardando auditado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       ]
