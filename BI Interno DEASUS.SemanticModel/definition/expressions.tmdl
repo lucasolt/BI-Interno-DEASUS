@@ -585,24 +585,25 @@ expression MapaEixos =
 
 	annotation PBI_ResultType = Table
 
-/// Status do processo (campo 42) -> fase da auditoria e com quem está a próxima ação. Chave normalizada (fxNormalizaNome).
+/// Status do processo (campo 42) -> fase (mesmo texto do status bruto) e com quem está a próxima ação. Chave normalizada (fxNormalizaNome).
 expression MapaFases =
 		let
 		    Fonte = #table(
 		        type table [StatusChave = text, Fase = text, #"Fase Ordem" = Int64.Type, #"Com Quem" = text],
 		        {
-		            {"aguarda criacao de rai",            "Elaboração do RAI",          1,  "Com a equipe"},
-		            {"aguarda acolhimento rai",           "Acolhimento do RAI",         2,  "Com a chefia"},
-		            {"aguarda envio do rai ao auditado",  "Envio do RAI ao auditado",   3,  "Com a chefia"},
-		            {"aguarda apresentacao de defesa",    "Prazo de defesa",            4,  "Aguardando auditado"},
-		            {"aguarda analise de defesa",         "Análise de defesa",          5,  "Com a equipe"},
-		            {"aguarda emissao raf",               "Elaboração do RAF",          6,  "Com a equipe"},
-		            {"aguarda acolhimento raf",           "Acolhimento do RAF",         7,  "Com a chefia"},
-		            {"aguarda envio do raf ao auditado",  "Envio do RAF ao auditado",   8,  "Com a chefia"},
-		            {"aguarda interposicao de recurso",   "Prazo de recurso",           9,  "Aguardando auditado"},
-		            {"aguarda analise de recurso",        "Análise de recurso",         10, "Com a equipe"},
-		            {"aguarda decisao",                   "Decisão",                    11, "Com a chefia"},
-		            {"encaminhado ao fes",                "Encaminhado ao FES",         12, "Fora da equipe"}
+		            {"nao distribuido",                   "Não distribuído",                   0,  "Com a chefia"},
+		            {"aguarda criacao de rai",            "Aguarda criação de RAI",            1,  "Com a equipe"},
+		            {"aguarda acolhimento rai",           "Aguarda acolhimento RAI",           2,  "Com a chefia"},
+		            {"aguarda envio do rai ao auditado",  "Aguarda envio do RAI ao auditado",  3,  "Com a equipe"},
+		            {"aguarda apresentacao de defesa",    "Aguarda apresentação de defesa",    4,  "Aguardando auditado"},
+		            {"aguarda analise de defesa",         "Aguarda análise de defesa",         5,  "Com a equipe"},
+		            {"aguarda emissao raf",               "Aguarda emissão RAF",               6,  "Com a equipe"},
+		            {"aguarda acolhimento raf",           "Aguarda acolhimento RAF",           7,  "Com a chefia"},
+		            {"aguarda envio do raf ao auditado",  "Aguarda envio do RAF ao auditado",  8,  "Com a equipe"},
+		            {"aguarda interposicao de recurso",   "Aguarda interposição de recurso",   9,  "Aguardando auditado"},
+		            {"aguarda analise de recurso",        "Aguarda análise de recurso",        10, "Com a direção/jurídico"},
+		            {"aguarda decisao",                   "Aguarda decisão",                   11, "Com a direção/jurídico"},
+		            {"encaminhado ao fes",                "Encaminhado ao FES",                12, "Fora da equipe"}
 		        }
 		    )
 		in

@@ -42,7 +42,7 @@ table dAuditor
 				    Cadastro = Table.AddColumn(Table.RemoveColumns(SoAuditores, {"NomeChave"}), "Cadastrado", each "Sim", type text),
 				    NomesMonit = List.Distinct(fDesignacoes[Auditor]),
 				    NomesAud = List.Distinct(fAuditoria[Auditor]),
-				    NomesFato = List.Buffer(List.Distinct(NomesMonit & NomesAud & fMonitAberto[Auditor])),
+				    NomesFato = List.Buffer(List.Distinct(NomesMonit & NomesAud & fMonitAberto[Auditor] & fCarteira[Auditor])),
 				    Faltantes = List.Difference(NomesFato, Cadastro[Auditor]),
 				    TabFaltantes = Table.FromRecords(
 				        List.Transform(Faltantes, each [Auditor = _, #"É Auditor" = null, Lotação = null, Ativo = null, Cadastrado = "Não"]),

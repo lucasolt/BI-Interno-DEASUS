@@ -180,7 +180,7 @@ table fMonitAberto
 				        else if n = 3 or n = 5 or n = 6 then "Com a chefia"   // 06: conclusão técnica do ciclo pela chefia
 				        else "A classificar", type text),
 				    ComQuemOrdem = Table.AddColumn(ComQuem, "Com Quem Ordem", each
-				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
+				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Com a direção/jurídico", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
 				        Int64.Type),
 				    ComOrdem = Table.AddColumn(ComQuemOrdem, "Status Ordem", each Prefixo([Status Geral]), Int64.Type),
 				    ComDiasStatus = Table.AddColumn(ComOrdem, "Dias no Status Atual", each

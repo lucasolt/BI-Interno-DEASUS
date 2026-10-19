@@ -152,8 +152,23 @@ table fCarteira
 				    ComChave = Table.AddColumn(Agrupado, "StatusChave", each fxNormalizaNome([Status do Processo]), type nullable text),
 				    // processos encerrados não estão na carteira
 				    Abertos = Table.SelectRows(ComChave, each not List.Contains(Encerrados, [StatusChave])),
+				    // não distribuídos: sem coordenador/designação não chegam em fAuditoria; entram aqui como fila da chefia
+				    Col = (codigo as text) as text =>
+				        List.First(List.Select(Table.ColumnNames(stgProcessos), each Text.StartsWith(_, "(" & codigo & ")"))),
+				    ProcStatus = Table.TransformColumns(
+				        Table.RenameColumns(Table.SelectColumns(stgProcessos, {Col("12"), Col("42")}), {{Col("12"), "Nº PROA"}, {Col("42"), "Status do Processo"}}),
+				        {{"Nº PROA", each if _ = null then null else Text.Trim(Text.From(_)), type text},
+				         {"Status do Processo", each if _ = null then null else Text.Trim(Text.From(_)), type nullable text}}),
+				    JaNaCarteira = List.Buffer(Abertos[Nº PROA]),
+				    NaoDistribuidos = Table.Distinct(Table.SelectRows(ProcStatus, each [Nº PROA] <> null and [Nº PROA] <> ""
+				        and fxNormalizaNome([Status do Processo]) = "nao distribuido" and not List.Contains(JaNaCarteira, [Nº PROA])), {"Nº PROA"}),
+				    LinhasND = Table.AddColumn(Table.AddColumn(Table.AddColumn(Table.AddColumn(Table.AddColumn(Table.AddColumn(NaoDistribuidos,
+				        "Função", each null, type nullable text), "Auditor", each "(Não distribuído)", type text),
+				        "Data Designação", each null, type nullable date), "Data RAI", each null, type nullable date),
+				        "Data RAF", each null, type nullable date), "StatusChave", each "nao distribuido", type text),
+				    ComNaoDistribuidos = Table.Combine({Abertos, LinhasND}),
 				    Fases = Table.Buffer(MapaFases),
-				    ComFase = Table.NestedJoin(Abertos, {"StatusChave"}, Fases, {"StatusChave"}, "F", JoinKind.LeftOuter),
+				    ComFase = Table.NestedJoin(ComNaoDistribuidos, {"StatusChave"}, Fases, {"StatusChave"}, "F", JoinKind.LeftOuter),
 				    Expandido = Table.ExpandTableColumn(ComFase, "F", {"Fase", "Fase Ordem", "Com Quem"}),
 				    // status fora do de-para: mostra o próprio status e fica "A classificar" (incluir em MapaFases)
 				    Renomeado = Table.RenameColumns(Expandido, {{"Fase", "FaseMapa"}, {"Fase Ordem", "OrdemMapa"}, {"Com Quem", "QuemMapa"}}),
@@ -165,7 +180,7 @@ table fCarteira
 				    ComQuemFinal = Table.AddColumn(ComOrdemFinal, "Com Quem", each [QuemMapa] ?? "A classificar", type text),
 				    Tabela = Table.RemoveColumns(ComQuemFinal, {"FaseMapa", "OrdemMapa", "QuemMapa", "StatusChave"}),
 				    ComOrdemQuem = Table.AddColumn(Tabela, "Com Quem Ordem", each
-				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
+				        List.PositionOf({"Com a equipe", "Com a chefia", "Aguardando auditado", "Com a direção/jurídico", "Fora da equipe", "A classificar"}, [Com Quem]) + 1,
 				        Int64.Type),
 				    ComDias = Table.AddColumn(ComOrdemQuem, "Dias desde a Designação", each
 				        if [Data Designação] = null then null else Duration.Days(Hoje - [Data Designação]), Int64.Type),
@@ -174,9 +189,9 @@ table fCarteira
 				        List.Max(List.RemoveNulls({[Data Designação], [Data RAI], [Data RAF]})), type nullable date),
 				    ComDiasUltima = Table.AddColumn(ComUltima, "Dias desde a Última Movimentação", each
 				        if [Última Movimentação] = null then null else Duration.Days(Hoje - [Última Movimentação]), Int64.Type),
-				    ComId = Table.AddColumn(ComDiasUltima, "ID Trabalho", each [Nº PROA] & " | " & [Função] & " | " & [Auditor], type text),
+				    ComId = Table.AddColumn(ComDiasUltima, "ID Trabalho", each [Nº PROA] & " | " & ([Função] ?? "-") & " | " & [Auditor], type text),
 				    Tipos = Table.TransformColumnTypes(ComId, {
-				        {"Nº PROA", type text}, {"Função", type text}, {"Auditor", type text}, {"Data Designação", type nullable date},
+				        {"Nº PROA", type text}, {"Função", type nullable text}, {"Auditor", type text}, {"Data Designação", type nullable date},
 				        {"Status do Processo", type nullable text}, {"Fase", type text}, {"Fase Ordem", Int64.Type}, {"Com Quem", type text}}),
 				    Final = Table.SelectColumns(Tipos, {
 				        "ID Trabalho", "Nº PROA", "Função", "Auditor", "Fase", "Fase Ordem", "Com Quem", "Com Quem Ordem",
