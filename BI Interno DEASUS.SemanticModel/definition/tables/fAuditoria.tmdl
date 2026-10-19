@@ -141,14 +141,6 @@ table fAuditoria
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Etapa do Processo'
-		dataType: string
-		lineageTag: 658e8a2c-84a2-43fd-875c-31bf02813542
-		summarizeBy: none
-		sourceColumn: Etapa do Processo
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Alerta de Qualidade'
 		dataType: string
 		lineageTag: 59749fb7-2c68-4bbf-a2d5-6c6d2dc21b0f
@@ -194,6 +186,14 @@ table fAuditoria
 		lineageTag: 20c9ed35-3321-45f1-9c46-8d054fd5d512
 		summarizeBy: none
 		sourceColumn: Faixa Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Etapa do Processo'
+		dataType: string
+		lineageTag: 658e8a2c-84a2-43fd-875c-31bf02813542
+		summarizeBy: none
+		sourceColumn: Etapa do Processo
 
 		annotation SummarizationSetBy = Automatic
 
