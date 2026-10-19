@@ -741,115 +741,6 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 98ee255d-b692-40e4-bfea-8380ca67603a
 
-	/// Processos em auditoria já designados (do "Aguarda criação de RAI" ao "Aguarda envio do RAF ao auditado").
-	measure 'Carteira Aud Designados' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Etapa] <> "Pré-designação"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 680a9050-41f5-4430-9d6b-0ef57684b8b4
-
-	/// Processos com status "Não distribuído" (fila da chefia).
-	measure 'Carteira Aud Sem Designação' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Etapa] = "Pré-designação"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 348ee2ff-cb2b-4fcd-a9c5-5465475a94ed
-
-	/// Fora da carteira: fase de auditoria finalizada, recurso, decisão ou encaminhado ao FES (não arquivados).
-	measure 'Carteira Aud Após a Auditoria' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fAuditoria[Nº PROA]), KEEPFILTERS(fAuditoria[Etapa do Processo] = "Após a auditoria"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 9502b93d-8a53-4d19-8e92-29a7908c6a64
-
-	/// Monitoramentos em aberto com designação no ciclo atual.
-	measure 'Carteira Mon Designados' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 06d4bc43-480c-4c54-aa04-308bd300abd5
-
-	measure 'Carteira Mon Com a Equipe' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(fMonitAberto[Com Quem] = "Com a equipe"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 2632b761-1f90-4faa-909e-2e2bad04419f
-
-	measure 'Carteira Mon Com a Chefia' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(fMonitAberto[Com Quem] = "Com a chefia"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: dcd5db4f-d877-41d2-8cd0-1e4226c3835d
-
-	measure 'Carteira Mon Aguardando Monitorado' =
-			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(fMonitAberto[Com Quem] = "Aguardando auditado"))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: 3b035b96-d11b-43f9-ad81-a60bbca75040
-
-	measure 'Sub Carteira Aud Total' = FORMAT([Carteira Aud Designados], "#,0") & " designados · " & FORMAT([Carteira Aud Após a Auditoria], "#,0") & " após a auditoria"
-		displayFolder: 6. Rótulos
-		lineageTag: 517a10b2-96ca-4afa-968a-c0e40cbc5532
-
-	measure 'Sub Carteira Mon Total' = FORMAT([Carteira Mon Designados], "#,0") & " designados"
-		displayFolder: 6. Rótulos
-		lineageTag: 343e7dea-f784-4055-8da6-2b7b2fea261f
-
-	measure 'Sub Carteira Aud Sem Designação' = FORMAT(DIVIDE([Carteira Aud Sem Designação], [Carteira Auditoria]) + 0, "0%") & " do total em aberto"
-		displayFolder: 6. Rótulos
-		lineageTag: da26339f-9093-4543-bba2-b251d9a2647d
-
-	measure 'Sub Carteira Mon Sem Designação' = FORMAT(DIVIDE([Carteira Mon Sem Designação], [Carteira Monitoramento]) + 0, "0%") & " do total em aberto"
-		displayFolder: 6. Rótulos
-		lineageTag: 88834bdf-f3f4-43a6-8820-9c53ee1d18e4
-
-	measure 'Sub Carteira Mon Com a Equipe' = FORMAT(DIVIDE([Carteira Mon Com a Equipe], [Carteira Mon Designados]) + 0, "0%") & " dos designados"
-		displayFolder: 6. Rótulos
-		lineageTag: 4c4f9d35-309d-4462-b543-4063500622e0
-
-	measure 'Sub Carteira Mon Com a Chefia' = FORMAT(DIVIDE([Carteira Mon Com a Chefia], [Carteira Mon Designados]) + 0, "0%") & " dos designados"
-		displayFolder: 6. Rótulos
-		lineageTag: 2f66706d-dfd8-4a3b-a894-dd4946c84fa7
-
-	measure 'Sub Carteira Mon Aguardando' = FORMAT(DIVIDE([Carteira Mon Aguardando Monitorado], [Carteira Mon Designados]) + 0, "0%") & " dos designados"
-		displayFolder: 6. Rótulos
-		lineageTag: a448463e-fabd-438f-815e-b4198994e9f5
-
-	measure 'Sub Carteira Mon Status' = FORMAT([Carteira Mon Dias Médios no Status], "#,0") & " dias no status atual (média)"
-		displayFolder: 6. Rótulos
-		lineageTag: 58a01765-a90d-482a-9451-92188f1e3753
-
-	/// Trabalhos já designados (fTrabalhosAbertos): processos distintos por tipo, somados entre Auditoria e Monitoramento.
-	measure 'Trabalhos em Aberto' =
-			// cartão clicado (pFiltroCarteira) restringe só as colunas do próprio tipo
-			VAR _tipoSel = SELECTEDVALUE(pFiltroCarteira[Tipo])
-			VAR _quemSel = SELECTEDVALUE(pFiltroCarteira[Com Quem])
-			VAR _v = SUMX(VALUES(fTrabalhosAbertos[Tipo]),
-			    VAR _t = fTrabalhosAbertos[Tipo]
-			    RETURN IF(_t = _tipoSel,
-			        IF(_quemSel = "Sem designação", BLANK(),
-			            CALCULATE(DISTINCTCOUNT(fTrabalhosAbertos[Nº PROA]), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = _quemSel))),
-			        CALCULATE(DISTINCTCOUNT(fTrabalhosAbertos[Nº PROA]))))
-			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
-			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
-		formatString: #,0
-		displayFolder: 8. Carteira Atual
-		lineageTag: c499f1d1-0531-4bd9-a31b-ffb19e80ef65
-
 	/// 1 = linha da tabela de auditoria passa no cartão clicado (filtro de visual = 1).
 	measure 'Filtro Cartão Aud' =
 			VAR _tipoSel = SELECTEDVALUE(pFiltroCarteira[Tipo])
@@ -983,6 +874,114 @@ table _Medidas
 		formatString: #,0
 		displayFolder: 8. Carteira Atual
 		lineageTag: 7a403e75-b4e0-4118-a32a-3eea1ad48c08
+
+	/// Processos em auditoria já designados (do "Aguarda criação de RAI" ao "Aguarda envio do RAF ao auditado").
+	measure 'Carteira Aud Designados' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Etapa] <> "Pré-designação"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 680a9050-41f5-4430-9d6b-0ef57684b8b4
+
+	/// Processos com status "Não distribuído" (fila da chefia).
+	measure 'Carteira Aud Sem Designação' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fCarteira[Nº PROA]), KEEPFILTERS(fCarteira[Etapa] = "Pré-designação"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 348ee2ff-cb2b-4fcd-a9c5-5465475a94ed
+
+	/// Fora da carteira: fase de auditoria finalizada, recurso, decisão ou encaminhado ao FES (não arquivados).
+	measure 'Carteira Aud Após a Auditoria' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fAuditoria[Nº PROA]), KEEPFILTERS(fAuditoria[Etapa do Processo] = "Após a auditoria"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 9502b93d-8a53-4d19-8e92-29a7908c6a64
+
+	/// Monitoramentos em aberto com designação no ciclo atual.
+	measure 'Carteira Mon Designados' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 06d4bc43-480c-4c54-aa04-308bd300abd5
+
+	measure 'Carteira Mon Com a Equipe' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(fMonitAberto[Com Quem] = "Com a equipe"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 2632b761-1f90-4faa-909e-2e2bad04419f
+
+	measure 'Carteira Mon Com a Chefia' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(fMonitAberto[Com Quem] = "Com a chefia"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: dcd5db4f-d877-41d2-8cd0-1e4226c3835d
+
+	measure 'Carteira Mon Aguardando Monitorado' =
+			VAR _v = CALCULATE(DISTINCTCOUNT(fMonitAberto[Nº PROA]), KEEPFILTERS(fMonitAberto[Auditor] <> "(Sem designação)"), KEEPFILTERS(fMonitAberto[Com Quem] = "Aguardando auditado"))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: 3b035b96-d11b-43f9-ad81-a60bbca75040
+
+	measure 'Sub Carteira Aud Total' = FORMAT([Carteira Aud Designados], "#,0") & " designados · " & FORMAT([Carteira Aud Após a Auditoria], "#,0") & " após a auditoria"
+		displayFolder: 6. Rótulos
+		lineageTag: 517a10b2-96ca-4afa-968a-c0e40cbc5532
+
+	measure 'Sub Carteira Mon Total' = FORMAT([Carteira Mon Designados], "#,0") & " designados"
+		displayFolder: 6. Rótulos
+		lineageTag: 343e7dea-f784-4055-8da6-2b7b2fea261f
+
+	measure 'Sub Carteira Aud Sem Designação' = FORMAT(DIVIDE([Carteira Aud Sem Designação], [Carteira Auditoria]) + 0, "0%") & " do total em aberto"
+		displayFolder: 6. Rótulos
+		lineageTag: da26339f-9093-4543-bba2-b251d9a2647d
+
+	measure 'Sub Carteira Mon Sem Designação' = FORMAT(DIVIDE([Carteira Mon Sem Designação], [Carteira Monitoramento]) + 0, "0%") & " do total em aberto"
+		displayFolder: 6. Rótulos
+		lineageTag: 88834bdf-f3f4-43a6-8820-9c53ee1d18e4
+
+	measure 'Sub Carteira Mon Com a Equipe' = FORMAT(DIVIDE([Carteira Mon Com a Equipe], [Carteira Mon Designados]) + 0, "0%") & " dos designados"
+		displayFolder: 6. Rótulos
+		lineageTag: 4c4f9d35-309d-4462-b543-4063500622e0
+
+	measure 'Sub Carteira Mon Com a Chefia' = FORMAT(DIVIDE([Carteira Mon Com a Chefia], [Carteira Mon Designados]) + 0, "0%") & " dos designados"
+		displayFolder: 6. Rótulos
+		lineageTag: 2f66706d-dfd8-4a3b-a894-dd4946c84fa7
+
+	measure 'Sub Carteira Mon Aguardando' = FORMAT(DIVIDE([Carteira Mon Aguardando Monitorado], [Carteira Mon Designados]) + 0, "0%") & " dos designados"
+		displayFolder: 6. Rótulos
+		lineageTag: a448463e-fabd-438f-815e-b4198994e9f5
+
+	measure 'Sub Carteira Mon Status' = FORMAT([Carteira Mon Dias Médios no Status], "#,0") & " dias no status atual (média)"
+		displayFolder: 6. Rótulos
+		lineageTag: 58a01765-a90d-482a-9451-92188f1e3753
+
+	measure 'Trabalhos em Aberto' =
+			// cartão clicado (pFiltroCarteira) restringe só as colunas do próprio tipo
+			VAR _tipoSel = SELECTEDVALUE(pFiltroCarteira[Tipo])
+			VAR _quemSel = SELECTEDVALUE(pFiltroCarteira[Com Quem])
+			VAR _v = SUMX(VALUES(fTrabalhosAbertos[Tipo]),
+			    VAR _t = fTrabalhosAbertos[Tipo]
+			    RETURN IF(_t = _tipoSel,
+			        IF(_quemSel = "Sem designação", BLANK(),
+			            CALCULATE(DISTINCTCOUNT(fTrabalhosAbertos[Nº PROA]), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = _quemSel))),
+			        CALCULATE(DISTINCTCOUNT(fTrabalhosAbertos[Nº PROA]))))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: c499f1d1-0531-4bd9-a31b-ffb19e80ef65
 
 	column Coluna
 		isHidden

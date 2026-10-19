@@ -35,12 +35,12 @@ ref table dictDadosDep
 ref table DadosDep_legacy
 ref table fCarteira
 ref table fMonitAberto
-ref table fTrabalhosAbertos
 ref table pRelatorioGrafico
 ref table UsuariosChefia
 ref table pAreaGrafico
 ref table pFiltroCarteira
 ref table dFaixaAberto
+ref table fTrabalhosAbertos
 
 ref cultureInfo pt-BR
 

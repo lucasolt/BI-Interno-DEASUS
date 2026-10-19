@@ -53,14 +53,6 @@ table fCarteira
 
 		annotation SummarizationSetBy = Automatic
 
-	column Etapa
-		dataType: string
-		lineageTag: e61a99a6-10e9-4cfe-a10b-b6ad151217f7
-		summarizeBy: none
-		sourceColumn: Etapa
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Com Quem'
 		dataType: string
 		lineageTag: eb6fc9d2-b6e7-4f14-af2c-360029c8d001
@@ -144,6 +136,14 @@ table fCarteira
 		lineageTag: 465999c6-28b6-4208-955f-244cf67f7610
 		summarizeBy: none
 		sourceColumn: Dias desde a Última Movimentação
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etapa
+		dataType: string
+		lineageTag: e61a99a6-10e9-4cfe-a10b-b6ad151217f7
+		summarizeBy: none
+		sourceColumn: Etapa
 
 		annotation SummarizationSetBy = Automatic
 

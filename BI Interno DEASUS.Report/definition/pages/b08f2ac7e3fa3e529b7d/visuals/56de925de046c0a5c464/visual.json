@@ -3,10 +3,10 @@
   "name": "56de925de046c0a5c464",
   "position": {
     "x": 195.26184538653368,
-    "y": 430,
+    "y": 429.57605985037407,
     "z": 36000,
-    "height": 280,
-    "width": 937.2568578553617,
+    "height": 329.92518703241893,
+    "width": 1251.0224438902744,
     "tabOrder": 36000
   },
   "visual": {
@@ -335,6 +335,322 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "127.44107901681832D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "total": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fTrabalhosAbertos"
+                        }
+                      },
+                      "Property": "Tipo"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.64994760309861D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Tipo"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Monitoramento'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "total": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fTrabalhosAbertos"
+                        }
+                      },
+                      "Property": "Com Quem"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "140.45924476775883D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Tipo"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Auditoria'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Aguardando auditado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "110.93265544550968D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Tipo"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Monitoramento'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Com a chefia'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118.97257029282763D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Tipo"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Monitoramento'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Com Quem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Com a equipe'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fTrabalhosAbertos"
+                          }
+                        },
+                        "Property": "Tipo"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Auditoria'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "total": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fTrabalhosAbertos"
+                        }
+                      },
+                      "Property": "Com Quem"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "409.1421260135684D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dAuditor.Auditor"
           }
         }
       ]
