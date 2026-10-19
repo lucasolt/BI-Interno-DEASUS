@@ -1,0 +1,45 @@
+/// Filtro acionado pelos cartões da página Trabalhos em Andamento (botões + indicadores). Desconectada: as medidas leem a seleção.
+table pFiltroCarteira
+	lineageTag: fbb716a2-fd3f-48a5-a9b6-00c2cb5ddc81
+
+	column Seleção
+		dataType: string
+		lineageTag: 0078adbf-696b-4387-89f9-2465f0b5ecfa
+		summarizeBy: none
+		sourceColumn: Seleção
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		isHidden
+		lineageTag: bc9e31f8-998c-47dd-9214-633bc05e2e7c
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo
+		dataType: string
+		isHidden
+		lineageTag: 132cf62b-9862-4024-a86c-baf163f55cab
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Com Quem'
+		dataType: string
+		isHidden
+		lineageTag: 1c356b9c-8619-48d1-aa27-93bf3019d852
+		summarizeBy: none
+		sourceColumn: Com Quem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pFiltroCarteira = m
+		mode: import
+		source = #table(type table [Seleção = text, Ordem = Int64.Type, Tipo = nullable text, #"Com Quem" = nullable text], {{"Todos", 0, null, null}, {"Auditoria · Aguardando designação", 1, "Auditoria", "Sem designação"}, {"Auditoria · Com a equipe", 2, "Auditoria", "Com a equipe"}, {"Auditoria · Com a chefia", 3, "Auditoria", "Com a chefia"}, {"Auditoria · Aguardando auditado", 4, "Auditoria", "Aguardando auditado"}, {"Monitoramento · Aguardando designação", 5, "Monitoramento", "Sem designação"}, {"Monitoramento · Com a equipe", 6, "Monitoramento", "Com a equipe"}, {"Monitoramento · Com a chefia", 7, "Monitoramento", "Com a chefia"}, {"Monitoramento · Aguardando monitorado", 8, "Monitoramento", "Aguardando auditado"}})
+
+	annotation PBI_ResultType = Table

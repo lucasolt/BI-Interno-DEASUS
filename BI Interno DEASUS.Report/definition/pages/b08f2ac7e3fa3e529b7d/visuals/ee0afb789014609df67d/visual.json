@@ -3,10 +3,10 @@
   "name": "ee0afb789014609df67d",
   "position": {
     "x": 195.26184538653368,
-    "y": 717.75561097256855,
+    "y": 717.7556109725685,
     "z": 38000,
     "height": 354.16458852867834,
-    "width": 937.25685785536166,
+    "width": 937.2568578553617,
     "tabOrder": 38000
   },
   "visual": {
@@ -500,5 +500,58 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fc1cd30d407eee764",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Filtro Cartão Aud"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "m",
+              "Entity": "_Medidas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "m"
+                        }
+                      },
+                      "Property": "Filtro Cartão Aud"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "1L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
   }
 }
