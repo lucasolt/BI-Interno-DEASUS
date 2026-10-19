@@ -972,7 +972,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat dias", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat negativo", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: b5b36a98-55fa-4944-8555-b1502fab2480
 
@@ -1008,7 +1008,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat dias", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat negativo", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: ef258d98-7eb6-45bd-aec5-20080fa00999
 
@@ -1020,7 +1020,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Aud Média de Matrizes por Relatório])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat negativo", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 1273b068-b4e9-4b35-833b-1f8baba3f55b
 
@@ -1068,7 +1068,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat dias", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat negativo", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 407e1fcc-dceb-44f9-b9c0-96cce74ec024
 
