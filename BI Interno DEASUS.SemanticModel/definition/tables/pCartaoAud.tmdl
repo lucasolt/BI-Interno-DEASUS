@@ -34,3 +34,4 @@ table pCartaoAud
 		source = #table(type table [Situação = text, Chave = text, Ordem = Int64.Type], {{"Aguardando Designação", "Sem designação", 1}, {"Com a Equipe", "Com a equipe", 2}, {"Com a Chefia", "Com a chefia", 3}, {"Aguardando Auditado", "Aguardando auditado", 4}})
 
 	annotation PBI_ResultType = Table
+
