@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "ca7bf7770baa104b127f",
+  "name": "40385b27e1fcdd80cb4b",
   "position": {
     "x": 8,
-    "y": 686,
-    "z": 10000,
+    "y": 506,
+    "z": 19500,
     "height": 66,
     "width": 164,
-    "tabOrder": 10000
+    "tabOrder": 19500
   },
   "visual": {
     "visualType": "actionButton",
@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'🔒 Área da chefia'"
+                  "Value": "'◂ Área da chefia'"
                 }
               }
             },
@@ -99,7 +99,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#24548F'"
+                      "Value": "'#163F73'"
                     }
                   }
                 }
@@ -142,7 +142,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -218,13 +218,8 @@
             },
             "navigationSection": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Destino Área da Chefia"
+                "Literal": {
+                  "Value": "'b08f2ac7e3fa3e529b7d'"
                 }
               }
             }

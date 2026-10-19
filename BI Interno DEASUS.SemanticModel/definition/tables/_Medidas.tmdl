@@ -741,7 +741,7 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 98ee255d-b692-40e4-bfea-8380ca67603a
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · Aud Designações' =
 			VAR _v = [Aud Designações]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Aud Designações]))
@@ -749,11 +749,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Aud Designações])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 4f49867b-4aef-4da5-87c0-9f31670150d7
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · RAI Entregues' =
 			VAR _v = [RAI Entregues]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([RAI Entregues]))
@@ -761,11 +761,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Entregues])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 06e6ae33-ce1e-4b02-9f7b-33c9c8f8bbdd
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · RAI Taxa de Pontualidade' =
 			VAR _v = [RAI Taxa de Pontualidade]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([RAI Taxa de Pontualidade]))
@@ -773,11 +773,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Taxa de Pontualidade])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 21c95ad2-b937-4363-81fe-a488c84a44a3
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · RAI Dias Médios para Entrega' =
 			VAR _v = [RAI Dias Médios para Entrega]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([RAI Dias Médios para Entrega]))
@@ -785,11 +785,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#FBF7F1", 1, "#F3E9DA", 2, "#EADBC3", 3, "#E0CBA9", "#D5BA8F"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat quente", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: b5b36a98-55fa-4944-8555-b1502fab2480
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · RAF Entregues' =
 			VAR _v = [RAF Entregues]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([RAF Entregues]))
@@ -797,11 +797,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Entregues])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 07c33640-52c5-49dd-928a-838d2c5a6d6b
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · RAF Taxa de Pontualidade' =
 			VAR _v = [RAF Taxa de Pontualidade]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([RAF Taxa de Pontualidade]))
@@ -809,11 +809,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Taxa de Pontualidade])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 0aac9924-c73c-4a70-a0cd-f7389acf51f1
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · RAF Dias Médios para Entrega' =
 			VAR _v = [RAF Dias Médios para Entrega]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([RAF Dias Médios para Entrega]))
@@ -821,11 +821,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#FBF7F1", 1, "#F3E9DA", 2, "#EADBC3", 3, "#E0CBA9", "#D5BA8F"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat quente", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: ef258d98-7eb6-45bd-aec5-20080fa00999
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · Aud Média de Matrizes por Relatório' =
 			VAR _v = [Aud Média de Matrizes por Relatório]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Aud Média de Matrizes por Relatório]))
@@ -833,11 +833,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Aud Média de Matrizes por Relatório])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 1273b068-b4e9-4b35-833b-1f8baba3f55b
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · Designações' =
 			VAR _v = [Designações]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Designações]))
@@ -845,11 +845,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Designações])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: bb662e93-c5a6-4738-b38b-2d278cec5bb6
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · Relatórios Entregues' =
 			VAR _v = [Relatórios Entregues]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Relatórios Entregues]))
@@ -857,11 +857,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Relatórios Entregues])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 62453e22-4e2a-43bc-90d6-c876778c2fc0
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · Taxa de Pontualidade' =
 			VAR _v = [Taxa de Pontualidade]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Taxa de Pontualidade]))
@@ -869,11 +869,11 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Taxa de Pontualidade])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#F4F7FB", 1, "#E1E9F3", 2, "#CBD9EA", 3, "#B3C7E0", "#9AB4D5"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: a94627e3-f667-48e0-861e-53a5f650d614
 
-	/// Heat map (Desempenho por Auditor): 5 tons conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
 	measure 'Cor Heat · Dias Médios para Entrega' =
 			VAR _v = [Dias Médios para Entrega]
 			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Dias Médios para Entrega]))
@@ -881,9 +881,31 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    SWITCH(_faixa, 0, "#FBF7F1", 1, "#F3E9DA", 2, "#EADBC3", 3, "#E0CBA9", "#D5BA8F"))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat quente", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 407e1fcc-dceb-44f9-b9c0-96cce74ec024
+
+	/// Heat map: 5 tons (dPaleta) conforme a posição do auditor entre o mínimo e o máximo dos auditores da seleção.
+	measure 'Cor Heat · Trabalhos em Aberto' =
+			VAR _v = [Trabalhos em Aberto]
+			VAR _aud = FILTER(ALLSELECTED(dAuditor[Auditor]), NOT ISBLANK([Trabalhos em Aberto]))
+			VAR _min = MINX(_aud, [Trabalhos em Aberto])
+			VAR _max = MAXX(_aud, [Trabalhos em Aberto])
+			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: b74e2a56-7e56-465f-91d0-1415f4055c62
+
+	/// Cor de cada botão de pCartaoAud (dPaleta, Categoria).
+	measure 'Cor Cartão Aud' = LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Categoria", dPaleta[Chave], SELECTEDVALUE(pCartaoAud[Chave]))
+		displayFolder: 6. Rótulos\Cores
+		lineageTag: 59124e4a-d96b-4b20-b7b4-5e85c5af6b27
+
+	/// Cor de cada botão de pCartaoMon (dPaleta, Categoria).
+	measure 'Cor Cartão Mon' = LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Categoria", dPaleta[Chave], SELECTEDVALUE(pCartaoMon[Chave]))
+		displayFolder: 6. Rótulos\Cores
+		lineageTag: 223fb0e4-7d6f-4135-9ac9-b636deaa4bc4
 
 	/// 1 se o usuário logado (USERPRINCIPALNAME) está no Excel da chefia.
 	measure 'É Chefia' = IF(LOWER(USERPRINCIPALNAME()) IN VALUES(UsuariosChefia[E-mail]), 1, 0)

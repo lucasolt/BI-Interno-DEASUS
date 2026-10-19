@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "3f111464100ddeeef664",
   "position": {
-    "x": 491.52119700748131,
+    "x": 491.5211970074813,
     "y": 319,
     "z": 62100,
-    "height": 99.650872817955118,
-    "width": 1117.7057356608479,
+    "height": 99.65087281795512,
+    "width": 1117.705735660848,
     "tabOrder": 62100
   },
   "visual": {
@@ -215,7 +215,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#DCE8F7'"
+                      "Value": "'#0B2E59'"
                     }
                   }
                 }
@@ -233,7 +233,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C9DBF2'"
+                      "Value": "'#163F73'"
                     }
                   }
                 }
@@ -251,7 +251,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#B3CCEC'"
+                      "Value": "'#24548F'"
                     }
                   }
                 }
@@ -277,10 +277,22 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#D5DCE6'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Cartão Mon"
                     }
                   }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
                 }
               }
             }
@@ -303,9 +315,16 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1F6FD1'"
+                      "Value": "'#0B2E59'"
                     }
                   }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
                 }
               }
             }
@@ -347,6 +366,24 @@
           "selector": {
             "id": "default"
           }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "selection:selected"
+          }
         }
       ],
       "label": [
@@ -370,8 +407,13 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#0B2E59'"
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Cartão Mon"
                     }
                   }
                 }
@@ -387,6 +429,24 @@
           },
           "selector": {
             "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "selection:selected"
           }
         }
       ],

@@ -1,0 +1,74 @@
+/// Fonte única de cores do relatório. Mude o hexadecimal aqui e atualize: muda em todas as tabelas (heat map) e nos botões dos cartões.
+/// Heat frio/quente: Nível 0 (mais claro) a 4 (mais forte). Categoria: Chave = Com Quem / Sem designação / Total / Dias médios.
+table dPaleta
+	isHidden
+	lineageTag: 07733d70-08d2-45ce-ba76-ae4ce26a0a3e
+
+	column Paleta
+		dataType: string
+		lineageTag: a87073f7-67b0-4266-89ac-c65f0cc774ef
+		summarizeBy: none
+		sourceColumn: Paleta
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nível
+		dataType: int64
+		lineageTag: 3764b27a-2494-41b2-862b-78e902eb418d
+		summarizeBy: none
+		sourceColumn: Nível
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cor
+		dataType: string
+		lineageTag: ec1186ac-d6ce-4e8e-bd05-9099fe99d135
+		summarizeBy: none
+		sourceColumn: Cor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Chave
+		dataType: string
+		lineageTag: c03fcabb-5f13-418e-bcc0-88affb095e76
+		summarizeBy: none
+		sourceColumn: Chave
+
+		annotation SummarizationSetBy = Automatic
+
+	column Uso
+		dataType: string
+		lineageTag: fb2e4d09-9fdb-4811-b528-a0628a230097
+		summarizeBy: none
+		sourceColumn: Uso
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dPaleta = m
+		mode: import
+		source =
+				let
+				    Fonte = #table(
+				        type table [Paleta = text, #"Nível" = nullable Int64.Type, Cor = text, Chave = nullable text, Uso = text],
+				        {
+				        {"Heat frio", 0, "#F4F7FB", null, "tabelas: volumes e %"},
+				        {"Heat frio", 1, "#E1E9F3", null, "tabelas: volumes e %"},
+				        {"Heat frio", 2, "#CBD9EA", null, "tabelas: volumes e %"},
+				        {"Heat frio", 3, "#B3C7E0", null, "tabelas: volumes e %"},
+				        {"Heat frio", 4, "#9AB4D5", null, "tabelas: volumes e %"},
+				        {"Heat quente", 0, "#FBF7F1", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat quente", 1, "#F3E9DA", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat quente", 2, "#EADBC3", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat quente", 3, "#E0CBA9", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat quente", 4, "#D5BA8F", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Categoria", null, "#0B2E59", "Total", "cartões e botões de Trabalhos em Andamento"},
+				        {"Categoria", null, "#F2B705", "Sem designação", "cartões e botões de Trabalhos em Andamento"},
+				        {"Categoria", null, "#1F6FD1", "Com a equipe", "cartões e botões de Trabalhos em Andamento"},
+				        {"Categoria", null, "#2E9E44", "Com a chefia", "cartões e botões de Trabalhos em Andamento"},
+				        {"Categoria", null, "#A6A6A6", "Aguardando auditado", "cartões e botões de Trabalhos em Andamento"},
+				        {"Categoria", null, "#D64545", "Dias médios", "cartões e botões de Trabalhos em Andamento"}
+				        })
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table

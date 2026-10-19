@@ -4,10 +4,10 @@
   "position": {
     "x": 8,
     "y": 432,
-    "z": 25000,
+    "z": 19400,
     "height": 66,
     "width": 164,
-    "tabOrder": 25000
+    "tabOrder": 19400
   },
   "visual": {
     "visualType": "actionButton",
@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'◂ Área da chefia'"
+                  "Value": "'Metodologia'"
                 }
               }
             },
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'b08f2ac7e3fa3e529b7d'"
+                  "Value": "'e3538e0a90883f50b837'"
                 }
               }
             }
