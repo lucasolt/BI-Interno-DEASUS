@@ -25,6 +25,14 @@
                       "color": "#0B2E59",
                       "fontWeight": "bold"
                     }
+                  },
+                  {
+                    "value": "     ·     os botões com borda colorida filtram as tabelas abaixo (clique de novo para limpar)",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B7F",
+                      "fontStyle": "italic"
+                    }
                   }
                 ]
               }

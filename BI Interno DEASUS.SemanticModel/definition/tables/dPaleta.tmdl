@@ -1,5 +1,5 @@
 /// Fonte única de cores do relatório. Mude o hexadecimal aqui e atualize: muda em todas as tabelas (heat map) e nos botões dos cartões.
-/// Heat frio/quente: Nível 0 (mais claro) a 4 (mais forte). Categoria: Chave = Com Quem / Total / Dias médios.
+/// Heat volume (verde-sálvia; volumes e %) / Heat dias (areia; dias médios): Nível 0 (mais claro) a 4 (mais forte). Categoria: Chave = Com Quem / Total / Dias médios.
 table dPaleta
 	isHidden
 	lineageTag: 07733d70-08d2-45ce-ba76-ae4ce26a0a3e
@@ -51,16 +51,16 @@ table dPaleta
 				    Fonte = #table(
 				        type table [Paleta = text, #"Nível" = nullable Int64.Type, Cor = text, Chave = nullable text, Uso = text],
 				        {
-				        {"Heat frio", 0, "#F4F7FB", null, "tabelas: volumes e %"},
-				        {"Heat frio", 1, "#E1E9F3", null, "tabelas: volumes e %"},
-				        {"Heat frio", 2, "#CBD9EA", null, "tabelas: volumes e %"},
-				        {"Heat frio", 3, "#B3C7E0", null, "tabelas: volumes e %"},
-				        {"Heat frio", 4, "#9AB4D5", null, "tabelas: volumes e %"},
-				        {"Heat quente", 0, "#FBF7F1", null, "tabelas: dias médios (mais dias = mais forte)"},
-				        {"Heat quente", 1, "#F3E9DA", null, "tabelas: dias médios (mais dias = mais forte)"},
-				        {"Heat quente", 2, "#EADBC3", null, "tabelas: dias médios (mais dias = mais forte)"},
-				        {"Heat quente", 3, "#E0CBA9", null, "tabelas: dias médios (mais dias = mais forte)"},
-				        {"Heat quente", 4, "#D5BA8F", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat volume", 0, "#F3F6F1", null, "tabelas: volumes e %"},
+				        {"Heat volume", 1, "#E2EBDD", null, "tabelas: volumes e %"},
+				        {"Heat volume", 2, "#CDDCC5", null, "tabelas: volumes e %"},
+				        {"Heat volume", 3, "#B6CCAB", null, "tabelas: volumes e %"},
+				        {"Heat volume", 4, "#9DBA90", null, "tabelas: volumes e %"},
+				        {"Heat dias", 0, "#FBF7F1", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat dias", 1, "#F3E9DA", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat dias", 2, "#EADBC3", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat dias", 3, "#E0CBA9", null, "tabelas: dias médios (mais dias = mais forte)"},
+				        {"Heat dias", 4, "#D5BA8F", null, "tabelas: dias médios (mais dias = mais forte)"},
 				        {"Categoria", null, "#0B2E59", "Total", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#F2B705", "Aguardando designação", "cartões e botões de Trabalhos em Andamento"},
 				        {"Categoria", null, "#1F6FD1", "Com a equipe", "cartões e botões de Trabalhos em Andamento"},

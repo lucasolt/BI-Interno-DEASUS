@@ -936,7 +936,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Aud Designações])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 4f49867b-4aef-4da5-87c0-9f31670150d7
 
@@ -948,7 +948,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Entregues])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 06e6ae33-ce1e-4b02-9f7b-33c9c8f8bbdd
 
@@ -960,7 +960,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Taxa de Pontualidade])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 21c95ad2-b937-4363-81fe-a488c84a44a3
 
@@ -972,7 +972,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAI Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat quente", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat dias", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: b5b36a98-55fa-4944-8555-b1502fab2480
 
@@ -984,7 +984,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Entregues])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 07c33640-52c5-49dd-928a-838d2c5a6d6b
 
@@ -996,7 +996,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Taxa de Pontualidade])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 0aac9924-c73c-4a70-a0cd-f7389acf51f1
 
@@ -1008,7 +1008,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [RAF Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat quente", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat dias", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: ef258d98-7eb6-45bd-aec5-20080fa00999
 
@@ -1020,7 +1020,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Aud Média de Matrizes por Relatório])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 1273b068-b4e9-4b35-833b-1f8baba3f55b
 
@@ -1032,7 +1032,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Designações])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: bb662e93-c5a6-4738-b38b-2d278cec5bb6
 
@@ -1044,7 +1044,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Relatórios Entregues])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 62453e22-4e2a-43bc-90d6-c876778c2fc0
 
@@ -1056,7 +1056,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Taxa de Pontualidade])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: a94627e3-f667-48e0-861e-53a5f650d614
 
@@ -1068,7 +1068,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Dias Médios para Entrega])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat quente", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat dias", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: 407e1fcc-dceb-44f9-b9c0-96cce74ec024
 
@@ -1080,7 +1080,7 @@ table _Medidas
 			VAR _max = MAXX(_aud, [Trabalhos em Aberto])
 			VAR _faixa = IF(_max = _min, 2, MIN(4, INT(DIVIDE(_v - _min, _max - _min) * 5)))
 			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
-			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat frio", dPaleta[Nível], _faixa))
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _faixa))
 		displayFolder: 6. Rótulos\Heat map
 		lineageTag: b74e2a56-7e56-465f-91d0-1415f4055c62
 
