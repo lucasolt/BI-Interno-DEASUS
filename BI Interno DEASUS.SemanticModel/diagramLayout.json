@@ -243,7 +243,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 4257.2228399272444,
+            "y": 421.92658062236092
+          },
           "nodeIndex": "fTrabalhosAbertos",
           "nodeLineageTag": "f6d243d1-dd08-48c3-b474-6089a45471f9",
           "size": {
@@ -253,7 +256,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 4541.2228399272444,
+            "y": 471.92658062236092
+          },
           "nodeIndex": "dPaleta",
           "nodeLineageTag": "07733d70-08d2-45ce-ba76-ae4ce26a0a3e",
           "size": {
@@ -263,7 +269,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 4825.2228399272444,
+            "y": 495.92658062236092
+          },
           "nodeIndex": "pCartaoAud",
           "nodeLineageTag": "4615c649-7038-4bb8-a946-0e200751d478",
           "size": {
@@ -273,7 +282,10 @@
           "zIndex": 0
         },
         {
-          "location": {},
+          "location": {
+            "x": 5109.2228399272444,
+            "y": 495.92658062236092
+          },
           "nodeIndex": "pCartaoMon",
           "nodeLineageTag": "d379d9b2-d6ae-4ee8-ac2a-8dfcd28a2db2",
           "size": {
