@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Monitoramento · Por Auditor'"
+                  "Value": "'Monitoramento · Detalhes'"
                 }
               }
             },
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'7b853965990df9861c12'"
+                  "Value": "'dc3490c9458ec96d7269'"
                 }
               }
             }

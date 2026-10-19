@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Auditoria · Por Auditor'"
+                  "Value": "'Detalhes ▸'"
                 }
               }
             },

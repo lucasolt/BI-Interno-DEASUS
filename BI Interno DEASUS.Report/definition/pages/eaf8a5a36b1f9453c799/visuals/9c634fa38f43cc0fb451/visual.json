@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Desempenho por Auditor'"
+                  "Value": "'Monitoramento · Por Auditor'"
                 }
               }
             },
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'9902a5e199829f7a6641'"
+                  "Value": "'7b853965990df9861c12'"
                 }
               }
             }

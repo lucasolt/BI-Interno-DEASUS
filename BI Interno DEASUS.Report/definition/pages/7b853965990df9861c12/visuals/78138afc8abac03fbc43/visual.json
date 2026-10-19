@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Desempenho por Auditor'"
+                  "Value": "'Monitoramento · Por Auditor'"
                 }
               }
             },
@@ -99,7 +99,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#163F73'"
+                      "Value": "'#0B2E59'"
                     }
                   }
                 }
@@ -142,7 +142,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'9902a5e199829f7a6641'"
+                  "Value": "'7b853965990df9861c12'"
                 }
               }
             }

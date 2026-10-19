@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Auditoria · Por Auditor'"
+                  "Value": "'Auditoria · Detalhes'"
                 }
               }
             },
@@ -99,7 +99,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#163F73'"
+                      "Value": "'#0B2E59'"
                     }
                   }
                 }
@@ -142,7 +142,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'522ff2cff1527d73bdc2'"
+                  "Value": "'eaf8a5a36b1f9453c799'"
                 }
               }
             }

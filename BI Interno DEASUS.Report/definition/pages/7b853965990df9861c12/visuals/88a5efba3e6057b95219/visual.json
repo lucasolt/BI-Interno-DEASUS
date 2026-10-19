@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Trabalhos em Andamento'"
+                  "Value": "'Auditoria · Por Auditor'"
                 }
               }
             },
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'b08f2ac7e3fa3e529b7d'"
+                  "Value": "'522ff2cff1527d73bdc2'"
                 }
               }
             }

@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Auditoria · Detalhes'"
+                  "Value": "'◂ Área da chefia'"
                 }
               }
             },
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'eaf8a5a36b1f9453c799'"
+                  "Value": "'b08f2ac7e3fa3e529b7d'"
                 }
               }
             }

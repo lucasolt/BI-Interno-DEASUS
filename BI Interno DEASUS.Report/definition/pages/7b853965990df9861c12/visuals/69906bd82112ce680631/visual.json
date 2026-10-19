@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Auditoria · Por Auditor'"
+                  "Value": "'Auditoria · Detalhes'"
                 }
               }
             },
@@ -219,7 +219,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'522ff2cff1527d73bdc2'"
+                  "Value": "'eaf8a5a36b1f9453c799'"
                 }
               }
             }
