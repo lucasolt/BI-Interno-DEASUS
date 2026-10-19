@@ -833,6 +833,15 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 58a01765-a90d-482a-9451-92188f1e3753
 
+	/// Trabalhos já designados (fTrabalhosAbertos): processos distintos por tipo, somados entre Auditoria e Monitoramento.
+	measure 'Trabalhos em Aberto' =
+			VAR _v = SUMX(VALUES(fTrabalhosAbertos[Tipo]), CALCULATE(DISTINCTCOUNT(fTrabalhosAbertos[Nº PROA])))
+			// 0 só nos cartões/totais; em linhas por auditor ou função fica vazio (não cria linhas sem nada)
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) || ISINSCOPE(dFuncao[Função]), _v, _v + 0)
+		formatString: #,0
+		displayFolder: 8. Carteira Atual
+		lineageTag: c499f1d1-0531-4bd9-a31b-ffb19e80ef65
+
 	/// 1 se o usuário logado (USERPRINCIPALNAME) está no Excel da chefia.
 	measure 'É Chefia' = IF(LOWER(USERPRINCIPALNAME()) IN VALUES(UsuariosChefia[E-mail]), 1, 0)
 		formatString: 0

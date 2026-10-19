@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ee0afb789014609df67d",
   "position": {
-    "x": 195,
-    "y": 717,
+    "x": 195.26184538653368,
+    "y": 717.75561097256855,
     "z": 38000,
-    "height": 354,
-    "width": 1718,
+    "height": 354.16458852867834,
+    "width": 937.25685785536166,
     "tabOrder": 38000
   },
   "visual": {
@@ -20,28 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
-                    }
-                  },
-                  "Property": "Tipo"
-                }
-              },
-              "queryRef": "fTrabalhosAbertos.Tipo",
-              "nativeQueryRef": "Tipo",
-              "displayName": "Tipo"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Auditor"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Auditor",
+              "queryRef": "fCarteira.Auditor",
               "nativeQueryRef": "Auditor",
               "displayName": "Auditor"
             },
@@ -50,13 +35,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Função"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Função",
+              "queryRef": "fCarteira.Função",
               "nativeQueryRef": "Função",
               "displayName": "Função"
             },
@@ -65,30 +50,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Nº PROA"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Nº PROA",
+              "queryRef": "fCarteira.Nº PROA",
               "nativeQueryRef": "Nº PROA",
               "displayName": "Nº PROA"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
-                    }
-                  },
-                  "Property": "Ciclo"
-                }
-              },
-              "queryRef": "fTrabalhosAbertos.Ciclo",
-              "nativeQueryRef": "Ciclo",
-              "displayName": "Ciclo"
             },
             {
               "field": {
@@ -125,28 +95,28 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
-                  "Property": "Fase / Status"
+                  "Property": "Fase"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Fase / Status",
-              "nativeQueryRef": "Fase / Status",
-              "displayName": "Fase / Status"
+              "queryRef": "fCarteira.Fase",
+              "nativeQueryRef": "Fase",
+              "displayName": "Fase"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Com Quem"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Com Quem",
+              "queryRef": "fCarteira.Com Quem",
               "nativeQueryRef": "Com quem",
               "displayName": "Com quem"
             },
@@ -155,13 +125,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Data Designação"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Data Designação",
+              "queryRef": "fCarteira.Data Designação",
               "nativeQueryRef": "Designação",
               "displayName": "Designação"
             },
@@ -170,13 +140,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
                   "Property": "Dias desde a Designação"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Dias desde a Designação",
+              "queryRef": "fCarteira.Dias desde a Designação",
               "nativeQueryRef": "Dias desde a designação",
               "displayName": "Dias desde a designação"
             },
@@ -185,15 +155,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
+                      "Entity": "fCarteira"
                     }
                   },
-                  "Property": "Dias sem Movimentação"
+                  "Property": "Dias desde a Última Movimentação"
                 }
               },
-              "queryRef": "fTrabalhosAbertos.Dias sem Movimentação",
-              "nativeQueryRef": "Dias sem movimentação",
-              "displayName": "Dias sem movimentação"
+              "queryRef": "fCarteira.Dias desde a Última Movimentação",
+              "nativeQueryRef": "Dias desde a últ. movimentação",
+              "displayName": "Dias desde a últ. movimentação"
             }
           ]
         }
@@ -205,10 +175,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "fTrabalhosAbertos"
+                    "Entity": "fCarteira"
                   }
                 },
-                "Property": "Dias sem Movimentação"
+                "Property": "Dias desde a Última Movimentação"
               }
             },
             "direction": "Descending"
@@ -489,7 +459,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'AUDITORIAS E MONITORAMENTOS COM OS AUDITORES (mais parados no topo)'"
+                  "Value": "'AUDITORIA · TRABALHOS EM ABERTO (mais parados no topo)'"
                 }
               }
             },
