@@ -1,0 +1,36 @@
+/// Segmentação de botão dos cartões de Auditoria (Trabalhos em Andamento). Desconectada; Chave = valor de fCarteira[Com Quem] ou "Sem designação".
+table pCartaoAud
+	lineageTag: 4615c649-7038-4bb8-a946-0e200751d478
+
+	column Situação
+		dataType: string
+		lineageTag: e9068436-fd1d-47b1-b95d-b5ebf61a80f7
+		summarizeBy: none
+		sourceColumn: Situação
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Chave
+		dataType: string
+		isHidden
+		lineageTag: a4da6d39-a855-45da-a971-11e383c054aa
+		summarizeBy: none
+		sourceColumn: Chave
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		isHidden
+		lineageTag: c0168882-5a13-4adb-b666-835a58643a94
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pCartaoAud = m
+		mode: import
+		source = #table(type table [Situação = text, Chave = text, Ordem = Int64.Type], {{"Aguardando Designação", "Sem designação", 1}, {"Com a Equipe", "Com a equipe", 2}, {"Com a Chefia", "Com a chefia", 3}, {"Aguardando Auditado", "Aguardando auditado", 4}})
+
+	annotation PBI_ResultType = Table

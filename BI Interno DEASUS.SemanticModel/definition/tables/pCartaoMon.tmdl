@@ -1,0 +1,36 @@
+/// Segmentação de botão dos cartões de Monitoramento (Trabalhos em Andamento). Desconectada; Chave = valor de fMonitAberto[Com Quem] ou "Sem designação".
+table pCartaoMon
+	lineageTag: d379d9b2-d6ae-4ee8-ac2a-8dfcd28a2db2
+
+	column Situação
+		dataType: string
+		lineageTag: 2019b5e8-2428-4125-9a2a-a1b201182261
+		summarizeBy: none
+		sourceColumn: Situação
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Chave
+		dataType: string
+		isHidden
+		lineageTag: a84ba16e-8cfa-412b-a067-7736c8b7c85d
+		summarizeBy: none
+		sourceColumn: Chave
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		isHidden
+		lineageTag: a93f3699-e557-42d1-b735-7214c6e1bbb1
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pCartaoMon = m
+		mode: import
+		source = #table(type table [Situação = text, Chave = text, Ordem = Int64.Type], {{"Aguardando Designação", "Sem designação", 1}, {"Com a Equipe", "Com a equipe", 2}, {"Com a Chefia", "Com a chefia", 3}, {"Aguardando Monitorado", "Aguardando auditado", 4}})
+
+	annotation PBI_ResultType = Table
