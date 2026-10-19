@@ -214,47 +214,6 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F2B705'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dSituacao"
-                          }
-                        },
-                        "Property": "Situação"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Pendente (vencida)'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
                       "Value": "'#A6A6A6'"
                     }
                   }

@@ -286,11 +286,10 @@ table fDesignacoes
 				        if [Data Limite] = null then "Sem prazo definido"
 				        else if [Data Relatório] <> null then (if [Data Relatório] <= [Data Limite] then "No prazo" else "Fora do prazo")
 				        else if CicloFechado([Status do Ciclo]) then "Não se aplica"
-				        else if Hoje > [Data Limite] then "Pendente (vencida)"
 				        else "Em andamento",
 				        type text),
 				    ComOrdemSituacao = Table.AddColumn(ComSituacao, "Situação Ordem", each
-				        List.PositionOf({"No prazo", "Fora do prazo", "Pendente (vencida)", "Em andamento", "Não se aplica", "Sem prazo definido"}, [Situação]) + 1,
+				        List.PositionOf({"No prazo", "Fora do prazo", "Em andamento", "Não se aplica", "Sem prazo definido"}, [Situação]) + 1,
 				        Int64.Type),
 				    ComEntregue = Table.AddColumn(ComOrdemSituacao, "Entregue", each
 				        if [Data Relatório] <> null then "Entregue" else "Não entregue", type text),
@@ -300,7 +299,6 @@ table fDesignacoes
 				        Int64.Type),
 				    ComDiasAtraso = Table.AddColumn(ComDiasEntrega, "Dias de Atraso", each
 				        if [Situação] = "Fora do prazo" then Duration.Days([Data Relatório] - [Data Limite])
-				        else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
 				        else null,
 				        Int64.Type),
 				    // carteira atual: ciclo aberto e relatório ainda não entregue

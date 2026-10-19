@@ -236,25 +236,6 @@
               {
                 "textRuns": [
                   {
-                    "value": "Pendente (vencida): ",
-                    "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#1F2D3D",
-                      "fontWeight": "bold"
-                    }
-                  },
-                  {
-                    "value": "sem entrega e Data Limite anterior à data da atualização.",
-                    "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#1F2D3D"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
                     "value": "Em andamento: ",
                     "textStyle": {
                       "fontSize": "10pt",
@@ -312,7 +293,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Auditoria: Data de Designação. Monitoramento: Data Inicial da Designação do ciclo. Os gráficos de evolução mensal usam a data de entrega (entregas) e a Data Limite (pendências vencidas).",
+                    "value": "Auditoria: Data de Designação. Monitoramento: Data Inicial da Designação do ciclo. Os gráficos de evolução mensal usam a data de entrega (entregas).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"

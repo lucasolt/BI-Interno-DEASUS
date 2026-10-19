@@ -34,9 +34,8 @@ table dSituacao
 				    {
 				        {"No prazo", 1, "Entregue", "Sim"},
 				        {"Fora do prazo", 2, "Entregue", "Sim"},
-				        {"Pendente (vencida)", 3, "Pendente", "Sim"},
-				        {"Em andamento", 4, "Pendente", "Não"},
-				        {"Não se aplica", 5, "Outros", "Não"},
-				        {"Sem prazo definido", 6, "Outros", "Não"}
+				        {"Em andamento", 3, "Não entregue", "Sim"},
+				        {"Não se aplica", 4, "Outros", "Não"},
+				        {"Sem prazo definido", 5, "Outros", "Não"}
 				    })
 

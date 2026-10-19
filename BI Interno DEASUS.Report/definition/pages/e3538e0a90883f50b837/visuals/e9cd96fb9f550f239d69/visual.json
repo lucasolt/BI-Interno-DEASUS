@@ -96,7 +96,7 @@
                     }
                   },
                   {
-                    "value": "Data Final da Designação + 30 dias. Sem relatório em ciclo arquivado ou encerrado = Não se aplica (não conta como pendência).",
+                    "value": "Data Final da Designação + 30 dias. Sem relatório em ciclo arquivado ou encerrado = Não se aplica (não entra nas taxas).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"
@@ -176,7 +176,7 @@
                     }
                   },
                   {
-                    "value": "Entregues ÷ (Entregues + Pendências vencidas).",
+                    "value": "Entregues ÷ (Entregues + Em andamento).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"
@@ -196,25 +196,6 @@
                   },
                   {
                     "value": "No prazo ÷ Entregues.",
-                    "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#1F2D3D"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Taxa de Pendência Vencida: ",
-                    "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#1F2D3D",
-                      "fontWeight": "bold"
-                    }
-                  },
-                  {
-                    "value": "Pendências vencidas ÷ designações (auditoria: ÷ relatórios aplicáveis).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#1F2D3D"

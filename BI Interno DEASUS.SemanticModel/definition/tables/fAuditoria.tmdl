@@ -264,7 +264,6 @@ table fAuditoria
 				        if [Data Limite] = null then "Sem prazo definido"
 				        else if [Data Entrega] <> null then (if [Data Entrega] <= [Data Limite] then "No prazo" else "Fora do prazo")
 				        else if List.Contains(Encerrados, Text.Upper([Status do Processo] ?? "")) then "Não se aplica"
-				        else if Hoje > [Data Limite] then "Pendente (vencida)"
 				        else "Em andamento",
 				        type text),
 				    ComDiasEntrega = Table.AddColumn(ComSituacao, "Dias para Entrega", each
@@ -272,12 +271,11 @@ table fAuditoria
 				        Int64.Type),
 				    ComDiasAtraso = Table.AddColumn(ComDiasEntrega, "Dias de Atraso", each
 				        if [Situação] = "Fora do prazo" then Duration.Days([Data Entrega] - [Data Limite])
-				        else if [Situação] = "Pendente (vencida)" then Duration.Days(Hoje - [Data Limite])
 				        else null,
 				        Int64.Type),
-				    // idade do relatório ainda não entregue (pendente ou em andamento)
+				    // idade do relatório ainda não entregue
 				    ComDiasAberto = Table.AddColumn(ComDiasAtraso, "Dias em Aberto", each
-				        if [Situação] = "Pendente (vencida)" or [Situação] = "Em andamento" then Duration.Days(Hoje - [Data Designação])
+				        if [Situação] = "Em andamento" then Duration.Days(Hoje - [Data Designação])
 				        else null,
 				        Int64.Type),
 				    // faixa de dias até a entrega (mesma régua para RAI e RAF)

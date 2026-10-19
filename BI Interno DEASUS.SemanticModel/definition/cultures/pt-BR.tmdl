@@ -375,15 +375,6 @@ cultureInfo pt-BR
 			        }
 			      ]
 			    },
-			    "table_medidas.aud_pendências_vencidas": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Medidas",
-			          "ConceptualProperty": "Aud Pendências Vencidas"
-			        }
-			      },
-			      "State": "Generated"
-			    },
 			    "table_medidas.aud_média_de_matrizes_por_relatório": {
 			      "Definition": {
 			        "Binding": {
@@ -569,27 +560,6 @@ cultureInfo pt-BR
 			        }
 			      ]
 			    },
-			    "table_medidas.pendências_vencidas": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Medidas",
-			          "ConceptualProperty": "Pendências Vencidas"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Pend. vencidas": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
-			    },
 			    "table_medidas.aud_no_prazo_por_data_entrega": {
 			      "Definition": {
 			        "Binding": {
@@ -604,15 +574,6 @@ cultureInfo pt-BR
 			        "Binding": {
 			          "ConceptualEntity": "_Medidas",
 			          "ConceptualProperty": "Aud Fora do Prazo (por Data Entrega)"
-			        }
-			      },
-			      "State": "Generated"
-			    },
-			    "table_medidas.aud_pendências_vencidas_por_data_limite": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Medidas",
-			          "ConceptualProperty": "Aud Pendências Vencidas (por Data Limite)"
 			        }
 			      },
 			      "State": "Generated"
@@ -659,15 +620,6 @@ cultureInfo pt-BR
 			        }
 			      ]
 			    },
-			    "table_medidas.rai_pendências_vencidas": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Medidas",
-			          "ConceptualProperty": "RAI Pendências Vencidas"
-			        }
-			      },
-			      "State": "Generated"
-			    },
 			    "table_medidas.raf_no_prazo": {
 			      "Definition": {
 			        "Binding": {
@@ -709,15 +661,6 @@ cultureInfo pt-BR
 			          }
 			        }
 			      ]
-			    },
-			    "table_medidas.raf_pendências_vencidas": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Medidas",
-			          "ConceptualProperty": "RAF Pendências Vencidas"
-			        }
-			      },
-			      "State": "Generated"
 			    },
 			    "table_medidas.rai_média_de_matrizes": {
 			      "Definition": {
@@ -865,27 +808,6 @@ cultureInfo pt-BR
 			      "Terms": [
 			        {
 			          "Fora do prazo": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
-			    },
-			    "table_medidas.pendências_vencidas_por_data_limite": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "_Medidas",
-			          "ConceptualProperty": "Pendências Vencidas (por Data Limite)"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Pendentes vencidos": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

@@ -63,21 +63,6 @@
               "queryRef": "_Medidas.Relatórios Entregues",
               "nativeQueryRef": "Entregues",
               "displayName": "Entregues"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Pendências Vencidas"
-                }
-              },
-              "queryRef": "_Medidas.Pendências Vencidas",
-              "nativeQueryRef": "Pend. vencidas",
-              "displayName": "Pend. vencidas"
             }
           ]
         }
@@ -244,24 +229,6 @@
           },
           "selector": {
             "metadata": "_Medidas.Relatórios Entregues"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#F2B705'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Pendências Vencidas"
           }
         }
       ]

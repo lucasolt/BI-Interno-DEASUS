@@ -45,17 +45,11 @@ table _Medidas
 		displayFolder: 1. Produção
 		lineageTag: 4dc47402-4b1d-4e82-b154-f920bf4b46fc
 
-	/// Sem data de relatório (vencidas + em andamento).
-	measure 'Relatórios Pendentes' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] IN {"Pendente (vencida)", "Em andamento"}))
+	/// Sem data de relatório (ciclo aberto).
+	measure 'Relatórios Pendentes' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Em andamento"))
 		formatString: #,0
 		displayFolder: 1. Produção
 		lineageTag: 122eead8-7387-4731-a069-a281a86be5a2
-
-	/// Sem relatório e com Data Limite já ultrapassada na data da atualização.
-	measure 'Pendências Vencidas' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Pendente (vencida)"))
-		formatString: #,0
-		displayFolder: 1. Produção
-		lineageTag: ba3abbab-7e08-45cd-b129-ea437037ce77
 
 	/// Sem relatório, ainda dentro do prazo.
 	measure 'Em Andamento' = CALCULATE([Monitoramentos Designados], KEEPFILTERS(fDesignacoes[Situação] = "Em andamento"))
@@ -74,8 +68,8 @@ table _Medidas
 		displayFolder: 1. Produção
 		lineageTag: 2bb13fc8-2d17-4e55-bed0-2bdc09d161b6
 
-	/// Designações exigíveis: entregues + pendências vencidas (base da Taxa de Entrega).
-	measure 'Designações Encerradas' = [Relatórios Entregues] + [Pendências Vencidas]
+	/// Designações aplicáveis: entregues + em andamento (base da Taxa de Entrega; sem régua de prazo).
+	measure 'Designações Encerradas' = [Relatórios Entregues] + [Em Andamento]
 		formatString: #,0
 		displayFolder: 2. Prazo
 		lineageTag: 3af72986-8a19-4d44-8b02-d7b5942a035d
@@ -91,12 +85,6 @@ table _Medidas
 		formatString: 0.00%
 		displayFolder: 2. Prazo
 		lineageTag: 31147c08-6ead-418a-9f1d-91e828519d8a
-
-	/// Pendências vencidas ÷ ciclos designados.
-	measure 'Taxa de Pendência Vencida' = DIVIDE([Pendências Vencidas], [Monitoramentos Designados])
-		formatString: 0.00%
-		displayFolder: 2. Prazo
-		lineageTag: 4f680c58-729c-437c-a87c-fc695c2cd16e
 
 	measure '% Entregues s/ Designações' = DIVIDE([Relatórios Entregues], [Monitoramentos Designados])
 		formatString: 0.00%
@@ -134,12 +122,6 @@ table _Medidas
 		displayFolder: 2. Prazo
 		lineageTag: c349a9d5-9128-4d4b-8d98-f46e212d3ead
 
-	/// Média de dias desde a Data Limite das pendências vencidas.
-	measure 'Dias Médios de Atraso (Pendências)' = CALCULATE(AVERAGE(fDesignacoes[Dias de Atraso]), KEEPFILTERS(fDesignacoes[Situação] = "Pendente (vencida)"))
-		formatString: #,0.0
-		displayFolder: 2. Prazo
-		lineageTag: 7df6f73d-58cd-4fa8-b7e2-8cf6cd5aae7c
-
 	/// Prazo padrão aplicado (parâmetro PrazoPadraoDias no Power Query).
 	measure 'Prazo Padrão (dias)' = MAXX(ALL(fDesignacoes), DATEDIFF(fDesignacoes[Data Final Designação], fDesignacoes[Data Limite], DAY))
 		formatString: #,0
@@ -161,12 +143,6 @@ table _Medidas
 		formatString: #,0
 		displayFolder: 3. Evolução Mensal
 		lineageTag: c1be8168-507b-4777-974c-6093456edd79
-
-	/// Pendências vencidas no mês em que a Data Limite expirou.
-	measure 'Pendências Vencidas (por Data Limite)' = CALCULATE([Pendências Vencidas], USERELATIONSHIP(fDesignacoes[Data Limite], dCalendario[Data]))
-		formatString: #,0
-		displayFolder: 3. Evolução Mensal
-		lineageTag: d1873578-cf04-4e75-9d5d-5b271ed69c80
 
 	/// Designações do auditor ÷ maior nº de designações entre os auditores visíveis.
 	measure 'Participação Relativa' = DIVIDE([Designações], MAXX(ALLSELECTED(dAuditor[Auditor]), [Designações]))
@@ -211,10 +187,6 @@ table _Medidas
 	measure 'Sub Fora do Prazo' = FORMAT([% Fora do Prazo s/ Designações] + 0, "0.0%") & " dos ciclos designados"
 		displayFolder: 6. Rótulos
 		lineageTag: 1f7634a8-f3bd-4b24-af71-f3f116a1fdf3
-
-	measure 'Sub Pendências Vencidas' = FORMAT([Taxa de Pendência Vencida] + 0, "0.00%") & " das designações"
-		displayFolder: 6. Rótulos
-		lineageTag: e20fcaf6-13c4-40b3-ac12-a66e3dda1037
 
 	measure 'Sub Prazo Médio' = "Mediana " & FORMAT([Mediana Dias para Entrega], "#,0") & " · prazo: fim da designação + " & [Prazo Padrão (dias)]
 		displayFolder: 6. Rótulos
@@ -268,11 +240,6 @@ table _Medidas
 		displayFolder: 7. Auditoria
 		lineageTag: 5b5a623f-f1d7-45f6-8775-ebd94f0e748f
 
-	measure 'Aud Pendências Vencidas' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "Pendente (vencida)"))
-		formatString: #,0
-		displayFolder: 7. Auditoria
-		lineageTag: b06f7e62-c370-473e-aa77-f14cca942187
-
 	measure 'Aud Em Andamento' = CALCULATE(DISTINCTCOUNT(fAuditoria[ID Relatório]), KEEPFILTERS(fAuditoria[Situação] = "Em andamento"))
 		formatString: #,0
 		displayFolder: 7. Auditoria
@@ -284,8 +251,8 @@ table _Medidas
 		displayFolder: 7. Auditoria
 		lineageTag: ed3ae117-311a-445c-b98e-2418c9e29b24
 
-	/// Entregues ÷ (Entregues + Pendências vencidas).
-	measure 'Aud Taxa de Entrega' = DIVIDE([Aud Entregues], [Aud Entregues] + [Aud Pendências Vencidas])
+	/// Entregues ÷ (Entregues + Em andamento).
+	measure 'Aud Taxa de Entrega' = DIVIDE([Aud Entregues], [Aud Entregues] + [Aud Em Andamento])
 		formatString: 0.00%
 		displayFolder: 7. Auditoria
 		lineageTag: f1124f1f-8bee-4c01-9005-4eaac2090927
@@ -295,12 +262,6 @@ table _Medidas
 		formatString: 0.00%
 		displayFolder: 7. Auditoria
 		lineageTag: 1612363a-1413-4a3e-ae29-f98bc7935b98
-
-	/// Pendências vencidas ÷ Relatórios aplicáveis.
-	measure 'Aud Taxa de Pendência Vencida' = DIVIDE([Aud Pendências Vencidas], [Aud Relatórios Aplicáveis])
-		formatString: 0.00%
-		displayFolder: 7. Auditoria
-		lineageTag: 30650f3e-b3ef-431c-b11d-50697c6186c5
 
 	/// Média de (Data Entrega − Data Designação) por relatório entregue (PROA x RAI/RAF, não pondera pelo tamanho da equipe). Ignora dias negativos (erro de digitação).
 	measure 'Aud Dias Médios para Entrega' =
@@ -355,11 +316,6 @@ table _Medidas
 		displayFolder: 7. Auditoria
 		lineageTag: 47c65919-c881-4ad4-a26c-52b97fccf603
 
-	measure 'Aud Pendências Vencidas (por Data Limite)' = CALCULATE([Aud Pendências Vencidas], USERELATIONSHIP(fAuditoria[Data Limite], dCalendario[Data]))
-		formatString: #,0
-		displayFolder: 7. Auditoria
-		lineageTag: 7bdb2584-407c-4357-b7dc-219395976765
-
 	measure 'RAI Entregues' = CALCULATE([Aud Entregues], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
 		formatString: #,0
 		displayFolder: 7. Auditoria\RAI
@@ -374,11 +330,6 @@ table _Medidas
 		formatString: #,0
 		displayFolder: 7. Auditoria\RAI
 		lineageTag: 95f60155-2441-4d0f-803b-80899e831d62
-
-	measure 'RAI Pendências Vencidas' = CALCULATE([Aud Pendências Vencidas], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
-		formatString: #,0
-		displayFolder: 7. Auditoria\RAI
-		lineageTag: d85edbda-015a-4d52-a1f7-3b8f76f250a2
 
 	measure 'RAI Taxa de Entrega' = CALCULATE([Aud Taxa de Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAI"))
 		formatString: 0.00%
@@ -420,11 +371,6 @@ table _Medidas
 		displayFolder: 7. Auditoria\RAF
 		lineageTag: d51f6f9b-c8f5-4336-83b6-9def1befe3cf
 
-	measure 'RAF Pendências Vencidas' = CALCULATE([Aud Pendências Vencidas], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
-		formatString: #,0
-		displayFolder: 7. Auditoria\RAF
-		lineageTag: 6594397b-dae5-4ec8-9771-adf7dba59138
-
 	measure 'RAF Taxa de Entrega' = CALCULATE([Aud Taxa de Entrega], KEEPFILTERS(fAuditoria[Relatório] = "RAF"))
 		formatString: 0.00%
 		displayFolder: 7. Auditoria\RAF
@@ -462,10 +408,6 @@ table _Medidas
 		displayFolder: 6. Rótulos
 		lineageTag: 6d017172-0be4-4958-b517-b1a220e31969
 
-	measure 'Sub Aud Pendências' = FORMAT([RAI Pendências Vencidas] + 0, "#,0") & " RAI · " & FORMAT([RAF Pendências Vencidas] + 0, "#,0") & " RAF"
-		displayFolder: 6. Rótulos
-		lineageTag: 3e4126e2-b560-4fe9-8900-08b5453b3053
-
 	measure 'Sub Aud Matrizes' = FORMAT([Aud Relatórios com Matriz] + 0, "#,0") & " relatórios avaliados"
 		displayFolder: 6. Rótulos
 		lineageTag: ead2de13-b08e-4f8a-adf1-9ae2e7589753
@@ -485,18 +427,6 @@ table _Medidas
 		displayFolder: 2. Prazo
 		lineageTag: 78317c80-5771-4897-b67a-9eb17c273099
 
-	/// Para cartões: mostra 0 em vez de vazio quando não há pendências vencidas.
-	measure 'Pendências Vencidas (cartão)' = [Pendências Vencidas] + 0
-		formatString: #,0
-		displayFolder: 6. Rótulos
-		lineageTag: 1b881ed2-822c-490d-aa0a-b277f97d916a
-
-	/// Para cartões: mostra 0 em vez de vazio quando não há pendências vencidas.
-	measure 'Aud Pendências Vencidas (cartão)' = [Aud Pendências Vencidas] + 0
-		formatString: #,0
-		displayFolder: 6. Rótulos
-		lineageTag: d76d12b2-5d9c-498e-8171-84cb04f9654b
-
 	/// Mediana de (Data Entrega − Data Designação) por relatório entregue.
 	measure 'Aud Mediana Dias para Entrega' =
 			CALCULATE(
@@ -512,7 +442,7 @@ table _Medidas
 	measure 'Aud Dias Médios em Aberto' =
 			CALCULATE(
 			    AVERAGEX(VALUES(fAuditoria[ID Relatório]), CALCULATE(MAX(fAuditoria[Dias em Aberto]))),
-			    KEEPFILTERS(fAuditoria[Situação] IN {"Pendente (vencida)", "Em andamento"})
+			    KEEPFILTERS(fAuditoria[Situação] = "Em andamento")
 			)
 		formatString: #,0.0
 		displayFolder: 7. Auditoria

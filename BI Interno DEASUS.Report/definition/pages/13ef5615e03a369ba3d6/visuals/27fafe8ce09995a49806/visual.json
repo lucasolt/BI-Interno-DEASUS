@@ -6,7 +6,7 @@
     "y": 627.5311720698254,
     "z": 40000,
     "height": 329.92518703241893,
-    "width": 1217.3566084788031,
+    "width": 1217.356608478803,
     "tabOrder": 40000
   },
   "visual": {
@@ -88,21 +88,6 @@
               "queryRef": "_Medidas.Entregas Fora do Prazo (por Data Relatório)",
               "nativeQueryRef": "Fora do prazo",
               "displayName": "Fora do prazo"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Pendências Vencidas (por Data Limite)"
-                }
-              },
-              "queryRef": "_Medidas.Pendências Vencidas (por Data Limite)",
-              "nativeQueryRef": "Pendentes vencidos",
-              "displayName": "Pendentes vencidos"
             }
           ]
         }
@@ -295,24 +280,6 @@
           },
           "selector": {
             "metadata": "_Medidas.Entregas Fora do Prazo (por Data Relatório)"
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#F2B705'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Medidas.Pendências Vencidas (por Data Limite)"
           }
         }
       ]

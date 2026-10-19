@@ -3,10 +3,10 @@
   "name": "669a5343fbaf9bec91ef",
   "position": {
     "x": 195.50151975683892,
-    "y": 962.91793313069911,
+    "y": 962.9179331306991,
     "z": 49000,
-    "height": 109.42249240121581,
-    "width": 1219.6960486322189,
+    "height": 109.4224924012158,
+    "width": 1219.696048632219,
     "tabOrder": 49000
   },
   "visual": {
@@ -50,7 +50,7 @@
                     }
                   },
                   {
-                    "value": "Entregues ÷ (Entregues + Pendências vencidas).   ",
+                    "value": "Entregues ÷ (Entregues + Em andamento).   ",
                     "textStyle": {
                       "fontSize": "14pt",
                       "color": "#1f2d3d"
@@ -82,7 +82,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Dias para entrega = Data do Relatório − Data Inicial da Designação. Cada membro da equipe conta uma designação. Pendente (vencida) = sem relatório e Data Limite já ultrapassada na data da atualização.",
+                    "value": "Dias para entrega = Data do Relatório − Data Inicial da Designação. Cada membro da equipe conta uma designação.",
                     "textStyle": {
                       "fontSize": "14pt",
                       "color": "#5b6b7f"
