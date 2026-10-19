@@ -4,10 +4,10 @@
   "position": {
     "x": 605,
     "y": 90,
-    "z": 9000,
+    "z": 7000,
     "height": 66,
     "width": 400,
-    "tabOrder": 9000
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,8 +28,8 @@
               },
               "queryRef": "dAuditor.Auditor",
               "nativeQueryRef": "Auditor",
-              "displayName": "Auditor",
-              "active": true
+              "active": true,
+              "displayName": "Auditor"
             }
           ]
         }

@@ -4,10 +4,10 @@
   "position": {
     "x": 195,
     "y": 90,
-    "z": 8000,
+    "z": 6000,
     "height": 66,
     "width": 400,
-    "tabOrder": 8000
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,8 +28,8 @@
               },
               "queryRef": "dFuncao.Função",
               "nativeQueryRef": "Função",
-              "displayName": "Função",
-              "active": true
+              "active": true,
+              "displayName": "Função"
             }
           ]
         }

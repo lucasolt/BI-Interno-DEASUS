@@ -4,10 +4,10 @@
   "position": {
     "x": 1231,
     "y": 90,
-    "z": 12000,
+    "z": 10000,
     "height": 66,
     "width": 232,
-    "tabOrder": 12000
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,8 +28,8 @@
               },
               "queryRef": "dProcesso.Eixo Temático",
               "nativeQueryRef": "Eixo Temático",
-              "displayName": "Eixo Temático",
-              "active": true
+              "active": true,
+              "displayName": "Eixo Temático"
             }
           ]
         }

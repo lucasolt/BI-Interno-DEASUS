@@ -4,10 +4,10 @@
   "position": {
     "x": 1473,
     "y": 90,
-    "z": 13000,
+    "z": 11000,
     "height": 66,
     "width": 232,
-    "tabOrder": 13000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,8 +28,8 @@
               },
               "queryRef": "dSituacao.Situação",
               "nativeQueryRef": "Situação",
-              "displayName": "Situação",
-              "active": true
+              "active": true,
+              "displayName": "Situação"
             }
           ]
         }
