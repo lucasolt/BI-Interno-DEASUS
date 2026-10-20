@@ -289,7 +289,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "11D"
                 }
               }
             }
@@ -407,7 +407,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "372.48830827862355D"
+                  "Value": "361.7292496800104D"
                 }
               }
             }

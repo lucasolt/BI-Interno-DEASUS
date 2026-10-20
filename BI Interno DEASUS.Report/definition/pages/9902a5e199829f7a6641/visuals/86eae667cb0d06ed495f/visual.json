@@ -28,8 +28,8 @@
               },
               "queryRef": "dAuditor.Ativo",
               "nativeQueryRef": "Auditores ativos",
-              "displayName": "Auditores ativos",
-              "active": true
+              "active": true,
+              "displayName": "Auditores ativos"
             }
           ]
         }
@@ -121,7 +121,7 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "t",
+                    "Name": "d",
                     "Entity": "dAuditor",
                     "Type": 0
                   }
@@ -135,7 +135,7 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "t"
+                                  "Source": "d"
                                 }
                               },
                               "Property": "Ativo"
@@ -147,20 +147,6 @@
                             {
                               "Literal": {
                                 "Value": "'Sim'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Não cadastrado'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Não informado'"
                               }
                             }
                           ],

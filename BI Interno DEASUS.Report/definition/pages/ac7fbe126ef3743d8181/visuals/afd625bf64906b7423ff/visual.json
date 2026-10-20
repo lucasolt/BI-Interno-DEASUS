@@ -28,8 +28,8 @@
               },
               "queryRef": "dFuncao.Função",
               "nativeQueryRef": "Função",
-              "displayName": "Função",
-              "active": true
+              "active": true,
+              "displayName": "Função"
             }
           ]
         }
@@ -111,6 +111,11 @@
               }
             }
           }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
         }
       ]
     },

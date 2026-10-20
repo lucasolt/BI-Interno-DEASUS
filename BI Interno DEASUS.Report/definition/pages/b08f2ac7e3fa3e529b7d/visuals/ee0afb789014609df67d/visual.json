@@ -273,7 +273,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "11D"
                 }
               }
             }
@@ -311,6 +311,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
             }
           }
         }
@@ -321,7 +328,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "131.1301856450847D"
+                  "Value": "148.6197401282873D"
                 }
               }
             }
@@ -377,7 +384,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "83.35686608318059D"
+                  "Value": "82.01578662956412D"
                 }
               }
             }
@@ -391,13 +398,27 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "107.8779251044679D"
+                  "Value": "107.86181191506924D"
                 }
               }
             }
           },
           "selector": {
             "metadata": "fCarteira.Dias desde a Última Movimentação"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "60.08227097037596D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fCarteira.Com Quem"
           }
         }
       ]

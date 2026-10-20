@@ -21,17 +21,17 @@
                   {
                     "value": "AUDITORIA  ·  do “Não distribuído” ao envio do RAF ao auditado (processos)",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "12pt",
-                      "color": "#0B2E59",
-                      "fontWeight": "bold"
+                      "color": "#0b2e59"
                     }
                   },
                   {
                     "value": "     ·     os botões com borda colorida filtram as tabelas abaixo (clique de novo para limpar)",
                     "textStyle": {
+                      "fontStyle": "italic",
                       "fontSize": "10pt",
-                      "color": "#5B6B7F",
-                      "fontStyle": "italic"
+                      "color": "#5b6b7f"
                     }
                   }
                 ]

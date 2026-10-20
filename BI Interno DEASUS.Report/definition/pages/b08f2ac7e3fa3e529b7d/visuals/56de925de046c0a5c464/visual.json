@@ -349,7 +349,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "11D"
                 }
               }
             }
@@ -780,7 +780,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "165.48522973373755D"
+                  "Value": "208.45136902654409D"
                 }
               }
             }
@@ -822,7 +822,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "86D"
+                  "Value": "104.85285495084493D"
                 }
               }
             }
@@ -892,7 +892,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "86D"
+                  "Value": "115.63407946500962D"
                 }
               }
             }
@@ -906,7 +906,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "86D"
+                  "Value": "100.82280848183287D"
                 }
               }
             }

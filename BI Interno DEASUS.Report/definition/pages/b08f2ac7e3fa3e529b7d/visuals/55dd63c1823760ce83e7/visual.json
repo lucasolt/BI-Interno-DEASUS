@@ -133,10 +133,10 @@
                     "Entity": "fMonitAberto"
                   }
                 },
-                "Property": "Dias no Status Atual"
+                "Property": "Ciclo"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -276,7 +276,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "113.89525144328282D"
+                  "Value": "77.50123441464821D"
                 }
               }
             }
@@ -325,6 +325,20 @@
           },
           "selector": {
             "metadata": "fMonitAberto.Nº PROA"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "67.81514493181317D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fMonitAberto.Função"
           }
         }
       ]
