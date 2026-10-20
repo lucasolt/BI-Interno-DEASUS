@@ -212,10 +212,10 @@
                     "Entity": "_Medidas"
                   }
                 },
-                "Property": "Dias Médios de Atraso"
+                "Property": "Índice de Produtividade"
               }
             },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
         ]
       }
