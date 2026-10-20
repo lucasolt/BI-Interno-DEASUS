@@ -168,11 +168,7 @@ table fMonitAberto
 				    Designados = Table.SelectColumns(fDesignacoes, {"Nº PROA", "Ciclo Nº", "Função", "Auditor", "Data Inicial Designação", "Data Relatório"}),
 				    Juntado = Table.NestedJoin(ComCicloNo, {"Nº PROA", "Ciclo Nº"}, Designados, {"Nº PROA", "Ciclo Nº"}, "D", JoinKind.LeftOuter),
 				    Expandido = Table.ExpandTableColumn(Juntado, "D", {"Função", "Auditor", "Data Inicial Designação", "Data Relatório"}),
-				    // ciclo com data de designação mas sem coordenador/equipe na planilha (fDesignacoes gera "(Não informado)"):
-				    // ninguém a cobrar, então conta como sem designação
-				    FuncaoSemNome = Table.ReplaceValue(Expandido, each [Função], each if [Auditor] = "(Não informado)" then null else [Função], Replacer.ReplaceValue, {"Função"}),
-				    AuditorSemNome = Table.ReplaceValue(FuncaoSemNome, "(Não informado)", null, Replacer.ReplaceValue, {"Auditor"}),
-				    SemDesignacao = Table.ReplaceValue(AuditorSemNome, null, "(Sem designação)", Replacer.ReplaceValue, {"Auditor"}),
+				    SemDesignacao = Table.ReplaceValue(Expandido, null, "(Sem designação)", Replacer.ReplaceValue, {"Auditor"}),
 				    // sem designação: Função "Não designado" (evita linha em branco nas tabelas e filtros por Função)
 				    SemFuncao = Table.ReplaceValue(SemDesignacao, null, "Não designado", Replacer.ReplaceValue, {"Função"}),
 				
