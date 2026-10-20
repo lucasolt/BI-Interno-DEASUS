@@ -3,9 +3,9 @@
   "name": "42efdb61463f7d2658fb",
   "position": {
     "x": 203,
-    "y": 388,
+    "y": 338,
     "z": 23000,
-    "height": 28,
+    "height": 22,
     "width": 266,
     "tabOrder": 23000
   },
@@ -170,14 +170,14 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "6D"
+                  "Value": "2D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "6D"
+                  "Value": "2D"
                 }
               }
             },
