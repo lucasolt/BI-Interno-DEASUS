@@ -13,40 +13,6 @@
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Columns": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
-                    }
-                  },
-                  "Property": "Tipo"
-                }
-              },
-              "queryRef": "fTrabalhosAbertos.Tipo",
-              "nativeQueryRef": "Tipo",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fTrabalhosAbertos"
-                    }
-                  },
-                  "Property": "Com Quem"
-                }
-              },
-              "queryRef": "fTrabalhosAbertos.Com Quem",
-              "nativeQueryRef": "Com Quem",
-              "active": true
-            }
-          ]
-        },
         "Rows": {
           "projections": [
             {
@@ -91,12 +57,162 @@
                       "Entity": "_Medidas"
                     }
                   },
+                  "Property": "Trab Aud · Aguardando designação"
+                }
+              },
+              "queryRef": "_Medidas.Trab Aud · Aguardando designação",
+              "nativeQueryRef": "Aud · Aguard. designação",
+              "displayName": "Aud · Aguard. designação"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Aud · Com a equipe"
+                }
+              },
+              "queryRef": "_Medidas.Trab Aud · Com a equipe",
+              "nativeQueryRef": "Aud · Com a equipe",
+              "displayName": "Aud · Com a equipe"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Aud · Com a chefia"
+                }
+              },
+              "queryRef": "_Medidas.Trab Aud · Com a chefia",
+              "nativeQueryRef": "Aud · Com a chefia",
+              "displayName": "Aud · Com a chefia"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Aud · Aguardando auditado"
+                }
+              },
+              "queryRef": "_Medidas.Trab Aud · Aguardando auditado",
+              "nativeQueryRef": "Aud · Aguard. auditado",
+              "displayName": "Aud · Aguard. auditado"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Aud · Total"
+                }
+              },
+              "queryRef": "_Medidas.Trab Aud · Total",
+              "nativeQueryRef": "Aud · Total",
+              "displayName": "Aud · Total"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Mon · Aguardando designação"
+                }
+              },
+              "queryRef": "_Medidas.Trab Mon · Aguardando designação",
+              "nativeQueryRef": "Mon · Aguard. designação",
+              "displayName": "Mon · Aguard. designação"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Mon · Com a equipe"
+                }
+              },
+              "queryRef": "_Medidas.Trab Mon · Com a equipe",
+              "nativeQueryRef": "Mon · Com a equipe",
+              "displayName": "Mon · Com a equipe"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Mon · Com a chefia"
+                }
+              },
+              "queryRef": "_Medidas.Trab Mon · Com a chefia",
+              "nativeQueryRef": "Mon · Com a chefia",
+              "displayName": "Mon · Com a chefia"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Mon · Aguardando auditado"
+                }
+              },
+              "queryRef": "_Medidas.Trab Mon · Aguardando auditado",
+              "nativeQueryRef": "Mon · Aguard. monitorado",
+              "displayName": "Mon · Aguard. monitorado"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Trab Mon · Total"
+                }
+              },
+              "queryRef": "_Medidas.Trab Mon · Total",
+              "nativeQueryRef": "Mon · Total",
+              "displayName": "Mon · Total"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
                   "Property": "Trabalhos em Aberto"
                 }
               },
               "queryRef": "_Medidas.Trabalhos em Aberto",
-              "nativeQueryRef": "Trabalhos",
-              "displayName": "Trabalhos"
+              "nativeQueryRef": "Total geral",
+              "displayName": "Total geral"
             }
           ]
         }
@@ -251,7 +367,7 @@
                           "Entity": "_Medidas"
                         }
                       },
-                      "Property": "Cor Heat · Trabalhos em Aberto"
+                      "Property": "Cor Heat · Trab Aud · Aguardando designação"
                     }
                   }
                 }
@@ -266,6 +382,303 @@
                 }
               }
             ],
+            "metadata": "_Medidas.Trab Aud · Aguardando designação"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Aud · Com a equipe"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Aud · Com a equipe"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Aud · Com a chefia"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Aud · Com a chefia"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Aud · Aguardando auditado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Aud · Aguardando auditado"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E8EEF7'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0B2E59'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Aud · Total"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Mon · Aguardando designação"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Mon · Aguardando designação"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Mon · Com a equipe"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Mon · Com a equipe"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Mon · Com a chefia"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Mon · Com a chefia"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Medidas"
+                        }
+                      },
+                      "Property": "Cor Heat · Trab Mon · Aguardando auditado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_Medidas.Trab Mon · Aguardando auditado"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E8EEF7'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0B2E59'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Mon · Total"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E8EEF7'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0B2E59'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
             "metadata": "_Medidas.Trabalhos em Aberto"
           }
         }
@@ -313,13 +726,6 @@
               "expr": {
                 "Literal": {
                   "Value": "9D"
-                }
-              }
-            },
-            "columnSubtotals": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
                 }
               }
             }
@@ -374,306 +780,6 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "50.94639993596357D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "total": [
-                  {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "fTrabalhosAbertos"
-                        }
-                      },
-                      "Property": "Tipo"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "48.24644740166415D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Tipo"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Monitoramento'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "total": [
-                  {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "fTrabalhosAbertos"
-                        }
-                      },
-                      "Property": "Com Quem"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "140.45924476775883D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Tipo"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Auditoria'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Com Quem"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Aguardando auditado'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "93.41408846076074D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Tipo"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Monitoramento'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Com Quem"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Com a chefia'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "92.05374203888832D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Tipo"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Monitoramento'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Com Quem"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Com a equipe'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {},
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Tipo"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Auditoria'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "total": [
-                  {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "fTrabalhosAbertos"
-                        }
-                      },
-                      "Property": "Com Quem"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
                   "Value": "165.48522973373755D"
                 }
               }
@@ -688,58 +794,153 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "137.6852567937599D"
+                  "Value": "86D"
                 }
               }
             }
           },
           "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Tipo"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Monitoramento'"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "fTrabalhosAbertos"
-                          }
-                        },
-                        "Property": "Com Quem"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Aguardando auditado'"
-                      }
-                    }
-                  }
+            "metadata": "_Medidas.Trab Aud · Aguardando designação"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
                 }
               }
-            ]
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Aud · Com a equipe"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Aud · Com a chefia"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Aud · Aguardando auditado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Aud · Total"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Mon · Aguardando designação"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Mon · Com a equipe"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Mon · Com a chefia"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Mon · Aguardando auditado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trab Mon · Total"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Trabalhos em Aberto"
           }
         }
       ]
@@ -887,7 +1088,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'TRABALHOS POR AUDITOR · AUDITORIA E MONITORAMENTO, POR COM QUEM ESTÁ A PRÓXIMA AÇÃO'"
+                  "Value": "'TRABALHOS POR AUDITOR · AUDITORIA (AUD) E MONITORAMENTO (MON), POR COM QUEM ESTÁ A PRÓXIMA AÇÃO · CLIQUE NO CABEÇALHO PARA ORDENAR'"
                 }
               }
             },

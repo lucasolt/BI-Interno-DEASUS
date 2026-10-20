@@ -884,6 +884,200 @@ table _Medidas
 		displayFolder: 8. Carteira Atual
 		lineageTag: c499f1d1-0531-4bd9-a31b-ffb19e80ef65
 
+	/// Coluna da matriz Trabalhos por Auditor: Auditoria, Aguardando designação (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Aud · Aguardando designação' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Auditoria"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Aguardando designação"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: 5f0ac85d-a43b-445c-80ed-f095a0eb6b76
+
+	/// Coluna da matriz Trabalhos por Auditor: Auditoria, Com a equipe (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Aud · Com a equipe' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Auditoria"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Com a equipe"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: e8bd8c8e-58ec-4fd2-af48-40dd821918af
+
+	/// Coluna da matriz Trabalhos por Auditor: Auditoria, Com a chefia (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Aud · Com a chefia' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Auditoria"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Com a chefia"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: 0661dd0c-87f1-4c4d-89f5-6be2636a64e8
+
+	/// Coluna da matriz Trabalhos por Auditor: Auditoria, Aguardando auditado (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Aud · Aguardando auditado' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Auditoria"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Aguardando auditado"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: 08c6bc18-9b7b-4804-9329-f9ce3fc0aba0
+
+	measure 'Trab Aud · Total' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Auditoria"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: 7eefa7d0-4608-404a-9268-2758762606ed
+
+	/// Coluna da matriz Trabalhos por Auditor: Monitoramento, Aguardando designação (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Mon · Aguardando designação' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Monitoramento"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Aguardando designação"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: cfb3a5c0-5966-4b04-8f98-d0ab2e45763a
+
+	/// Coluna da matriz Trabalhos por Auditor: Monitoramento, Com a equipe (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Mon · Com a equipe' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Monitoramento"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Com a equipe"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: 55c0a298-1d72-47c9-8e9d-361289655857
+
+	/// Coluna da matriz Trabalhos por Auditor: Monitoramento, Com a chefia (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Mon · Com a chefia' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Monitoramento"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Com a chefia"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: 6951a6a2-68af-48c6-972b-142252bd4b03
+
+	/// Coluna da matriz Trabalhos por Auditor: Monitoramento, Aguardando auditado (medida própria para permitir ordenar pela coluna).
+	measure 'Trab Mon · Aguardando auditado' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Monitoramento"), KEEPFILTERS(fTrabalhosAbertos[Com Quem] = "Aguardando auditado"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: fd0c76e3-2a88-4df8-b7d3-91c6d3201f7a
+
+	measure 'Trab Mon · Total' = CALCULATE([Trabalhos em Aberto], KEEPFILTERS(fTrabalhosAbertos[Tipo] = "Monitoramento"))
+		formatString: #,0
+		displayFolder: 8. Carteira Atual\Por auditor
+		lineageTag: dd7fe8f8-10fb-404d-a5ae-cdcd6f021159
+
+	measure 'Cor Heat · Trab Aud · Aguardando designação' =
+			VAR _v = [Trab Aud · Aguardando designação]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Aud · Aguardando designação], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Aud · Aguardando designação], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Aud · Aguardando designação])
+			VAR _maxF = MAXX(_audFun, [Trab Aud · Aguardando designação])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: 74c05321-f027-408d-809a-a00bc5129867
+
+	measure 'Cor Heat · Trab Aud · Com a equipe' =
+			VAR _v = [Trab Aud · Com a equipe]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Aud · Com a equipe], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Aud · Com a equipe], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Aud · Com a equipe])
+			VAR _maxF = MAXX(_audFun, [Trab Aud · Com a equipe])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: ea0b1f8e-e4c7-4ca6-98f2-a58cf41ecc93
+
+	measure 'Cor Heat · Trab Aud · Com a chefia' =
+			VAR _v = [Trab Aud · Com a chefia]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Aud · Com a chefia], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Aud · Com a chefia], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Aud · Com a chefia])
+			VAR _maxF = MAXX(_audFun, [Trab Aud · Com a chefia])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: 973676b3-a0a2-49b5-be48-05330e2c04df
+
+	measure 'Cor Heat · Trab Aud · Aguardando auditado' =
+			VAR _v = [Trab Aud · Aguardando auditado]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Aud · Aguardando auditado], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Aud · Aguardando auditado], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Aud · Aguardando auditado])
+			VAR _maxF = MAXX(_audFun, [Trab Aud · Aguardando auditado])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: 7d144d05-2b6c-49ce-ad3e-944d903b2bd1
+
+	measure 'Cor Heat · Trab Mon · Aguardando designação' =
+			VAR _v = [Trab Mon · Aguardando designação]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Mon · Aguardando designação], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Mon · Aguardando designação], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Mon · Aguardando designação])
+			VAR _maxF = MAXX(_audFun, [Trab Mon · Aguardando designação])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: 2c7fd403-d0f6-4372-86dc-5bb082f41dd5
+
+	measure 'Cor Heat · Trab Mon · Com a equipe' =
+			VAR _v = [Trab Mon · Com a equipe]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Mon · Com a equipe], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Mon · Com a equipe], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Mon · Com a equipe])
+			VAR _maxF = MAXX(_audFun, [Trab Mon · Com a equipe])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: 3d99ec0e-acfa-432a-85b8-31e1ed97e9cc
+
+	measure 'Cor Heat · Trab Mon · Com a chefia' =
+			VAR _v = [Trab Mon · Com a chefia]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Mon · Com a chefia], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Mon · Com a chefia], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Mon · Com a chefia])
+			VAR _maxF = MAXX(_audFun, [Trab Mon · Com a chefia])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: d3ee412b-5f00-45ed-a0ab-f9ee24af85f5
+
+	measure 'Cor Heat · Trab Mon · Aguardando auditado' =
+			VAR _v = [Trab Mon · Aguardando auditado]
+			// mesma régua da coluna: linhas de auditor e de auditor × função no mesmo mínimo/máximo
+			VAR _aud = ALLSELECTED(dAuditor[Auditor])
+			VAR _audFun = CROSSJOIN(ALLSELECTED(dAuditor[Auditor]), ALLSELECTED(dFuncao[Função]))
+			VAR _minA = MINX(_aud, CALCULATE([Trab Mon · Aguardando auditado], ALLSELECTED(dFuncao[Função])))
+			VAR _maxA = MAXX(_aud, CALCULATE([Trab Mon · Aguardando auditado], ALLSELECTED(dFuncao[Função])))
+			VAR _minF = MINX(_audFun, [Trab Mon · Aguardando auditado])
+			VAR _maxF = MAXX(_audFun, [Trab Mon · Aguardando auditado])
+			VAR _min = MIN(_minA, _minF)
+			VAR _max = MAX(_maxA, _maxF)
+			VAR _nivel = IF(_max = _min, 0, MIN(9, INT(DIVIDE(_v - _min, _max - _min) * 10)))
+			RETURN IF(ISINSCOPE(dAuditor[Auditor]) && NOT ISBLANK(_v),
+			    LOOKUPVALUE(dPaleta[Cor], dPaleta[Paleta], "Heat volume", dPaleta[Nível], _nivel))
+		displayFolder: 6. Rótulos\Heat map
+		lineageTag: 6427a5dc-706d-4ea9-98fd-2b9e6cbedc23
+
 	/// 1 = linha da tabela de auditoria aparece com os botões clicados (filtro de visual = 1).
 	measure 'Filtro Cartão Aud' =
 			// modo foco: botão só de Monitoramento esconde a auditoria; botão de Auditoria filtra por Com Quem
