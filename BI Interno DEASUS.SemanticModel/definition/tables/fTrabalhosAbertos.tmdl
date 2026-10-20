@@ -1,5 +1,5 @@
 /// Trabalhos em aberto (Auditoria + Monitoramento numa tabela só): 1 linha por processo/ciclo x Função x Auditor.
-/// Sem designação aparece como Auditor "(Sem designação)" (Com Quem "Aguardando designação" ou, no monitoramento sem resposta do auditado, "Aguardando auditado").
+/// Sem designação (inclusive ciclo com data mas sem nome na planilha) aparece como Auditor "(Sem designação)" (Com Quem "Aguardando designação" ou, no monitoramento sem resposta do auditado, "Aguardando auditado").
 /// Dias sem Movimentação: auditoria = desde a última data registrada (designação, RAI, RAF); monitoramento = dias no status atual.
 table fTrabalhosAbertos
 	lineageTag: f6d243d1-dd08-48c3-b474-6089a45471f9
