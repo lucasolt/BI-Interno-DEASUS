@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "669a5343fbaf9bec91ef",
   "position": {
     "x": 195.50151975683892,
@@ -62,22 +62,9 @@
               {
                 "textRuns": [
                   {
-                    "value": "Taxa de Pontualidade: ",
-                    "textStyle": {
-                      "fontWeight": "bold",
-                      "fontSize": "14pt",
-                      "color": "#1f2d3d"
-                    }
-                  },
-                  {
-                    "value": "No prazo ÷ Entregues.",
-                    "textStyle": {
-                      "fontSize": "14pt",
-                      "color": "#1f2d3d"
-                    }
+                    "value": ""
                   }
-                ],
-                "indent": 1
+                ]
               },
               {
                 "textRuns": [
