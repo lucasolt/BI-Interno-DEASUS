@@ -164,6 +164,21 @@
               "queryRef": "_Medidas.Aval Monit Equipe",
               "nativeQueryRef": "Ciclos de monitoramento como Equipe",
               "displayName": "Ciclos de monitoramento como Equipe"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Aval PROAs"
+                }
+              },
+              "queryRef": "_Medidas.Aval PROAs",
+              "nativeQueryRef": "PROAs",
+              "displayName": "PROAs"
             }
           ]
         }
@@ -274,6 +289,13 @@
               "expr": {
                 "Literal": {
                   "Value": "9D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

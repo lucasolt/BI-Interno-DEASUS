@@ -851,7 +851,6 @@ def pg_avaliacao():
     y = 228
     p.add("tabela", X0, y, XMAX - X0, H - y - 8, tabela([
         (AUDITOR, "Auditor"),
-        # (med("Aval PROAs"), "PROAs"),  # suprimido por enquanto (lista longa demais por linha)
         (med("Aval Auditorias Designadas"), "Total de auditorias designadas"),
         (med("Aval Auditorias Coordenação"), "Auditorias (coordenação)"),
         (med("Aval Auditorias Equipe"), "Auditorias (composição de equipe)"),
@@ -861,6 +860,7 @@ def pg_avaliacao():
         (med("Aval RAF Matrizes"), "Qtd de Matrizes RAF"),
         (med("Aval Monit Coordenador"), "Ciclos de monitoramento como Coordenador"),
         (med("Aval Monit Equipe"), "Ciclos de monitoramento como Equipe"),
+        (med("Aval PROAs"), "PROAs"),  # por último, numa linha só; lida pelo gerador de documentos
     ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")))
     return p
 

@@ -1213,8 +1213,8 @@ table _Medidas
 		displayFolder: 8. Carteira Atual\Por auditor
 		lineageTag: dd7fe8f8-10fb-404d-a5ae-cdcd6f021159
 
-	/// Lista 'PROA AUDITADO' dos processos de auditoria (sem regra de período; base da Aval PROAs).
-	measure 'Aud Lista de PROAs' = CONCATENATEX(VALUES(fAuditoria[Nº PROA]), TRIM(fAuditoria[Nº PROA] & " " & LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], fAuditoria[Nº PROA])), UNICHAR(10), fAuditoria[Nº PROA], ASC)
+	/// Lista 'PROA AUDITADO; PROA AUDITADO; ...' dos processos de auditoria (sem regra de período; base da Aval PROAs). O gerador de documentos separa por '; '.
+	measure 'Aud Lista de PROAs' = CONCATENATEX(VALUES(fAuditoria[Nº PROA]), TRIM(fAuditoria[Nº PROA] & " " & LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], fAuditoria[Nº PROA])), "; ", fAuditoria[Nº PROA], ASC)
 		displayFolder: 8. Avaliação
 
 	/// Processos de auditoria do auditor que iniciaram (designação) ou tiveram RAI/RAF entregue no período.
