@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerador de Acompanhamento Periódico</title>
+<!-- Gerado por montar_html.py a partir de html/gerador.template.html. Não edite o .html final à mão. -->
+<style>
+  :root {
+    --navy: #0B2E59; --navy2: #163F73; --fundo: #EEF2F7; --branco: #FFFFFF; --borda: #D5DCE6;
+    --texto: #1F2D3D; --cinza: #5B6B7F; --verde: #2E9E44; --vermelho: #D64545; --amarelo: #B98900;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto);
+         font: 15px/1.45 "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; }
+  header { background: var(--navy); color: var(--branco); padding: 18px 24px; }
+  header h1 { margin: 0; font-size: 20px; letter-spacing: .3px; }
+  header p { margin: 4px 0 0; color: #BFD0E6; font-size: 13px; }
+  main { max-width: 760px; margin: 24px auto; padding: 0 16px; }
+  .cartao { background: var(--branco); border: 1px solid var(--borda); border-radius: 10px; padding: 20px 22px; margin-bottom: 16px; }
+  .passo { display: flex; gap: 14px; align-items: flex-start; }
+  .num { flex: 0 0 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff;
+         display: grid; place-items: center; font-weight: 700; }
+  .passo h2 { margin: 2px 0 10px; font-size: 16px; color: var(--navy); }
+  .corpo { flex: 1; min-width: 0; }
+  label { display: block; font-size: 13px; color: var(--cinza); margin: 10px 0 4px; }
+  input[type=text] { width: 100%; padding: 9px 11px; border: 1px solid var(--borda); border-radius: 6px; font: inherit; }
+  input[type=text]:focus { outline: 2px solid #9DB7DD; border-color: var(--navy2); }
+  .arquivo { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .arquivo input[type=file] { display: none; }
+  button, .botao { appearance: none; border: 0; border-radius: 8px; padding: 11px 18px; font: inherit; font-weight: 600;
+                   cursor: pointer; background: var(--navy); color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+  .botao.sec { background: var(--branco); color: var(--navy); border: 1px solid var(--navy); }
+  button:disabled { background: #A9B6C7; cursor: not-allowed; }
+  button.ok { background: var(--verde); }
+  .nome-arq { font-size: 13px; color: var(--cinza); overflow-wrap: anywhere; }
+  .nome-arq b { color: var(--texto); }
+  .dica { font-size: 13px; color: var(--cinza); margin: 8px 0 0; }
+  #log { margin: 12px 0 0; padding: 10px 12px; background: #F7F9FC; border: 1px solid var(--borda); border-radius: 6px;
+         font: 12.5px/1.5 Consolas, "Courier New", monospace; max-height: 260px; overflow: auto; white-space: pre-wrap; display: none; }
+  .erro { color: var(--vermelho); font-weight: 600; }
+  .aviso { color: var(--amarelo); }
+  .sucesso { color: var(--verde); font-weight: 600; }
+  details { margin-top: 8px; font-size: 13px; color: var(--cinza); }
+  footer { text-align: center; font-size: 12px; color: var(--cinza); margin: 8px 0 28px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Documentos de Acompanhamento Periódico do Auditor</h1>
+  <p>Funciona sem internet. Os arquivos não saem deste computador.</p>
+</header>
+<main>
+  <section class="cartao passo">
+    <div class="num">1</div>
+    <div class="corpo">
+      <h2>Exportar a tabela do BI</h2>
+      <div class="dica">BI → Área da chefia → <b>Acompanhamento Periódico</b> → filtre o período → na tabela, menu <b>…</b> →
+        <b>Exportar dados</b> → <b>Dados com layout atual</b> → <b>.xlsx</b>.</div>
+    </div>
+  </section>
+
+  <section class="cartao passo">
+    <div class="num">2</div>
+    <div class="corpo">
+      <h2>Preencher e escolher o Excel</h2>
+      <label for="periodo">Período (aparece no campo "Quadrimestre" do documento)</label>
+      <input type="text" id="periodo" placeholder="ex.: 1º/2026">
+      <label for="avaliadores">Avaliadores</label>
+      <input type="text" id="avaliadores" placeholder="ex.: Fulano e Beltrano">
+      <label>Excel exportado do BI</label>
+      <div class="arquivo">
+        <label class="botao sec" for="excel" style="margin:0">Escolher Excel…</label>
+        <input type="file" id="excel" accept=".xlsx,.xls,.csv">
+        <span class="nome-arq" id="nome-excel">Nenhum arquivo escolhido.</span>
+      </div>
+      <details>
+        <summary>Usar outro modelo de documento (opcional)</summary>
+        <p>Por padrão usa o modelo embutido nesta página. Para trocar, escolha um .docx com os mesmos campos
+          (<code>{{ Auditor }}</code>, <code>{{ Quadrimestre }}</code>, <code>{{ atividade_1 }}</code>…).</p>
+        <div class="arquivo">
+          <label class="botao sec" for="modelo" style="margin:0">Escolher modelo .docx…</label>
+          <input type="file" id="modelo" accept=".docx">
+          <span class="nome-arq" id="nome-modelo">Modelo padrão (embutido).</span>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="cartao passo">
+    <div class="num">3</div>
+    <div class="corpo">
+      <h2>Gerar e baixar</h2>
+      <button id="gerar" disabled>Gerar documentos (.zip)</button>
+      <div class="dica">Sai um documento Word por auditor, todos num arquivo .zip. A avaliação descritiva pode ser
+        escrita depois, em cada documento (ou vir de uma coluna <b>Avaliação Descritiva</b> no Excel).</div>
+      <div id="log" aria-live="polite"></div>
+    </div>
+  </section>
+  <footer>DEASUS · Produtividade · gerador_documentos/html (repositório BI-Interno-DEASUS)</footer>
+</main>
+
+<script>/*VENDOR*/</script>
+<script>
+"use strict";
+const MODELO_PADRAO_B64 = "__MODELO_B64__";
+
+// Linhas da tabela do documento: [texto no documento, coluna do Excel exportado]. O modelo tem 5 linhas.
+const ATIVIDADES = [
+  ["Total de auditorias designadas", "Total de auditorias designadas"],
+  ["Auditorias (coordenação)", "Auditorias (coordenação)"],
+  ["Auditorias (composição de equipe)", "Auditorias (composição de equipe)"],
+  ["Relatórios Preliminares entregues", "Relatórios Preliminares entregues"],
+  ["Qtd de Matrizes RAI", "Qtd de Matrizes RAI"],   // 5ª linha igual à do notebook antigo
+];
+const COL_AUDITOR = "Auditor", COL_PROAS = "PROAs", COL_DESCRITIVA = "Avaliação Descritiva";
+const MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+
+const $ = (id) => document.getElementById(id);
+const chave = (t) => String(t ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim().toLowerCase();
+// nomes de arquivo só com ASCII (o ZIP não marca UTF-8 e o Windows embaralharia acentos)
+const semAcento = (t) => String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const vazio = (v) => v === null || v === undefined || (typeof v === "string" && !v.trim()) || (typeof v === "number" && isNaN(v));
+
+const logEl = $("log");
+function log(msg, cls) {
+  logEl.style.display = "block";
+  const linha = document.createElement("div");
+  if (cls) linha.className = cls;
+  linha.textContent = msg;
+  logEl.appendChild(linha);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function lerExportacao(buffer, nome) {
+  const wb = nome.toLowerCase().endsWith(".csv")
+    ? XLSX.read(new TextDecoder("utf-8").decode(buffer), { type: "string" })
+    : XLSX.read(buffer, { type: "array" });
+  const linhas = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: true, defval: null, blankrows: false });
+  const iCab = linhas.findIndex((l) => l.some((v) => !vazio(v) && chave(v) === chave(COL_AUDITOR)));
+  if (iCab < 0) throw new Error(`Não achei a coluna '${COL_AUDITOR}'. Confira se exportou a tabela da aba Acompanhamento Periódico.`);
+  const mapa = {};
+  linhas[iCab].forEach((c, j) => { if (!vazio(c)) mapa[chave(c)] = j; });
+  const iAud = mapa[chave(COL_AUDITOR)];
+  const dados = linhas.slice(iCab + 1).filter((l) => {
+    const a = vazio(l[iAud]) ? "" : String(l[iAud]).trim();
+    const al = a.toLowerCase();
+    return a && al !== "total" && !al.startsWith("filtros aplicados") && !al.startsWith("applied filters");
+  });
+  return { dados, mapa };
+}
+
+function numero(v) {
+  if (vazio(v)) return "0";
+  const f = typeof v === "number" ? v : Number(String(v).replace(",", "."));
+  if (isNaN(f)) return String(v);
+  return Number.isInteger(f) ? String(f) : f.toFixed(2).replace(".", ",");
+}
+
+function proas(v) {
+  if (vazio(v)) return "";
+  const s = String(v).trim();
+  let itens;
+  if (s.startsWith("[")) {   // formato antigo do notebook: ['A', 'B']
+    itens = [...s.matchAll(/'([^']*)'|"([^"]*)"/g)].map((m) => m[1] ?? m[2]);
+  } else {
+    itens = s.split(/;|\n/);
+  }
+  return itens.map((i) => i.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+}
+
+function contexto(linha, mapa, periodo, avaliadores) {
+  const hoje = new Date();
+  const get = (col) => (mapa[chave(col)] === undefined ? undefined : linha[mapa[chave(col)]]);
+  const ctx = {
+    Auditor: String(get(COL_AUDITOR)).trim(),
+    Quadrimestre: periodo,
+    Avaliadores: avaliadores,
+    DataHoje: `${hoje.getDate()} de ${MESES[hoje.getMonth()]} de ${hoje.getFullYear()}`,
+    proas: proas(get(COL_PROAS)),
+    Avaliacao_Descritiva: vazio(get(COL_DESCRITIVA)) ? "" : String(get(COL_DESCRITIVA)),
+  };
+  ATIVIDADES.forEach(([rotulo, coluna], i) => {
+    ctx[`atividade_${i + 1}`] = rotulo;
+    ctx[`avaliacao_${i + 1}`] = mapa[chave(coluna)] === undefined ? "" : numero(get(coluna));
+  });
+  return ctx;
+}
+
+function b64ParaBytes(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+function preencher(modeloBytes, ctx) {
+  const doc = new docxtemplater(new PizZip(modeloBytes), {
+    delimiters: { start: "{{", end: "}}" },
+    paragraphLoop: true,
+    linebreaks: true,
+    parser: (tag) => ({ get: (escopo) => escopo[tag.trim()] }),
+    nullGetter: () => "",
+  });
+  doc.render(ctx);
+  return doc.getZip().generate({ type: "uint8array", compression: "DEFLATE" });
+}
+
+function baixar(blob, nome) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = nome;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+const lerArquivo = (f) => f.arrayBuffer().then((b) => new Uint8Array(b));
+
+$("excel").addEventListener("change", () => {
+  const f = $("excel").files[0];
+  $("nome-excel").innerHTML = f ? `<b>${f.name.replace(/</g, "&lt;")}</b>` : "Nenhum arquivo escolhido.";
+  $("gerar").disabled = !f;
+  $("gerar").classList.remove("ok");
+});
+$("modelo").addEventListener("change", () => {
+  const f = $("modelo").files[0];
+  $("nome-modelo").innerHTML = f ? `<b>${f.name.replace(/</g, "&lt;")}</b>` : "Modelo padrão (embutido).";
+});
+
+$("gerar").addEventListener("click", async () => {
+  logEl.innerHTML = "";
+  const periodo = $("periodo").value.trim(), avaliadores = $("avaliadores").value.trim();
+  if (!periodo) { log("Preencha o Período antes de gerar.", "erro"); $("periodo").focus(); return; }
+  const btn = $("gerar");
+  btn.disabled = true; btn.textContent = "Gerando…";
+  try {
+    const fExcel = $("excel").files[0];
+    const { dados, mapa } = lerExportacao(await lerArquivo(fExcel), fExcel.name);
+    const modelo = $("modelo").files[0] ? await lerArquivo($("modelo").files[0]) : b64ParaBytes(MODELO_PADRAO_B64);
+    const faltando = ATIVIDADES.map(([, c]) => c).filter((c) => mapa[chave(c)] === undefined);
+    if (faltando.length) log("Atenção: colunas não encontradas (ficam em branco no documento): " + faltando.join(", "), "aviso");
+    if (mapa[chave(COL_PROAS)] === undefined) log(`Atenção: coluna '${COL_PROAS}' não encontrada; a lista de PROAs sairá vazia.`, "aviso");
+    if (!dados.length) throw new Error("Nenhum auditor encontrado no Excel.");
+    const zip = new PizZip();
+    dados.forEach((linha, n) => {
+      const ctx = contexto(linha, mapa, periodo, avaliadores);
+      const nome = semAcento(ctx.Auditor).replace(/[^A-Za-z0-9_-]+/g, "_").replace(/^_+|_+$/g, "");
+      const arq = `acompanhamento_${String(n + 1).padStart(2, "0")}_${nome}.docx`;
+      zip.file(arq, preencher(modelo, ctx));
+      log("Gerado: " + arq);
+    });
+    const nomeZip = "documentos_" + semAcento(periodo).replace(/º|ª/g, "").replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "") + ".zip";
+    baixar(zip.generate({ type: "blob", compression: "DEFLATE" }), nomeZip);
+    log(`${dados.length} documento(s) gerado(s). Baixado: ${nomeZip}`, "sucesso");
+    btn.classList.add("ok");
+  } catch (e) {
+    const detalhe = e.properties && e.properties.errors ? " — " + e.properties.errors.map((x) => x.message).join("; ") : "";
+    log("ERRO: " + e.message + detalhe, "erro");
+  } finally {
+    btn.disabled = false; btn.textContent = "Gerar documentos (.zip)";
+  }
+});
+</script>
+</body>
+</html>

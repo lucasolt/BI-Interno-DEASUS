@@ -5,8 +5,8 @@ Leva uns 5 minutos. Não precisa instalar nada.
 
 ## Você vai precisar
 - Acesso ao BI Interno DEASUS (área da chefia).
-- Uma conta Google (para abrir o Colab).
-- O arquivo `Gerador_Acompanhamento_Periodico.ipynb` (o modelo do documento já vem dentro dele).
+- O arquivo **`Gerador_Acompanhamento_Periodico.html`** (deixe uma cópia numa pasta da rede ou no SharePoint).
+  Não precisa instalar nada nem de internet: abre no Edge ou no Chrome e os arquivos não saem do computador.
 
 ## 1. Exportar os dados do BI
 1. Abra o BI → **Área da chefia** → **Acompanhamento Periódico**.
@@ -16,30 +16,32 @@ Leva uns 5 minutos. Não precisa instalar nada.
 5. (Opcional) Abra o Excel e acrescente uma coluna **Avaliação Descritiva** com o texto de cada auditor.
    Se preferir, escreva depois direto em cada documento.
 
-## 2. Gerar os documentos (painel com botões)
-1. Abra o notebook no Colab (https://colab.research.google.com → **Arquivo → Fazer upload de notebook**,
-   ou direto do Google Drive, se já tiver salvo uma cópia lá).
-2. Menu **Ambiente de execução → Executar tudo**. Aparece o painel:
-   - **Período** (ex.: `1º/2026`) e **Avaliadores**;
-   - **1. Escolher Excel do BI** → selecione o Excel exportado;
-   - **2. Gerar documentos**;
-   - **3. Baixar ZIP** → baixa um documento por auditor.
-     Se o download não começar, use o link que aparece ao lado do botão.
-3. Para usar outro modelo de documento, escolha o `.docx` junto com o Excel no botão 1.
-
-**Plano B:** se o botão *Escolher Excel* não abrir a janela de arquivos, role até o bloco **Plano B**,
-preencha Período e Avaliadores, clique no ▶ do bloco e escolha o Excel no botão que aparecer.
+## 2. Gerar os documentos
+1. Dê dois cliques em `Gerador_Acompanhamento_Periodico.html`.
+2. Preencha **Período** (ex.: `1º/2026`) e **Avaliadores**.
+3. **Escolher Excel…** → selecione o Excel exportado.
+4. **Gerar documentos (.zip)** → o navegador baixa um .zip com um documento Word por auditor.
+5. Para usar outro modelo de documento: abra "Usar outro modelo de documento" e escolha o `.docx`.
 
 ## Se der problema
 | Mensagem | O que fazer |
 |---|---|
 | `Não achei a coluna 'Auditor'` | O Excel não é o da tabela da aba Acompanhamento Periódico. Exporte de novo (passo 1). |
-| Botão **2. Gerar** cinza | Falta escolher o Excel no botão 1. |
+| Botão **Gerar** cinza | Falta escolher o Excel. |
 | `Preencha o Período` | Preencha o campo Período e clique em gerar de novo. |
 | `colunas não encontradas` | Alguém renomeou uma coluna no BI. O documento sai com o número em branco; avise quem mantém o BI. |
-| Pede para "confiar" ou "executar mesmo assim" | Normal no Colab. Clique em **Executar mesmo assim**. |
+| O download não aparece | Veja a barra de downloads do navegador (pode pedir para "Manter" o arquivo). |
+
+## Alternativa: Colab
+`Gerador_Acompanhamento_Periodico.ipynb` faz o mesmo no Google Colab (Arquivo → Fazer upload de notebook →
+Executar tudo → painel com botões). Atenção: no Colab o Excel é enviado para uma máquina do Google.
 
 ## Para quem mantém (técnico)
+- **Página HTML:** o código está em `html/gerador.template.html`; as bibliotecas em `html/vendor/`
+  (SheetJS 0.18.5, PizZip 3.3.0, docxtemplater 3.71.1). Depois de alterar o template, as bibliotecas ou
+  o modelo .docx, rode `python gerador_documentos/html/montar_html.py` (gera o .html único, com tudo embutido).
+  As linhas do documento ficam na constante `ATIVIDADES` do template.
+- **Colab/Python:**
 - O código fica em `gerar_documentos.py` (geração) e `painel.py` (botões). O notebook é montado a partir
   deles e do modelo `.docx` (embutido): depois de alterar qualquer um, rode `python montar_notebook.py`.
 - As 5 linhas do documento estão na lista `ATIVIDADES` (texto no documento → coluna do Excel).
