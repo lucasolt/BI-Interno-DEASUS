@@ -26,7 +26,7 @@ celulas = [
        "**Exportar dados** → **Dados com layout atual** → `.xlsx`.\n"
        "2. Aqui: menu **Ambiente de execução → Executar tudo** e use o **painel** que aparece abaixo.\n\n"
        "O modelo do documento já está embutido. Para usar outro modelo, escolha o `.docx` junto com o Excel.\n\n"
-       "Dica: para levar a avaliação descritiva pronta, acrescente no Excel uma coluna **Avaliação Descritiva**."),
+       "A avaliação descritiva é escrita depois, direto em cada documento."),
     code('#@title ▶ Painel (clique em Executar tudo) { display-mode: "form" }\n'
          'import subprocess, sys\n'
          'subprocess.run([sys.executable, "-m", "pip", "-q", "install", "docxtpl"], check=False)\n'

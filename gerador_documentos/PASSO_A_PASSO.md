@@ -13,14 +13,13 @@ Leva uns 5 minutos. Não precisa instalar nada.
 2. Escolha o período no filtro **Semestre** ou **Quadrimestre**.
 3. Na tabela, passe o mouse e clique em **…** (canto superior direito) → **Exportar dados**.
 4. Escolha **Dados com layout atual** e o formato **.xlsx** → **Exportar**.
-5. (Opcional) Abra o Excel e acrescente uma coluna **Avaliação Descritiva** com o texto de cada auditor.
-   Se preferir, escreva depois direto em cada documento.
 
 ## 2. Gerar os documentos
 1. **Baixe** `Gerador_Acompanhamento_Periodico.html` para o computador (no SharePoint: "…" → Baixar) e dê dois cliques no arquivo baixado. Não abra direto pelo SharePoint: lá ele não funciona.
 2. Preencha **Período** (ex.: `1º/2026`) e **Avaliadores**.
 3. **Escolher Excel…** → selecione o Excel exportado.
 4. **Gerar documentos (.zip)** → o navegador baixa um .zip com um documento Word por auditor.
+   A avaliação descritiva é escrita depois, direto em cada documento.
 5. Para usar outro modelo de documento: abra "Usar outro modelo de documento" e escolha o `.docx`.
 
 ## Se der problema
