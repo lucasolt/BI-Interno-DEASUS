@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "c222985086bd37ebfc52",
+  "position": {
+    "x": 195,
+    "y": 166,
+    "z": 13000,
+    "height": 54,
+    "width": 1718,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Regra do período: ",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#0B2E59",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "auditoria entra se a Data de Designação (17) OU a entrega do RAI (19) / RAF (21) cai no período; monitoramento entra se a Data Inicial da Designação (52/77/101) OU a Data do Relatório (55/80/104) cai no período. Uma mesma auditoria pode aparecer em dois períodos (no que começou e no que terminou). Para exportar: menu … da tabela → Exportar dados.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#5B6B7F"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

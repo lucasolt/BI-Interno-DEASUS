@@ -21,36 +21,40 @@ estes arquivos servem para revisão/diff.
 | `dProcesso` | sim | Dimensão processo (CRS, município, status geral…) |
 | `dFuncao`, `dSituacao` | sim | Dimensões compartilhadas (filtros valem para as duas fases) |
 | `dCalendario` | sim (DAX) | Calendário (ano, semestre, quadrimestre, trimestre, mês) |
-| `bAtividadeMonitoramento`, `bAtividadeAuditoria` | sim | Pontes de período: 1 linha por evento (Início/Conclusão) de cada linha da fato |
 
 As colunas da planilha são localizadas pelo **código do campo** (`(56)`, `(57)`…), não pelo texto
 do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 
 ## Relacionamentos
 
-- `fDesignacoes` e `fAuditoria` → `dAuditor`, `dProcesso`, `dFuncao`, `dSituacao`
-- **Período (ativo):** `dCalendario[Data]` → `bAtividadeMonitoramento[Data]` / `bAtividadeAuditoria[Data]`
-  → (ambas as direções) `fDesignacoes[Chave]` / `fAuditoria[Chave]`
-- Relações diretas fato → `dCalendario` são **inativas** e só usadas nas medidas "por Data ..."
-  (evolução mensal), que desligam a ponte com `CROSSFILTER(..., NONE)`:
-  `Data Relatório`/`Data Entrega` (entregas no mês), `Data Limite` (vencimentos no mês),
-  `Data Final Designação`/`Data Designação` (sem uso em medida).
+- `fDesignacoes[Auditor]` → `dAuditor[Auditor]`
+- `fDesignacoes[Nº PROA]` → `dProcesso[Nº PROA]`
+- `fDesignacoes[Data Final Designação]` → `dCalendario[Data]` (**ativo** – filtro de Período)
+- `fDesignacoes[Data Relatório]` → `dCalendario[Data]` (inativo – evolução mensal de entregas)
+- `fDesignacoes[Data Limite]` → `dCalendario[Data]` (inativo – pendências por mês de vencimento)
+- `fAuditoria`: `Auditor`, `Nº PROA`, `Data Designação` (**ativo**), `Data Entrega` e `Data Limite` (inativos)
+- `fAuditoria[Função]` e `fDesignacoes[Função]` → `dFuncao`; `[Situação]` de ambas → `dSituacao`
 
-## Regra do período (avaliação dos auditores)
+## Aba Avaliação (produção por auditor)
 
-Uma designação entra no período filtrado se o auditor **iniciou OU concluiu** nele:
+Substitui o notebook `DEASUS_AnalisadorDeProcessos`. Tabela no formato da planilha de avaliação:
+Auditor · PROAs · Total de auditorias · Coordenação · Equipe · RAI entregues · Matrizes RAI ·
+RAF entregues · Matrizes RAF · Ciclos de monitoramento (Coordenador / Equipe). Exportar pelo menu `…` da tabela.
 
-| Fase | Início | Conclusão |
+**Regra do período** (só nas medidas `Aval ...`, pasta *8. Avaliação*; o resto do BI não muda):
+uma linha entra se o auditor **iniciou OU concluiu** dentro do período filtrado em `dCalendario`.
+
+| Fase | Iniciou | Concluiu |
 |---|---|---|
-| Auditoria (RAI e RAF, linha a linha) | Data de Designação (17) | Data de entrega do RAI (19) / RAF (21) |
-| Monitoramento (ciclos 1–3) | Data Inicial da Designação (52/77/101); se vazia, Data Final (53/78/102) | Data do Relatório (55/80/104) |
+| Auditoria (RAI e RAF, linha a linha) | Data de Designação (17) | Entrega do RAI (19) / RAF (21) |
+| Monitoramento (ciclos 1–3) | Data Inicial da Designação (52/77/101); se vazia, a Final | Data do Relatório (55/80/104) |
 
-- A mesma designação pode aparecer em dois períodos (no que começou e no que terminou).
-- Linhas sem nenhuma data somem quando há filtro de período.
-- Pendências antigas (iniciadas antes e ainda sem entrega) **não** entram no período; para o estoque
-  de pendências, use a página sem filtro de período ou as medidas "(por Data Limite)".
-- A coluna `Evento` das pontes permite restringir a só "Início" ou só "Conclusão".
-- `dCalendario` tem Semestre (`Ano/Semestre`) e Quadrimestre (`Ano/Quadrimestre`).
+- A mesma auditoria pode aparecer em dois períodos (no que começou e no que terminou).
+- Sem filtro de período, as medidas mostram todo o histórico.
+- "RAI/RAF entregues" = tem data de entrega (independe de prazo). Matrizes = soma de
+  `Qtde Martiz Qualidade RIA/RFA` dos processos do auditor no período.
+- Diferenças em relação ao notebook: nomes unificados pela lista de SERVIDORES/aliases; o notebook
+  filtrava só pela data de designação.
 
 ## Regras de negócio aplicadas
 

@@ -100,16 +100,13 @@ let
     ComCiclo = Table.AddColumn(ComAlerta, "Ciclo", each Text.From([Ciclo Nº]) & "º Ciclo", type text),
     ComFuncaoOrdem = Table.AddColumn(ComCiclo, "Função Ordem", each if [Função] = "Coordenador" then 1 else 2, Int64.Type),
     ComId = Table.AddColumn(ComFuncaoOrdem, "ID Designação", each [Nº PROA] & " | " & [Ciclo], type text),
-    // chave única da linha (liga com a ponte de período bAtividadeMonitoramento)
-    ComChave = Table.AddColumn(ComId, "Chave", each
-        Text.Combine({[Nº PROA] ?? "(sem PROA)", [Ciclo], [Função], [Auditor]}, " | "), type text),
-    ComRef = Table.AddColumn(ComChave, "Data de Referência", each Hoje, type date),
+    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
     Tipos = Table.TransformColumnTypes(ComRef, {{"Função", type text}, {"Nome na Planilha", type nullable text}}),
 
     Final = Table.SelectColumns(Tipos, {
         "ID Designação", "Nº PROA", "Ciclo", "Ciclo Nº", "Função", "Função Ordem", "Auditor", "Nome na Planilha",
         "Data Inicial Designação", "Data Final Designação", "Data Limite", "Data Relatório", "Nº Relatório",
         "Situação", "Situação Ordem", "Entregue", "Dias para Entrega", "Dias de Atraso",
-        "Status do Ciclo", "Alerta de Qualidade", "Data de Referência", "Chave"})
+        "Status do Ciclo", "Alerta de Qualidade", "Data de Referência"})
 in
     Final

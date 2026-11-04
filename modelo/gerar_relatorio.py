@@ -321,6 +321,7 @@ SUBTITULO = {
     "geral": "Auditoria (RAI · RAF) e Monitoramento (1º, 2º e 3º Ciclos) · Designações, entregas e prazos",
     "aud": "Fase de Auditoria · Relatório Inicial (prazo 30 dias) e Relatório Final (prazo 60 dias) a partir da designação",
     "monit": "Monitoramento das Recomendações (1º, 2º e 3º Ciclos) · prazo de 30 dias após a Data Final da Designação",
+    "aval": "Produção por auditor no período · entra o que o auditor INICIOU ou CONCLUIU dentro do período selecionado",
 }
 
 
@@ -742,8 +743,51 @@ def pg_metodologia():
     return p
 
 
+def pg_avaliacao():
+    """Produção por auditor para avaliação (substitui o notebook AnalisadorDeProcessos).
+    Medidas 'Aval ...': a linha entra se iniciou OU concluiu no período (ver README)."""
+    p = Pagina("avaliacao", "AVALIAÇÃO · PRODUÇÃO POR AUDITOR")
+    p.nome_exib = "Avaliação"
+    moldura(p, "aval", com_filtros=False)
+    y, h = 90, 66
+    x = X0
+    p.add("f_semestre", x, y, 230, h, slicer(col("dCalendario", "Ano/Semestre"), "Semestre", "AvalSemestre"))
+    x += 240
+    p.add("f_quadri", x, y, 230, h, slicer(col("dCalendario", "Ano/Quadrimestre"), "Quadrimestre", "AvalQuadrimestre"))
+    x += 240
+    p.add("f_auditor", x, y, 300, h, slicer(AUDITOR, "Auditor", "Auditor"),
+          filtros=[filtro_in("dAuditor", "Possui Designação", ["Sim"], "fPossuiDesig")])
+    x += 310
+    p.add("f_unidade", x, y, 260, h, slicer(col("dAuditor", "Lotação"), "Unidade (Lotação)", "Unidade (Lotação)"))
+    x += 270
+    p.add("periodo", x, y, XMAX - x, h, card("Aval Período", tam=13, cor=NAVY, fundo=BRANCO, borda=True))
+    y = 166
+    p.add("regra", X0, y, XMAX - X0, 54, textbox([
+        [("Regra do período: ", st(10, NAVY, True)),
+         ("auditoria entra se a Data de Designação (17) OU a entrega do RAI (19) / RAF (21) cai no período; "
+          "monitoramento entra se a Data Inicial da Designação (52/77/101) OU a Data do Relatório (55/80/104) cai no período. "
+          "Uma mesma auditoria pode aparecer em dois períodos (no que começou e no que terminou). "
+          "Para exportar: menu \u2026 da tabela \u2192 Exportar dados.", st(10, CINZA_TXT))],
+    ], fundo=BRANCO))
+    y = 228
+    p.add("tabela", X0, y, XMAX - X0, H - y - 8, tabela([
+        (AUDITOR, "Auditor"),
+        (med("Aval PROAs"), "PROAs"),
+        (med("Aval Auditorias Designadas"), "Total de auditorias designadas"),
+        (med("Aval Auditorias Coordenação"), "Auditorias (coordenação)"),
+        (med("Aval Auditorias Equipe"), "Auditorias (composição de equipe)"),
+        (med("Aval RAI Entregues"), "Relatórios Preliminares entregues"),
+        (med("Aval RAI Matrizes"), "Qtd de Matrizes RAI"),
+        (med("Aval RAF Entregues"), "Relatórios Finais entregues"),
+        (med("Aval RAF Matrizes"), "Qtd de Matrizes RAF"),
+        (med("Aval Monit Coordenador"), "Ciclos de monitoramento como Coordenador"),
+        (med("Aval Monit Equipe"), "Ciclos de monitoramento como Equipe"),
+    ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")))
+    return p
+
+
 def main():
-    paginas = [pg_resumo(), pg_auditoria(), pg_auditoria_detalhe(), pg_monitoramento(), pg_monit_auditor(),
+    paginas = [pg_resumo(), pg_avaliacao(), pg_auditoria(), pg_auditoria_detalhe(), pg_monitoramento(), pg_monit_auditor(),
                pg_monit_ciclo(), pg_monit_detalhe(), pg_pendencias(), pg_metodologia()]
 
     def _forcar(func, caminho, _exc):  # OneDrive marca pastas como somente-leitura

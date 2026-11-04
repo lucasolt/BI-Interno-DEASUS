@@ -1,4 +1,4 @@
-/// Calendário. Filtra as fatos pelas pontes bAtividade* (entra quem INICIOU OU CONCLUIU no período). Relações diretas com as fatos são inativas (USERELATIONSHIP nas medidas 'por Data ...').
+/// Calendário. Ativas: fDesignacoes[Data Final Designação] e fAuditoria[Data Designação]. Inativas: datas de entrega/relatório e limite (USERELATIONSHIP). Medidas 'Aval ...' ignoram as relações e aplicam a regra iniciou OU concluiu no período.
 table dCalendario
 	lineageTag: 27df70cc-7ae1-41ef-92b2-e282e18dc834
 	dataCategory: Time
