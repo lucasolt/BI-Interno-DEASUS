@@ -1,4 +1,4 @@
-/// Calendário. Ativas: fDesignacoes[Data Inicial Designação] e fAuditoria[Data Designação]. Inativas: datas de entrega/relatório e limite (USERELATIONSHIP).
+/// Calendário. Ativas: fDesignacoes[Data Inicial Designação] e fAuditoria[Data Designação]. Inativas: datas de entrega/relatório e limite (USERELATIONSHIP). Medidas 'Aval ...' ignoram as relações e aplicam a regra iniciou OU concluiu no período.
 table dCalendario
 	lineageTag: 27df70cc-7ae1-41ef-92b2-e282e18dc834
 	dataCategory: Time
@@ -52,6 +52,42 @@ table dCalendario
 		isNameInferred
 		sourceColumn: [AnoTrimestre]
 
+	column Semestre
+		lineageTag: 30e113fd-aa3a-4862-b0d9-9800366c624e
+		isNameInferred
+		sourceColumn: [Semestre]
+
+	column Ano/Semestre
+		lineageTag: 5634fb34-aad4-46e6-846a-32ee6774cbd8
+		isNameInferred
+		sourceColumn: [Ano/Semestre]
+		sortByColumn: AnoSemestre
+
+	column AnoSemestre
+		isHidden
+		summarizeBy: none
+		lineageTag: 397358c4-0bfe-4e54-80a8-25bc0810b3d9
+		isNameInferred
+		sourceColumn: [AnoSemestre]
+
+	column Quadrimestre
+		lineageTag: b67493a4-8e67-46ec-9117-e3667310ad2b
+		isNameInferred
+		sourceColumn: [Quadrimestre]
+
+	column Ano/Quadrimestre
+		lineageTag: c895b29b-8919-4f82-9e37-86df462af67e
+		isNameInferred
+		sourceColumn: [Ano/Quadrimestre]
+		sortByColumn: AnoQuadrimestre
+
+	column AnoQuadrimestre
+		isHidden
+		summarizeBy: none
+		lineageTag: d75cbcef-f8df-4e25-89bb-7ffe46662156
+		isNameInferred
+		sourceColumn: [AnoQuadrimestre]
+
 	column Data
 		isUnique
 		isKey
@@ -88,6 +124,12 @@ table dCalendario
 				    "AnoMês", YEAR([Data]) * 100 + MONTH([Data]),
 				    "Trimestre", "T" & QUARTER([Data]),
 				    "Ano/Trimestre", YEAR([Data]) & "-T" & QUARTER([Data]),
-				    "AnoTrimestre", YEAR([Data]) * 10 + QUARTER([Data])
+				    "AnoTrimestre", YEAR([Data]) * 10 + QUARTER([Data]),
+				    "Semestre", "S" & (INT((MONTH([Data]) - 1) / 6) + 1),
+				    "Ano/Semestre", YEAR([Data]) & "-S" & (INT((MONTH([Data]) - 1) / 6) + 1),
+				    "AnoSemestre", YEAR([Data]) * 10 + INT((MONTH([Data]) - 1) / 6) + 1,
+				    "Quadrimestre", "Q" & (INT((MONTH([Data]) - 1) / 4) + 1),
+				    "Ano/Quadrimestre", YEAR([Data]) & "-Q" & (INT((MONTH([Data]) - 1) / 4) + 1),
+				    "AnoQuadrimestre", YEAR([Data]) * 10 + INT((MONTH([Data]) - 1) / 4) + 1
 				)
 

@@ -1213,6 +1213,227 @@ table _Medidas
 		displayFolder: 8. Carteira Atual\Por auditor
 		lineageTag: dd7fe8f8-10fb-404d-a5ae-cdcd6f021159
 
+	/// Lista 'PROA AUDITADO' dos processos de auditoria (sem regra de período; base da Aval PROAs).
+	measure 'Aud Lista de PROAs' = CONCATENATEX(VALUES(fAuditoria[Nº PROA]), TRIM(fAuditoria[Nº PROA] & " " & LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], fAuditoria[Nº PROA])), UNICHAR(10), fAuditoria[Nº PROA], ASC)
+		displayFolder: 8. Avaliação
+
+	/// Processos de auditoria do auditor que iniciaram (designação) ou tiveram RAI/RAF entregue no período.
+	measure 'Aval PROAs' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        [Aud Lista de PROAs],
+			        CALCULATE(
+			            [Aud Lista de PROAs],
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		displayFolder: 8. Avaliação
+
+	/// Total de auditorias (PROA x Função) que o auditor iniciou ou em que entregou RAI/RAF no período.
+	measure 'Aval Auditorias Designadas' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        [Aud Designações],
+			        CALCULATE(
+			            [Aud Designações],
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Idem, como Coordenador.
+	measure 'Aval Auditorias Coordenação' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        [Aud Designações Coordenador],
+			        CALCULATE(
+			            [Aud Designações Coordenador],
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Idem, como membro da Equipe.
+	measure 'Aval Auditorias Equipe' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        [Aud Designações Equipe],
+			        CALCULATE(
+			            [Aud Designações Equipe],
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Relatórios Preliminares (RAI) com data de entrega, nos processos do período.
+	measure 'Aval RAI Entregues' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAI"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
+			        CALCULATE(
+			            CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAI"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Qtde de Matrizes de Qualidade do RAI (Qtde Martiz Qualidade RIA), processos do período.
+	measure 'Aval RAI Matrizes' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAI")),
+			        CALCULATE(
+			            CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAI")),
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Relatórios Finais (RAF) com data de entrega, nos processos do período.
+	measure 'Aval RAF Entregues' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAF"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
+			        CALCULATE(
+			            CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAF"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Qtde de Matrizes de Qualidade do RAF (Qtde Martiz Qualidade RFA), processos do período.
+	measure 'Aval RAF Matrizes' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAF")),
+			        CALCULATE(
+			            CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAF")),
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Ciclos de monitoramento como Coordenador iniciados (designação) ou concluídos (relatório) no período.
+	measure 'Aval Monit Coordenador' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        [Designações Coordenador],
+			        CALCULATE(
+			            [Designações Coordenador],
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fDesignacoes[Data Inicial Designação], fDesignacoes[Data Final Designação], fDesignacoes[Data Relatório]),
+			                VAR _Inicio = COALESCE(fDesignacoes[Data Inicial Designação], fDesignacoes[Data Final Designação])
+			                RETURN
+			                (_Inicio >= _Ini && _Inicio <= _Fim)
+			                    || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Ciclos de monitoramento como Equipe iniciados (designação) ou concluídos (relatório) no período.
+	measure 'Aval Monit Equipe' =
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    IF(
+			        NOT ISFILTERED(dCalendario),
+			        [Designações Equipe],
+			        CALCULATE(
+			            [Designações Equipe],
+			            REMOVEFILTERS(dCalendario),
+			            KEEPFILTERS(FILTER(
+			                ALL(fDesignacoes[Data Inicial Designação], fDesignacoes[Data Final Designação], fDesignacoes[Data Relatório]),
+			                VAR _Inicio = COALESCE(fDesignacoes[Data Inicial Designação], fDesignacoes[Data Final Designação])
+			                RETURN
+			                (_Inicio >= _Ini && _Inicio <= _Fim)
+			                    || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim)
+			            ))
+			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Texto do período selecionado (para o cabeçalho da aba Avaliação).
+	measure 'Aval Período' = IF(ISFILTERED(dCalendario), "Período: " & FORMAT(MIN(dCalendario[Data]), "dd/mm/yyyy") & " a " & FORMAT(MAX(dCalendario[Data]), "dd/mm/yyyy"), "Período: todo o histórico (nenhum filtro de período)")
+		displayFolder: 8. Avaliação
+
 	column Coluna
 		isHidden
 		lineageTag: 46a9072a-4a4f-4f1a-9550-e1907043a60a

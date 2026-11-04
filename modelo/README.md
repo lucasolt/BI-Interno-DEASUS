@@ -40,6 +40,27 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 - `fAuditoria`: `Auditor`, `Nº PROA`, `Data Designação` (**ativo**), `Data Entrega` e `Data Limite` (inativos)
 - `fAuditoria[Função]` e `fDesignacoes[Função]` → `dFuncao`; `[Situação]` de ambas → `dSituacao`
 
+## Aba Avaliação (produção por auditor)
+
+Substitui o notebook `DEASUS_AnalisadorDeProcessos`. Tabela no formato da planilha de avaliação:
+Auditor · PROAs · Total de auditorias · Coordenação · Equipe · RAI entregues · Matrizes RAI ·
+RAF entregues · Matrizes RAF · Ciclos de monitoramento (Coordenador / Equipe). Exportar pelo menu `…` da tabela.
+
+**Regra do período** (só nas medidas `Aval ...`, pasta *8. Avaliação*; o resto do BI não muda):
+uma linha entra se o auditor **iniciou OU concluiu** dentro do período filtrado em `dCalendario`.
+
+| Fase | Iniciou | Concluiu |
+|---|---|---|
+| Auditoria (RAI e RAF, linha a linha) | Data de Designação (17) | Entrega do RAI (19) / RAF (21) |
+| Monitoramento (ciclos 1–3) | Data Inicial da Designação (52/77/101); se vazia, a Final | Data do Relatório (55/80/104) |
+
+- A mesma auditoria pode aparecer em dois períodos (no que começou e no que terminou).
+- Sem filtro de período, as medidas mostram todo o histórico.
+- "RAI/RAF entregues" = tem data de entrega (independe de prazo). Matrizes = soma de
+  `Qtde Martiz Qualidade RIA/RFA` dos processos do auditor no período.
+- Diferenças em relação ao notebook: nomes unificados pela lista de SERVIDORES/aliases; o notebook
+  filtrava só pela data de designação.
+
 ## Regras de negócio aplicadas
 
 ### Gerais
