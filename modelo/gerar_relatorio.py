@@ -869,6 +869,8 @@ def pg_avaliacao():
         (med("Aval RAF Matrizes"), "Qtd de Matrizes RAF"),
         (med("Aval Monit Coordenador"), "Ciclos de monitoramento como Coordenador"),
         (med("Aval Monit Equipe"), "Ciclos de monitoramento como Equipe"),
+        (med("Aval Monit Realizados Coordenador"), "Ciclos de monitoramento realizados como Coordenador"),
+        (med("Aval Monit Realizados Equipe"), "Ciclos de monitoramento realizados como Equipe"),
         (med("Aval PROAs"), "PROAs"),  # por último, numa linha só; lida pelo gerador de documentos
     ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")),
           filtros=[filtro_nao_in("dAuditor", "Auditor", ["(Não informado)"], "fSemNaoInformado")])

@@ -1213,27 +1213,46 @@ table _Medidas
 		displayFolder: 8. Carteira Atual\Por auditor
 		lineageTag: dd7fe8f8-10fb-404d-a5ae-cdcd6f021159
 
-	/// Lista 'PROA AUDITADO; PROA AUDITADO; ...' dos processos de auditoria (sem regra de período; base da Aval PROAs). O gerador de documentos separa por '; '.
-	measure 'Aud Lista de PROAs' = CONCATENATEX(VALUES(fAuditoria[Nº PROA]), TRIM(fAuditoria[Nº PROA] & " " & LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], fAuditoria[Nº PROA])), "; ", fAuditoria[Nº PROA], ASC)
-		displayFolder: 8. Avaliação
-
-	/// Processos de auditoria do auditor que iniciaram (designação) ou tiveram RAI/RAF entregue no período.
+	/// PROAs do auditor no período: auditorias iniciadas (designação) ou com RAI/RAF entregue + monitoramentos com relatório entregue. Formato 'PROA AUDITADO; ...' (o gerador de documentos separa por '; '); os que vêm só de monitoramento recebem '(monitoramento)'.
 	measure 'Aval PROAs' =
+			VAR _Filtrado = ISFILTERED(dCalendario)
 			VAR _Ini = MIN(dCalendario[Data])
 			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Aud =
+			    CALCULATETABLE(
+			        VALUES(fAuditoria[Nº PROA]),
+			        REMOVEFILTERS(dCalendario),
+			        KEEPFILTERS(FILTER(
+			            ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
+			            NOT _Filtrado
+			                || (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
+			                || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
+			        ))
+			    )
+			VAR _Mon =
+			    CALCULATETABLE(
+			        VALUES(fDesignacoes[Nº PROA]),
+			        REMOVEFILTERS(dCalendario),
+			        KEEPFILTERS(FILTER(
+			            ALL(fDesignacoes[Data Relatório]),
+			            NOT ISBLANK(fDesignacoes[Data Relatório])
+			                && (NOT _Filtrado || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim))
+			        ))
+			    )
+			VAR _Todos =
+			    DISTINCT(UNION(
+			        SELECTCOLUMNS(_Aud, "PROA", fAuditoria[Nº PROA]),
+			        SELECTCOLUMNS(_Mon, "PROA", fDesignacoes[Nº PROA])
+			    ))
 			RETURN
-			    IF(
-			        NOT ISFILTERED(dCalendario),
-			        [Aud Lista de PROAs],
-			        CALCULATE(
-			            [Aud Lista de PROAs],
-			            REMOVEFILTERS(dCalendario),
-			            KEEPFILTERS(FILTER(
-			                ALL(fAuditoria[Data Designação], fAuditoria[Data Entrega]),
-			                (fAuditoria[Data Designação] >= _Ini && fAuditoria[Data Designação] <= _Fim)
-			                    || (fAuditoria[Data Entrega] >= _Ini && fAuditoria[Data Entrega] <= _Fim)
-			            ))
-			        )
+			    CONCATENATEX(
+			        FILTER(_Todos, NOT ISBLANK([PROA])),
+			        VAR _P = [PROA]
+			        RETURN
+			            TRIM(_P & " " & LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], _P))
+			                & IF(NOT (_P IN _Aud), " (monitoramento)"),
+			        "; ",
+			        [PROA], ASC
 			    )
 		displayFolder: 8. Avaliação
 
@@ -1426,6 +1445,42 @@ table _Medidas
 			                    || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim)
 			            ))
 			        )
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Ciclos de monitoramento realizados como Coordenador: relatório do ciclo (55/80/104) entregue no período.
+	measure 'Aval Monit Realizados Coordenador' =
+			VAR _Filtrado = ISFILTERED(dCalendario)
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    CALCULATE(
+			        [Designações Coordenador],
+			        REMOVEFILTERS(dCalendario),
+			        KEEPFILTERS(FILTER(
+			            ALL(fDesignacoes[Data Relatório]),
+			            NOT ISBLANK(fDesignacoes[Data Relatório])
+			                && (NOT _Filtrado || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim))
+			        ))
+			    )
+		formatString: #,0
+		displayFolder: 8. Avaliação
+
+	/// Ciclos de monitoramento realizados como Equipe: relatório do ciclo (55/80/104) entregue no período.
+	measure 'Aval Monit Realizados Equipe' =
+			VAR _Filtrado = ISFILTERED(dCalendario)
+			VAR _Ini = MIN(dCalendario[Data])
+			VAR _Fim = MAX(dCalendario[Data])
+			RETURN
+			    CALCULATE(
+			        [Designações Equipe],
+			        REMOVEFILTERS(dCalendario),
+			        KEEPFILTERS(FILTER(
+			            ALL(fDesignacoes[Data Relatório]),
+			            NOT ISBLANK(fDesignacoes[Data Relatório])
+			                && (NOT _Filtrado || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim))
+			        ))
 			    )
 		formatString: #,0
 		displayFolder: 8. Avaliação

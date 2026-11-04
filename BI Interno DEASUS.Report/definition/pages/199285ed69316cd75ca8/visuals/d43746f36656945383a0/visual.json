@@ -173,6 +173,36 @@
                       "Entity": "_Medidas"
                     }
                   },
+                  "Property": "Aval Monit Realizados Coordenador"
+                }
+              },
+              "queryRef": "_Medidas.Aval Monit Realizados Coordenador",
+              "nativeQueryRef": "Ciclos de monitoramento realizados como Coordenador",
+              "displayName": "Ciclos de monitoramento realizados como Coordenador"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Aval Monit Realizados Equipe"
+                }
+              },
+              "queryRef": "_Medidas.Aval Monit Realizados Equipe",
+              "nativeQueryRef": "Ciclos de monitoramento realizados como Equipe",
+              "displayName": "Ciclos de monitoramento realizados como Equipe"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
                   "Property": "Aval PROAs"
                 }
               },

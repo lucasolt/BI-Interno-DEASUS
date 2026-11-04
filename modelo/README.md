@@ -46,7 +46,12 @@ Na área da chefia (botão entre "Desempenho por Auditor" e "Detalhes ▸"). Nom
 
 Substitui o notebook `DEASUS_AnalisadorDeProcessos`. Tabela no formato da planilha de avaliação:
 Auditor · PROAs · Total de auditorias · Coordenação · Equipe · RAI entregues · Matrizes RAI ·
-RAF entregues · Matrizes RAF · Ciclos de monitoramento (Coordenador / Equipe). Exportar pelo menu `…` da tabela.
+RAF entregues · Matrizes RAF · Ciclos de monitoramento (Coordenador / Equipe) · Ciclos de monitoramento
+realizados (Coordenador / Equipe) · PROAs. Exportar pelo menu `…` da tabela.
+
+- **Ciclos realizados** = relatório do ciclo (55/80/104) entregue dentro do período.
+- **PROAs** = auditorias iniciadas ou com RAI/RAF entregue no período + monitoramentos com relatório
+  entregue no período (marcados "(monitoramento)" quando o PROA não está entre as auditorias).
 
 **Regra do período** (só nas medidas `Aval ...`, pasta *8. Avaliação*; o resto do BI não muda):
 uma linha entra se o auditor **iniciou OU concluiu** dentro do período filtrado em `dCalendario`.
