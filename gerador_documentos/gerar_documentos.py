@@ -4,7 +4,7 @@ Entrada:
   1. O Excel exportado da tabela da aba "Acompanhamento Periódico" do BI
      (menu ... da tabela -> Exportar dados -> Dados com layout atual -> .xlsx).
   2. O modelo .docx com os campos {{ Auditor }}, {{ Quadrimestre }}, {{ Avaliadores }},
-     {{ atividade_1 }} ... {{ avaliacao_5 }}, {{ proas }} e {{ Avaliacao_Descritiva }}.
+     {{ atividade_1 }} ... {{ avaliacao_7 }}, {{ proas }} e {{ Avaliacao_Descritiva }}.
 
 As colunas são lidas PELO NOME (não pela posição). Se alguém renomear uma coluna no BI,
 ajuste a lista ATIVIDADES abaixo.
@@ -23,13 +23,15 @@ import pandas as pd
 from docxtpl import DocxTemplate
 
 # Linhas da tabela do documento: (texto que aparece no documento, coluna do Excel exportado).
-# O modelo tem 5 linhas (atividade_1..5). Para mudar o que aparece, troque aqui.
+# O modelo tem 7 linhas (atividade_1..7). Para mudar o que aparece, troque aqui.
 ATIVIDADES = [
     ("Total de auditorias designadas", "Total de auditorias designadas"),
     ("Auditorias (coordenação)", "Auditorias (coordenação)"),
     ("Auditorias (composição de equipe)", "Auditorias (composição de equipe)"),
     ("Relatórios Preliminares entregues", "Relatórios Preliminares entregues"),
     ("Qtd de Matrizes RAI", "Qtd de Matrizes RAI"),   # 5ª linha igual à do notebook antigo
+    ("Ciclos de monitoramento realizados como Coordenador", "Ciclos de monitoramento realizados como Coordenador"),
+    ("Ciclos de monitoramento realizados como Equipe", "Ciclos de monitoramento realizados como Equipe"),
 ]
 COL_AUDITOR = "Auditor"
 COL_PROAS = "PROAs"

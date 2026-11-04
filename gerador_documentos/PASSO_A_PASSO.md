@@ -43,6 +43,6 @@ Executar tudo → painel com botões). Atenção: no Colab o Excel é enviado pa
 - **Colab/Python:**
 - O código fica em `gerar_documentos.py` (geração) e `painel.py` (botões). O notebook é montado a partir
   deles e do modelo `.docx` (embutido): depois de alterar qualquer um, rode `python montar_notebook.py`.
-- As 5 linhas do documento estão na lista `ATIVIDADES` (texto no documento → coluna do Excel).
+- As 7 linhas do documento estão na lista `ATIVIDADES` (texto no documento → coluna do Excel).
 - As colunas são lidas pelo nome, não pela posição. A coluna `PROAs` vem do BI separada por `; `.
 - Teste no computador: `python gerar_documentos.py exportacao.xlsx modelo.docx --periodo "1º/2026"`.

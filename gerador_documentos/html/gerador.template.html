@@ -104,13 +104,15 @@
 "use strict";
 const MODELO_PADRAO_B64 = "__MODELO_B64__";
 
-// Linhas da tabela do documento: [texto no documento, coluna do Excel exportado]. O modelo tem 5 linhas.
+// Linhas da tabela do documento: [texto no documento, coluna do Excel exportado]. O modelo tem 7 linhas (atividade_1..7).
 const ATIVIDADES = [
   ["Total de auditorias designadas", "Total de auditorias designadas"],
   ["Auditorias (coordenação)", "Auditorias (coordenação)"],
   ["Auditorias (composição de equipe)", "Auditorias (composição de equipe)"],
   ["Relatórios Preliminares entregues", "Relatórios Preliminares entregues"],
   ["Qtd de Matrizes RAI", "Qtd de Matrizes RAI"],   // 5ª linha igual à do notebook antigo
+  ["Ciclos de monitoramento realizados como Coordenador", "Ciclos de monitoramento realizados como Coordenador"],
+  ["Ciclos de monitoramento realizados como Equipe", "Ciclos de monitoramento realizados como Equipe"],
 ];
 const COL_AUDITOR = "Auditor", COL_PROAS = "PROAs", COL_DESCRITIVA = "Avaliação Descritiva";
 const MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
