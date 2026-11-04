@@ -16,7 +16,7 @@ Leva uns 5 minutos. Não precisa instalar nada.
 
 ## 2. Gerar os documentos
 1. **Baixe** `Gerador_Acompanhamento_Periodico.html` para o computador (no SharePoint: "…" → Baixar) e dê dois cliques no arquivo baixado. Não abra direto pelo SharePoint: lá ele não funciona.
-2. Preencha **Período** (ex.: `1º/2026`) e **Avaliadores**.
+2. Preencha **Período** (ex.: `1º/2026`), **Avaliadores** e **Data do documento** (já vem com a data de hoje).
 3. **Escolher Excel…** → selecione o Excel exportado.
 4. **Gerar documentos (.zip)** → o navegador baixa um .zip com um documento Word por auditor.
    A avaliação descritiva é escrita depois, direto em cada documento.

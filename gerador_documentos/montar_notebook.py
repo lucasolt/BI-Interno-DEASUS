@@ -48,6 +48,7 @@ celulas = [
     code('#@title Plano B: enviar o Excel e gerar { display-mode: "form" }\n'
          'PERIODO = ""  #@param {type:"string"}\n'
          'AVALIADORES = ""  #@param {type:"string"}\n'
+         'DATA = ""  #@param {type:"string"}\n'
          'import os, base64, shutil\n'
          'from google.colab import files\n'
          'import gerar_documentos\n'
@@ -63,7 +64,7 @@ celulas = [
          '    open(modelo, "wb").write(base64.b64decode(MODELO_PADRAO_B64))\n'
          'if not excel or not PERIODO.strip():\n'
          '    raise SystemExit("Preencha o PERIODO e escolha o Excel exportado do BI.")\n'
-         'files.download(gerar_documentos.gerar(excel, modelo, PERIODO.strip(), AVALIADORES.strip()))\n'),
+         'files.download(gerar_documentos.gerar(excel, modelo, PERIODO.strip(), AVALIADORES.strip(), data=DATA.strip() or None))\n'),
 ]
 nb = {"cells": celulas,
       "metadata": {"colab": {"provenance": []}, "kernelspec": {"name": "python3", "display_name": "Python 3"},

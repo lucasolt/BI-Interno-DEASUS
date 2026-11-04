@@ -24,8 +24,8 @@
   .passo h2 { margin: 2px 0 10px; font-size: 16px; color: var(--navy); }
   .corpo { flex: 1; min-width: 0; }
   label { display: block; font-size: 13px; color: var(--cinza); margin: 10px 0 4px; }
-  input[type=text] { width: 100%; padding: 9px 11px; border: 1px solid var(--borda); border-radius: 6px; font: inherit; }
-  input[type=text]:focus { outline: 2px solid #9DB7DD; border-color: var(--navy2); }
+  input[type=text], input[type=date] { width: 100%; padding: 9px 11px; border: 1px solid var(--borda); border-radius: 6px; font: inherit; }
+  input[type=text]:focus, input[type=date]:focus { outline: 2px solid #9DB7DD; border-color: var(--navy2); }
   .arquivo { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .arquivo input[type=file] { display: none; }
   button, .botao { appearance: none; border: 0; border-radius: 8px; padding: 11px 18px; font: inherit; font-weight: 600;
@@ -67,6 +67,8 @@
       <input type="text" id="periodo" placeholder="ex.: 1º/2026">
       <label for="avaliadores">Avaliadores</label>
       <input type="text" id="avaliadores" placeholder="ex.: Fulano e Beltrano">
+      <label for="data">Data do documento</label>
+      <input type="date" id="data">
       <label>Excel exportado do BI</label>
       <div class="arquivo">
         <label class="botao sec" for="excel" style="margin:0">Escolher Excel…</label>
@@ -170,13 +172,14 @@ function proas(v) {
   return itens.map((i) => i.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
 }
 
-function contexto(linha, mapa, periodo, avaliadores) {
+function contexto(linha, mapa, periodo, avaliadores, data) {
   const hoje = new Date();
   const get = (col) => (mapa[chave(col)] === undefined ? undefined : linha[mapa[chave(col)]]);
   const ctx = {
     Auditor: String(get(COL_AUDITOR)).trim(),
     Quadrimestre: periodo,
     Avaliadores: avaliadores,
+    Data: data,
     DataHoje: `${hoje.getDate()} de ${MESES[hoje.getMonth()]} de ${hoje.getFullYear()}`,
     proas: proas(get(COL_PROAS)),
     Avaliacao_Descritiva: vazio(get(COL_DESCRITIVA)) ? "" : String(get(COL_DESCRITIVA)),
@@ -215,6 +218,14 @@ function baixar(blob, nome) {
   setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
 
+// "2026-11-04" -> "4 de novembro de 2026" (vazio -> vazio)
+function dataPorExtenso(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return m ? `${Number(m[3])} de ${MESES[Number(m[2]) - 1]} de ${m[1]}` : "";
+}
+// data de hoje como valor inicial do campo
+(() => { const h = new Date(); $("data").value = `${h.getFullYear()}-${String(h.getMonth() + 1).padStart(2, "0")}-${String(h.getDate()).padStart(2, "0")}`; })();
+
 const lerArquivo = (f) => f.arrayBuffer().then((b) => new Uint8Array(b));
 
 $("excel").addEventListener("change", () => {
@@ -231,6 +242,7 @@ $("modelo").addEventListener("change", () => {
 $("gerar").addEventListener("click", async () => {
   logEl.innerHTML = "";
   const periodo = $("periodo").value.trim(), avaliadores = $("avaliadores").value.trim();
+  const data = dataPorExtenso($("data").value);
   if (!periodo) { log("Preencha o Período antes de gerar.", "erro"); $("periodo").focus(); return; }
   const btn = $("gerar");
   btn.disabled = true; btn.textContent = "Gerando…";
@@ -244,7 +256,7 @@ $("gerar").addEventListener("click", async () => {
     if (!dados.length) throw new Error("Nenhum auditor encontrado no Excel.");
     const zip = new PizZip();
     dados.forEach((linha, n) => {
-      const ctx = contexto(linha, mapa, periodo, avaliadores);
+      const ctx = contexto(linha, mapa, periodo, avaliadores, data);
       const nome = semAcento(ctx.Auditor).replace(/[^A-Za-z0-9_-]+/g, "_").replace(/^_+|_+$/g, "");
       const arq = `acompanhamento_${String(n + 1).padStart(2, "0")}_${nome}.docx`;
       zip.file(arq, preencher(modelo, ctx));

@@ -31,6 +31,8 @@ def criar_painel(modelo_padrao_b64=None, baixar=None):
     larg = w.Layout(width="420px")
     periodo = w.Text(description="Período:", placeholder="ex.: 1º/2026", style=estilo, layout=larg)
     avaliadores = w.Text(description="Avaliadores:", placeholder="ex.: Fulano e Beltrano", style=estilo, layout=larg)
+    _h = __import__("datetime").date.today()
+    data = w.Text(description="Data:", value=f"{_h.day} de {g.MESES[_h.month - 1]} de {_h.year}", style=estilo, layout=larg)
     upload = w.FileUpload(accept=".xlsx,.csv,.docx", multiple=True, description="1. Escolher Excel do BI",
                           layout=w.Layout(width="260px"))
     recebidos = w.HTML("<i>Nenhum arquivo escolhido.</i>")
@@ -84,7 +86,7 @@ def criar_painel(modelo_padrao_b64=None, baixar=None):
             gerar_btn.disabled = True
             gerar_btn.description = "Gerando..."
             try:
-                estado["zip"] = g.gerar(excel, modelo, periodo.value.strip(), avaliadores.value.strip())
+                estado["zip"] = g.gerar(excel, modelo, periodo.value.strip(), avaliadores.value.strip(), data=data.value.strip())
             except Exception as e:  # mostra o erro de forma legível
                 print("\nERRO:", e)
                 return
@@ -109,9 +111,9 @@ def criar_painel(modelo_padrao_b64=None, baixar=None):
 
     titulo = w.HTML("<h3 style='margin:4px 0;color:#0B2E59'>Documentos de Acompanhamento Periódico</h3>"
                     "<div style='color:#5B6B7F'>Preencha, escolha o Excel exportado do BI e clique em gerar.</div>")
-    painel = w.VBox([titulo, periodo, avaliadores, w.HBox([upload, recebidos]), gerar_btn,
+    painel = w.VBox([titulo, periodo, avaliadores, data, w.HBox([upload, recebidos]), gerar_btn,
                      w.HBox([baixar_btn, link]), log])
     display(painel)
     # devolvido para testes
-    return {"periodo": periodo, "avaliadores": avaliadores, "upload": upload, "gerar": ao_gerar,
+    return {"periodo": periodo, "avaliadores": avaliadores, "data": data, "upload": upload, "gerar": ao_gerar,
             "escolher": ao_escolher, "baixar": ao_baixar, "estado": estado, "log": log, "recebidos": recebidos}

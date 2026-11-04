@@ -98,12 +98,13 @@ def _proas(v):
     return "\n".join(re.sub(r"\s+", " ", i).strip() for i in itens if str(i).strip())
 
 
-def montar_contexto(linha, mapa, periodo, avaliadores):
+def montar_contexto(linha, mapa, periodo, avaliadores, data=None):
     hoje = datetime.now()
     ctx = {
         "Auditor": linha[COL_AUDITOR],
         "Quadrimestre": periodo,
         "Avaliadores": avaliadores,
+        "Data": data if data is not None else f"{hoje.day} de {MESES[hoje.month - 1]} de {hoje.year}",
         "DataHoje": f"{hoje.day} de {MESES[hoje.month - 1]} de {hoje.year}",
         "proas": _proas(linha.get(mapa.get(_chave(COL_PROAS)))),
         "Avaliacao_Descritiva": "",
@@ -118,7 +119,8 @@ def montar_contexto(linha, mapa, periodo, avaliadores):
     return ctx
 
 
-def gerar(caminho_excel, caminho_modelo, periodo, avaliadores="", pasta_saida="documentos_acompanhamento"):
+def gerar(caminho_excel, caminho_modelo, periodo, avaliadores="", pasta_saida="documentos_acompanhamento", data=None):
+    """data: texto que vai no campo {{ Data }} (ex.: "4 de novembro de 2026"); None = hoje."""
     df, mapa = ler_exportacao(caminho_excel)
     faltando = [c for _, c in ATIVIDADES if _chave(c) not in mapa]
     if faltando:
@@ -128,7 +130,7 @@ def gerar(caminho_excel, caminho_modelo, periodo, avaliadores="", pasta_saida="d
     os.makedirs(pasta_saida, exist_ok=True)
     arquivos = []
     for n, linha in df.iterrows():
-        ctx = montar_contexto(linha, mapa, periodo, avaliadores)
+        ctx = montar_contexto(linha, mapa, periodo, avaliadores, data)
         doc = DocxTemplate(caminho_modelo)
         doc.render(ctx)
         nome = re.sub(r"[^\w\-]+", "_", ctx["Auditor"]).strip("_")
@@ -151,6 +153,7 @@ if __name__ == "__main__":
     ap.add_argument("modelo")
     ap.add_argument("--periodo", required=True, help='Ex.: "1º/2026"')
     ap.add_argument("--avaliadores", default="")
+    ap.add_argument("--data", default=None, help='Ex.: "4 de novembro de 2026" (padrão: hoje)')
     ap.add_argument("--saida", default="documentos_acompanhamento")
     a = ap.parse_args()
-    gerar(a.excel, a.modelo, a.periodo, a.avaliadores, a.saida)
+    gerar(a.excel, a.modelo, a.periodo, a.avaliadores, a.saida, a.data)
