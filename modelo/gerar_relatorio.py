@@ -874,6 +874,8 @@ def pg_avaliacao():
         (med("Aval PROAs"), "PROAs"),  # por último, numa linha só; lida pelo gerador de documentos
     ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")),
           filtros=[filtro_nao_in("dAuditor", "Auditor", ["(Não informado)"], "fSemNaoInformado")])
+    # cabeçalho visível: sem ele o menu "…" (Exportar dados) some no Power BI online
+    p.visuais[-1]["visual"]["visualContainerObjects"]["visualHeader"] = [{"properties": {"show": B(True)}}]
     return p
 
 
