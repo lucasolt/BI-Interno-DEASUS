@@ -66,7 +66,7 @@ def ler_exportacao(caminho):
     mapa = {_chave(c): c for c in df.columns}
     df = df.rename(columns={mapa[_chave(COL_AUDITOR)]: COL_AUDITOR})
     df[COL_AUDITOR] = df[COL_AUDITOR].astype("string").str.strip()
-    ruido = df[COL_AUDITOR].isna() | (df[COL_AUDITOR] == "") | df[COL_AUDITOR].str.lower().isin(["total"]) \
+    ruido = df[COL_AUDITOR].isna() | (df[COL_AUDITOR] == "") | df[COL_AUDITOR].str.lower().isin(["total", "(não informado)"]) \
         | df[COL_AUDITOR].str.lower().str.startswith(("filtros aplicados", "applied filters"))
     return df[~ruido].reset_index(drop=True), mapa
 

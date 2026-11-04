@@ -144,7 +144,7 @@ function lerExportacao(buffer, nome) {
   const dados = linhas.slice(iCab + 1).filter((l) => {
     const a = vazio(l[iAud]) ? "" : String(l[iAud]).trim();
     const al = a.toLowerCase();
-    return a && al !== "total" && !al.startsWith("filtros aplicados") && !al.startsWith("applied filters");
+    return a && al !== "total" && al !== "(não informado)" && !al.startsWith("filtros aplicados") && !al.startsWith("applied filters");
   });
   return { dados, mapa };
 }

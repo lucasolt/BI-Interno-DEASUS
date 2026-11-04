@@ -822,6 +822,15 @@ def pg_metodologia():
     return p
 
 
+def filtro_nao_in(tabela, coluna, valores, nome):
+    """Filtro fixo do visual: exclui os valores (travado no modo leitura)."""
+    f = filtro_in(tabela, coluna, valores, nome)
+    cond = f["filter"]["Where"][0]["Condition"]
+    f["filter"]["Where"][0]["Condition"] = {"Not": {"Expression": cond}}
+    f["isLockedInViewMode"] = True
+    return f
+
+
 def pg_avaliacao():
     """Produção por auditor para avaliação (substitui o notebook AnalisadorDeProcessos).
     Medidas 'Aval ...': a linha entra se iniciou OU concluiu no período (ver README)."""
@@ -861,7 +870,8 @@ def pg_avaliacao():
         (med("Aval Monit Coordenador"), "Ciclos de monitoramento como Coordenador"),
         (med("Aval Monit Equipe"), "Ciclos de monitoramento como Equipe"),
         (med("Aval PROAs"), "PROAs"),  # por último, numa linha só; lida pelo gerador de documentos
-    ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")))
+    ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")),
+          filtros=[filtro_nao_in("dAuditor", "Auditor", ["(Não informado)"], "fSemNaoInformado")])
     return p
 
 
