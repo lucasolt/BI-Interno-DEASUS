@@ -1,0 +1,56 @@
+/// Ponte de período dos monitoramentos: Início = Data Inicial da Designação (ou Final, se vazia); Conclusão = Data do Relatório.
+table bAtividadeMonitoramento
+	lineageTag: 8302a270-2917-41fd-bb0f-1d30bfeca34b
+
+	column Chave
+		dataType: string
+		isHidden
+		lineageTag: fb4c3028-9be4-4654-b01f-fa94ae447892
+		summarizeBy: none
+		sourceColumn: Chave
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		lineageTag: cbc9b1eb-7ec9-4cb8-b5b2-7043b0bab428
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Início (designação) ou Conclusão (entrega do relatório).
+	column Evento
+		dataType: string
+		lineageTag: 141398c5-447a-43b9-a003-d2a4aa13c447
+		summarizeBy: none
+		sourceColumn: Evento
+
+		annotation SummarizationSetBy = Automatic
+
+	partition bAtividadeMonitoramento = m
+		mode: import
+		source =
+				// Ponte de período: 1 linha por linha da fato x evento (Início / Conclusão).
+				// dCalendario filtra a ponte, que filtra a fato (ambas as direções):
+				// a linha entra no período se INICIOU OU CONCLUIU dentro dele.
+				let
+				    Fonte = Table.SelectColumns(fDesignacoes, {"Chave", "Data Inicial Designação", "Data Final Designação", "Data Relatório"}),
+				    Inicio = Table.AddColumn(
+				        Table.AddColumn(Fonte, "Data", each [Data Inicial Designação] ?? [Data Final Designação], type nullable date),
+				        "Evento", each "Início", type text),
+				    Conclusao = Table.AddColumn(
+				        Table.AddColumn(Fonte, "Data", each [Data Relatório], type nullable date),
+				        "Evento", each "Conclusão", type text),
+				    Uniao = Table.Combine({
+				        Table.SelectColumns(Inicio, {"Chave", "Data", "Evento"}),
+				        Table.SelectColumns(Conclusao, {"Chave", "Data", "Evento"})}),
+				    ComData = Table.SelectRows(Uniao, each [Data] <> null),
+				    Tipos = Table.TransformColumnTypes(ComData, {{"Chave", type text}, {"Data", type date}, {"Evento", type text}})
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
+

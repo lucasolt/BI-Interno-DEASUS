@@ -86,7 +86,10 @@ let
         type nullable text),
 
     ComId = Table.AddColumn(ComAlerta, "ID Relatório", each [Nº PROA] & " | " & [Relatório], type text),
-    ComRef = Table.AddColumn(ComId, "Data de Referência", each Hoje, type date),
+    // chave única da linha (liga com a ponte de período bAtividadeAuditoria)
+    ComChave = Table.AddColumn(ComId, "Chave", each
+        Text.Combine({[Nº PROA] ?? "(sem PROA)", [Relatório], [Função], [Auditor]}, " | "), type text),
+    ComRef = Table.AddColumn(ComChave, "Data de Referência", each Hoje, type date),
     Tipos = Table.TransformColumnTypes(ComRef, {
         {"Função", type text}, {"Nome na Planilha", type nullable text}, {"Relatório", type text},
         {"Relatório Ordem", Int64.Type}, {"Data Entrega", type nullable date}, {"Nº Relatório", type nullable text},
@@ -96,6 +99,6 @@ let
         "ID Relatório", "Nº PROA", "Relatório", "Relatório Ordem", "Função", "Auditor", "Nome na Planilha",
         "Data Designação", "Data Limite", "Data Entrega", "Nº Relatório", "Situação",
         "Dias para Entrega", "Dias de Atraso", "Matrizes de Qualidade", "Status do Processo",
-        "Alerta de Qualidade", "Data de Referência"})
+        "Alerta de Qualidade", "Data de Referência", "Chave"})
 in
     Final

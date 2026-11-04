@@ -7,6 +7,7 @@ relationship 'fDesignacoes_Nº PROA_dProcesso_Nº PROA'
 	toColumn: dProcesso.'Nº PROA'
 
 relationship 'fDesignacoes_Data Final Designação_dCalendario_Data'
+	isActive: false
 	fromColumn: fDesignacoes.'Data Final Designação'
 	toColumn: dCalendario.Data
 
@@ -29,6 +30,7 @@ relationship 'fAuditoria_Nº PROA_dProcesso_Nº PROA'
 	toColumn: dProcesso.'Nº PROA'
 
 relationship 'fAuditoria_Data Designação_dCalendario_Data'
+	isActive: false
 	fromColumn: fAuditoria.'Data Designação'
 	toColumn: dCalendario.Data
 
@@ -79,3 +81,20 @@ relationship AutoDetected_eaad6f99-9b04-44a0-bf7d-f39228b906eb
 	fromColumn: DadosDep_legacy.'012 - Nº PROA'
 	toColumn: DadosDep.'(12)Nº PROA'
 
+relationship bAtividadeMonitoramento_Data_dCalendario_Data
+	fromColumn: bAtividadeMonitoramento.Data
+	toColumn: dCalendario.Data
+
+relationship bAtividadeMonitoramento_Chave_fDesignacoes_Chave
+	crossFilteringBehavior: bothDirections
+	fromColumn: bAtividadeMonitoramento.Chave
+	toColumn: fDesignacoes.Chave
+
+relationship bAtividadeAuditoria_Data_dCalendario_Data
+	fromColumn: bAtividadeAuditoria.Data
+	toColumn: dCalendario.Data
+
+relationship bAtividadeAuditoria_Chave_fAuditoria_Chave
+	crossFilteringBehavior: bothDirections
+	fromColumn: bAtividadeAuditoria.Chave
+	toColumn: fAuditoria.Chave

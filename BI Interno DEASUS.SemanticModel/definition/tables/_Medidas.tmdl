@@ -138,23 +138,23 @@ table _Medidas
 		lineageTag: c43444d5-6016-4cfc-9cc7-225d26156474
 
 	/// Relatórios entregues no mês da Data do Relatório.
-	measure 'Entregas (por Data Relatório)' = CALCULATE([Relatórios Entregues], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]))
+	measure 'Entregas (por Data Relatório)' = CALCULATE([Relatórios Entregues], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]), CROSSFILTER(bAtividadeMonitoramento[Chave], fDesignacoes[Chave], NONE))
 		formatString: #,0
 		displayFolder: 3. Evolução Mensal
 		lineageTag: bb8dd223-7bfa-4847-8c8e-f4a07384e565
 
-	measure 'Entregas no Prazo (por Data Relatório)' = CALCULATE([Entregues no Prazo], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]))
+	measure 'Entregas no Prazo (por Data Relatório)' = CALCULATE([Entregues no Prazo], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]), CROSSFILTER(bAtividadeMonitoramento[Chave], fDesignacoes[Chave], NONE))
 		formatString: #,0
 		displayFolder: 3. Evolução Mensal
 		lineageTag: 973087d7-8357-4e12-b839-1bac6c4f4c97
 
-	measure 'Entregas Fora do Prazo (por Data Relatório)' = CALCULATE([Entregues Fora do Prazo], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]))
+	measure 'Entregas Fora do Prazo (por Data Relatório)' = CALCULATE([Entregues Fora do Prazo], USERELATIONSHIP(fDesignacoes[Data Relatório], dCalendario[Data]), CROSSFILTER(bAtividadeMonitoramento[Chave], fDesignacoes[Chave], NONE))
 		formatString: #,0
 		displayFolder: 3. Evolução Mensal
 		lineageTag: c1be8168-507b-4777-974c-6093456edd79
 
 	/// Pendências vencidas no mês em que a Data Limite expirou.
-	measure 'Pendências Vencidas (por Data Limite)' = CALCULATE([Pendências Vencidas], USERELATIONSHIP(fDesignacoes[Data Limite], dCalendario[Data]))
+	measure 'Pendências Vencidas (por Data Limite)' = CALCULATE([Pendências Vencidas], USERELATIONSHIP(fDesignacoes[Data Limite], dCalendario[Data]), CROSSFILTER(bAtividadeMonitoramento[Chave], fDesignacoes[Chave], NONE))
 		formatString: #,0
 		displayFolder: 3. Evolução Mensal
 		lineageTag: d1873578-cf04-4e75-9d5d-5b271ed69c80
@@ -322,22 +322,22 @@ table _Medidas
 		displayFolder: 7. Auditoria
 		lineageTag: 2b7bb605-ad85-4c55-9d7b-6643f842c403
 
-	measure 'Aud Entregas (por Data Entrega)' = CALCULATE([Aud Entregues], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]))
+	measure 'Aud Entregas (por Data Entrega)' = CALCULATE([Aud Entregues], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]), CROSSFILTER(bAtividadeAuditoria[Chave], fAuditoria[Chave], NONE))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 7a3a1f52-5a9b-4cff-865c-e1a76b55f861
 
-	measure 'Aud No Prazo (por Data Entrega)' = CALCULATE([Aud No Prazo], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]))
+	measure 'Aud No Prazo (por Data Entrega)' = CALCULATE([Aud No Prazo], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]), CROSSFILTER(bAtividadeAuditoria[Chave], fAuditoria[Chave], NONE))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 2406e49c-830e-4ab8-aae9-ff5d91abe604
 
-	measure 'Aud Fora do Prazo (por Data Entrega)' = CALCULATE([Aud Fora do Prazo], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]))
+	measure 'Aud Fora do Prazo (por Data Entrega)' = CALCULATE([Aud Fora do Prazo], USERELATIONSHIP(fAuditoria[Data Entrega], dCalendario[Data]), CROSSFILTER(bAtividadeAuditoria[Chave], fAuditoria[Chave], NONE))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 47c65919-c881-4ad4-a26c-52b97fccf603
 
-	measure 'Aud Pendências Vencidas (por Data Limite)' = CALCULATE([Aud Pendências Vencidas], USERELATIONSHIP(fAuditoria[Data Limite], dCalendario[Data]))
+	measure 'Aud Pendências Vencidas (por Data Limite)' = CALCULATE([Aud Pendências Vencidas], USERELATIONSHIP(fAuditoria[Data Limite], dCalendario[Data]), CROSSFILTER(bAtividadeAuditoria[Chave], fAuditoria[Chave], NONE))
 		formatString: #,0
 		displayFolder: 7. Auditoria
 		lineageTag: 7bdb2584-407c-4357-b7dc-219395976765

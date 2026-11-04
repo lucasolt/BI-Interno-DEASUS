@@ -20,20 +20,37 @@ estes arquivos servem para revisão/diff.
 | `dAuditor` | sim | Dimensão auditor (cadastro + nomes fora do cadastro) |
 | `dProcesso` | sim | Dimensão processo (CRS, município, status geral…) |
 | `dFuncao`, `dSituacao` | sim | Dimensões compartilhadas (filtros valem para as duas fases) |
-| `dCalendario` | sim (DAX) | Calendário |
+| `dCalendario` | sim (DAX) | Calendário (ano, semestre, quadrimestre, trimestre, mês) |
+| `bAtividadeMonitoramento`, `bAtividadeAuditoria` | sim | Pontes de período: 1 linha por evento (Início/Conclusão) de cada linha da fato |
 
 As colunas da planilha são localizadas pelo **código do campo** (`(56)`, `(57)`…), não pelo texto
 do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 
 ## Relacionamentos
 
-- `fDesignacoes[Auditor]` → `dAuditor[Auditor]`
-- `fDesignacoes[Nº PROA]` → `dProcesso[Nº PROA]`
-- `fDesignacoes[Data Final Designação]` → `dCalendario[Data]` (**ativo** – filtro de Período)
-- `fDesignacoes[Data Relatório]` → `dCalendario[Data]` (inativo – evolução mensal de entregas)
-- `fDesignacoes[Data Limite]` → `dCalendario[Data]` (inativo – pendências por mês de vencimento)
-- `fAuditoria`: `Auditor`, `Nº PROA`, `Data Designação` (**ativo**), `Data Entrega` e `Data Limite` (inativos)
-- `fAuditoria[Função]` e `fDesignacoes[Função]` → `dFuncao`; `[Situação]` de ambas → `dSituacao`
+- `fDesignacoes` e `fAuditoria` → `dAuditor`, `dProcesso`, `dFuncao`, `dSituacao`
+- **Período (ativo):** `dCalendario[Data]` → `bAtividadeMonitoramento[Data]` / `bAtividadeAuditoria[Data]`
+  → (ambas as direções) `fDesignacoes[Chave]` / `fAuditoria[Chave]`
+- Relações diretas fato → `dCalendario` são **inativas** e só usadas nas medidas "por Data ..."
+  (evolução mensal), que desligam a ponte com `CROSSFILTER(..., NONE)`:
+  `Data Relatório`/`Data Entrega` (entregas no mês), `Data Limite` (vencimentos no mês),
+  `Data Final Designação`/`Data Designação` (sem uso em medida).
+
+## Regra do período (avaliação dos auditores)
+
+Uma designação entra no período filtrado se o auditor **iniciou OU concluiu** nele:
+
+| Fase | Início | Conclusão |
+|---|---|---|
+| Auditoria (RAI e RAF, linha a linha) | Data de Designação (17) | Data de entrega do RAI (19) / RAF (21) |
+| Monitoramento (ciclos 1–3) | Data Inicial da Designação (52/77/101); se vazia, Data Final (53/78/102) | Data do Relatório (55/80/104) |
+
+- A mesma designação pode aparecer em dois períodos (no que começou e no que terminou).
+- Linhas sem nenhuma data somem quando há filtro de período.
+- Pendências antigas (iniciadas antes e ainda sem entrega) **não** entram no período; para o estoque
+  de pendências, use a página sem filtro de período ou as medidas "(por Data Limite)".
+- A coluna `Evento` das pontes permite restringir a só "Início" ou só "Conclusão".
+- `dCalendario` tem Semestre (`Ano/Semestre`) e Quadrimestre (`Ano/Quadrimestre`).
 
 ## Regras de negócio aplicadas
 
