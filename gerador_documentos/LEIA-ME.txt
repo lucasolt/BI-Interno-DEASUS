@@ -1,0 +1,58 @@
+DOCUMENTOS DE ACOMPANHAMENTO PERIÓDICO DO AUDITOR
+=================================================
+
+Gera um documento Word por auditor com os números do período, a partir do BI.
+Não precisa instalar nada. Funciona no Edge ou no Chrome.
+
+Arquivos desta pasta
+--------------------
+- Gerador_Acompanhamento_Periodico.html  -> o gerador (baixar e abrir com dois cliques)
+- Modelo_Documento_de_Acompanhamento_Quadrimestral_do_Auditor.docx -> modelo original do documento
+- LEIA-ME.txt -> este arquivo
+
+
+PASSO A PASSO
+-------------
+
+1) Exportar os dados do BI
+   - Abrir o BI Interno DEASUS -> Área da chefia -> Acompanhamento Periódico.
+   - Filtrar o período (Semestre ou Quadrimestre).
+   - Na tabela, clicar em "..." (canto superior direito) -> Exportar dados
+     -> Dados com layout atual -> .xlsx -> Exportar.
+   - (Opcional) No Excel, acrescentar uma coluna chamada "Avaliação Descritiva"
+     com o texto de cada auditor. Se preferir, escreva depois em cada documento.
+
+2) Gerar os documentos
+   - IMPORTANTE: BAIXE o Gerador_Acompanhamento_Periodico.html para o computador
+     (no SharePoint: selecionar o arquivo -> "..." -> Baixar). Não abra direto
+     pelo SharePoint: lá ele não funciona.
+   - Abrir o arquivo baixado (dois cliques).
+   - Preencher Período (ex.: 1º/2026) e Avaliadores.
+   - Clicar em "Escolher Excel..." e selecionar o arquivo exportado.
+   - Clicar em "Gerar documentos (.zip)".
+   - O navegador baixa um .zip com um documento Word por auditor.
+
+
+ALTERAR O MODELO DO DOCUMENTO
+-----------------------------
+- O gerador já usa este modelo por padrão (ele vai embutido no HTML).
+- Para mudar textos, formatação ou logotipo: copie o .docx, edite no Word e,
+  no gerador, abra "Usar outro modelo de documento" e escolha o arquivo editado.
+- NÃO altere os campos entre chaves duplas, por exemplo:
+  {{ Auditor }}  {{ Quadrimestre }}  {{ Avaliadores }}  {{ proas }}
+  {{ atividade_1 }} ... {{ avaliacao_5 }}  {{ Avaliacao_Descritiva }}
+  Eles são substituídos pelos dados de cada auditor.
+
+
+SE DER PROBLEMA
+---------------
+- "Não achei a coluna 'Auditor'": o Excel não é o da tabela da aba
+  Acompanhamento Periódico. Exporte de novo (passo 1).
+- Botão "Gerar" cinza: falta escolher o Excel.
+- "Preencha o Período": preencha o campo e clique em gerar de novo.
+- "Colunas não encontradas": alguém renomeou uma coluna no BI; o número sai
+  em branco no documento. Avise quem mantém o BI.
+- Download não aparece: veja a barra de downloads do navegador (pode pedir
+  para "Manter" o arquivo).
+
+Código-fonte e detalhes técnicos: repositório BI-Interno-DEASUS, pasta gerador_documentos.
