@@ -40,7 +40,9 @@ do cabeçalho, então renomear o texto do cabeçalho não quebra o BI.
 - `fAuditoria`: `Auditor`, `Nº PROA`, `Data Designação` (**ativo**), `Data Entrega` e `Data Limite` (inativos)
 - `fAuditoria[Função]` e `fDesignacoes[Função]` → `dFuncao`; `[Situação]` de ambas → `dSituacao`
 
-## Aba Avaliação (produção por auditor)
+## Aba Acompanhamento Periódico (produção por auditor)
+
+Na área da chefia (botão entre "Desempenho por Auditor" e "Detalhes ▸"). Nome neutro de propósito: serve para quadrimestre ou semestre.
 
 Substitui o notebook `DEASUS_AnalisadorDeProcessos`. Tabela no formato da planilha de avaliação:
 Auditor · PROAs · Total de auditorias · Coordenação · Equipe · RAI entregues · Matrizes RAI ·

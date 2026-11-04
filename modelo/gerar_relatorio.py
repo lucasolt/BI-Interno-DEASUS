@@ -825,8 +825,8 @@ def pg_metodologia():
 def pg_avaliacao():
     """Produção por auditor para avaliação (substitui o notebook AnalisadorDeProcessos).
     Medidas 'Aval ...': a linha entra se iniciou OU concluiu no período (ver README)."""
-    p = Pagina("avaliacao", "AVALIAÇÃO · PRODUÇÃO POR AUDITOR")
-    p.nome_exib = "Avaliação"
+    p = Pagina("avaliacao", "ACOMPANHAMENTO PERIÓDICO · PRODUÇÃO POR AUDITOR")
+    p.nome_exib = "Acompanhamento Periódico"
     moldura(p, "aval", com_filtros=False)
     y, h = 90, 66
     x = X0

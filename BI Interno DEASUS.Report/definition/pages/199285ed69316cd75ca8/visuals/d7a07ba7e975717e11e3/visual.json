@@ -1,51 +1,24 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "d8463db640353847c160",
+  "name": "d7a07ba7e975717e11e3",
   "position": {
     "x": 8,
-    "y": 100,
-    "z": 4000,
-    "height": 640,
+    "y": 136,
+    "z": 17000,
+    "height": 66,
     "width": 164,
-    "tabOrder": 4000
+    "tabOrder": 17000
   },
   "visual": {
-    "visualType": "pageNavigator",
+    "visualType": "actionButton",
     "objects": {
-      "layout": [
+      "icon": [
         {
           "properties": {
-            "orientation": {
+            "shapeType": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
-                }
-              }
-            },
-            "cellPadding": {
-              "expr": {
-                "Literal": {
-                  "Value": "6D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "shape": [
-        {
-          "properties": {
-            "tileShape": {
-              "expr": {
-                "Literal": {
-                  "Value": "'rectangleRounded'"
-                }
-              }
-            },
-            "roundEdge": {
-              "expr": {
-                "Literal": {
-                  "Value": "6L"
+                  "Value": "'blank'"
                 }
               }
             }
@@ -58,6 +31,24 @@
       "text": [
         {
           "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Trabalhos em Andamento'"
+                }
+              }
+            },
             "fontColor": {
               "solid": {
                 "color": {
@@ -87,41 +78,20 @@
           "selector": {
             "id": "default"
           }
-        },
+        }
+      ],
+      "fill": [
         {
           "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0B2E59'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "bold": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
                 }
               }
             }
-          },
-          "selector": {
-            "id": "selected"
           }
-        }
-      ],
-      "fill": [
+        },
         {
           "properties": {
             "fillColor": {
@@ -154,31 +124,6 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "selected"
-          }
-        },
-        {
-          "properties": {
-            "fillColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
                       "Value": "'#24548F'"
                     }
                   }
@@ -198,6 +143,83 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#BFD0E6'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "shape": [
+        {
+          "properties": {
+            "tileShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'rectangleRounded'"
+                }
+              }
+            },
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PageNavigation'"
+                }
+              }
+            },
+            "navigationSection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'b08f2ac7e3fa3e529b7d'"
                 }
               }
             }
