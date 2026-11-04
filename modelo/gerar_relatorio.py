@@ -851,7 +851,7 @@ def pg_avaliacao():
     y = 228
     p.add("tabela", X0, y, XMAX - X0, H - y - 8, tabela([
         (AUDITOR, "Auditor"),
-        (med("Aval PROAs"), "PROAs"),
+        # (med("Aval PROAs"), "PROAs"),  # suprimido por enquanto (lista longa demais por linha)
         (med("Aval Auditorias Designadas"), "Total de auditorias designadas"),
         (med("Aval Auditorias Coordenação"), "Auditorias (coordenação)"),
         (med("Aval Auditorias Equipe"), "Auditorias (composição de equipe)"),

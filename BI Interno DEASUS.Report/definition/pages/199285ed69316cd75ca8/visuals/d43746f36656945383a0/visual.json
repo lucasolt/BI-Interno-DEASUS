@@ -38,21 +38,6 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aval PROAs"
-                }
-              },
-              "queryRef": "_Medidas.Aval PROAs",
-              "nativeQueryRef": "PROAs",
-              "displayName": "PROAs"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
                   "Property": "Aval Auditorias Designadas"
                 }
               },
