@@ -3,3 +3,10 @@ ESTUDO DOS PROCESSOS PARA ANÁLISE DO RDQA - Copiar.xlsx
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
 desktop.ini
+
+# gerador de documentos: saídas e exportações locais
+gerador_documentos/documentos_*/
+gerador_documentos/documentos_*.zip
+gerador_documentos/*.xlsx
+gerador_documentos/*.csv
+__pycache__/

@@ -9,7 +9,8 @@ Entrada:
 As colunas são lidas PELO NOME (não pela posição). Se alguém renomear uma coluna no BI,
 ajuste a lista ATIVIDADES abaixo.
 
-Uso no computador (opcional; no dia a dia use o notebook no Colab):
+Uso: normalmente pelo notebook Gerador_Acompanhamento_Periodico.ipynb (Jupyter), nesta mesma pasta.
+Pela linha de comando:
     python gerar_documentos.py exportacao.xlsx modelo.docx --periodo "1º/2026" --avaliadores "Fulano, Beltrano"
 """
 import os
