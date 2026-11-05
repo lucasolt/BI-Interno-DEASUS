@@ -143,12 +143,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aval Monit Realizados Coordenador"
+                  "Property": "Aval Monit Coordenador"
                 }
               },
-              "queryRef": "_Medidas.Aval Monit Realizados Coordenador",
-              "nativeQueryRef": "Ciclos de monitoramento realizados como Coordenador",
-              "displayName": "Ciclos de monitoramento realizados como Coordenador"
+              "queryRef": "_Medidas.Aval Monit Coordenador",
+              "nativeQueryRef": "Ciclos de monitoramento como Coordenador",
+              "displayName": "Ciclos de monitoramento como Coordenador"
             },
             {
               "field": {
@@ -158,12 +158,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Aval Monit Realizados Equipe"
+                  "Property": "Aval Monit Equipe"
                 }
               },
-              "queryRef": "_Medidas.Aval Monit Realizados Equipe",
-              "nativeQueryRef": "Ciclos de monitoramento realizados como Equipe",
-              "displayName": "Ciclos de monitoramento realizados como Equipe"
+              "queryRef": "_Medidas.Aval Monit Equipe",
+              "nativeQueryRef": "Ciclos de monitoramento como Equipe",
+              "displayName": "Ciclos de monitoramento como Equipe"
             },
             {
               "field": {

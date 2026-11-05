@@ -854,7 +854,6 @@ def pg_avaliacao():
         [("Regra do período: ", st(10, NAVY, True)),
          ("auditoria entra se a Data de Designação (17) OU a entrega do RAI (19) / RAF (21) cai no período; "
           "monitoramento entra se a Data Inicial da Designação (52/77/101) OU a Data do Relatório (55/80/104) cai no período. "
-          "Ciclos de monitoramento realizados = relatório (55/80/104) entregue no período. "
           "Clique num auditor para ver, nos quadros de baixo, os processos que compõem os números. "
           "Para exportar: menu \u2026 da tabela \u2192 Exportar dados.", st(10, CINZA_TXT))],
     ], fundo=BRANCO))
@@ -869,8 +868,8 @@ def pg_avaliacao():
         (med("Aval RAI Matrizes"), "Qtd de Matrizes RAI"),
         (med("Aval RAF Entregues"), "Relatórios Finais entregues"),
         (med("Aval RAF Matrizes"), "Qtd de Matrizes RAF"),
-        (med("Aval Monit Realizados Coordenador"), "Ciclos de monitoramento realizados como Coordenador"),
-        (med("Aval Monit Realizados Equipe"), "Ciclos de monitoramento realizados como Equipe"),
+        (med("Aval Monit Coordenador"), "Ciclos de monitoramento como Coordenador"),
+        (med("Aval Monit Equipe"), "Ciclos de monitoramento como Equipe"),
         (med("Aval PROAs"), "PROAs"),  # por último, numa linha só; lida pelo gerador de documentos
     ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")),
           filtros=[filtro_nao_in("dAuditor", "Auditor", ["(Não informado)"], "fSemNaoInformado")])
@@ -898,7 +897,7 @@ def pg_avaliacao():
         (fd("Ciclo"), "Ciclo"), (fd("Função"), "Função"),
         (fd("Data Inicial Designação"), "Designação"), (fd("Data Relatório"), "Relatório"),
         (med("Aval Monit Motivo no Período"), "Por que conta"),
-    ], "CICLOS DE MONITORAMENTO REALIZADOS (clique num auditor acima)", ordem=(fd("Nº PROA"), "Ascending")),
+    ], "CICLOS DE MONITORAMENTO DESIGNADOS OU REALIZADOS NO PERÍODO (clique num auditor acima)", ordem=(fd("Nº PROA"), "Ascending")),
           filtros=sem_ni(None))
     for v in p.visuais[-2:]:
         v["visual"]["objects"]["total"] = [{"properties": {"totals": B(False)}}]

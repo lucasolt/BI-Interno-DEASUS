@@ -30,8 +30,8 @@ ATIVIDADES = [
     ("Auditorias (composição de equipe)", "Auditorias (composição de equipe)"),
     ("Relatórios Preliminares entregues", "Relatórios Preliminares entregues"),
     ("Qtd de Matrizes RAI", "Qtd de Matrizes RAI"),   # 5ª linha igual à do notebook antigo
-    ("Ciclos de monitoramento realizados como Coordenador", "Ciclos de monitoramento realizados como Coordenador"),
-    ("Ciclos de monitoramento realizados como Equipe", "Ciclos de monitoramento realizados como Equipe"),
+    ("Ciclos de monitoramento como Coordenador", "Ciclos de monitoramento como Coordenador"),
+    ("Ciclos de monitoramento como Equipe", "Ciclos de monitoramento como Equipe"),
 ]
 COL_AUDITOR = "Auditor"
 COL_PROAS = "PROAs"

@@ -46,12 +46,11 @@ Na área da chefia (botão entre "Desempenho por Auditor" e "Detalhes ▸"). Nom
 
 Substitui o notebook `DEASUS_AnalisadorDeProcessos`. Tabela no formato da planilha de avaliação:
 Auditor · PROAs · Total de auditorias · Coordenação · Equipe · RAI entregues · Matrizes RAI ·
-RAF entregues · Matrizes RAF · Ciclos de monitoramento (Coordenador / Equipe) · Ciclos de monitoramento
-realizados (Coordenador / Equipe) · PROAs. Exportar pelo menu `…` da tabela.
+RAF entregues · Matrizes RAF · Ciclos de monitoramento (Coordenador / Equipe) · PROAs. Exportar pelo menu `…` da tabela.
 
-- **Ciclos realizados** = relatório do ciclo (55/80/104) entregue dentro do período.
-- **PROAs** = auditorias iniciadas ou com RAI/RAF entregue no período + monitoramentos com relatório
-  entregue no período (marcados "(monitoramento)" quando o PROA não está entre as auditorias).
+- **Ciclos de monitoramento** = designados (52/77/101) OU com relatório (55/80/104) entregue no período.
+- **PROAs** = auditorias iniciadas ou com RAI/RAF entregue no período + monitoramentos designados ou com
+  relatório entregue no período (marcados "(monitoramento)" quando o PROA não está entre as auditorias).
 
 **Regra do período** (só nas medidas `Aval ...`, pasta *8. Avaliação*; o resto do BI não muda):
 uma linha entra se o auditor **iniciou OU concluiu** dentro do período filtrado em `dCalendario`.
@@ -74,10 +73,11 @@ uma linha entra se o auditor **iniciou OU concluiu** dentro do período filtrado
   Assim os quadros de detalhe não são cortados pelo relacionamento ativo do calendário (ex.: auditoria
   designada antes do período e entregue dentro dele aparece).
 - Abaixo da tabela, dois quadros: **Auditorias** (linhas de `fAuditoria` que entram no período, com o motivo:
-  designado/entregue no período) e **Ciclos de monitoramento realizados** (linhas de `fDesignacoes` com
-  relatório entregue no período). Clicar num auditor na tabela filtra os quadros.
-- As colunas antigas "Ciclos de monitoramento como Coordenador/Equipe" (iniciou ou concluiu) saíram da tabela;
-  ficam as de ciclos **realizados**, que vão para o documento. As medidas antigas continuam no modelo.
+  designado/entregue no período) e **Ciclos de monitoramento** (linhas de `fDesignacoes` designadas e/ou com
+  relatório entregue no período, com o motivo). Clicar num auditor na tabela filtra os quadros.
+- Colunas de monitoramento da tabela: "Ciclos de monitoramento como Coordenador/Equipe" = ciclos **designados OU com
+  relatório entregue** no período (mesma regra da auditoria). As medidas `Aval Monit Realizados ...` (só relatório
+  entregue) continuam no modelo, fora da tabela.
 
 ## Regras de negócio aplicadas
 

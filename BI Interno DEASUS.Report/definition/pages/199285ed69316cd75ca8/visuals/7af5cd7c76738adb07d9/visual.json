@@ -407,7 +407,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'CICLOS DE MONITORAMENTO REALIZADOS (clique num auditor acima)'"
+                  "Value": "'CICLOS DE MONITORAMENTO DESIGNADOS OU REALIZADOS NO PERÍODO (clique num auditor acima)'"
                 }
               }
             },

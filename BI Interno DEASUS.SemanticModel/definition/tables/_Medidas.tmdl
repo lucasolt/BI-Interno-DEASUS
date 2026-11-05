@@ -1213,7 +1213,7 @@ table _Medidas
 		displayFolder: 8. Carteira Atual\Por auditor
 		lineageTag: dd7fe8f8-10fb-404d-a5ae-cdcd6f021159
 
-	/// PROAs do auditor no período: auditorias iniciadas (designação) ou com RAI/RAF entregue + monitoramentos com relatório entregue. Formato 'PROA AUDITADO; ...' (o gerador de documentos separa por '; '); os que vêm só de monitoramento recebem '(monitoramento)'.
+	/// PROAs do auditor no período: auditorias iniciadas (designação) ou com RAI/RAF entregue + monitoramentos designados ou com relatório entregue. Formato 'PROA AUDITADO; ...' (o gerador de documentos separa por '; '); os que vêm só de monitoramento recebem '(monitoramento)'.
 	measure 'Aval PROAs' =
 			VAR _Filtrado = ISFILTERED(dPeriodoAval)
 			VAR _Ini = MIN(dPeriodoAval[Data])
@@ -1234,9 +1234,12 @@ table _Medidas
 			        VALUES(fDesignacoes[Nº PROA]),
 			        REMOVEFILTERS(dCalendario),
 			        KEEPFILTERS(FILTER(
-			            ALL(fDesignacoes[Data Relatório]),
-			            NOT ISBLANK(fDesignacoes[Data Relatório])
-			                && (NOT _Filtrado || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim))
+			            ALL(fDesignacoes[Data Inicial Designação], fDesignacoes[Data Final Designação], fDesignacoes[Data Relatório]),
+			            VAR _D = COALESCE(fDesignacoes[Data Inicial Designação], fDesignacoes[Data Final Designação])
+			            RETURN
+			                NOT _Filtrado
+			                    || (_D >= _Ini && _D <= _Fim)
+			                    || (fDesignacoes[Data Relatório] >= _Ini && fDesignacoes[Data Relatório] <= _Fim)
 			        ))
 			    )
 			VAR _Todos =
@@ -1523,17 +1526,26 @@ table _Medidas
 			    )
 		displayFolder: 8. Avaliação
 
-	/// Quadro de detalhe (Monitoramentos): por linha de fDesignacoes, mostra os ciclos realizados no período (relatório 55/80/104 entregue no período) — os que compõem as colunas de ciclos realizados. Em branco = não entra.
+	/// Quadro de detalhe (Monitoramentos): por linha de fDesignacoes, diz por que o ciclo entra no período — designado (Data Inicial 52/77/101; se vazia, a Final) e/ou relatório entregue (55/80/104). Em branco = não entra.
 	measure 'Aval Monit Motivo no Período' =
 			VAR _Filtrado = ISFILTERED(dPeriodoAval)
 			VAR _Ini = MIN(dPeriodoAval[Data])
 			VAR _Fim = MAX(dPeriodoAval[Data])
 			VAR _Linhas = CALCULATE(COUNTROWS(fDesignacoes), REMOVEFILTERS(dCalendario))
+			VAR _Des = CALCULATE(COALESCE(MAX(fDesignacoes[Data Inicial Designação]), MAX(fDesignacoes[Data Final Designação])), REMOVEFILTERS(dCalendario))
 			VAR _Rel = CALCULATE(MAX(fDesignacoes[Data Relatório]), REMOVEFILTERS(dCalendario))
+			VAR _DesOk = NOT ISBLANK(_Des) && _Des >= _Ini && _Des <= _Fim
+			VAR _RelOk = NOT ISBLANK(_Rel) && _Rel >= _Ini && _Rel <= _Fim
 			RETURN
 			    IF(
-			        _Linhas > 0 && NOT ISBLANK(_Rel) && (NOT _Filtrado || (_Rel >= _Ini && _Rel <= _Fim)),
-			        IF(_Filtrado, "Relatório entregue no período", "Relatório entregue")
+			        _Linhas > 0,
+			        SWITCH(
+			            TRUE(),
+			            NOT _Filtrado, IF(ISBLANK(_Rel), "Sem relatório", "Relatório entregue"),
+			            _DesOk && _RelOk, "Designado e relatório entregue no período",
+			            _DesOk, IF(ISBLANK(_Rel), "Designado no período (sem relatório)", "Designado no período"),
+			            _RelOk, "Relatório entregue no período"
+			        )
 			    )
 		displayFolder: 8. Avaliação
 
