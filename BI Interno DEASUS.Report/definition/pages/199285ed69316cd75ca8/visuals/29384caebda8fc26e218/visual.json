@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dCalendario"
+                      "Entity": "dPeriodoAval"
                     }
                   },
                   "Property": "Ano/Quadrimestre"
                 }
               },
-              "queryRef": "dCalendario.Ano/Quadrimestre",
+              "queryRef": "dPeriodoAval.Ano/Quadrimestre",
               "nativeQueryRef": "Quadrimestre",
               "displayName": "Quadrimestre",
               "active": true

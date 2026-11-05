@@ -1215,9 +1215,9 @@ table _Medidas
 
 	/// PROAs do auditor no período: auditorias iniciadas (designação) ou com RAI/RAF entregue + monitoramentos com relatório entregue. Formato 'PROA AUDITADO; ...' (o gerador de documentos separa por '; '); os que vêm só de monitoramento recebem '(monitoramento)'.
 	measure 'Aval PROAs' =
-			VAR _Filtrado = ISFILTERED(dCalendario)
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Filtrado = ISFILTERED(dPeriodoAval)
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			VAR _Aud =
 			    CALCULATETABLE(
 			        VALUES(fAuditoria[Nº PROA]),
@@ -1258,11 +1258,11 @@ table _Medidas
 
 	/// Total de auditorias (PROA x Função) que o auditor iniciou ou em que entregou RAI/RAF no período.
 	measure 'Aval Auditorias Designadas' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        [Aud Designações],
 			        CALCULATE(
 			            [Aud Designações],
@@ -1279,11 +1279,11 @@ table _Medidas
 
 	/// Idem, como Coordenador.
 	measure 'Aval Auditorias Coordenação' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        [Aud Designações Coordenador],
 			        CALCULATE(
 			            [Aud Designações Coordenador],
@@ -1300,11 +1300,11 @@ table _Medidas
 
 	/// Idem, como membro da Equipe.
 	measure 'Aval Auditorias Equipe' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        [Aud Designações Equipe],
 			        CALCULATE(
 			            [Aud Designações Equipe],
@@ -1321,11 +1321,11 @@ table _Medidas
 
 	/// Relatórios Preliminares (RAI) com data de entrega, nos processos do período.
 	measure 'Aval RAI Entregues' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAI"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
 			        CALCULATE(
 			            CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAI"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
@@ -1342,11 +1342,11 @@ table _Medidas
 
 	/// Qtde de Matrizes de Qualidade do RAI (Qtde Martiz Qualidade RIA), processos do período.
 	measure 'Aval RAI Matrizes' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAI")),
 			        CALCULATE(
 			            CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAI")),
@@ -1363,11 +1363,11 @@ table _Medidas
 
 	/// Relatórios Finais (RAF) com data de entrega, nos processos do período.
 	measure 'Aval RAF Entregues' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAF"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
 			        CALCULATE(
 			            CALCULATE(COUNTROWS(fAuditoria), KEEPFILTERS(fAuditoria[Relatório] = "RAF"), KEEPFILTERS(NOT ISBLANK(fAuditoria[Data Entrega]))),
@@ -1384,11 +1384,11 @@ table _Medidas
 
 	/// Qtde de Matrizes de Qualidade do RAF (Qtde Martiz Qualidade RFA), processos do período.
 	measure 'Aval RAF Matrizes' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAF")),
 			        CALCULATE(
 			            CALCULATE([Aud Matrizes de Qualidade], KEEPFILTERS(fAuditoria[Relatório] = "RAF")),
@@ -1405,11 +1405,11 @@ table _Medidas
 
 	/// Ciclos de monitoramento como Coordenador iniciados (designação) ou concluídos (relatório) no período.
 	measure 'Aval Monit Coordenador' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        [Designações Coordenador],
 			        CALCULATE(
 			            [Designações Coordenador],
@@ -1428,11 +1428,11 @@ table _Medidas
 
 	/// Ciclos de monitoramento como Equipe iniciados (designação) ou concluídos (relatório) no período.
 	measure 'Aval Monit Equipe' =
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    IF(
-			        NOT ISFILTERED(dCalendario),
+			        NOT ISFILTERED(dPeriodoAval),
 			        [Designações Equipe],
 			        CALCULATE(
 			            [Designações Equipe],
@@ -1451,9 +1451,9 @@ table _Medidas
 
 	/// Ciclos de monitoramento realizados como Coordenador: relatório do ciclo (55/80/104) entregue no período.
 	measure 'Aval Monit Realizados Coordenador' =
-			VAR _Filtrado = ISFILTERED(dCalendario)
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Filtrado = ISFILTERED(dPeriodoAval)
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    CALCULATE(
 			        [Designações Coordenador],
@@ -1469,9 +1469,9 @@ table _Medidas
 
 	/// Ciclos de monitoramento realizados como Equipe: relatório do ciclo (55/80/104) entregue no período.
 	measure 'Aval Monit Realizados Equipe' =
-			VAR _Filtrado = ISFILTERED(dCalendario)
-			VAR _Ini = MIN(dCalendario[Data])
-			VAR _Fim = MAX(dCalendario[Data])
+			VAR _Filtrado = ISFILTERED(dPeriodoAval)
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
 			RETURN
 			    CALCULATE(
 			        [Designações Equipe],
@@ -1485,8 +1485,56 @@ table _Medidas
 		formatString: #,0
 		displayFolder: 8. Avaliação
 
+	/// Quadros de detalhe: nome do auditado do PROA da linha (só nas linhas que entram no período, para não trazer linhas de fora).
+	measure 'Aval Auditado' =
+			SWITCH(
+			    TRUE(),
+			    ISINSCOPE(fAuditoria[Nº PROA]) && NOT ISBLANK([Aval Aud Motivo no Período]),
+			        LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], SELECTEDVALUE(fAuditoria[Nº PROA])),
+			    ISINSCOPE(fDesignacoes[Nº PROA]) && NOT ISBLANK([Aval Monit Motivo no Período]),
+			        LOOKUPVALUE(dProcesso[Auditado], dProcesso[Nº PROA], SELECTEDVALUE(fDesignacoes[Nº PROA]))
+			)
+		displayFolder: 8. Avaliação
+
 	/// Texto do período selecionado (para o cabeçalho da aba Avaliação).
-	measure 'Aval Período' = IF(ISFILTERED(dCalendario), "Período: " & FORMAT(MIN(dCalendario[Data]), "dd/mm/yyyy") & " a " & FORMAT(MAX(dCalendario[Data]), "dd/mm/yyyy"), "Período: todo o histórico (nenhum filtro de período)")
+	measure 'Aval Período' = IF(ISFILTERED(dPeriodoAval), "Período: " & FORMAT(MIN(dPeriodoAval[Data]), "dd/mm/yyyy") & " a " & FORMAT(MAX(dPeriodoAval[Data]), "dd/mm/yyyy"), "Período: todo o histórico (nenhum filtro de período)")
+		displayFolder: 8. Avaliação
+
+	/// Quadro de detalhe (Auditorias): por linha de fAuditoria, diz por que ela entra no período (designação e/ou entrega do RAI/RAF). Em branco = não entra (a linha some do quadro).
+	measure 'Aval Aud Motivo no Período' =
+			VAR _Filtrado = ISFILTERED(dPeriodoAval)
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
+			VAR _Linhas = CALCULATE(COUNTROWS(fAuditoria), REMOVEFILTERS(dCalendario))
+			VAR _Des = CALCULATE(MAX(fAuditoria[Data Designação]), REMOVEFILTERS(dCalendario))
+			VAR _Ent = CALCULATE(MAX(fAuditoria[Data Entrega]), REMOVEFILTERS(dCalendario))
+			VAR _DesOk = NOT ISBLANK(_Des) && _Des >= _Ini && _Des <= _Fim
+			VAR _EntOk = NOT ISBLANK(_Ent) && _Ent >= _Ini && _Ent <= _Fim
+			RETURN
+			    IF(
+			        _Linhas > 0,
+			        SWITCH(
+			            TRUE(),
+			            NOT _Filtrado, IF(ISBLANK(_Ent), "Sem entrega", "Entregue"),
+			            _DesOk && _EntOk, "Designado e entregue no período",
+			            _DesOk, IF(ISBLANK(_Ent), "Designado no período (sem entrega)", "Designado no período"),
+			            _EntOk, "Entregue no período"
+			        )
+			    )
+		displayFolder: 8. Avaliação
+
+	/// Quadro de detalhe (Monitoramentos): por linha de fDesignacoes, mostra os ciclos realizados no período (relatório 55/80/104 entregue no período) — os que compõem as colunas de ciclos realizados. Em branco = não entra.
+	measure 'Aval Monit Motivo no Período' =
+			VAR _Filtrado = ISFILTERED(dPeriodoAval)
+			VAR _Ini = MIN(dPeriodoAval[Data])
+			VAR _Fim = MAX(dPeriodoAval[Data])
+			VAR _Linhas = CALCULATE(COUNTROWS(fDesignacoes), REMOVEFILTERS(dCalendario))
+			VAR _Rel = CALCULATE(MAX(fDesignacoes[Data Relatório]), REMOVEFILTERS(dCalendario))
+			RETURN
+			    IF(
+			        _Linhas > 0 && NOT ISBLANK(_Rel) && (NOT _Filtrado || (_Rel >= _Ini && _Rel <= _Fim)),
+			        IF(_Filtrado, "Relatório entregue no período", "Relatório entregue")
+			    )
 		displayFolder: 8. Avaliação
 
 	column Coluna

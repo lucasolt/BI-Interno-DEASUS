@@ -27,7 +27,7 @@
                     }
                   },
                   {
-                    "value": "auditoria entra se a Data de Designação (17) OU a entrega do RAI (19) / RAF (21) cai no período; monitoramento entra se a Data Inicial da Designação (52/77/101) OU a Data do Relatório (55/80/104) cai no período. Uma mesma auditoria pode aparecer em dois períodos (no que começou e no que terminou). Para exportar: menu … da tabela → Exportar dados.",
+                    "value": "auditoria entra se a Data de Designação (17) OU a entrega do RAI (19) / RAF (21) cai no período; monitoramento entra se a Data Inicial da Designação (52/77/101) OU a Data do Relatório (55/80/104) cai no período. Ciclos de monitoramento realizados = relatório (55/80/104) entregue no período. Clique num auditor para ver, nos quadros de baixo, os processos que compõem os números. Para exportar: menu … da tabela → Exportar dados.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#5B6B7F"

@@ -68,6 +68,17 @@ uma linha entra se o auditor **iniciou OU concluiu** dentro do período filtrado
 - Diferenças em relação ao notebook: nomes unificados pela lista de SERVIDORES/aliases; o notebook
   filtrava só pela data de designação.
 
+### Filtro de período e quadros de detalhe (Acompanhamento Periódico)
+- Os filtros Semestre/Quadrimestre da aba usam `dPeriodoAval`, cópia **desconectada** do calendário
+  (sem relacionamentos). As medidas `Aval ...` leem o intervalo dela e aplicam a regra iniciou OU concluiu.
+  Assim os quadros de detalhe não são cortados pelo relacionamento ativo do calendário (ex.: auditoria
+  designada antes do período e entregue dentro dele aparece).
+- Abaixo da tabela, dois quadros: **Auditorias** (linhas de `fAuditoria` que entram no período, com o motivo:
+  designado/entregue no período) e **Ciclos de monitoramento realizados** (linhas de `fDesignacoes` com
+  relatório entregue no período). Clicar num auditor na tabela filtra os quadros.
+- As colunas antigas "Ciclos de monitoramento como Coordenador/Equipe" (iniciou ou concluiu) saíram da tabela;
+  ficam as de ciclos **realizados**, que vão para o documento. As medidas antigas continuam no modelo.
+
 ## Regras de negócio aplicadas
 
 ### Gerais

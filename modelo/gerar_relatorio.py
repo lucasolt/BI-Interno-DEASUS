@@ -839,9 +839,9 @@ def pg_avaliacao():
     moldura(p, "aval", com_filtros=False)
     y, h = 90, 66
     x = X0
-    p.add("f_semestre", x, y, 230, h, slicer(col("dCalendario", "Ano/Semestre"), "Semestre", "AvalSemestre"))
+    p.add("f_semestre", x, y, 230, h, slicer(col("dPeriodoAval", "Ano/Semestre"), "Semestre", "AvalSemestre"))
     x += 240
-    p.add("f_quadri", x, y, 230, h, slicer(col("dCalendario", "Ano/Quadrimestre"), "Quadrimestre", "AvalQuadrimestre"))
+    p.add("f_quadri", x, y, 230, h, slicer(col("dPeriodoAval", "Ano/Quadrimestre"), "Quadrimestre", "AvalQuadrimestre"))
     x += 240
     p.add("f_auditor", x, y, 300, h, slicer(AUDITOR, "Auditor", "Auditor"),
           filtros=[filtro_in("dAuditor", "Possui Designação", ["Sim"], "fPossuiDesig")])
@@ -854,11 +854,13 @@ def pg_avaliacao():
         [("Regra do período: ", st(10, NAVY, True)),
          ("auditoria entra se a Data de Designação (17) OU a entrega do RAI (19) / RAF (21) cai no período; "
           "monitoramento entra se a Data Inicial da Designação (52/77/101) OU a Data do Relatório (55/80/104) cai no período. "
-          "Uma mesma auditoria pode aparecer em dois períodos (no que começou e no que terminou). "
+          "Ciclos de monitoramento realizados = relatório (55/80/104) entregue no período. "
+          "Clique num auditor para ver, nos quadros de baixo, os processos que compõem os números. "
           "Para exportar: menu \u2026 da tabela \u2192 Exportar dados.", st(10, CINZA_TXT))],
     ], fundo=BRANCO))
     y = 228
-    p.add("tabela", X0, y, XMAX - X0, H - y - 8, tabela([
+    h_tab = 430
+    p.add("tabela", X0, y, XMAX - X0, h_tab, tabela([
         (AUDITOR, "Auditor"),
         (med("Aval Auditorias Designadas"), "Total de auditorias designadas"),
         (med("Aval Auditorias Coordenação"), "Auditorias (coordenação)"),
@@ -867,15 +869,40 @@ def pg_avaliacao():
         (med("Aval RAI Matrizes"), "Qtd de Matrizes RAI"),
         (med("Aval RAF Entregues"), "Relatórios Finais entregues"),
         (med("Aval RAF Matrizes"), "Qtd de Matrizes RAF"),
-        (med("Aval Monit Coordenador"), "Ciclos de monitoramento como Coordenador"),
-        (med("Aval Monit Equipe"), "Ciclos de monitoramento como Equipe"),
         (med("Aval Monit Realizados Coordenador"), "Ciclos de monitoramento realizados como Coordenador"),
         (med("Aval Monit Realizados Equipe"), "Ciclos de monitoramento realizados como Equipe"),
         (med("Aval PROAs"), "PROAs"),  # por último, numa linha só; lida pelo gerador de documentos
     ], "PRODUÇÃO POR AUDITOR NO PERÍODO", ordem=(AUDITOR, "Ascending")),
           filtros=[filtro_nao_in("dAuditor", "Auditor", ["(Não informado)"], "fSemNaoInformado")])
     # cabeçalho visível: sem ele o menu "…" (Exportar dados) some no Power BI online
-    p.visuais[-1]["visual"]["visualContainerObjects"]["visualHeader"] = [{"properties": {"show": B(True)}}]
+    tab = p.visuais[-1]["visual"]
+    tab["visualContainerObjects"]["visualHeader"] = [{"properties": {"show": B(True)}}]
+    tab["objects"]["total"] = [{"properties": {"totals": B(False)}}]          # sem linha "Total" na exportação
+    tab["objects"]["values"][0]["properties"]["wordWrap"] = B(False)          # PROAs numa linha só
+
+    # quadros de detalhe: clicar num auditor na tabela filtra estes quadros (interação padrão)
+    y2 = y + h_tab + 10
+    w2 = (XMAX - X0 - 10) / 2
+    sem_ni = lambda t: [filtro_nao_in("dAuditor", "Auditor", ["(Não informado)"], "fSemNaoInformado")]
+    fa = lambda c: col("fAuditoria", c)
+    fd = lambda c: col("fDesignacoes", c)
+    p.add("det_aud", X0, y2, w2, H - y2 - 8, tabela([
+        (fa("Auditor"), "Auditor"), (fa("Nº PROA"), "Nº PROA"), (med("Aval Auditado"), "Auditado"),
+        (fa("Função"), "Função"), (fa("Relatório"), "Relatório"),
+        (fa("Data Designação"), "Designação"), (fa("Data Entrega"), "Entrega"),
+        (fa("Matrizes de Qualidade"), "Matrizes"), (med("Aval Aud Motivo no Período"), "Por que conta"),
+    ], "AUDITORIAS QUE COMPÕEM OS NÚMEROS (clique num auditor acima)", ordem=(fa("Nº PROA"), "Ascending")),
+          filtros=sem_ni(None))
+    p.add("det_mon", X0 + w2 + 10, y2, w2, H - y2 - 8, tabela([
+        (fd("Auditor"), "Auditor"), (fd("Nº PROA"), "Nº PROA"), (med("Aval Auditado"), "Auditado"),
+        (fd("Ciclo"), "Ciclo"), (fd("Função"), "Função"),
+        (fd("Data Inicial Designação"), "Designação"), (fd("Data Relatório"), "Relatório"),
+        (med("Aval Monit Motivo no Período"), "Por que conta"),
+    ], "CICLOS DE MONITORAMENTO REALIZADOS (clique num auditor acima)", ordem=(fd("Nº PROA"), "Ascending")),
+          filtros=sem_ni(None))
+    for v in p.visuais[-2:]:
+        v["visual"]["objects"]["total"] = [{"properties": {"totals": B(False)}}]
+        v["visual"]["visualContainerObjects"]["visualHeader"] = [{"properties": {"show": B(True)}}]
     return p
 
 

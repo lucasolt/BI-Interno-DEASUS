@@ -1,0 +1,58 @@
+/// Período da aba Acompanhamento Periódico. DESCONECTADA (sem relacionamentos): as medidas 'Aval ...' leem o intervalo daqui e aplicam a regra iniciou OU concluiu; assim os quadros de detalhe não são cortados pelo calendário comum.
+table dPeriodoAval
+	lineageTag: 6b203a1c-94c9-4708-963f-abd9b33449ca
+
+	column Data
+		formatString: dd/mm/yyyy
+		lineageTag: b1c1e30d-8a97-4b88-abf5-32df3b772b4f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Data]
+
+	column Ano
+		lineageTag: 96d9c2ee-d85a-4e30-9458-ce17b8f54472
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ano]
+
+	column Ano/Semestre
+		lineageTag: bb7b69cc-284d-4507-abe3-35dcd1f558a9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ano/Semestre]
+		sortByColumn: AnoSemestre
+
+	column AnoSemestre
+		isHidden
+		lineageTag: af9140ad-51df-4c3c-bee4-9999d53671ea
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AnoSemestre]
+
+	column Ano/Quadrimestre
+		lineageTag: 57dfb385-b5ff-4633-abc4-d424de29e484
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ano/Quadrimestre]
+		sortByColumn: AnoQuadrimestre
+
+	column AnoQuadrimestre
+		isHidden
+		lineageTag: 31803143-d48e-46ac-9332-0fad7abb7b1b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AnoQuadrimestre]
+
+	partition dPeriodoAval = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(
+				    dCalendario,
+				    "Data", dCalendario[Data],
+				    "Ano", dCalendario[Ano],
+				    "Ano/Semestre", dCalendario[Ano/Semestre],
+				    "AnoSemestre", dCalendario[AnoSemestre],
+				    "Ano/Quadrimestre", dCalendario[Ano/Quadrimestre],
+				    "AnoQuadrimestre", dCalendario[AnoQuadrimestre]
+				)
+

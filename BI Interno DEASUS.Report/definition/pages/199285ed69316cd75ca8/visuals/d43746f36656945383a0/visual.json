@@ -5,7 +5,7 @@
     "x": 195,
     "y": 228,
     "z": 14000,
-    "height": 844,
+    "height": 430,
     "width": 1718,
     "tabOrder": 14000
   },
@@ -134,36 +134,6 @@
               "queryRef": "_Medidas.Aval RAF Matrizes",
               "nativeQueryRef": "Qtd de Matrizes RAF",
               "displayName": "Qtd de Matrizes RAF"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Aval Monit Coordenador"
-                }
-              },
-              "queryRef": "_Medidas.Aval Monit Coordenador",
-              "nativeQueryRef": "Ciclos de monitoramento como Coordenador",
-              "displayName": "Ciclos de monitoramento como Coordenador"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Medidas"
-                    }
-                  },
-                  "Property": "Aval Monit Equipe"
-                }
-              },
-              "queryRef": "_Medidas.Aval Monit Equipe",
-              "nativeQueryRef": "Ciclos de monitoramento como Equipe",
-              "displayName": "Ciclos de monitoramento como Equipe"
             },
             {
               "field": {
@@ -550,7 +520,7 @@
           "Version": 2,
           "From": [
             {
-              "Name": "d",
+              "Name": "t",
               "Entity": "dAuditor",
               "Type": 0
             }
@@ -566,7 +536,7 @@
                           "Column": {
                             "Expression": {
                               "SourceRef": {
-                                "Source": "d"
+                                "Source": "t"
                               }
                             },
                             "Property": "Auditor"

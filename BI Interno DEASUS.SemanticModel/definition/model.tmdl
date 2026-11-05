@@ -25,6 +25,7 @@ ref table fDesignacoes
 ref table dAuditor
 ref table dProcesso
 ref table dCalendario
+ref table dPeriodoAval
 ref table _Medidas
 ref table fAuditoria
 ref table dFuncao
